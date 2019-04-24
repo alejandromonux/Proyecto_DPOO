@@ -10,7 +10,6 @@ import java.util.Optional;
 
 public interface ConfigurationRepository extends JpaRepository<Configuration, Long> {
 
-
     @Query("SELECT c FROM Configuration c WHERE c.name = :name AND c.worker = worker")
     Optional<Configuration> findOneByNameAndWorker(@Param("name") String name,@Param("worker") Worker worker);
 }

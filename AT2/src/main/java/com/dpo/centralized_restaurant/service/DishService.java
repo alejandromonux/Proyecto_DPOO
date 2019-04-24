@@ -10,7 +10,18 @@ public class DishService {
 
     @Autowired
     private DishRepository dishRepository;
+    private static DishService ourInstance;
 
+    public static DishService getInstance() {    // Referencia SINGLETON
+        if (ourInstance == null) {
+            ourInstance = new DishService();
+        }
+        return ourInstance;
+    }
+
+    public DishService(){
+
+    }
 
     public void testDishes() {
 

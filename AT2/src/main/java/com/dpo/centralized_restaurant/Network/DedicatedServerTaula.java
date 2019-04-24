@@ -1,5 +1,7 @@
 package com.dpo.centralized_restaurant.Network;
 
+import com.dpo.centralized_restaurant.Model.Dish;
+import com.dpo.centralized_restaurant.Model.ModelDTO.ClientDTO;
 import com.dpo.centralized_restaurant.Model.RequestManager;
 
 import java.io.*;
@@ -38,9 +40,26 @@ public class DedicatedServerTaula extends Thread{
             while (true) {
                 init = dis.readUTF();
                 switch (init) {
-                    case "USUARIO":
+                    case "USER-LOGIN":
+                        try {
+                            ClientDTO loginClient = (ClientDTO) ois.readObject();
+                        } catch (ClassNotFoundException e) {
+                            e.printStackTrace();
+                        }
                         break;
-                    case "ORDER":
+                    case "DISH-ORDER-COMING":
+                        String dishOrdered = dis.readUTF();
+                        long idMesaAfectadaOrder = dis.readLong();
+                        break;
+
+                    case "ELIMINATE-DISH":
+                        String dishToEliminate = dis.readUTF();
+                        long idMesaAfectadaEliminate = dis.readLong();
+
+                        break;
+                    case "SEE-MENU":
+                        dos.writeUTF("UPDATE-MENU");
+
                         break;
                 }
 
