@@ -1,0 +1,9 @@
+{
+	"Port_BBDD": 3306,
+	"IP_BBDD": "localhost",
+	"NomBBDD": "centralized_restaurant",
+	"User": "root",
+	"Password": "root",
+	"Port_Entrada": 2,
+	"Port_Taula": 0
+}
