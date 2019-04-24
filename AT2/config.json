@@ -4,6 +4,6 @@
 	"NomBBDD": "centralized_restaurant",
 	"User": "root",
 	"Password": "root",
-	"Port_Entrada": 2,
-	"Port_Taula": 0
+	"Port_Entrada": 12345,
+	"Port_Taula": 12345
 }

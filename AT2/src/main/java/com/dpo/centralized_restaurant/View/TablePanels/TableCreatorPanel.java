@@ -1,6 +1,6 @@
-package com.dpo.centralized_restaurant.View.TablePanels;
+package com.dpo.centralized_restaurant.view.TablePanels;
 
-import com.dpo.centralized_restaurant.Controller.Controller;
+import com.dpo.centralized_restaurant.controller.Controller;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -42,7 +42,7 @@ public class TableCreatorPanel extends JPanel{
         jpTercer.add(jbAdd);
 
         setLayout(new BorderLayout(0,10));
-        setBorder(new EmptyBorder(0,70,120,0));
+        setBorder(new EmptyBorder(20,70,120,0));
         add(jpPrimer, BorderLayout.PAGE_START);
         add(jpSegon, BorderLayout.CENTER);
         add(jpTercer, BorderLayout.PAGE_END);
@@ -56,21 +56,5 @@ public class TableCreatorPanel extends JPanel{
 
     public void refreshCreatorPanel() {
 
-    }
-
-    public JTextField getJtfId() {
-        return jtfId;
-    }
-
-    public void setJtfId(JTextField jtfId) {
-        this.jtfId = jtfId;
-    }
-
-    public JComboBox getJcbQuantity() {
-        return jcbQuantity;
-    }
-
-    public void setJcbQuantity(JComboBox jcbQuantity) {
-        this.jcbQuantity = jcbQuantity;
     }
 }

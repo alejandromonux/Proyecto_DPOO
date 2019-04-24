@@ -1,6 +1,7 @@
-package com.dpo.centralized_restaurant.View.TablePanels;
+package com.dpo.centralized_restaurant.view.TablePanels;
 
-import com.dpo.centralized_restaurant.Controller.Controller;
+import com.dpo.centralized_restaurant.controller.Controller;
+import com.dpo.centralized_restaurant.model.Table;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -9,20 +10,34 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 public class TablePanel extends JPanel{
 
+
+    private ArrayList<Table> tables = new ArrayList<>();
     private JButton jbCreate;
     private JButton jbList;
     private JButton jbBack;
 
     private JPanel jpContent;
+    private JScrollPane jpList;
     private CardLayout jclContent;
 
+
     private TableCreatorPanel jpCreator;
-    private TablesListPanel jpList;
+    private TablesListPanel tableList;
 
     public TablePanel() {
+
+        Table t1 = new Table(1,4);
+        Table t2 = new Table(2,8);
+        Table t3 = new Table(3,12);
+        Table t4 = new Table(4,5);
+        tables.add(t1);
+        tables.add(t2);
+        tables.add(t3);
+        tables.add(t4);
 
         JPanel jpLeft = new JPanel(new BorderLayout(0,15));
         jpLeft.setBackground(null);
@@ -74,72 +89,18 @@ public class TablePanel extends JPanel{
 
         jpContent = new JPanel(new BorderLayout());
         jpContent.setSize(500,200);
-        jpContent.setBorder(new EmptyBorder(0, 0, 0, 0));
+        jpContent.setBorder(new EmptyBorder(0, 300, 110, 250));
 
         jpBigLeft.setBackground(new Color(0x232375));
         jpBigLeft.setBackground(new Color(0x03091C));
 
-        //CREATE JTABLE LIST INFO, IS HARDCODED TILL WE CAN GET IT FROM THE DATABASE
-
-        String[] columnNames = {"Identifier", "Chairs", ""};
-        Object[][] data =
-                {
-                        {"Table 1", "4", "delete table"},
-                        {"Table 2", "3", "delete table"},
-                        {"Table 3",  "6", "delete table"},
-                        {"Table 666",  "8", "delete table"},
-                        /*{"Table 666",  "8", "delete table"},
-                        {"Table 666",  "8", "delete table"},
-                        {"Table 666",  "8", "delete table"},
-                        {"Table 666",  "8", "delete table"},
-                        {"Table 666",  "8", "delete table"},
-                        {"Table 666",  "8", "delete table"},
-                        {"Table 666",  "8", "delete table"},
-                        {"Table 666",  "8", "delete table"},
-                        {"Table 666",  "8", "delete table"},
-                        {"Table 666",  "8", "delete table"},
-                        {"Table 666",  "8", "delete table"},
-                        {"Table 666",  "8", "delete table"},
-                        {"Table 666",  "8", "delete table"},
-                        {"Table 666",  "8", "delete table"},
-                        {"Table 666",  "8", "delete table"},
-                        {"Table 666",  "8", "delete table"},
-                        {"Table 666",  "8", "delete table"},*/
-                        {"Table 5",  "8", "delete table"},
-
-
-                };
-
-        DefaultTableModel model = new DefaultTableModel(data, columnNames);
-        JTable table = new JTable( model );
-        table.setVisible(false);
-        table.setRowHeight(30);
-        DefaultTableCellRenderer df = new DefaultTableCellRenderer();
-        df.setHorizontalAlignment(JLabel.CENTER);
-        for(int i= 0; i < table.getColumnCount();i++){
-                table.getColumnModel().getColumn(i).setCellRenderer(df);
-        }
-
-        Action delete = new AbstractAction()
-        {
-            public void actionPerformed(ActionEvent e)
-            {
-                JTable table = (JTable)e.getSource();
-                int modelRow = Integer.valueOf( e.getActionCommand() );
-                ((DefaultTableModel)table.getModel()).removeRow(modelRow);
-            }
-        };
-
-        jpList = new TablesListPanel(table, delete, 2);
-        jpList.setMnemonic(KeyEvent.VK_D);
+        tableList = new TablesListPanel();
         jpCreator = new TableCreatorPanel();
         jclContent = new CardLayout();
-        jpContent.setBorder(new EmptyBorder(100, 300, 0, 250));
         jpContent.setLayout(jclContent);
         jpContent.add("TABLE-CREATE", jpCreator);
-        jpContent.add("TABLE-LIST", table);
+        jpContent.add("TABLE-LIST", tableList);
 
-       // setLayout(new FlowLayout());
         setLayout(new SpringLayout());
         setSize(800,250);
         add(jpBigLeft);
@@ -154,7 +115,6 @@ public class TablePanel extends JPanel{
         jbCreate.addActionListener(c);
         jbList.addActionListener(c);
         jbBack.addActionListener(c);
-        jpCreator.registerController(c);
     }
 
     public TablePanel getPanel(TablePanel which) {return which;}
@@ -163,21 +123,4 @@ public class TablePanel extends JPanel{
         jclContent.show(jpContent, which);
     }
 
-    public TableCreatorPanel getJpCreator() {
-        return jpCreator;
-    }
-
-    public void setJpCreator(TableCreatorPanel jpCreator) {
-        this.jpCreator = jpCreator;
-    }
-
-    public TablesListPanel getJpList() {
-        return jpList;
-    }
-
-    public void setJpList(TablesListPanel jpList) {
-        jpContent.remove(1);
-        this.jpList = jpList;
-     //   jpContent.add("TABLE-LIST", table);
-    }
 }
