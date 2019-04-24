@@ -17,9 +17,10 @@ public static  Model model = new Model();
     public static void main(String[] args){
 
         Gson gson = new Gson();
+        configJson configInicial;
         try {
-            configJson configInicial = gson.fromJson(new FileReader("config.json"), configJson.class);
-            //modifyProperties aiudame = new modifyProperties(configInicial);
+            configInicial = gson.fromJson(new FileReader("config.json"), configJson.class);
+            modifyProperties aiudame = new modifyProperties(configInicial);
         }catch (FileNotFoundException e){
             System.out.println("FileNotFound config.json");
         }

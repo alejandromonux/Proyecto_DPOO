@@ -1,6 +1,7 @@
 package com.dpo.centralized_restaurant.Network;
 
 import com.dpo.centralized_restaurant.Model.RequestManager;
+import com.dpo.centralized_restaurant.Model.configJson;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -9,15 +10,16 @@ import java.util.ArrayList;
 
 public class ServerTaula extends Thread {
 
-    private static final int PORT = 12345;
+    private int PORT;
     private ServerSocket serverSocket;
     private final ArrayList<DedicatedServerTaula> dedicatedServers;
     private RequestManager requestsManager;
 
-    public ServerTaula() {
+    public ServerTaula(configJson config) {
         dedicatedServers = new ArrayList<>();
         serverSocket = null;
         requestsManager = new RequestManager();
+        PORT = config.getPort_Taula();
     }
 
     @Override
