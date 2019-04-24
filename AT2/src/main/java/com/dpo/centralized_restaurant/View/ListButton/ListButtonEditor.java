@@ -1,4 +1,4 @@
-package com.dpo.centralized_restaurant.view.ListButton;
+package com.dpo.centralized_restaurant.View.ListButton;
 
 import javax.swing.*;
 import java.awt.*;

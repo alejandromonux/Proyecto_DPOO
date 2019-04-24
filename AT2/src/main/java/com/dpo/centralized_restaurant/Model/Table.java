@@ -25,7 +25,7 @@ public class Table {
     private List<Request> requests;
 
     @OneToMany(mappedBy = "table")
-    Set<com.dpo.centralized_restaurant.model.ConfigurationTable> configurations;
+    Set<ConfigurationTable> configurations;
 
     public Table(){}
 

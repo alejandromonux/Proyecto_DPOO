@@ -11,7 +11,8 @@ public class DedicatedServerEntrada extends Thread{
     private RequestManager requestManager;
 
   private ArrayList<DedicatedServerEntrada> dedicatedServers;
-    private ArrayList<DedicatedServer> dedicatedServers;
+    // DEDICATEDSERVER NO EXISTE
+    // private ArrayList<DedicatedServer> dedicatedServers;
 
     private final Socket socket;
     private ObjectInputStream ois;

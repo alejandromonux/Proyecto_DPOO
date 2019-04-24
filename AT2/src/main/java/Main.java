@@ -1,10 +1,11 @@
 import com.dpo.centralized_restaurant.Controller.Controller;
+import com.dpo.centralized_restaurant.Model.configJson;
 import com.dpo.centralized_restaurant.View.MainView;
 import Initialization.modifyProperties;
-import com.dpo.centralized_restaurant.controller.Controller;
-import com.dpo.centralized_restaurant.model.Model;
-import com.dpo.centralized_restaurant.view.LogInPanel;
-import com.dpo.centralized_restaurant.view.MainView;
+import com.dpo.centralized_restaurant.Controller.Controller;
+import com.dpo.centralized_restaurant.Model.Model;
+import com.dpo.centralized_restaurant.View.LogInPanel;
+import com.dpo.centralized_restaurant.View.MainView;
 import com.google.gson.Gson;
 
 import javax.swing.*;
@@ -18,7 +19,7 @@ public static  Model model = new Model();
         Gson gson = new Gson();
         try {
             configJson configInicial = gson.fromJson(new FileReader("config.json"), configJson.class);
-            modifyProperties aiudame = new modifyProperties(configInicial);
+            //modifyProperties aiudame = new modifyProperties(configInicial);
         }catch (FileNotFoundException e){
             System.out.println("FileNotFound config.json");
         }

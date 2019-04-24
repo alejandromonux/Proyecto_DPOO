@@ -7,16 +7,16 @@ import java.util.ArrayList;
 import com.dpo.centralized_restaurant.Model.*;
 
 public class Model {
-    private ArrayList<com.dpo.centralized_restaurant.model.Dish> dishes;
+    private ArrayList<Dish> dishes;
     private ArrayList<Table> tables;
 
     public Model(){
-        dishes = new ArrayList<com.dpo.centralized_restaurant.model.Dish>();
+        dishes = new ArrayList<Dish>();
         tables = new ArrayList<Table>();
     }
 
     public void addDish(String dishName, String dishCost, String dishQuantity, String time) {
-        dishes.add(new com.dpo.centralized_restaurant.model.Dish(dishName,
+        dishes.add(new Dish(dishName,
                             Double.parseDouble(dishCost),
                             Integer.parseInt(dishQuantity),
                             Double.parseDouble(time)));
@@ -28,11 +28,11 @@ public class Model {
                              Integer.parseInt(chairs)));
     }
 
-    public ArrayList<com.dpo.centralized_restaurant.model.Dish> getDishes() {
+    public ArrayList<Dish> getDishes() {
         return dishes;
     }
 
-    public void setDishes(ArrayList<com.dpo.centralized_restaurant.model.Dish> dishes) {
+    public void setDishes(ArrayList<Dish> dishes) {
         this.dishes = dishes;
     }
 

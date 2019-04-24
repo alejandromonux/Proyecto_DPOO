@@ -4,7 +4,8 @@ import com.dpo.centralized_restaurant.View.DishPanels.DishListPanel;
 import com.dpo.centralized_restaurant.View.GeneralMenu;
 import com.dpo.centralized_restaurant.View.MainView;
 import com.dpo.centralized_restaurant.View.TablePanels.TablePanel;
-import org.springframework.ui.Model;
+import com.dpo.centralized_restaurant.View.TableService.TableOrderList;
+import com.dpo.centralized_restaurant.Model.Model;
 
 import javax.swing.*;
 import javax.swing.text.Element;

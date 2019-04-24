@@ -1,7 +1,7 @@
 package com.dpo.centralized_restaurant.service;
 
-import com.dpo.centralized_restaurant.model.Dish;
-import com.dpo.centralized_restaurant.repository.DishRepository;
+import com.dpo.centralized_restaurant.Model.Dish;
+import com.dpo.centralized_restaurant.Repository.DishRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

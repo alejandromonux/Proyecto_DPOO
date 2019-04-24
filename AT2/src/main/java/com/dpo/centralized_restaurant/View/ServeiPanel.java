@@ -1,9 +1,9 @@
 package com.dpo.centralized_restaurant.View;
 
+import com.dpo.centralized_restaurant.Controller.Controller;
 import com.dpo.centralized_restaurant.Model.Table;
-import com.dpo.centralized_restaurant.controller.Controller;
-import com.dpo.centralized_restaurant.model.Table;
-import com.dpo.centralized_restaurant.view.TableService.TableOrderList;
+import com.dpo.centralized_restaurant.View.TableService.TableOrderList;
+
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,10 +1,12 @@
 package com.dpo.centralized_restaurant.View;
 
 
+import com.dpo.centralized_restaurant.Controller.Controller;
 import com.dpo.centralized_restaurant.Model.Table;
 import com.dpo.centralized_restaurant.View.DishPanels.DishPanel;
 import com.dpo.centralized_restaurant.View.TablePanels.TablePanel;
-import com.dpo.centralized_restaurant.model.Dish;
+import com.dpo.centralized_restaurant.View.TableService.TableOrderList;
+import com.dpo.centralized_restaurant.Model.Dish;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -98,7 +100,7 @@ public class MainView extends JFrame {
         jpContent.add("DISHES", jpDish);
         jpContent.add("START", jpStart);
         jpContent.add("FORMS", jpLogIn);
-        jpContent.add("TABLE-ORDERS", jpServiceTables);
+//        jpContent.add("TABLE-ORDERS", jpServiceTables);
         /* ------------------------------ VIEW PARAMETERS ------------------------------ */
         getContentPane().add(jpHeader, BorderLayout.PAGE_START);
         getContentPane().add(jpContent);
@@ -117,8 +119,8 @@ public class MainView extends JFrame {
         jpLogIn.registerController(c);
         jpStart.registerController(c);
 
-        jbLogIn.setActionCommand("FORMS");
-        jbLogIn.addActionListener(c);
+        jbLogOut.setActionCommand("FORMS");
+        jbLogOut.addActionListener(c);
     }
 
     public void createClock() {
