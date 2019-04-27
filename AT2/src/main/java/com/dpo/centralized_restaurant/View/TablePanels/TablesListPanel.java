@@ -1,9 +1,9 @@
-package com.dpo.centralized_restaurant.view.TablePanels;
+package com.dpo.centralized_restaurant.View.TablePanels;
 
 //import sun.tools.jps.Jps;
 
-import com.dpo.centralized_restaurant.model.ButtonEditor;
-import com.dpo.centralized_restaurant.model.ButtonRenderer;
+import com.dpo.centralized_restaurant.Model.ButtonEditor;
+import com.dpo.centralized_restaurant.Model.ButtonRenderer;
 
 import javax.swing.*;
 import javax.swing.border.Border;

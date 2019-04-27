@@ -1,9 +1,10 @@
-package com.dpo.centralized_restaurant.view.TablePanels;
+package com.dpo.centralized_restaurant.View.TablePanels;
 
-import com.dpo.centralized_restaurant.controller.Controller;
+import com.dpo.centralized_restaurant.Controller.Controller;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.Document;
 import java.awt.*;
 
 public class TableCreatorPanel extends JPanel{
@@ -56,5 +57,21 @@ public class TableCreatorPanel extends JPanel{
 
     public void refreshCreatorPanel() {
 
+    }
+
+    public JTextField getJtfId() {
+        return jtfId;
+    }
+
+    public void setJtfId(JTextField jtfId) {
+        this.jtfId = jtfId;
+    }
+
+    public JComboBox getJcbQuantity() {
+        return jcbQuantity;
+    }
+
+    public void setJcbQuantity(JComboBox jcbQuantity) {
+        this.jcbQuantity = jcbQuantity;
     }
 }

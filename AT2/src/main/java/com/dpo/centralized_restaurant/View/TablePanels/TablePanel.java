@@ -1,7 +1,8 @@
-package com.dpo.centralized_restaurant.view.TablePanels;
+package com.dpo.centralized_restaurant.View.TablePanels;
 
-import com.dpo.centralized_restaurant.controller.Controller;
-import com.dpo.centralized_restaurant.model.Table;
+import com.dpo.centralized_restaurant.Controller.Controller;
+import com.dpo.centralized_restaurant.Model.Table;
+import com.dpo.centralized_restaurant.View.DishPanels.DishesCreatorPanel;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -123,4 +124,7 @@ public class TablePanel extends JPanel{
         jclContent.show(jpContent, which);
     }
 
+    public TableCreatorPanel getJpCreator() {
+        return jpCreator;
+    }
 }

@@ -1,6 +1,6 @@
-package com.dpo.centralized_restaurant.model;
+package com.dpo.centralized_restaurant.Model;
 
-import com.dpo.centralized_restaurant.controller.Controller;
+import com.dpo.centralized_restaurant.Controller.Controller;
 
 import javax.swing.*;
 import java.awt.*;
