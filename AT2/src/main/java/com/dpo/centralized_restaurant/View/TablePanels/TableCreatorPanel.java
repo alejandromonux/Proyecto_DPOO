@@ -42,11 +42,11 @@ public class TableCreatorPanel extends JPanel{
         jbAdd = new JButton("ADD");
         jpTercer.add(jbAdd);
 
-        setLayout(new BorderLayout(0,10));
-        setBorder(new EmptyBorder(20,70,120,0));
-        add(jpPrimer, BorderLayout.PAGE_START);
-        add(jpSegon, BorderLayout.CENTER);
-        add(jpTercer, BorderLayout.PAGE_END);
+        setLayout(new GridLayout(10,0));
+        setBorder(new EmptyBorder(80,30,120,0));
+        add(jpPrimer);
+        add(jpSegon);
+        add(jpTercer);
         setVisible(true);
     }
 
