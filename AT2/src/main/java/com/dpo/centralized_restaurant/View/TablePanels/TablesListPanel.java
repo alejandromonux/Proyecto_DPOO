@@ -4,6 +4,7 @@ package com.dpo.centralized_restaurant.View.TablePanels;
 
 import com.dpo.centralized_restaurant.Model.ButtonEditor;
 import com.dpo.centralized_restaurant.Model.ButtonRenderer;
+import com.dpo.centralized_restaurant.Model.Table;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -15,6 +16,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class TablesListPanel extends JPanel{
 
@@ -30,7 +33,7 @@ public class TablesListPanel extends JPanel{
     Object[][] data ;
     String[] columnNames;
 
-    public TablesListPanel() {
+    public TablesListPanel(ArrayList<Table> tables) {
 
         //renderButton = new JButton();
         editButton = new JButton();
@@ -40,7 +43,7 @@ public class TablesListPanel extends JPanel{
         setFocusBorder(new LineBorder(Color.BLUE));
 
         getColumNames();
-        createData();
+        createData(tables);
         TableModel tm = new DefaultTableModel(data, columnNames) {
             public boolean isCellEditable(int row, int column) {
                 if(column == columnNames.length -1) return true;
@@ -69,34 +72,13 @@ public class TablesListPanel extends JPanel{
         editButton.setBorder( focusBorder );
     }
 
-    public void createData(){
-        data = new Object[][]
-                {
-                        {"Table 1", "4", "delete table"},
-                        {"Table 2", "3", "delete table"},
-                        {"Table 3",  "6", "delete table"},
-                        {"Table 666",  "8", "delete table"},
-                        {"Table 666",  "8", "delete table"},
-                        {"Table 666",  "8", "delete table"},
-                        {"Table 666",  "8", "delete table"},
-                        {"Table 666",  "8", "delete table"},
-                        {"Table 666",  "8", "delete table"},
-                        {"Table 666",  "8", "delete table"},
-                        {"Table 666",  "8", "delete table"},
-                        {"Table 666",  "8", "delete table"},
-                        {"Table 666",  "8", "delete table"},
-                        {"Table 666",  "8", "delete table"},
-                        {"Table 666",  "8", "delete table"},
-                        {"Table 666",  "8", "delete table"},
-                        {"Table 666",  "8", "delete table"},
-                        {"Table 666",  "8", "delete table"},
-                        {"Table 666",  "8", "delete table"},
-                        {"Table 666",  "8", "delete table"},
-                        {"Table 666",  "8", "delete table"},
-                        {"Table 5",  "8", "delete table"}
-
-
-                };
+    public void createData(ArrayList<Table> tables){
+        data = new Object[tables.size()][3];
+        for (int i =0; i < tables.size() ; i++){
+            data[i][0] = tables.get(i).getId();
+            data[i][1] = tables.get(i).getChairs();
+            data[i][2] = "Delete table";
+        }
     }
     public void getColumNames(){
         columnNames = new String[]{"Identifier", "Chairs", ""};

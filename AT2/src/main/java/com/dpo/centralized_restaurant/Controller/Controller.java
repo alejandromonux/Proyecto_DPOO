@@ -4,6 +4,7 @@ import com.dpo.centralized_restaurant.View.DishPanels.DishListPanel;
 import com.dpo.centralized_restaurant.View.GeneralMenu;
 import com.dpo.centralized_restaurant.View.MainView;
 import com.dpo.centralized_restaurant.View.TablePanels.TablePanel;
+import com.dpo.centralized_restaurant.View.TablePanels.TablesListPanel;
 import com.dpo.centralized_restaurant.View.TableService.TableOrderList;
 import com.dpo.centralized_restaurant.Model.Model;
 
@@ -34,7 +35,7 @@ public class Controller implements ActionListener {
 
         JButton aux = (JButton)e.getSource();
 
-
+        String aux2 = aux.getActionCommand();
         switch (aux.getActionCommand()) {
 
             case "MAIN":
@@ -79,7 +80,7 @@ public class Controller implements ActionListener {
                         vista.getJpTables().getJpCreator().getJcbQuantity().getSelectedItem().toString()
                 );
                 //Update a la vista
-
+                vista.getJpTables().setTableList(new TablesListPanel(model.getTables()));
                 //Vista del servei
                 vista.getJpStart().setTables(new TableOrderList(model.getTables()));
                 vista.getJpStart().getTables().registerControllers(this);

@@ -95,7 +95,7 @@ public class TablePanel extends JPanel{
         jpBigLeft.setBackground(new Color(0x232375));
         jpBigLeft.setBackground(new Color(0x03091C));
 
-        tableList = new TablesListPanel();
+        tableList = new TablesListPanel(new ArrayList<Table>());
         jpCreator = new TableCreatorPanel();
         jclContent = new CardLayout();
         jpContent.setLayout(jclContent);
@@ -116,6 +116,7 @@ public class TablePanel extends JPanel{
         jbCreate.addActionListener(c);
         jbList.addActionListener(c);
         jbBack.addActionListener(c);
+        jpCreator.registerController(c);
     }
 
     public TablePanel getPanel(TablePanel which) {return which;}
@@ -126,5 +127,15 @@ public class TablePanel extends JPanel{
 
     public TableCreatorPanel getJpCreator() {
         return jpCreator;
+    }
+
+    public TablesListPanel getTableList() {
+        return tableList;
+    }
+
+    public void setTableList(TablesListPanel tableList) {
+        this.tableList = tableList;
+        jpContent.remove(1);
+        jpContent.add("TABLE-LIST", tableList);
     }
 }

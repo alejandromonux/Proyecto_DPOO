@@ -66,9 +66,6 @@ public class DishesCreatorPanel extends JPanel {
         setVisible(true);
     }
 
-    public void addControllers (Controller c){
-
-    }
 
     public JTextField getJtfName() {
         return jtfName;
