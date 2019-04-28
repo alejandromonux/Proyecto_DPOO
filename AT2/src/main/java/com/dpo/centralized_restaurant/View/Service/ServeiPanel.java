@@ -56,7 +56,7 @@ public class ServeiPanel extends JPanel {
         jbDishes = new JButton("DISHES");
         jbDishes.setForeground(Color.white);
         jbDishes.setFont(new Font("Chaparral Pro Light", Font.PLAIN, 20));
-        ImageIcon startIcon = new ImageIcon("images/startBtn3.jpg");
+        ImageIcon startIcon = new ImageIcon("images/dishes.png");
         Image image4 = startIcon.getImage(); // transform it
         Image newimg4 = image4.getScaledInstance(140, 140, Image.SCALE_SMOOTH); // scale it the smooth way
         startIcon = new ImageIcon(newimg4);
@@ -73,10 +73,10 @@ public class ServeiPanel extends JPanel {
         jbStop = new JButton("STOP SERVICE");
         jbStop.setForeground(Color.white);
         jbStop.setFont(new Font("Chaparral Pro Light", Font.PLAIN, 20));
-        ImageIcon stopIcon = new ImageIcon("images/startBtn3.jpg");
-        Image image5 = startIcon.getImage(); // transform it
-        Image newimg5 = image5.getScaledInstance(50, 50, Image.SCALE_SMOOTH); // scale it the smooth way
-        startIcon = new ImageIcon(newimg5);
+        ImageIcon stopIcon = new ImageIcon("images/startBtn2.jpg");
+        Image image5 = stopIcon.getImage(); // transform it
+        Image newimg5 = image5.getScaledInstance(140, 140, Image.SCALE_SMOOTH); // scale it the smooth way
+        stopIcon = new ImageIcon(newimg5);
         jbStop.setIcon(stopIcon);
         jbStop.setVerticalTextPosition(SwingConstants.BOTTOM);
         jbStop.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -88,11 +88,12 @@ public class ServeiPanel extends JPanel {
         jbDishes.setBackground(new Color(0x757577));
         jbRequests.setBackground(new Color(0x721425));
         jbOrders.setBackground(new Color(0xC55006));
+        jbStop.setBackground(Color.RED);
 
         this.add(jpAuxH4);
         this.add(jpAuxH5);
         this.add(jpAuxH6);
-        //this.add(jpAuxH7);
+        this.add(jpAuxH7);
         setLayout(new GridLayout(1, 4));
     }
 
