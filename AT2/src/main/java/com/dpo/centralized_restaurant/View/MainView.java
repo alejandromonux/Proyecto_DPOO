@@ -4,6 +4,8 @@ package com.dpo.centralized_restaurant.View;
 import com.dpo.centralized_restaurant.Controller.Controller;
 import com.dpo.centralized_restaurant.Model.Preservice.Table;
 import com.dpo.centralized_restaurant.View.DishPanels.DishPanel;
+import com.dpo.centralized_restaurant.View.Preservice.GeneralMenu;
+import com.dpo.centralized_restaurant.View.Service.ServeiPanel;
 import com.dpo.centralized_restaurant.View.TablePanels.TablePanel;
 import com.dpo.centralized_restaurant.View.Service.RequestsService;
 import com.dpo.centralized_restaurant.Model.Preservice.Dish;

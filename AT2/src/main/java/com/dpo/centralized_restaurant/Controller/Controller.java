@@ -1,7 +1,7 @@
 package com.dpo.centralized_restaurant.Controller;
 
 import com.dpo.centralized_restaurant.View.DishPanels.DishListPanel;
-import com.dpo.centralized_restaurant.View.GeneralMenu;
+import com.dpo.centralized_restaurant.View.Preservice.GeneralMenu;
 import com.dpo.centralized_restaurant.View.MainView;
 import com.dpo.centralized_restaurant.View.TablePanels.TablePanel;
 import com.dpo.centralized_restaurant.View.TablePanels.TablesListPanel;

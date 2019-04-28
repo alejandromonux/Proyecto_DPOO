@@ -1,8 +1,8 @@
 package com.dpo.centralized_restaurant.View.Service;
 
 import com.dpo.centralized_restaurant.Controller.Controller;
-import com.dpo.centralized_restaurant.View.ButtonEditor;
-import com.dpo.centralized_restaurant.View.ButtonRenderer;
+import com.dpo.centralized_restaurant.View.Utils.ButtonEditor;
+import com.dpo.centralized_restaurant.View.Utils.ButtonRenderer;
 import com.dpo.centralized_restaurant.Model.Preservice.Table;
 
 import javax.swing.*;

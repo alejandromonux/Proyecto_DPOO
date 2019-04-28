@@ -1,4 +1,4 @@
-package com.dpo.centralized_restaurant.View;
+package com.dpo.centralized_restaurant.View.Utils;
 
 import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
