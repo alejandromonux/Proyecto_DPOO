@@ -4,8 +4,10 @@ package com.dpo.centralized_restaurant.View;
 import com.dpo.centralized_restaurant.Controller.Controller;
 import com.dpo.centralized_restaurant.Model.Preservice.Table;
 import com.dpo.centralized_restaurant.Model.Service.Comanda;
+import com.dpo.centralized_restaurant.Model.Service.ServiceDish;
 import com.dpo.centralized_restaurant.View.DishPanels.DishPanel;
 import com.dpo.centralized_restaurant.View.Preservice.GeneralMenu;
+import com.dpo.centralized_restaurant.View.Service.DishService;
 import com.dpo.centralized_restaurant.View.Service.OrdersService;
 import com.dpo.centralized_restaurant.View.Service.ServeiPanel;
 import com.dpo.centralized_restaurant.View.TablePanels.TablePanel;
@@ -32,6 +34,7 @@ public class MainView extends JFrame {
     private RequestsService jpReq;
     private LogInPanel jpLogIn;
     private OrdersService jpOrders;
+    private DishService jpSDish;
 
     private JPanel jpHeader;
     private JPanel jpContent;
@@ -54,7 +57,7 @@ public class MainView extends JFrame {
         jpLogIn = new LogInPanel();
         jpReq = new RequestsService(new ArrayList<Table>());
         jpOrders = new OrdersService(new ArrayList<Comanda>());
-
+        jpSDish = new DishService(new ArrayList<ServiceDish>());
 
         jpHeader = new JPanel();
         jpHeader.setSize(700,100);
@@ -110,7 +113,7 @@ public class MainView extends JFrame {
         jpContent.add("FORMS", jpLogIn);
         jpContent.add("REQUESTS", jpReq);
         jpContent.add("ORDERS", jpOrders);
-//        jpContent.add("TABLE-ORDERS", jpServiceTables);
+        jpContent.add("SERVICE-DISHES", jpSDish);
         /* ------------------------------ VIEW PARAMETERS ------------------------------ */
         getContentPane().add(jpHeader, BorderLayout.PAGE_START);
         getContentPane().add(jpContent);
@@ -130,6 +133,7 @@ public class MainView extends JFrame {
         jpStart.registerController(c);
         jpReq.registerControllers(c);
         jpOrders.registerControllers(c);
+        jpSDish.registerControllers(c);
 
         jbLogOut.setActionCommand("FORMS");
         jbLogOut.addActionListener(c);

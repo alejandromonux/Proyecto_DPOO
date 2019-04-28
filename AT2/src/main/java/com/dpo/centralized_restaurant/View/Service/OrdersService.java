@@ -60,7 +60,7 @@ public class OrdersService extends JPanel{
             jtable.getColumnModel().getColumn(i).setCellRenderer(df);
         }
         jtable.getColumn("Prepare").setCellRenderer(new ButtonRenderer());
-        //jtable.getColumn("Delete").setCellEditor(new ButtonEditor(new JCheckBox()));
+        jtable.getColumn("Prepare").setCellEditor(new ButtonEditor(new JCheckBox()));
 
         jbBack = new JButton("Back");
 

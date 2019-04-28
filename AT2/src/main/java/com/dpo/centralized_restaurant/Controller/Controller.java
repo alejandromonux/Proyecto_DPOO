@@ -95,7 +95,9 @@ public class Controller implements ActionListener {
             case "BACK-TO-MAIN":
                 vista.changePanel("MAIN");
                 break;
-
+            case "SERVICE-DISHES":
+                vista.changePanel("SERVICE-DISHES");
+                break;
             case "REQUESTS":
                 vista.changePanel("REQUESTS");
             break;

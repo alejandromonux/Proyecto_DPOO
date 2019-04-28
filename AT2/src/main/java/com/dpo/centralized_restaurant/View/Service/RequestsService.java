@@ -58,7 +58,12 @@ public class RequestsService extends JPanel {
             jtable.getColumnModel().getColumn(i).setCellRenderer(df);
         }
         jtable.getColumn("Assign").setCellRenderer(new ButtonRenderer());
+        jtable.getColumn("Assign").setCellEditor(new ButtonEditor(new JCheckBox()));
+
+
+        jtable.getColumn("Delete").setCellRenderer(new ButtonRenderer());
         jtable.getColumn("Delete").setCellEditor(new ButtonEditor(new JCheckBox()));
+
 
         jbBack = new JButton("Back");
 

@@ -103,7 +103,7 @@ public class ServeiPanel extends JPanel {
 
         jbOrders.setActionCommand("TABLE-ORDERS");
         jbRequests.setActionCommand("REQUESTS");
-        jbDishes.setActionCommand("DISHES");
+        jbDishes.setActionCommand("SERVICE-DISHES");
 
         jbOrders.addActionListener(c);
         jbRequests.addActionListener(c);
