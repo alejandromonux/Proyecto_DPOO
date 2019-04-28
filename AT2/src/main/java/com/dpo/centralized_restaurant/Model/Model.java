@@ -1,10 +1,9 @@
 package com.dpo.centralized_restaurant.Model;
 
-import com.dpo.centralized_restaurant.Model.Table;
+import com.dpo.centralized_restaurant.Model.Preservice.Dish;
+import com.dpo.centralized_restaurant.Model.Preservice.Table;
 
-import javax.swing.*;
 import java.util.ArrayList;
-import com.dpo.centralized_restaurant.Model.*;
 
 public class Model {
     private ArrayList<Dish> dishes;

@@ -1,16 +1,11 @@
 package com.dpo.centralized_restaurant.View.TablePanels;
 
 import com.dpo.centralized_restaurant.Controller.Controller;
-import com.dpo.centralized_restaurant.Model.Table;
-import com.dpo.centralized_restaurant.View.DishPanels.DishesCreatorPanel;
+import com.dpo.centralized_restaurant.Model.Preservice.Table;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 public class TablePanel extends JPanel{

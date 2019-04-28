@@ -2,11 +2,11 @@ package com.dpo.centralized_restaurant.View;
 
 
 import com.dpo.centralized_restaurant.Controller.Controller;
-import com.dpo.centralized_restaurant.Model.Table;
+import com.dpo.centralized_restaurant.Model.Preservice.Table;
 import com.dpo.centralized_restaurant.View.DishPanels.DishPanel;
 import com.dpo.centralized_restaurant.View.TablePanels.TablePanel;
 import com.dpo.centralized_restaurant.View.Service.RequestsService;
-import com.dpo.centralized_restaurant.Model.Dish;
+import com.dpo.centralized_restaurant.Model.Preservice.Dish;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

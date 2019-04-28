@@ -1,4 +1,4 @@
-package com.dpo.centralized_restaurant.Model;
+package com.dpo.centralized_restaurant.View;
 
 import com.dpo.centralized_restaurant.Controller.Controller;
 

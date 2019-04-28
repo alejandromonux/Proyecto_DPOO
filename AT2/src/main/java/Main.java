@@ -1,11 +1,8 @@
 import com.dpo.centralized_restaurant.Controller.Controller;
-import com.dpo.centralized_restaurant.Model.configJson;
+import com.dpo.centralized_restaurant.Model.Configuration.configJson;
 import com.dpo.centralized_restaurant.View.MainView;
 import Initialization.modifyProperties;
-import com.dpo.centralized_restaurant.Controller.Controller;
 import com.dpo.centralized_restaurant.Model.Model;
-import com.dpo.centralized_restaurant.View.LogInPanel;
-import com.dpo.centralized_restaurant.View.MainView;
 import com.google.gson.Gson;
 
 import javax.swing.*;

@@ -2,9 +2,9 @@ package com.dpo.centralized_restaurant.View.TablePanels;
 
 //import sun.tools.jps.Jps;
 
-import com.dpo.centralized_restaurant.Model.ButtonEditor;
-import com.dpo.centralized_restaurant.Model.ButtonRenderer;
-import com.dpo.centralized_restaurant.Model.Table;
+import com.dpo.centralized_restaurant.View.ButtonEditor;
+import com.dpo.centralized_restaurant.View.ButtonRenderer;
+import com.dpo.centralized_restaurant.Model.Preservice.Table;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -12,11 +12,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.table.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class TablesListPanel extends JPanel{

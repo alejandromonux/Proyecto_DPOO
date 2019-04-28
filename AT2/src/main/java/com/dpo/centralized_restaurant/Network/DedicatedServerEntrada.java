@@ -1,6 +1,6 @@
 package com.dpo.centralized_restaurant.Network;
 
-import com.dpo.centralized_restaurant.Model.RequestManager;
+import com.dpo.centralized_restaurant.Model.Request.RequestManager;
 
 import java.io.*;
 import java.net.Socket;

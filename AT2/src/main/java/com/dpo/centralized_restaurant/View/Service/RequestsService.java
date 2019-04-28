@@ -1,9 +1,9 @@
 package com.dpo.centralized_restaurant.View.Service;
 
 import com.dpo.centralized_restaurant.Controller.Controller;
-import com.dpo.centralized_restaurant.Model.ButtonEditor;
-import com.dpo.centralized_restaurant.Model.ButtonRenderer;
-import com.dpo.centralized_restaurant.Model.Table;
+import com.dpo.centralized_restaurant.View.ButtonEditor;
+import com.dpo.centralized_restaurant.View.ButtonRenderer;
+import com.dpo.centralized_restaurant.Model.Preservice.Table;
 
 import javax.swing.*;
 import javax.swing.border.Border;

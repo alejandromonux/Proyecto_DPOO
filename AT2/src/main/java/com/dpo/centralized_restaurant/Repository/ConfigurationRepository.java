@@ -1,6 +1,6 @@
 package com.dpo.centralized_restaurant.Repository;
 
-import com.dpo.centralized_restaurant.Model.Configuration;
+import com.dpo.centralized_restaurant.Model.Configuration.Configuration;
 import com.dpo.centralized_restaurant.Model.Worker;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

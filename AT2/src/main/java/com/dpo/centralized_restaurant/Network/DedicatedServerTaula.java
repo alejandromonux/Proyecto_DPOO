@@ -1,8 +1,7 @@
 package com.dpo.centralized_restaurant.Network;
 
-import com.dpo.centralized_restaurant.Model.Dish;
 import com.dpo.centralized_restaurant.Model.ModelDTO.ClientDTO;
-import com.dpo.centralized_restaurant.Model.RequestManager;
+import com.dpo.centralized_restaurant.Model.Request.RequestManager;
 
 import java.io.*;
 import java.net.Socket;

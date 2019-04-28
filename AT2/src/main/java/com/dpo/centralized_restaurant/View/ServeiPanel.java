@@ -1,13 +1,10 @@
 package com.dpo.centralized_restaurant.View;
 
 import com.dpo.centralized_restaurant.Controller.Controller;
-import com.dpo.centralized_restaurant.Model.Table;
-import com.dpo.centralized_restaurant.View.Service.RequestsService;
 
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 public class ServeiPanel extends JPanel {
 

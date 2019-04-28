@@ -1,15 +1,13 @@
 package com.dpo.centralized_restaurant.View.DishPanels;
 
-import com.dpo.centralized_restaurant.Model.ButtonEditor;
-import com.dpo.centralized_restaurant.Model.ButtonRenderer;
-import com.dpo.centralized_restaurant.Model.Dish;
+import com.dpo.centralized_restaurant.View.ButtonEditor;
+import com.dpo.centralized_restaurant.View.ButtonRenderer;
+import com.dpo.centralized_restaurant.Model.Preservice.Dish;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableModel;
 import java.util.ArrayList;
-import com.dpo.centralized_restaurant.View.ListButton.*;
 
 public class DishListPanel extends JPanel {
     private JScrollPane panel;

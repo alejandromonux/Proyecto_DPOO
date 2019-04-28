@@ -1,4 +1,4 @@
-package com.dpo.centralized_restaurant.Model;
+package com.dpo.centralized_restaurant.Model.Request;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;

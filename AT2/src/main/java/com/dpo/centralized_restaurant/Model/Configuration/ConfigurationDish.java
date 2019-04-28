@@ -1,4 +1,6 @@
-package com.dpo.centralized_restaurant.Model;
+package com.dpo.centralized_restaurant.Model.Configuration;
+
+import com.dpo.centralized_restaurant.Model.Preservice.Dish;
 
 import javax.persistence.*;
 
@@ -65,7 +67,7 @@ public class ConfigurationDish {
     public String toString() {
         return "ConfigurationDish{" +
                 "id=" + id +
-                ", configuration=" + configuration +
+                ", Configuration=" + configuration +
                 ", dish=" + dish +
                 ", active=" + active +
                 '}';

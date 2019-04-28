@@ -1,7 +1,7 @@
 package com.dpo.centralized_restaurant.View.DishPanels;
 
 import com.dpo.centralized_restaurant.Controller.Controller;
-import com.dpo.centralized_restaurant.Model.Dish;
+import com.dpo.centralized_restaurant.Model.Preservice.Dish;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

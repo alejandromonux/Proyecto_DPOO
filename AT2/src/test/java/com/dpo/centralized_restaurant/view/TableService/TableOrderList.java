@@ -1,7 +1,7 @@
 package com.dpo.centralized_restaurant.view.TableService;
 
 import com.dpo.centralized_restaurant.Controller.Controller;
-import com.dpo.centralized_restaurant.Model.Table;
+import com.dpo.centralized_restaurant.Model.Preservice.Table;
 import com.dpo.centralized_restaurant.View.ListButton.ListButtonEditor;
 import com.dpo.centralized_restaurant.View.ListButton.ListButtonRenderer;
 

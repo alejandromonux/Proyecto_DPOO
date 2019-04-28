@@ -1,4 +1,6 @@
-package com.dpo.centralized_restaurant.Model;
+package com.dpo.centralized_restaurant.Model.Request;
+
+import com.dpo.centralized_restaurant.Model.Preservice.Dish;
 
 import javax.persistence.*;
 
