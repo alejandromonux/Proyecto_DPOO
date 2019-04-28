@@ -70,7 +70,7 @@ public class Controller implements ActionListener {
                 vista.changePanel("FORMS");
                 break;
             case "TABLE-ORDERS":
-                vista.changePanel("TABLE-ORDERS");
+                vista.changePanel("ORDERS");
                 break;
             case "TABLE-CREATE-ACTION":
                 model.addTable(
@@ -80,7 +80,7 @@ public class Controller implements ActionListener {
                 //Update a la vista
                 vista.getJpTables().setTableList(new TablesListPanel(model.getTables()));
                 //Vista del servei
-                vista.setJpServiceTables(new RequestsService(model.getTables()));
+                vista.setJpReq(new RequestsService(model.getTables()));
                 vista.getJpReq().registerControllers(this);
                 break;
             case "DISH-CREATE-ACTION":
