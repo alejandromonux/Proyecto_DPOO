@@ -5,7 +5,7 @@ import com.dpo.centralized_restaurant.Controller.Controller;
 import com.dpo.centralized_restaurant.Model.Table;
 import com.dpo.centralized_restaurant.View.DishPanels.DishPanel;
 import com.dpo.centralized_restaurant.View.TablePanels.TablePanel;
-import com.dpo.centralized_restaurant.View.TableService.TableOrderList;
+import com.dpo.centralized_restaurant.View.Service.RequestsService;
 import com.dpo.centralized_restaurant.Model.Dish;
 
 import javax.swing.*;
@@ -25,8 +25,9 @@ public class MainView extends JFrame {
     private DishPanel jpDish;
     private TablePanel jpTables;
     private ServeiPanel jpStart;
+    private RequestsService jpReq;
     private LogInPanel jpLogIn;
-    private TableOrderList jpServiceTables;
+    private RequestsService jpServiceTables;
 
     private JPanel jpHeader;
     private JPanel jpContent;
@@ -45,9 +46,9 @@ public class MainView extends JFrame {
         jpMainMenu = new GeneralMenu();
         jpTables = new TablePanel();
         jpDish = new DishPanel(new ArrayList<Dish>());
-        jpStart = new ServeiPanel(new ArrayList<Table>());
+        jpStart = new ServeiPanel();
         jpLogIn = new LogInPanel();
-        jpServiceTables = new TableOrderList(new ArrayList<Table>());
+        jpServiceTables = new RequestsService(new ArrayList<Table>());
 
         jpHeader = new JPanel();
         jpHeader.setSize(700,100);
@@ -90,6 +91,8 @@ public class MainView extends JFrame {
         jpHeader.add(jpAuxH3);
         jpHeader.setAlignmentY(JPanel.CENTER_ALIGNMENT);
 
+        jpReq = new RequestsService(new ArrayList<Table>());
+
         jpContent = new JPanel(new BorderLayout());
         jpContent.setSize(700,300);
         jpContent.setBackground(new Color(0x12123B));
@@ -100,6 +103,7 @@ public class MainView extends JFrame {
         jpContent.add("DISHES", jpDish);
         jpContent.add("START", jpStart);
         jpContent.add("FORMS", jpLogIn);
+        jpContent.add("REQUESTS", jpReq);
 //        jpContent.add("TABLE-ORDERS", jpServiceTables);
         /* ------------------------------ VIEW PARAMETERS ------------------------------ */
         getContentPane().add(jpHeader, BorderLayout.PAGE_START);
@@ -118,6 +122,7 @@ public class MainView extends JFrame {
         jpDish.registerController(c);
         jpLogIn.registerController(c);
         jpStart.registerController(c);
+        jpReq.registerControllers(c);
 
         jbLogOut.setActionCommand("FORMS");
         jbLogOut.addActionListener(c);
@@ -148,23 +153,15 @@ public class MainView extends JFrame {
         jpTables.changePanel(which);
     }
 
-    public TablePanel getTablePanel() {return jpTables;}
-
     public DishPanel getJpDish() {
         return jpDish;
     }
 
-    public void setJpDish(DishPanel jpDish) {
-        this.jpDish = jpDish;
-    }
 
     public TablePanel getJpTables() {
         return jpTables;
     }
 
-    public void setJpTables(TablePanel jpTables) {
-        this.jpTables = jpTables;
-    }
 
     public ServeiPanel getJpStart() {
         return jpStart;
@@ -180,5 +177,13 @@ public class MainView extends JFrame {
 
     public void setJpLogIn(LogInPanel jpLogIn) {
         this.jpLogIn = jpLogIn;
+    }
+
+    public RequestsService getJpReq() {
+        return jpReq;
+    }
+
+    public void setJpServiceTables(RequestsService jpServiceTables) {
+        this.jpServiceTables = jpServiceTables;
     }
 }

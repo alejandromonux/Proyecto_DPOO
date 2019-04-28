@@ -5,12 +5,10 @@ import com.dpo.centralized_restaurant.View.GeneralMenu;
 import com.dpo.centralized_restaurant.View.MainView;
 import com.dpo.centralized_restaurant.View.TablePanels.TablePanel;
 import com.dpo.centralized_restaurant.View.TablePanels.TablesListPanel;
-import com.dpo.centralized_restaurant.View.TableService.TableOrderList;
+import com.dpo.centralized_restaurant.View.Service.RequestsService;
 import com.dpo.centralized_restaurant.Model.Model;
 
 import javax.swing.*;
-import javax.swing.text.Element;
-import javax.swing.text.TableView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -82,8 +80,8 @@ public class Controller implements ActionListener {
                 //Update a la vista
                 vista.getJpTables().setTableList(new TablesListPanel(model.getTables()));
                 //Vista del servei
-                vista.getJpStart().setTables(new TableOrderList(model.getTables()));
-                vista.getJpStart().getTables().registerControllers(this);
+                vista.setJpServiceTables(new RequestsService(model.getTables()));
+                vista.getJpReq().registerControllers(this);
                 break;
             case "DISH-CREATE-ACTION":
                 model.addDish(
@@ -97,6 +95,10 @@ public class Controller implements ActionListener {
             case "BACK-TO-MAIN":
                 vista.changePanel("MAIN");
                 break;
+
+            case "REQUESTS":
+                vista.changePanel("REQUESTS");
+            break;
             case "BACKSERVICE" :
                 vista.changePanel("START");
         }
