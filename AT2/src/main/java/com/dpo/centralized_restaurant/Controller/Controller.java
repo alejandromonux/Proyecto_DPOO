@@ -1,9 +1,7 @@
 package com.dpo.centralized_restaurant.Controller;
 
 import com.dpo.centralized_restaurant.View.DishPanels.DishListPanel;
-import com.dpo.centralized_restaurant.View.Preservice.GeneralMenu;
 import com.dpo.centralized_restaurant.View.MainView;
-import com.dpo.centralized_restaurant.View.TablePanels.TablePanel;
 import com.dpo.centralized_restaurant.View.TablePanels.TablesListPanel;
 import com.dpo.centralized_restaurant.View.Service.RequestsService;
 import com.dpo.centralized_restaurant.Model.Model;
@@ -77,9 +75,9 @@ public class Controller implements ActionListener {
                         vista.getJpTables().getJpCreator().getJcbQuantity().getSelectedItem().toString()
                 );
                 //Update a la vista
-                vista.getJpTables().setTableList(new TablesListPanel(model.getTables()));
+                vista.getJpTables().setTableList(new TablesListPanel(model.getMesas()));
                 //Vista del servei
-                vista.setJpReq(new RequestsService(model.getTables()));
+                vista.setJpReq(new RequestsService(model.getMesas()));
                 vista.getJpReq().registerControllers(this);
                 break;
             case "DISH-CREATE-ACTION":

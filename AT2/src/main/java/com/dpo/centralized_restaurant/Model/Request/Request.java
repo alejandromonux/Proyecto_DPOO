@@ -1,6 +1,6 @@
 package com.dpo.centralized_restaurant.Model.Request;
 
-import com.dpo.centralized_restaurant.Model.Preservice.Table;
+import com.dpo.centralized_restaurant.Model.Preservice.Mesa;
 
 import javax.persistence.*;
 
@@ -22,7 +22,7 @@ public class Request {
 
     @ManyToOne
     @JoinColumn(name = "table_id")
-    private Table table;
+    private Mesa mesa;
 
     public Request(){}
 

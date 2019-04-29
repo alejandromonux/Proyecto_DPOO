@@ -1,7 +1,7 @@
 package com.dpo.centralized_restaurant.view.TableService;
 
 import com.dpo.centralized_restaurant.Controller.Controller;
-import com.dpo.centralized_restaurant.Model.Preservice.Table;
+import com.dpo.centralized_restaurant.Model.Preservice.Mesa;
 import com.dpo.centralized_restaurant.View.ListButton.ListButtonEditor;
 import com.dpo.centralized_restaurant.View.ListButton.ListButtonRenderer;
 
@@ -14,13 +14,13 @@ public class TableOrderList extends JPanel {
     JScrollPane panel;
     JButton back;
 
-    public TableOrderList(ArrayList<Table> tables){
+    public TableOrderList(ArrayList<Mesa> mesas){
         String[] columnNames = {"Id reserva", "Persones" ,"Assignar", "Rebutjar"};
-        Object[][] objects = new Object[tables.size()][4];
+        Object[][] objects = new Object[mesas.size()][4];
 
-        for (int i = 0; i < tables.size(); i++) {
-            objects[i][0] = tables.get(i).getId();
-            objects[i][1] = tables.get(i).getChairs();
+        for (int i = 0; i < mesas.size(); i++) {
+            objects[i][0] = mesas.get(i).getId();
+            objects[i][1] = mesas.get(i).getChairs();
             objects[i][2] = "Assignar";
             objects[i][3] = "Rebutjar";
         }

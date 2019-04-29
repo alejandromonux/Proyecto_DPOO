@@ -16,10 +16,10 @@ public class Configuration {
     private boolean active;
 
     @ManyToOne
-    @JoinColumn(name = "worker_id")
+    @JoinColumn(name = "worker")
     private Worker worker;
 
-    @OneToMany(mappedBy = "Configuration")
+    @OneToMany(mappedBy = "configuration")
     Set<ConfigurationTable> tablesIn;
 
 

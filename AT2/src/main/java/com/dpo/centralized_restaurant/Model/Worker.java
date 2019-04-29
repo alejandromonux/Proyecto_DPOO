@@ -1,6 +1,9 @@
 package com.dpo.centralized_restaurant.Model;
 
+import com.dpo.centralized_restaurant.Model.Configuration.Configuration;
+
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Worker {
@@ -20,12 +23,11 @@ public class Worker {
 
     private boolean connected;
 
-/*
-    @OneToMany
-    @JoinColumn(name = "configuration_id")
-    private Configuration Configuration;
 
-*/
+    @OneToMany(mappedBy = "worker")
+    private Set<Configuration> configuration;
+
+
     public Worker(){}
 
     public Worker(String username, String email, String password) {
@@ -64,6 +66,14 @@ public class Worker {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Set<Configuration> getConfiguration() {
+        return configuration;
+    }
+
+    public void setConfiguration(Set<Configuration> configuration) {
+        this.configuration = configuration;
     }
 
     public boolean equals(Object obj) {

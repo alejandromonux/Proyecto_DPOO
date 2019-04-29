@@ -1,42 +1,33 @@
 package com.dpo.centralized_restaurant.Model.Configuration;
 
-import com.dpo.centralized_restaurant.Model.Preservice.Table;
+import com.dpo.centralized_restaurant.Model.Preservice.Mesa;
 
 import javax.persistence.*;
 
 @Entity
 public class ConfigurationTable {
     @Id
-    @Embedded
-    ConfigurationTableKey id;
+    @GeneratedValue
+    Long id;
 
     @ManyToOne
-    @MapsId("configuration_id")
-    @JoinColumn(name = "configuration_id")
     Configuration configuration;
 
     @ManyToOne
-    @MapsId("table_id")
-    @JoinColumn(name = "table_id")
-    com.dpo.centralized_restaurant.Model.Preservice.Table table;
+    Mesa mesa;
 
     boolean active;
 
     public ConfigurationTable(){}
 
-    public ConfigurationTable(ConfigurationTableKey id, Configuration configuration, com.dpo.centralized_restaurant.Model.Preservice.Table table, boolean active) {
-        this.id = id;
+    public ConfigurationTable(Configuration configuration, Mesa mesa, boolean active) {
         this.configuration = configuration;
-        this.table = table;
+        this.mesa = mesa;
         this.active = active;
     }
 
-    public ConfigurationTableKey getId() {
+    public Long getId() {
         return id;
-    }
-
-    public void setId(ConfigurationTableKey id) {
-        this.id = id;
     }
 
     public Configuration getConfiguration() {
@@ -47,12 +38,12 @@ public class ConfigurationTable {
         this.configuration = configuration;
     }
 
-    public com.dpo.centralized_restaurant.Model.Preservice.Table getTable() {
-        return table;
+    public Mesa getMesa() {
+        return mesa;
     }
 
-    public void setTable(Table table) {
-        this.table = table;
+    public void setMesa(Mesa mesa) {
+        this.mesa = mesa;
     }
 
     public boolean isActive() {

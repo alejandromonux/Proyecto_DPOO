@@ -1,5 +1,4 @@
 package com.dpo.centralized_restaurant.Model.Preservice;
-
 import com.dpo.centralized_restaurant.Model.Configuration.ConfigurationTable;
 import com.dpo.centralized_restaurant.Model.Request.Request;
 
@@ -8,12 +7,12 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-public class Table {
+public class Mesa {
 
     @Id
     @Column(nullable = false)
     @GeneratedValue
-    private long id;
+    private String id;
 
     @Column(nullable = false)
     private int chairs;
@@ -21,27 +20,27 @@ public class Table {
     @Column(name = "in_use")
     private boolean inUse;
 
-    // Whether the table is available.
+    // Whether the mesa is available.
     private boolean active;
 
-    @OneToMany(mappedBy = "table")
+    @OneToMany(mappedBy = "mesa")
     private List<Request> requests;
 
-    @OneToMany(mappedBy = "table")
+    @OneToMany(mappedBy = "mesa")
     Set<ConfigurationTable> configurations;
 
-    public Table(){}
+    public Mesa(){}
 
-    public Table(long id, int chairs) {
+    public Mesa(String id, int chairs) {
         this.id = id;
         this.chairs = chairs;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -75,14 +74,14 @@ public class Table {
         } else if (getClass() != obj.getClass()) {
             return false;
         } else {
-            Table other = (Table)obj;
+            Mesa other = (Mesa)obj;
             return id == other.id;
         }
     }
 
     @Override
     public String toString() {
-        return "Table{" +
+        return "Mesa{" +
                 "id=" + id +
                 ", chairs=" + chairs +
                 ", inUse=" + inUse +

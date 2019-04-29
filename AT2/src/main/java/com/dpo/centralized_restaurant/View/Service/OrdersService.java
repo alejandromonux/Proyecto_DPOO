@@ -1,7 +1,6 @@
 package com.dpo.centralized_restaurant.View.Service;
 
 import com.dpo.centralized_restaurant.Controller.Controller;
-import com.dpo.centralized_restaurant.Model.Preservice.Table;
 import com.dpo.centralized_restaurant.Model.Service.Comanda;
 import com.dpo.centralized_restaurant.View.Utils.ButtonEditor;
 import com.dpo.centralized_restaurant.View.Utils.ButtonRenderer;
@@ -84,7 +83,7 @@ public class OrdersService extends JPanel{
         }
     }
     public void getColumNames(){
-        columnNames = new String[]{"Table ID", "Dish name", "Quantity", "Prepare"};
+        columnNames = new String[]{"Mesa ID", "Dish name", "Quantity", "Prepare"};
     }
 
     public void registerControllers(Controller c){

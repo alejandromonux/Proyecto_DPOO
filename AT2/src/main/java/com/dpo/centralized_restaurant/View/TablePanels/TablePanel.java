@@ -1,7 +1,7 @@
 package com.dpo.centralized_restaurant.View.TablePanels;
 
 import com.dpo.centralized_restaurant.Controller.Controller;
-import com.dpo.centralized_restaurant.Model.Preservice.Table;
+import com.dpo.centralized_restaurant.Model.Preservice.Mesa;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class TablePanel extends JPanel{
 
 
-    private ArrayList<Table> tables = new ArrayList<>();
+    private ArrayList<Mesa> mesas = new ArrayList<>();
     private JButton jbCreate;
     private JButton jbList;
     private JButton jbBack;
@@ -26,14 +26,14 @@ public class TablePanel extends JPanel{
 
     public TablePanel() {
 
-        Table t1 = new Table(1,4);
-        Table t2 = new Table(2,8);
-        Table t3 = new Table(3,12);
-        Table t4 = new Table(4,5);
-        tables.add(t1);
-        tables.add(t2);
-        tables.add(t3);
-        tables.add(t4);
+        Mesa t1 = new Mesa(1,4);
+        Mesa t2 = new Mesa(2,8);
+        Mesa t3 = new Mesa(3,12);
+        Mesa t4 = new Mesa(4,5);
+        mesas.add(t1);
+        mesas.add(t2);
+        mesas.add(t3);
+        mesas.add(t4);
 
         JPanel jpLeft = new JPanel(new BorderLayout(0,15));
         jpLeft.setBackground(null);
@@ -90,7 +90,7 @@ public class TablePanel extends JPanel{
         jpBigLeft.setBackground(new Color(0x232375));
         jpBigLeft.setBackground(new Color(0x03091C));
 
-        tableList = new TablesListPanel(new ArrayList<Table>());
+        tableList = new TablesListPanel(new ArrayList<Mesa>());
         jpCreator = new TableCreatorPanel();
         jclContent = new CardLayout();
         jpContent.setLayout(jclContent);

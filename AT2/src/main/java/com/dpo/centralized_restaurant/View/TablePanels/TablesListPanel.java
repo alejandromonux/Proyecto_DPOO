@@ -2,9 +2,9 @@ package com.dpo.centralized_restaurant.View.TablePanels;
 
 //import sun.tools.jps.Jps;
 
+import com.dpo.centralized_restaurant.Model.Preservice.Mesa;
 import com.dpo.centralized_restaurant.View.Utils.ButtonEditor;
 import com.dpo.centralized_restaurant.View.Utils.ButtonRenderer;
-import com.dpo.centralized_restaurant.Model.Preservice.Table;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -28,7 +28,7 @@ public class TablesListPanel extends JPanel{
     Object[][] data ;
     String[] columnNames;
 
-    public TablesListPanel(ArrayList<Table> tables) {
+    public TablesListPanel(ArrayList<Mesa> mesas) {
 
         //renderButton = new JButton();
         editButton = new JButton();
@@ -38,7 +38,7 @@ public class TablesListPanel extends JPanel{
         setFocusBorder(new LineBorder(Color.BLUE));
 
         getColumNames();
-        createData(tables);
+        createData(mesas);
         TableModel tm = new DefaultTableModel(data, columnNames) {
             public boolean isCellEditable(int row, int column) {
                 if(column == columnNames.length -1) return true;
@@ -67,11 +67,11 @@ public class TablesListPanel extends JPanel{
         editButton.setBorder( focusBorder );
     }
 
-    public void createData(ArrayList<Table> tables){
-        data = new Object[tables.size()][3];
-        for (int i =0; i < tables.size() ; i++){
-            data[i][0] = tables.get(i).getId();
-            data[i][1] = tables.get(i).getChairs();
+    public void createData(ArrayList<Mesa> mesas){
+        data = new Object[mesas.size()][3];
+        for (int i = 0; i < mesas.size() ; i++){
+            data[i][0] = mesas.get(i).getId();
+            data[i][1] = mesas.get(i).getChairs();
             data[i][2] = "Delete table";
         }
     }

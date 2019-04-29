@@ -7,17 +7,14 @@ import javax.persistence.*;
 @Entity
 public class RequestOrder {
 
-    @EmbeddedId
-    private RequestOrderKey id;
+    @Id
+    @GeneratedValue
+    private Long id;
 
     @ManyToOne
-    @MapsId("request_id")
-    @JoinColumn(name = "request_id")
     private Request request;
 
     @ManyToOne
-    @MapsId("dish_id")
-    @JoinColumn(name = "dish_id")
     private Dish dish;
 
     @Column(name = "current_service")
@@ -25,8 +22,5 @@ public class RequestOrder {
 
     public RequestOrder() {}
 
-    public RequestOrder(RequestOrderKey id, boolean currentService) {
-        this.id = id;
-        this.currentService = currentService;
-    }
+
 }

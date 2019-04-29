@@ -84,7 +84,7 @@ public class DishService extends JPanel{
         }
     }
     public void getColumNames(){
-        columnNames = new String[]{"Table ID", "Dish name", "Quantity", "Serve"};
+        columnNames = new String[]{"Mesa ID", "Dish name", "Quantity", "Serve"};
     }
 
     public void registerControllers(Controller c){

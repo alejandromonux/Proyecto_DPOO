@@ -2,7 +2,7 @@ package com.dpo.centralized_restaurant.View;
 
 
 import com.dpo.centralized_restaurant.Controller.Controller;
-import com.dpo.centralized_restaurant.Model.Preservice.Table;
+import com.dpo.centralized_restaurant.Model.Preservice.Mesa;
 import com.dpo.centralized_restaurant.Model.Service.Comanda;
 import com.dpo.centralized_restaurant.Model.Service.ServiceDish;
 import com.dpo.centralized_restaurant.View.DishPanels.DishPanel;
@@ -56,7 +56,7 @@ public class MainView extends JFrame {
         jpDish = new DishPanel(new ArrayList<Dish>());
         jpStart = new ServeiPanel();
         jpLogIn = new LogInPanel();
-        jpReq = new RequestsService(new ArrayList<Table>());
+        jpReq = new RequestsService(new ArrayList<Mesa>());
         jpOrders = new OrdersService(new ArrayList<Comanda>());
         jpSDish = new DishService(new ArrayList<ServiceDish>());
 

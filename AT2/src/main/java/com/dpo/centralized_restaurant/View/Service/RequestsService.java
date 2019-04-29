@@ -3,7 +3,7 @@ package com.dpo.centralized_restaurant.View.Service;
 import com.dpo.centralized_restaurant.Controller.Controller;
 import com.dpo.centralized_restaurant.View.Utils.ButtonEditor;
 import com.dpo.centralized_restaurant.View.Utils.ButtonRenderer;
-import com.dpo.centralized_restaurant.Model.Preservice.Table;
+import com.dpo.centralized_restaurant.Model.Preservice.Mesa;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -30,7 +30,7 @@ public class RequestsService extends JPanel {
     Object[][] data ;
     String[] columnNames;
 
-    public RequestsService(ArrayList<Table> tables) {
+    public RequestsService(ArrayList<Mesa> mesas) {
 
         //renderButton = new JButton();
         editButton = new JButton();
@@ -40,7 +40,7 @@ public class RequestsService extends JPanel {
         setFocusBorder(new LineBorder(Color.BLUE));
 
         getColumNames();
-        createData(tables);
+        createData(mesas);
         TableModel tm = new DefaultTableModel(data, columnNames) {
             public boolean isCellEditable(int row, int column) {
                 if(column == columnNames.length -1) return true;
@@ -77,11 +77,11 @@ public class RequestsService extends JPanel {
         editButton.setBorder( focusBorder );
     }
 
-    public void createData(ArrayList<Table> tables){
-        data = new Object[tables.size()][4];
-        for (int i =0; i < tables.size() ; i++){
-            data[i][0] = tables.get(i).getId();
-            data[i][1] = tables.get(i).getChairs();
+    public void createData(ArrayList<Mesa> mesas){
+        data = new Object[mesas.size()][4];
+        for (int i = 0; i < mesas.size() ; i++){
+            data[i][0] = mesas.get(i).getId();
+            data[i][1] = mesas.get(i).getChairs();
             data[i][2] = "Assign";
             data[i][3] = "Delete";
         }

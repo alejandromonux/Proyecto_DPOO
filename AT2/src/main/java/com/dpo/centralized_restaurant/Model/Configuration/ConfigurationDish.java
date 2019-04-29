@@ -7,36 +7,27 @@ import javax.persistence.*;
 @Entity
 public class ConfigurationDish {
     @Id
-    @Embedded
-    ConfigurationDishKey id;
+    @GeneratedValue
+    Long id;
 
     @ManyToOne
-    @MapsId("configuration_id")
-    @JoinColumn(name = "configuration_id")
     Configuration configuration;
 
     @ManyToOne
-    @MapsId("dish_id")
-    @JoinColumn(name = "dish_id")
     Dish dish;
 
     boolean active;
 
     public ConfigurationDish(){}
 
-    public ConfigurationDish(ConfigurationDishKey id, Configuration configuration, Dish dish, boolean active) {
-        this.id = id;
+    public ConfigurationDish(Configuration configuration, Dish dish, boolean active) {
         this.configuration = configuration;
         this.dish = dish;
         this.active = active;
     }
 
-    public ConfigurationDishKey getId() {
+    public Long getId() {
         return id;
-    }
-
-    public void setId(ConfigurationDishKey id) {
-        this.id = id;
     }
 
     public Configuration getConfiguration() {
@@ -67,7 +58,7 @@ public class ConfigurationDish {
     public String toString() {
         return "ConfigurationDish{" +
                 "id=" + id +
-                ", Configuration=" + configuration +
+                ", configuration=" + configuration +
                 ", dish=" + dish +
                 ", active=" + active +
                 '}';

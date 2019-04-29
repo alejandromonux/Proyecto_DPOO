@@ -1,19 +1,19 @@
 package com.dpo.centralized_restaurant.Model;
 
 import com.dpo.centralized_restaurant.Model.Preservice.Dish;
-import com.dpo.centralized_restaurant.Model.Preservice.Table;
+import com.dpo.centralized_restaurant.Model.Preservice.Mesa;
 import com.dpo.centralized_restaurant.Model.Service.Comanda;
 
 import java.util.ArrayList;
 
 public class Model {
     private ArrayList<Dish> dishes;
-    private ArrayList<Table> tables;
+    private ArrayList<Mesa> mesas;
     private ArrayList<Comanda> comandas;
 
     public Model(){
         dishes = new ArrayList<Dish>();
-        tables = new ArrayList<Table>();
+        mesas = new ArrayList<Mesa>();
         comandas = new ArrayList<Comanda>();
     }
 
@@ -26,7 +26,7 @@ public class Model {
 
 
     public void addTable(String id, String chairs) {
-        tables.add(new Table(Long.parseLong(id),
+        mesas.add(new Mesa(Long.parseLong(id),
                              Integer.parseInt(chairs)));
     }
 
@@ -42,12 +42,12 @@ public class Model {
         this.dishes = dishes;
     }
 
-    public ArrayList<Table> getTables() {
-        return tables;
+    public ArrayList<Mesa> getMesas() {
+        return mesas;
     }
 
-    public void setTables(ArrayList<Table> tables) {
-        this.tables = tables;
+    public void setMesas(ArrayList<Mesa> mesas) {
+        this.mesas = mesas;
     }
 
     public ArrayList<Comanda> getComandas() {

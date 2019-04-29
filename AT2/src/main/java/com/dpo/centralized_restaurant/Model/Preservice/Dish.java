@@ -1,13 +1,21 @@
 package com.dpo.centralized_restaurant.Model.Preservice;
 
 
+import com.dpo.centralized_restaurant.Model.Configuration.ConfigurationDish;
+
 import javax.persistence.*;
+
+import javax.persistence.OneToMany;
+import java.util.Set;
 
 @Entity
 public class Dish {
 
     @Id
-    @Column(nullable = false)
+    @GeneratedValue
+    private Long id;
+
+    @Column(unique = true)
     private String name;
 
     @Column(nullable = false)
@@ -17,18 +25,18 @@ public class Dish {
     private int units;
 
     @Column(nullable = false)
-    private double timecost;   // En segundos
+    private double timecost;
 
     @Column(name = "historic_orders")
     private int historicOrders;
 
-    public Dish(){
-        name = "default";
-        cost = 420;
-        units = 69;
-        timecost = 360;
-        historicOrders = 3;
-    }
+    private boolean active;
+
+
+    @OneToMany(mappedBy = "dish")
+    Set<ConfigurationDish> configurations;
+
+    public Dish(){}
 
     public Dish(String name, double cost, int units, double timecost) {
         this.name = name;
@@ -36,6 +44,14 @@ public class Dish {
         this.units = units;
         this.timecost = timecost;
         this.historicOrders = 0;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -66,7 +82,7 @@ public class Dish {
         return timecost;
     }
 
-    public void setTimecost(int timecost) {
+    public void setTimecost(double timecost) {
         this.timecost = timecost;
     }
 
@@ -77,7 +93,7 @@ public class Dish {
     public void setHistoricOrders(int historicOrders) {
         this.historicOrders = historicOrders;
     }
-/*
+
     public boolean isActive() {
         return active;
     }
@@ -85,7 +101,7 @@ public class Dish {
     public void setActive(boolean active) {
         this.active = active;
     }
-*/
+
     public boolean equals (Object obj) {
         if (obj == null) {
             return false;
