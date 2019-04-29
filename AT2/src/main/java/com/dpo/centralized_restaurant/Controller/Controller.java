@@ -67,6 +67,7 @@ public class Controller implements ActionListener {
                 break;
             case "FORMS":
                 vista.changePanel("FORMS");
+                vista.changeHeader(false);
                 break;
             case "TABLE-ORDERS":
                 vista.changePanel("ORDERS");
@@ -103,6 +104,7 @@ public class Controller implements ActionListener {
                 break;
             case "BACK-TO-MAIN":
                 vista.changePanel("MAIN");
+                vista.changeHeader(true);
                 break;
 
                 // Servicio:

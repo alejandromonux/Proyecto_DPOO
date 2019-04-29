@@ -27,7 +27,8 @@ public class LogInPanel extends JPanel {
 
 
     //--------BACK-----------//
-    private JButton jbBack;
+    private JButton jbLogin;
+    private JButton jbRegister;
 
     //--------MAIN-----------//
 
@@ -45,7 +46,7 @@ public class LogInPanel extends JPanel {
 
 
         //--------SHARED-----------//
-        jbBack = new JButton("BACK");
+        //jbBack = new JButton("BACK");
 
 
         //--------FORMS-----------//
@@ -72,7 +73,7 @@ public class LogInPanel extends JPanel {
         JLabel jlLoginPassword = new JLabel("Password");
         JPasswordField jpfLoginPassword = new JPasswordField();
 
-        JButton jbLogin = new JButton("Sign In");
+        jbLogin = new JButton("Sign In");
         //jbLogin.setBorder(new EmptyBorder(0,100,30,100));
         //jbLogin.setAlignmentX(Component.CENTER_ALIGNMENT);
         jbLogin.setHorizontalAlignment(JButton.CENTER);
@@ -122,7 +123,7 @@ public class LogInPanel extends JPanel {
         JLabel jlRegisterConfirmPassword = new JLabel("Confirm Password");
         JPasswordField jpfConfirmPassword = new JPasswordField();
 
-        JButton jbRegister = new JButton();
+        jbRegister = new JButton();
         jbRegister.setBorder(new EmptyBorder(30,100,30,100));
         JPanel jpRegister = new JPanel(new BorderLayout());
         jpRegister.setBorder(new EmptyBorder(5,0,0,0));
@@ -163,8 +164,11 @@ public class LogInPanel extends JPanel {
     }
 
     public void registerController(Controller c){
-        jbBack.setActionCommand("BACK-TO-MAIN");
-        jbBack.addActionListener(c);
+        jbLogin.setActionCommand("LOGGING USER");
+        jbLogin.addActionListener(c);
+
+        jbRegister.setActionCommand("CREATING USER");
+        jbRegister.addActionListener(c);
     }
 
     public JTextField getJtfRegisterName() {
