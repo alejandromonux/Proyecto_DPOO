@@ -15,8 +15,6 @@ import java.awt.event.ActionListener;
 public class Controller implements ActionListener {
     private MainView vista;
     private Model model;
-    private TablePanel tableView;
-    private GeneralMenu preMenu;
 
     public Controller(MainView vista) {
         this.vista = vista;
@@ -35,7 +33,8 @@ public class Controller implements ActionListener {
 
         String aux2 = aux.getActionCommand();
         switch (aux.getActionCommand()) {
-
+            // Pre-servicio:
+            //---------------------------------------------
             case "MAIN":
                 vista.changePanel(aux.getActionCommand());
                 break;
@@ -95,6 +94,9 @@ public class Controller implements ActionListener {
             case "BACK-TO-MAIN":
                 vista.changePanel("MAIN");
                 break;
+
+                // Servicio:
+                //---------------------------------------------
             case "SERVICE-DISHES":
                 vista.changePanel("SERVICE-DISHES");
                 break;
