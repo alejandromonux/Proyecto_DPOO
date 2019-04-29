@@ -32,6 +32,9 @@ public class LogInPanel extends JPanel {
     //--------MAIN-----------//
 
     private JButton jbSettings;
+    private JTextField jtfLoginUsername;
+
+    private JTextField jtfRegisterName;
 
     public LogInPanel() {
 
@@ -111,7 +114,7 @@ public class LogInPanel extends JPanel {
         jlRegister.setBorder(new EmptyBorder(0,0,0,80));
 
         JLabel jlRegisterName = new JLabel("Name");
-        JTextField jtfRegisterName = new JTextField();
+        jtfRegisterName = new JTextField();
         JLabel jlRegisterEmail = new JLabel("Email");
         JTextField jtfRegisterEmail = new JTextField();
         JLabel jlRegisterPassword = new JLabel("Password");
@@ -164,4 +167,7 @@ public class LogInPanel extends JPanel {
         jbBack.addActionListener(c);
     }
 
+    public JTextField getJtfRegisterName() {
+        return (JTextField) jtfRegisterName;
+    }
 }
