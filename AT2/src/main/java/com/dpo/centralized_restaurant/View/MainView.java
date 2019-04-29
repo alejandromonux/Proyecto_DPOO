@@ -43,6 +43,7 @@ public class MainView extends JFrame {
     /*  HEADER ATTRIBUTES */
     private JButton jbLogOut;
     private JLabel digitalClock;
+    private JLabel jlWelcomeUser;
 
     public MainView() {
 
@@ -196,5 +197,16 @@ public class MainView extends JFrame {
 
     public void setJpReq(RequestsService jpReq) {
         this.jpReq = jpReq;
+    }
+
+    public void changeHeader(boolean userLogged){
+        if(userLogged){
+            jbLogOut.setVisible(true);
+            jlWelcomeUser.setVisible(true);
+        }else{
+            jbLogOut.setVisible(false);
+            jlWelcomeUser.setVisible(false);
+        }
+
     }
 }
