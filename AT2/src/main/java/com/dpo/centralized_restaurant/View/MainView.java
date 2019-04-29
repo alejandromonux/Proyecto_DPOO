@@ -88,6 +88,7 @@ public class MainView extends JFrame {
         jbLogOut.setFocusable(false);
         jbLogOut.setBorder(new EmptyBorder(10, 20, 10, 20));
         //jbLogOut.setActionCommand("LogIn");
+        jbLogOut.setVisible(false);
         jpAuxH3.add(jbLogOut);
 
         //jbLogOut.setSize(50,10);
@@ -106,11 +107,11 @@ public class MainView extends JFrame {
         jpContent.setBackground(new Color(0x12123B));
         jclContent = new CardLayout();
         jpContent.setLayout(jclContent);
+        jpContent.add("FORMS", jpLogIn);
         jpContent.add("MAIN", jpMainMenu);
         jpContent.add("TABLES", jpTables);
         jpContent.add("DISHES", jpDish);
         jpContent.add("START", jpStart);
-        jpContent.add("FORMS", jpLogIn);
         jpContent.add("REQUESTS", jpReq);
         jpContent.add("ORDERS", jpOrders);
         jpContent.add("SERVICE-DISHES", jpSDish);
@@ -158,6 +159,14 @@ public class MainView extends JFrame {
     public void changePanel (String which) {
 
         jclContent.show(jpContent,which);
+
+        if (which.equals("MAIN")){
+            jbLogOut.setVisible(true);
+        }
+        if (which.equals("FORMS")){
+            jbLogOut.setVisible(false);
+        }
+
     }
 
     public void changeTablePanel (String which) {
