@@ -1,6 +1,6 @@
 package com.dpo.centralized_restaurant.service;
 
-import com.dpo.centralized_restaurant.Model.Dish;
+import com.dpo.centralized_restaurant.Model.Preservice.Dish;
 import com.dpo.centralized_restaurant.Repository.DishRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +10,18 @@ public class DishService {
 
     @Autowired
     private DishRepository dishRepository;
+    private static DishService ourInstance;
 
+    public static DishService getInstance() {    // Referencia SINGLETON
+        if (ourInstance == null) {
+            ourInstance = new DishService();
+        }
+        return ourInstance;
+    }
+
+    public DishService(){
+
+    }
 
     public void testDishes() {
 

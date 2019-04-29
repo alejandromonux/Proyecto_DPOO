@@ -1,4 +1,6 @@
-package com.dpo.centralized_restaurant.Model;
+package com.dpo.centralized_restaurant.Model.Configuration;
+
+import com.dpo.centralized_restaurant.Model.Preservice.Table;
 
 import javax.persistence.*;
 
@@ -16,13 +18,13 @@ public class ConfigurationTable {
     @ManyToOne
     @MapsId("table_id")
     @JoinColumn(name = "table_id")
-    Table table;
+    com.dpo.centralized_restaurant.Model.Preservice.Table table;
 
     boolean active;
 
     public ConfigurationTable(){}
 
-    public ConfigurationTable(ConfigurationTableKey id, Configuration configuration, Table table, boolean active) {
+    public ConfigurationTable(ConfigurationTableKey id, Configuration configuration, com.dpo.centralized_restaurant.Model.Preservice.Table table, boolean active) {
         this.id = id;
         this.configuration = configuration;
         this.table = table;
@@ -45,7 +47,7 @@ public class ConfigurationTable {
         this.configuration = configuration;
     }
 
-    public Table getTable() {
+    public com.dpo.centralized_restaurant.Model.Preservice.Table getTable() {
         return table;
     }
 

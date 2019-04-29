@@ -1,4 +1,7 @@
-package com.dpo.centralized_restaurant.Model;
+package com.dpo.centralized_restaurant.Model.Preservice;
+
+import com.dpo.centralized_restaurant.Model.Configuration.ConfigurationTable;
+import com.dpo.centralized_restaurant.Model.Request.Request;
 
 import javax.persistence.*;
 import java.util.List;

@@ -1,10 +1,7 @@
-package com.dpo.centralized_restaurant.Model;
+package com.dpo.centralized_restaurant.Model.Preservice;
 
 
 import javax.persistence.*;
-
-import javax.persistence.OneToMany;
-import java.util.Set;
 
 @Entity
 public class Dish {

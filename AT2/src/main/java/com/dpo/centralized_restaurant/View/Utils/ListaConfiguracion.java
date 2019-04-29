@@ -1,4 +1,4 @@
-package View.Preservicio_Ventana_Exterior;
+package com.dpo.centralized_restaurant.View.Utils;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;

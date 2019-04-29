@@ -1,4 +1,6 @@
-package com.dpo.centralized_restaurant.Model;
+package com.dpo.centralized_restaurant.Model.Configuration;
+
+import com.dpo.centralized_restaurant.Model.Worker;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -17,8 +19,8 @@ public class Configuration {
     @JoinColumn(name = "worker_id")
     private Worker worker;
 
-    @OneToMany(mappedBy = "configuration")
-    Set<com.dpo.centralized_restaurant.Model.ConfigurationTable> tablesIn;
+    @OneToMany(mappedBy = "Configuration")
+    Set<ConfigurationTable> tablesIn;
 
 
     public Configuration(){}

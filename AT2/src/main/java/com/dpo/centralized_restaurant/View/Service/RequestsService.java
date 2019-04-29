@@ -1,7 +1,6 @@
-package com.dpo.centralized_restaurant.View.TablePanels;
+package com.dpo.centralized_restaurant.View.Service;
 
-//import sun.tools.jps.Jps;
-
+import com.dpo.centralized_restaurant.Controller.Controller;
 import com.dpo.centralized_restaurant.View.Utils.ButtonEditor;
 import com.dpo.centralized_restaurant.View.Utils.ButtonRenderer;
 import com.dpo.centralized_restaurant.Model.Preservice.Table;
@@ -10,11 +9,13 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-import javax.swing.table.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class TablesListPanel extends JPanel{
+public class RequestsService extends JPanel {
 
     private JTable jtable;
     private Action action;
@@ -22,13 +23,14 @@ public class TablesListPanel extends JPanel{
     private Border originalBorder;
     private Border focusBorder;
 
+    private JButton jbBack;
     private JButton editButton;
     private Object editorValue;
     private boolean isButtonColumnEditor;
     Object[][] data ;
     String[] columnNames;
 
-    public TablesListPanel(ArrayList<Table> tables) {
+    public RequestsService(ArrayList<Table> tables) {
 
         //renderButton = new JButton();
         editButton = new JButton();
@@ -55,10 +57,18 @@ public class TablesListPanel extends JPanel{
         for(int i= 0; i < jtable.getColumnCount();i++){
             jtable.getColumnModel().getColumn(i).setCellRenderer(df);
         }
-        jtable.getColumn("").setCellRenderer(new ButtonRenderer());
-        jtable.getColumn("").setCellEditor(new ButtonEditor(new JCheckBox()));
+        jtable.getColumn("Assign").setCellRenderer(new ButtonRenderer());
+        jtable.getColumn("Assign").setCellEditor(new ButtonEditor(new JCheckBox()));
+
+
+        jtable.getColumn("Delete").setCellRenderer(new ButtonRenderer());
+        jtable.getColumn("Delete").setCellEditor(new ButtonEditor(new JCheckBox()));
+
+
+        jbBack = new JButton("Back");
 
         this.add(jsPanel);
+        this.add(jbBack);
         this.setBorder(new EmptyBorder(0,0,0,0));
     }
 
@@ -68,14 +78,20 @@ public class TablesListPanel extends JPanel{
     }
 
     public void createData(ArrayList<Table> tables){
-        data = new Object[tables.size()][3];
+        data = new Object[tables.size()][4];
         for (int i =0; i < tables.size() ; i++){
             data[i][0] = tables.get(i).getId();
             data[i][1] = tables.get(i).getChairs();
-            data[i][2] = "Delete table";
+            data[i][2] = "Assign";
+            data[i][3] = "Delete";
         }
     }
     public void getColumNames(){
-        columnNames = new String[]{"Identifier", "Chairs", ""};
+        columnNames = new String[]{"Identifier", "Chairs", "Assign", "Delete"};
+    }
+
+    public void registerControllers(Controller c){
+        jbBack.setActionCommand("BACKSERVICE");
+        jbBack.addActionListener(c);
     }
 }

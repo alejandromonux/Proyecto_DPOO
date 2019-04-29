@@ -1,17 +1,17 @@
 package com.dpo.centralized_restaurant.Network;
 
-import com.dpo.centralized_restaurant.Model.ModelDTO.ClientDTO;
 import com.dpo.centralized_restaurant.Model.Request.RequestManager;
 
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class DedicatedServerTaula extends Thread{
+public class DedicatedServerEntrada extends Thread{
 
     private RequestManager requestManager;
 
-    private ArrayList<DedicatedServerTaula> dedicatedServers;
+  private ArrayList<DedicatedServerEntrada> dedicatedServers;
+    private ArrayList<DedicatedServer> dedicatedServers;
 
     private final Socket socket;
     private ObjectInputStream ois;
@@ -19,7 +19,7 @@ public class DedicatedServerTaula extends Thread{
     private ObjectOutputStream oos;
     private DataOutputStream dos;
 
-    public DedicatedServerTaula(Socket socket, RequestManager requestsManager, ArrayList<DedicatedServerTaula> dedicatedServers) {
+    public DedicatedServerEntrada(Socket socket, RequestManager requestsManager, ArrayList<DedicatedServerEntrada> dedicatedServers) {
         this.socket = socket;
         this.requestManager = requestsManager;
 
@@ -30,39 +30,18 @@ public class DedicatedServerTaula extends Thread{
     @Override
     public void run() {
         try {
-
             dis = new DataInputStream(socket.getInputStream());
             ois = new ObjectInputStream(socket.getInputStream());
             oos = new ObjectOutputStream(socket.getOutputStream());
             dos = new DataOutputStream(socket.getOutputStream());
-            String init = "";
+            String init;
+
             while (true) {
                 init = dis.readUTF();
                 switch (init) {
-                    case "USER-LOGIN":
-                        try {
-                            ClientDTO loginClient = (ClientDTO) ois.readObject();
-                        } catch (ClassNotFoundException e) {
-                            e.printStackTrace();
-                        }
-                        break;
-                    case "DISH-ORDER-COMING":
-                        String dishOrdered = dis.readUTF();
-                        long idMesaAfectadaOrder = dis.readLong();
-                        break;
 
-                    case "ELIMINATE-DISH":
-                        String dishToEliminate = dis.readUTF();
-                        long idMesaAfectadaEliminate = dis.readLong();
 
-                        break;
-                    case "SEE-MENU":
-                        dos.writeUTF("UPDATE-MENU");
-
-                        break;
                 }
-
-                init = "";
 
             }
 

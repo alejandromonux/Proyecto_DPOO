@@ -23,7 +23,7 @@ public class Worker {
 /*
     @OneToMany
     @JoinColumn(name = "configuration_id")
-    private Configuration configuration;
+    private Configuration Configuration;
 
 */
     public Worker(){}

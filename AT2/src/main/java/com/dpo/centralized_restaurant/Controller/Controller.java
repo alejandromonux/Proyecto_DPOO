@@ -1,15 +1,14 @@
 package com.dpo.centralized_restaurant.Controller;
 
 import com.dpo.centralized_restaurant.View.DishPanels.DishListPanel;
-import com.dpo.centralized_restaurant.View.GeneralMenu;
+import com.dpo.centralized_restaurant.View.Preservice.GeneralMenu;
 import com.dpo.centralized_restaurant.View.MainView;
 import com.dpo.centralized_restaurant.View.TablePanels.TablePanel;
-import com.dpo.centralized_restaurant.View.TableService.TableOrderList;
+import com.dpo.centralized_restaurant.View.TablePanels.TablesListPanel;
+import com.dpo.centralized_restaurant.View.Service.RequestsService;
 import com.dpo.centralized_restaurant.Model.Model;
 
 import javax.swing.*;
-import javax.swing.text.Element;
-import javax.swing.text.TableView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -34,7 +33,7 @@ public class Controller implements ActionListener {
 
         JButton aux = (JButton)e.getSource();
 
-
+        String aux2 = aux.getActionCommand();
         switch (aux.getActionCommand()) {
 
             case "MAIN":
@@ -71,7 +70,7 @@ public class Controller implements ActionListener {
                 vista.changePanel("FORMS");
                 break;
             case "TABLE-ORDERS":
-                vista.changePanel("TABLE-ORDERS");
+                vista.changePanel("ORDERS");
                 break;
             case "TABLE-CREATE-ACTION":
                 model.addTable(
@@ -79,10 +78,10 @@ public class Controller implements ActionListener {
                         vista.getJpTables().getJpCreator().getJcbQuantity().getSelectedItem().toString()
                 );
                 //Update a la vista
-
+                vista.getJpTables().setTableList(new TablesListPanel(model.getTables()));
                 //Vista del servei
-                vista.getJpStart().setTables(new TableOrderList(model.getTables()));
-                vista.getJpStart().getTables().registerControllers(this);
+                vista.setJpReq(new RequestsService(model.getTables()));
+                vista.getJpReq().registerControllers(this);
                 break;
             case "DISH-CREATE-ACTION":
                 model.addDish(
@@ -96,6 +95,12 @@ public class Controller implements ActionListener {
             case "BACK-TO-MAIN":
                 vista.changePanel("MAIN");
                 break;
+            case "SERVICE-DISHES":
+                vista.changePanel("SERVICE-DISHES");
+                break;
+            case "REQUESTS":
+                vista.changePanel("REQUESTS");
+            break;
             case "BACKSERVICE" :
                 vista.changePanel("START");
         }

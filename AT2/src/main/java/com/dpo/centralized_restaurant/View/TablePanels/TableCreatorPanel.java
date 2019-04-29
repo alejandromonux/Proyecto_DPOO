@@ -4,7 +4,10 @@ import com.dpo.centralized_restaurant.Controller.Controller;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.Document;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class TableCreatorPanel extends JPanel{
 
@@ -38,19 +41,20 @@ public class TableCreatorPanel extends JPanel{
 
         JPanel jpTercer = new JPanel(new BorderLayout());
         jpTercer.setBorder(new EmptyBorder(5,0,0,0));
-        jbAdd = new JButton("ADD");
-        jpTercer.add(jbAdd);
+        jbAdd = new JButton("ADD TABLE");
+        jbAdd.setActionCommand("TABLE-CREATE-ACTION");
+        //jpTercer.add(jbAdd);
 
-        setLayout(new BorderLayout(0,10));
-        setBorder(new EmptyBorder(0,70,120,0));
-        add(jpPrimer, BorderLayout.PAGE_START);
-        add(jpSegon, BorderLayout.CENTER);
-        add(jpTercer, BorderLayout.PAGE_END);
+        setLayout(new GridLayout(10,0));
+        setBorder(new EmptyBorder(80,30,120,0));
+        add(jpPrimer);
+        add(jpSegon);
+        add(jbAdd);
         setVisible(true);
     }
 
     public void registerController(Controller c) {
-        jbAdd.setActionCommand("TABLE-CREATE");
+
         jbAdd.addActionListener(c);
     }
 

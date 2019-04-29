@@ -2,11 +2,17 @@ package com.dpo.centralized_restaurant.View;
 
 
 import com.dpo.centralized_restaurant.Controller.Controller;
-import com.dpo.centralized_restaurant.Model.Table;
+import com.dpo.centralized_restaurant.Model.Preservice.Table;
+import com.dpo.centralized_restaurant.Model.Service.Comanda;
+import com.dpo.centralized_restaurant.Model.Service.ServiceDish;
 import com.dpo.centralized_restaurant.View.DishPanels.DishPanel;
+import com.dpo.centralized_restaurant.View.Preservice.GeneralMenu;
+import com.dpo.centralized_restaurant.View.Service.DishService;
+import com.dpo.centralized_restaurant.View.Service.OrdersService;
+import com.dpo.centralized_restaurant.View.Service.ServeiPanel;
 import com.dpo.centralized_restaurant.View.TablePanels.TablePanel;
-import com.dpo.centralized_restaurant.View.TableService.TableOrderList;
-import com.dpo.centralized_restaurant.Model.Dish;
+import com.dpo.centralized_restaurant.View.Service.RequestsService;
+import com.dpo.centralized_restaurant.Model.Preservice.Dish;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -25,8 +31,10 @@ public class MainView extends JFrame {
     private DishPanel jpDish;
     private TablePanel jpTables;
     private ServeiPanel jpStart;
+    private RequestsService jpReq;
     private LogInPanel jpLogIn;
-    private TableOrderList jpServiceTables;
+    private OrdersService jpOrders;
+    private DishService jpSDish;
 
     private JPanel jpHeader;
     private JPanel jpContent;
@@ -45,9 +53,11 @@ public class MainView extends JFrame {
         jpMainMenu = new GeneralMenu();
         jpTables = new TablePanel();
         jpDish = new DishPanel(new ArrayList<Dish>());
-        jpStart = new ServeiPanel(new ArrayList<Table>());
+        jpStart = new ServeiPanel();
         jpLogIn = new LogInPanel();
-        jpServiceTables = new TableOrderList(new ArrayList<Table>());
+        jpReq = new RequestsService(new ArrayList<Table>());
+        jpOrders = new OrdersService(new ArrayList<Comanda>());
+        jpSDish = new DishService(new ArrayList<ServiceDish>());
 
         jpHeader = new JPanel();
         jpHeader.setSize(700,100);
@@ -90,6 +100,7 @@ public class MainView extends JFrame {
         jpHeader.add(jpAuxH3);
         jpHeader.setAlignmentY(JPanel.CENTER_ALIGNMENT);
 
+
         jpContent = new JPanel(new BorderLayout());
         jpContent.setSize(700,300);
         jpContent.setBackground(new Color(0x12123B));
@@ -100,7 +111,9 @@ public class MainView extends JFrame {
         jpContent.add("DISHES", jpDish);
         jpContent.add("START", jpStart);
         jpContent.add("FORMS", jpLogIn);
-//        jpContent.add("TABLE-ORDERS", jpServiceTables);
+        jpContent.add("REQUESTS", jpReq);
+        jpContent.add("ORDERS", jpOrders);
+        jpContent.add("SERVICE-DISHES", jpSDish);
         /* ------------------------------ VIEW PARAMETERS ------------------------------ */
         getContentPane().add(jpHeader, BorderLayout.PAGE_START);
         getContentPane().add(jpContent);
@@ -118,6 +131,9 @@ public class MainView extends JFrame {
         jpDish.registerController(c);
         jpLogIn.registerController(c);
         jpStart.registerController(c);
+        jpReq.registerControllers(c);
+        jpOrders.registerControllers(c);
+        jpSDish.registerControllers(c);
 
         jbLogOut.setActionCommand("FORMS");
         jbLogOut.addActionListener(c);
@@ -148,23 +164,15 @@ public class MainView extends JFrame {
         jpTables.changePanel(which);
     }
 
-    public TablePanel getTablePanel() {return jpTables;}
-
     public DishPanel getJpDish() {
         return jpDish;
     }
 
-    public void setJpDish(DishPanel jpDish) {
-        this.jpDish = jpDish;
-    }
 
     public TablePanel getJpTables() {
         return jpTables;
     }
 
-    public void setJpTables(TablePanel jpTables) {
-        this.jpTables = jpTables;
-    }
 
     public ServeiPanel getJpStart() {
         return jpStart;
@@ -180,5 +188,13 @@ public class MainView extends JFrame {
 
     public void setJpLogIn(LogInPanel jpLogIn) {
         this.jpLogIn = jpLogIn;
+    }
+
+    public RequestsService getJpReq() {
+        return jpReq;
+    }
+
+    public void setJpReq(RequestsService jpReq) {
+        this.jpReq = jpReq;
     }
 }

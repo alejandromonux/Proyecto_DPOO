@@ -1,6 +1,6 @@
 package Initialization;
 
-import com.dpo.centralized_restaurant.Model.configJson;
+import com.dpo.centralized_restaurant.Model.Configuration.configJson;
 
 import java.io.File;
 import java.io.FileWriter;
