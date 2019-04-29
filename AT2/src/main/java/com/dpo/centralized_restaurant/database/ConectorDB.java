@@ -7,7 +7,7 @@ public class ConectorDB {
     static String password;
     static String db;
     static int port;
-    static String url = "jdbc:mysql://localhost";
+    static String url = "jdbc:mysql://localhost";   //canviar esta hardcored a localhost i pot tenir una ip
     static Connection conn = null;
     static Statement s;
 
