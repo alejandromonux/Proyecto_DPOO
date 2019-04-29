@@ -83,14 +83,32 @@ public class MainView extends JFrame {
         createClock();
         jpAuxH2.add(digitalClock, BorderLayout.CENTER);
 
+
+        /*
+
+
         JPanel jpAuxH3 = new JPanel();
         jbLogOut = new JButton("LOG OUT");
         jbLogOut.setFont(new Font("Chaparral Pro Light", Font.PLAIN, 20));
         jbLogOut.setFocusable(false);
         jbLogOut.setBorder(new EmptyBorder(10, 20, 10, 20));
         //jbLogOut.setActionCommand("LogIn");
-        jbLogOut.setVisible(false);
+        jpAuxH3.add(jbLogOut);*/
+
+        JPanel jpAuxH3 = new JPanel();
+        jlWelcomeUser = new JLabel("Welcome, User");
+        jlWelcomeUser.setFont(new Font("Chaparral Pro Light", Font.PLAIN, 15));
+        jlWelcomeUser.setForeground(Color.white);
+        jlWelcomeUser.setBorder(new EmptyBorder(0, 20, 0, 20));
+
+        jbLogOut = new JButton("LOG OUT");
+        jbLogOut.setFont(new Font("Chaparral Pro Light", Font.PLAIN, 15));
+        jbLogOut.setFocusable(false);
+        jbLogOut.setBorder(new EmptyBorder(2, 20, 2, 20));
+        jpAuxH3.add(jlWelcomeUser);
         jpAuxH3.add(jbLogOut);
+        jbLogOut.setVisible(false);
+        jlWelcomeUser.setVisible(false);
 
         //jbLogOut.setSize(50,10);
         jpAuxH1.setBackground(null);
@@ -160,14 +178,6 @@ public class MainView extends JFrame {
     public void changePanel (String which) {
 
         jclContent.show(jpContent,which);
-
-        if (which.equals("MAIN")){
-            jbLogOut.setVisible(true);
-        }
-        if (which.equals("FORMS")){
-            jbLogOut.setVisible(false);
-        }
-
     }
 
     public void changeTablePanel (String which) {

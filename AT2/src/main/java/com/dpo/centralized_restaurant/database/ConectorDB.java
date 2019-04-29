@@ -27,6 +27,7 @@ import java.util.ArrayList;
             com.dpo.centralized_restaurant.database.ConectorDB.url += "?verifyServerCertificate=false&useSSL=true";
         }
 
+<<<<<<< HEAD
         public void connect() {
             try {
                 Class.forName("com.mysql.jdbc.Connection");
@@ -34,6 +35,33 @@ import java.util.ArrayList;
                 if (conn != null) {
                     System.out.println("Conexió a base de dades "+url+" ... Ok");
                 }
+=======
+public class ConectorDB {
+    static String userName;
+    static String password;
+    static String db;
+    static int port;
+    static String url = "jdbc:mysql://localhost";   //canviar esta hardcored a localhost i pot tenir una ip
+    static Connection conn = null;
+    static Statement s;
+
+    public ConectorDB(String usr, String pass, String db, int port) {
+        ConectorDB.userName = usr;
+        ConectorDB.password = pass;
+        ConectorDB.db = db;
+        ConectorDB.port = port;
+        ConectorDB.url += ":"+port+"/";
+        ConectorDB.url += db;
+        ConectorDB.url += "?verifyServerCertificate=false&useSSL=true";
+    }
+
+    public void connect() {
+        try {
+            Class.forName("com.mysql.jdbc.Connection");
+            conn = (Connection) DriverManager.getConnection(url, userName, password);
+            if (conn != null) {
+                System.out.println("Conexió a base de dades "+url+" ... Ok");
+>>>>>>> 24c2f5220820fa2791c3e8b25c5c1248eff9e752
             }
             catch(SQLException ex) {
                 System.out.println("Problema al connecta-nos a la BBDD --> "+url);
