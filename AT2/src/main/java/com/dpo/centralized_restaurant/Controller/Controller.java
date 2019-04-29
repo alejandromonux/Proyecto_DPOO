@@ -15,8 +15,6 @@ import java.awt.event.ActionListener;
 public class Controller implements ActionListener {
     private MainView vista;
     private Model model;
-    private TablePanel tableView;
-    private GeneralMenu preMenu;
 
     public Controller(MainView vista) {
         this.vista = vista;
@@ -35,7 +33,8 @@ public class Controller implements ActionListener {
 
         String aux2 = aux.getActionCommand();
         switch (aux.getActionCommand()) {
-
+            // Pre-servicio:
+            //---------------------------------------------
             case "MAIN":
                 vista.changePanel(aux.getActionCommand());
                 break;
@@ -92,9 +91,22 @@ public class Controller implements ActionListener {
                 //Update a la vista
                 vista.getJpDish().setJpList(new DishListPanel(model.getDishes()));
                 break;
+            case "CREATING USER":
+                vista.changePanel("MAIN");
+                vista.changeHeader(true);
+                if (vista.getJpLogIn().getJtfRegisterName().getText().isEmpty()){
+                    JDialog error = new JDialog(vista, "tu mudare en vinager");
+                }
+                System.out.println("GOOD");
+                JDialog error = new JDialog(vista, "perf");
+                //dfVerifier.verify(vista.getJpLogIn().getJtfRegisterName().getText());
+                break;
             case "BACK-TO-MAIN":
                 vista.changePanel("MAIN");
                 break;
+
+                // Servicio:
+                //---------------------------------------------
             case "SERVICE-DISHES":
                 vista.changePanel("SERVICE-DISHES");
                 break;

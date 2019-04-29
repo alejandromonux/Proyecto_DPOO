@@ -40,7 +40,20 @@ public class DedicatedServerEntrada extends Thread{
             while (true) {
                 init = dis.readUTF();
                 switch (init) {
+                    case "NEW-REQUST":
+                        String nameNew = dis.readUTF();
+                        int cantidadPersonas = dis.readInt();
+                        break;
 
+                    case "SHOW-ORDERS":
+
+                        dos.writeUTF("UPDATE-ORDERS");
+
+                        break;
+
+                    case "CANCEL-ORDER":
+                        String nameToCancel = dis.readUTF();
+                        break;
 
                 }
 

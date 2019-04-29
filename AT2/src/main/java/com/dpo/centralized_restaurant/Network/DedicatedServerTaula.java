@@ -57,6 +57,7 @@ public class DedicatedServerTaula extends Thread{
 
                         break;
                     case "SEE-MENU":
+
                         dos.writeUTF("UPDATE-MENU");
 
                         break;
