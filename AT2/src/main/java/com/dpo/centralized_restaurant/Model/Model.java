@@ -57,4 +57,14 @@ public class Model {
     public void setComandas(ArrayList<Comanda> comandas) {
         this.comandas = comandas;
     }
+
+    public void removeDish(String name) {
+        boolean found = false;
+        for (int i = 0; (!found) && (i < dishes.size());i++){
+            if(dishes.get(i).getName().equals(name)){
+                found = true;
+                dishes.remove(i);
+            }
+        }
+    }
 }
