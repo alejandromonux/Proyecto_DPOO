@@ -26,7 +26,7 @@ public class Model {
 
 
     public void addTable(String id, String chairs) {
-        mesas.add(new Mesa(Long.parseLong(id),
+        mesas.add(new Mesa(id,
                              Integer.parseInt(chairs)));
     }
 

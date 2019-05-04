@@ -26,10 +26,10 @@ public class TablePanel extends JPanel{
 
     public TablePanel() {
 
-        Mesa t1 = new Mesa(1,4);
-        Mesa t2 = new Mesa(2,8);
-        Mesa t3 = new Mesa(3,12);
-        Mesa t4 = new Mesa(4,5);
+        Mesa t1 = new Mesa("1",4);
+        Mesa t2 = new Mesa("2",8);
+        Mesa t3 = new Mesa("3",12);
+        Mesa t4 = new Mesa("4",5);
         mesas.add(t1);
         mesas.add(t2);
         mesas.add(t3);
