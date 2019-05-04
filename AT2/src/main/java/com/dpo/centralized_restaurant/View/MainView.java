@@ -6,6 +6,7 @@ import com.dpo.centralized_restaurant.Model.Preservice.Mesa;
 import com.dpo.centralized_restaurant.Model.Service.Comanda;
 import com.dpo.centralized_restaurant.Model.Service.ServiceDish;
 import com.dpo.centralized_restaurant.View.DishPanels.DishPanel;
+import com.dpo.centralized_restaurant.View.PostService.PostService;
 import com.dpo.centralized_restaurant.View.Preservice.GeneralMenu;
 import com.dpo.centralized_restaurant.View.Service.DishService;
 import com.dpo.centralized_restaurant.View.Service.OrdersService;
@@ -35,6 +36,7 @@ public class MainView extends JFrame {
     private LogInPanel jpLogIn;
     private OrdersService jpOrders;
     private DishService jpSDish;
+    private PostService jpPost;
 
     private JPanel jpHeader;
     private JPanel jpContent;
@@ -59,6 +61,7 @@ public class MainView extends JFrame {
         jpReq = new RequestsService(new ArrayList<Mesa>());
         jpOrders = new OrdersService(new ArrayList<Comanda>());
         jpSDish = new DishService(new ArrayList<ServiceDish>());
+        jpPost = new PostService();
 
         jpHeader = new JPanel();
         jpHeader.setSize(700,100);
@@ -126,14 +129,15 @@ public class MainView extends JFrame {
         jpContent.setBackground(new Color(0x12123B));
         jclContent = new CardLayout();
         jpContent.setLayout(jclContent);
-        jpContent.add("FORMS", jpLogIn);
         jpContent.add("MAIN", jpMainMenu);
+        jpContent.add("FORMS", jpLogIn);
         jpContent.add("TABLES", jpTables);
         jpContent.add("DISHES", jpDish);
         jpContent.add("START", jpStart);
         jpContent.add("REQUESTS", jpReq);
         jpContent.add("ORDERS", jpOrders);
         jpContent.add("SERVICE-DISHES", jpSDish);
+        jpContent.add("POSTSERVICE", jpPost);
         /* ------------------------------ VIEW PARAMETERS ------------------------------ */
         getContentPane().add(jpHeader, BorderLayout.PAGE_START);
         getContentPane().add(jpContent);
@@ -154,6 +158,7 @@ public class MainView extends JFrame {
         jpReq.registerControllers(c);
         jpOrders.registerControllers(c);
         jpSDish.registerControllers(c);
+        jpPost.registerControllers(c);
 
         jbLogOut.setActionCommand("FORMS");
         jbLogOut.addActionListener(c);

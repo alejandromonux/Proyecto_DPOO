@@ -115,6 +115,10 @@ public class Controller implements ActionListener {
             break;
             case "BACKSERVICE" :
                 vista.changePanel("START");
+            break;
+            case "POSTSERVICE" :
+                vista.changePanel("POSTSERVICE");
+            break;
         }
 
     }

@@ -14,7 +14,6 @@ public class ServeiPanel extends JPanel {
     private JButton jbDishes;
     private JButton jbStop;
 
-    private JButton jbEndService;
 
     public ServeiPanel() {
 
@@ -104,11 +103,12 @@ public class ServeiPanel extends JPanel {
         jbOrders.setActionCommand("TABLE-ORDERS");
         jbRequests.setActionCommand("REQUESTS");
         jbDishes.setActionCommand("SERVICE-DISHES");
+        jbStop.setActionCommand("POSTSERVICE");
 
         jbOrders.addActionListener(c);
         jbRequests.addActionListener(c);
         jbDishes.addActionListener(c);
-
+        jbStop.addActionListener(c);
     }
 
 }
