@@ -73,10 +73,10 @@ public class DedicatedServerEntrada extends Thread{
             try {
                 dis.close();
             } catch (IOException e) {}
-            try {
-                socket.close();
+            //try {
                 dedicatedServers.remove(this);
-            } catch (IOException e) {}
+                //socket.close();  --Marc: No se si esto deberia estar ya que se cierra a el mismo
+            //} catch (IOException e) {}
         }
     }
 }

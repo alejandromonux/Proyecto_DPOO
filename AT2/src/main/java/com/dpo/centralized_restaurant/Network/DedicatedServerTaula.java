@@ -61,6 +61,9 @@ public class DedicatedServerTaula extends Thread{
                         dos.writeUTF("UPDATE-MENU");
 
                         break;
+                    default:
+
+                        break;
                 }
 
                 init = "";
@@ -81,10 +84,10 @@ public class DedicatedServerTaula extends Thread{
             try {
                 dis.close();
             } catch (IOException e) {}
-            try {
-                socket.close();
+            //try {
                 dedicatedServers.remove(this);
-            } catch (IOException e) {}
+                //socket.close(); --Marc: Dani esto no se si se deberia hacer.
+            //} catch (IOException e) {}
         }
     }
 }
