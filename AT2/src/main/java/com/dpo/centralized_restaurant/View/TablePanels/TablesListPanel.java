@@ -87,4 +87,9 @@ public class TablesListPanel extends JPanel{
     public void getColumNames(){
         columnNames = new String[]{"Identifier", "Chairs", ""};
     }
+
+    public String getTableName() {
+        System.out.println(jtable.getSelectedRow());
+        return jtable.getValueAt(jtable.getSelectedRow(), 0).toString();
+    }
 }

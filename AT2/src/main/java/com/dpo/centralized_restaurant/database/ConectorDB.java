@@ -204,7 +204,7 @@ import java.util.ArrayList;
         }
 
         public synchronized ArrayList<Mesa> findActiveTables() {
-            String query = "SELECT * FROM Mesa AS t WHERE t.active = true;";
+            String query = "SELECT * FROM mesa AS t WHERE t.active = true;";
             ResultSet rs = null;
             ArrayList<Mesa> aux = new ArrayList<>();
             try {
@@ -221,6 +221,44 @@ import java.util.ArrayList;
             return aux;
         }
 
+        public boolean deleteTable(String name){
+            try {
+                PreparedStatement ps = conn.prepareStatement("UPDATE mesa SET active = false " +
+                    "WHERE name = '" + name + "';");
+                ps.executeUpdate();
+                return true;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+        public boolean createTable(String name, int chairs){
+            try {
+                String query = "SELECT * FROM mesa AS t WHERE t.name = '" + name + "'";
+                ResultSet rs = null;
+                s =(Statement) conn.createStatement();
+                rs = s.executeQuery(query);
+
+                if(!rs.next()){
+                    PreparedStatement ps = conn.prepareStatement("INSERT INTO mesa(name, chairs, in_use, active) VALUES('" + name + "', '"
+                            + chairs + "', false, true);");
+                    ps.executeUpdate();
+                }
+                else {
+                    PreparedStatement ps = conn.prepareStatement("UPDATE mesa SET chairs = " + chairs + ", in_use = false, active = true " +
+                            "WHERE name = '" + name + "';");
+                    ps.executeUpdate();
+                }
+
+                return true;
+
+            } catch (SQLException ex) {
+                System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+                return false;
+            }
+
+        }
+
         /* ***********************************************************************************
          ***********************************************************************************
          *
@@ -228,7 +266,7 @@ import java.util.ArrayList;
          *
          * ***********************************************************************************
          *********************************************************************************** */
-        public synchronized boolean createWorker(Worker worker){
+        public boolean createWorker(Worker worker){
             //ResultSet rs = null;
             //Worker aux = null;
             try {
@@ -246,7 +284,7 @@ import java.util.ArrayList;
 
         }
 
-        public synchronized Worker findWorkerByName(String name) {
+        public Worker findWorkerByName(String name) {
             String query = "SELECT * FROM worker AS w WHERE w.username = '" + name + "';";
             ResultSet rs = null;
             Worker aux = null;
@@ -263,7 +301,7 @@ import java.util.ArrayList;
             return aux;
         }
 
-        public synchronized Worker findWorkerByEmail(String email) {
+        public Worker findWorkerByEmail(String email) {
             String query = "SELECT * FROM worker AS w WHERE w.email = '" + email + "';";
             ResultSet rs = null;
             Worker aux = null;
@@ -282,7 +320,7 @@ import java.util.ArrayList;
             return aux;
         }
 
-        public synchronized Worker findWorkerByNameAndPassword(String name, String password) {
+        public Worker findWorkerByNameAndPassword(String name, String password) {
             String query = "SELECT * FROM worker AS w WHERE w.username = '" + name + "' AND w.password = '" + password + "';";
             ResultSet rs = null;
             Worker aux = null;
@@ -300,7 +338,7 @@ import java.util.ArrayList;
             return aux;
         }
 
-        public synchronized Worker findWorkerByEmailAndPassword(String email, String password) {
+        public Worker findWorkerByEmailAndPassword(String email, String password) {
             String query = "SELECT * FROM worker AS w WHERE w.email = '" + email + "' AND w.password = '" + password + "';";
             ResultSet rs = null;
             Worker aux = null;
