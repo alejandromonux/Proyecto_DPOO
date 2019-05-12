@@ -64,6 +64,8 @@ public class Controller implements ActionListener {
                 break;
             case "DISHES":
                 vista.changePanel(aux.getActionCommand());
+                model.setDishes(conectorDB.findActiveDishes());
+                vista.getJpDish().setJpList(new DishListPanel(model.getDishes(), this));
                 break;
 
             // Starts service
@@ -142,14 +144,45 @@ public class Controller implements ActionListener {
                 }
 
                 break;
+
             case "DISH-CREATE-ACTION":
-                model.addDish(
-                        vista.getJpDish().getJpCreator().getJtfName().getText(),
-                        vista.getJpDish().getJpCreator().getJtCost().getText(),
-                        vista.getJpDish().getJpCreator().getJcbQuantity().getSelectedItem().toString(),
-                        vista.getJpDish().getJpCreator().getJtTime().getText());
-                //Update a la vista
-                vista.getJpDish().setJpList(new DishListPanel(model.getDishes(), this));
+                boolean done4 = conectorDB.createDish(vista.getJpDish().getJpCreator().getJtfName().getText(),
+                        (int) vista.getJpDish().getJpCreator().getJcbQuantity().getSelectedItem(),
+                        Double.parseDouble(vista.getJpDish().getJpCreator().getJtCost().getText()),
+                        Double.parseDouble(vista.getJpDish().getJpCreator().getJtTime().getText()));
+
+                if(!done4){
+                    JOptionPane.showMessageDialog(vista,
+                            "Insert dish not successfull!",
+                            "Error!",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+                else {
+                    model.addDish(
+                            vista.getJpDish().getJpCreator().getJtfName().getText(),
+                            vista.getJpDish().getJpCreator().getJtCost().getText(),
+                            vista.getJpDish().getJpCreator().getJcbQuantity().getSelectedItem().toString(),
+                            vista.getJpDish().getJpCreator().getJtTime().getText());
+                    //Update a la vista
+                    vista.getJpDish().setJpList(new DishListPanel(model.getDishes(), this));
+                }
+                break;
+
+            case "REMOVE-DISH":
+                String dishName = vista.getJpDish().getJpList().getDishName();
+                boolean done5 = conectorDB.deleteTable(dishName);
+
+                if(done5){
+                    model.setDishes(conectorDB.findActiveDishes());
+                    vista.getJpDish().setJpList(new DishListPanel(model.getDishes(), this));
+                }
+                else {
+                    JOptionPane.showMessageDialog(vista,
+                            "Delete dish not successfull!",
+                            "Error!",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+
                 break;
 
             case "BACK-TO-MAIN":
