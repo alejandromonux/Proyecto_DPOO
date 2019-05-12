@@ -87,6 +87,18 @@ public class Controller implements ActionListener {
             case "DISH-CREATE":
                 vista.getJpDish().changePanel("DISH-CREATE");
                 break;
+            case "CONFIGURATIONS":
+                vista.changePanel("CONFIGURATIONS");
+                break;
+            case "CONFIGURATION-CREATE":
+                vista.changeConfigurationPanel("CONFIGURATION-CREATE");
+                break;
+            case "CONFIGURATION-LIST":
+                vista.changeConfigurationPanel("CONFIGURATION-LIST");
+                break;
+            case "CONFIGURATION-BACK":
+                vista.changePanel("MAIN");
+                break;
             case "DISH-LIST":
                 vista.getJpDish().changePanel("DISH-LIST");
                 break;
@@ -114,11 +126,7 @@ public class Controller implements ActionListener {
                             JOptionPane.ERROR_MESSAGE);
                 }
                 else {
-                    model.addTable(
-                            vista.getJpTables().getJpCreator().getJtfId().getText(),
-                            vista.getJpTables().getJpCreator().getJcbQuantity().getSelectedItem().toString()
-                    );
-                    //Update a la vista
+                    model.setMesas(conectorDB.findActiveTables());
                     vista.getJpTables().setTableList(new TablesListPanel(model.getMesas(), this));
                     //Vista del servei
                     vista.setJpReq(new RequestsService(model.getMesas(), this));
@@ -133,6 +141,8 @@ public class Controller implements ActionListener {
                 if(done3){
                     model.setMesas(conectorDB.findActiveTables());
                     vista.getJpTables().setTableList(new TablesListPanel(model.getMesas(), this));
+                    vista.setJpReq(new RequestsService(model.getMesas(), this));
+                    vista.getJpReq().registerControllers(this);
                 }
                 else {
                     JOptionPane.showMessageDialog(vista,
