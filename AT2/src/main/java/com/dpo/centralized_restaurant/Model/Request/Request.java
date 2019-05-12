@@ -14,6 +14,7 @@ public class Request {
     @Column(nullable = false)
     private String name;
 
+    // Para saber cuantas personas hay reservadas, y asi pder adjuntarle una mesa a la reserva
     @Column(nullable = false)
     private int quantity;
 

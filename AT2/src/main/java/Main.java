@@ -5,6 +5,7 @@ import com.dpo.centralized_restaurant.Network.ServerTaula;
 import com.dpo.centralized_restaurant.View.MainView;
 import Initialization.modifyProperties;
 import com.dpo.centralized_restaurant.Model.Model;
+import com.dpo.centralized_restaurant.database.ConectorDB;
 import com.google.gson.Gson;
 
 import javax.swing.*;
@@ -24,7 +25,9 @@ public static  Model model = new Model();
             SwingUtilities.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    Controller controlador = new Controller(model, configInicial);
+                    ConectorDB conectorDB =  new ConectorDB("root", "dan13579", "centralized_restaurant", 3306);
+                    conectorDB.connect();
+                    Controller controlador = new Controller(model, configInicial, conectorDB);
                     MainView vista = new MainView(controlador);
                     controlador.setVista(vista);
                     vista.registerController(controlador);

@@ -96,6 +96,7 @@ public class MainView extends JFrame {
         //jbLogOut.setActionCommand("LogIn");
         jpAuxH3.add(jbLogOut);*/
 
+        // Al registrase o loguearse, aquí se verá el nombre del usuario
         JPanel jpAuxH3 = new JPanel();
         jlWelcomeUser = new JLabel("Welcome, User");
         jlWelcomeUser.setFont(new Font("Chaparral Pro Light", Font.PLAIN, 15));
@@ -127,8 +128,8 @@ public class MainView extends JFrame {
         jpContent.setBackground(new Color(0x12123B));
         jclContent = new CardLayout();
         jpContent.setLayout(jclContent);
-        jpContent.add("MAIN", jpMainMenu);
         jpContent.add("FORMS", jpLogIn);
+        jpContent.add("MAIN", jpMainMenu);
         jpContent.add("TABLES", jpTables);
         jpContent.add("DISHES", jpDish);
         jpContent.add("START", jpStart);
@@ -230,5 +231,8 @@ public class MainView extends JFrame {
             jlWelcomeUser.setVisible(false);
         }
 
+    }
+    public void changeUserView(String username){
+        jlWelcomeUser.setText("Welcome " + username + "! ");
     }
 }

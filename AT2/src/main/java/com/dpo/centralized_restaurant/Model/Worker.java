@@ -34,6 +34,7 @@ public class Worker {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.connected = true;
     }
 
     public long getId() {
@@ -74,6 +75,10 @@ public class Worker {
 
     public void setConfiguration(Set<Configuration> configuration) {
         this.configuration = configuration;
+    }
+
+    public boolean isConnected() {
+        return connected;
     }
 
     public boolean equals(Object obj) {

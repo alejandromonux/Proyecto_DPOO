@@ -1,7 +1,9 @@
 package com.dpo.centralized_restaurant.Network;
 
+import com.dpo.centralized_restaurant.Controller.Controller;
 import com.dpo.centralized_restaurant.Model.ModelDTO.ClientDTO;
 import com.dpo.centralized_restaurant.Model.Request.RequestManager;
+import com.dpo.centralized_restaurant.database.ConectorDB;
 
 import java.io.*;
 import java.net.Socket;
@@ -10,8 +12,9 @@ import java.util.ArrayList;
 public class DedicatedServerTaula extends Thread{
 
     private RequestManager requestManager;
-
     private ArrayList<DedicatedServerTaula> dedicatedServers;
+    private ConectorDB conectorDB;
+    private Controller controller;
 
     private final Socket socket;
     private ObjectInputStream ois;
@@ -19,12 +22,14 @@ public class DedicatedServerTaula extends Thread{
     private ObjectOutputStream oos;
     private DataOutputStream dos;
 
-    public DedicatedServerTaula(Socket socket, RequestManager requestsManager, ArrayList<DedicatedServerTaula> dedicatedServers) {
+    public DedicatedServerTaula(Socket socket, RequestManager requestsManager, ArrayList<DedicatedServerTaula> dedicatedServers, ConectorDB conectorDB, Controller controller) {
         this.socket = socket;
         this.requestManager = requestsManager;
 
         //Add by: Marc --> arraylist of dedicatedServers to delete himself when connection close
         this.dedicatedServers = dedicatedServers;
+        this.conectorDB = conectorDB;
+        this.controller = controller;
     }
 
     @Override

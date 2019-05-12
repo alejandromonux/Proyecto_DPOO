@@ -1,7 +1,9 @@
 package com.dpo.centralized_restaurant.Network;
 
+import com.dpo.centralized_restaurant.Controller.Controller;
 import com.dpo.centralized_restaurant.Model.Configuration.configJson;
 import com.dpo.centralized_restaurant.Model.Request.RequestManager;
+import com.dpo.centralized_restaurant.database.ConectorDB;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -14,12 +16,16 @@ public class ServerTaula extends Thread {
     private ServerSocket serverSocket;
     private final ArrayList<DedicatedServerTaula> dedicatedServers;
     private RequestManager requestsManager;
+    private ConectorDB conectorDB;
+    private Controller controller;
 
-    public ServerTaula(configJson config) {
+    public ServerTaula(configJson config, ConectorDB conectorDB, Controller controller) {
         dedicatedServers = new ArrayList<>();
         serverSocket = null;
         requestsManager = new RequestManager();
         PORT = config.getPort_Taula();
+        this.conectorDB = conectorDB;
+        this.controller = controller;
     }
 
     @Override
@@ -32,7 +38,7 @@ public class ServerTaula extends Thread {
                 Socket socket = serverSocket.accept();  // Esperem a que algun usuari es connecti
                 System.out.println("Connected");
                 //Modifyed by: Marc --> Added dedicatedServers in constructor
-                DedicatedServerTaula dServer = new DedicatedServerTaula(socket, requestsManager, dedicatedServers);   // Creem un cami dedicat a la connexio amb aquest usuari
+                DedicatedServerTaula dServer = new DedicatedServerTaula(socket, requestsManager, dedicatedServers, conectorDB, controller);   // Creem un cami dedicat a la connexio amb aquest usuari
                 dedicatedServers.add(dServer);
                 dServer.start();
             }

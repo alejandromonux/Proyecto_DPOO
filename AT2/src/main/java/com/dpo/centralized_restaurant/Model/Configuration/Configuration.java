@@ -22,6 +22,9 @@ public class Configuration {
     @OneToMany(mappedBy = "configuration")
     Set<ConfigurationTable> tablesIn;
 
+    @OneToMany(mappedBy = "configuration")
+    Set<ConfigurationDish> dishesIn;
+
 
     public Configuration(){}
 

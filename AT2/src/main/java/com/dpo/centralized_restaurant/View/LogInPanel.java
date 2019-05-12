@@ -33,9 +33,16 @@ public class LogInPanel extends JPanel {
     //--------MAIN-----------//
 
     private JButton jbSettings;
-    private JTextField jtfLoginUsername;
 
+    //-------REGISTER--------//
     private JTextField jtfRegisterName;
+    private JTextField jtfRegisterEmail;
+    private JPasswordField jpfRegisterPassword;
+    private JPasswordField jpfConfirmPassword;
+
+    //-------LOGIN-----------//
+    private JTextField jtfLoginUsername;
+    private JPasswordField jpfLoginPassword;
 
     public LogInPanel() {
 
@@ -68,10 +75,10 @@ public class LogInPanel extends JPanel {
 
 
         JLabel jlLoginUsername = new JLabel("Name/Email");
-        JTextField jtfLoginUsername = new JTextField();
+        jtfLoginUsername = new JTextField();
         //jtfLoginUsername.setBorder(new EmptyBorder(0,100,0,0));
         JLabel jlLoginPassword = new JLabel("Password");
-        JPasswordField jpfLoginPassword = new JPasswordField();
+        jpfLoginPassword = new JPasswordField();
 
         jbLogin = new JButton("Sign In");
         //jbLogin.setBorder(new EmptyBorder(0,100,30,100));
@@ -117,11 +124,11 @@ public class LogInPanel extends JPanel {
         JLabel jlRegisterName = new JLabel("Name");
         jtfRegisterName = new JTextField();
         JLabel jlRegisterEmail = new JLabel("Email");
-        JTextField jtfRegisterEmail = new JTextField();
+        jtfRegisterEmail = new JTextField();
         JLabel jlRegisterPassword = new JLabel("Password");
-        JPasswordField jpfRegisterPassword = new JPasswordField();
+        jpfRegisterPassword = new JPasswordField();
         JLabel jlRegisterConfirmPassword = new JLabel("Confirm Password");
-        JPasswordField jpfConfirmPassword = new JPasswordField();
+        jpfConfirmPassword = new JPasswordField();
 
         jbRegister = new JButton();
         jbRegister.setBorder(new EmptyBorder(30,100,30,100));
@@ -173,5 +180,25 @@ public class LogInPanel extends JPanel {
 
     public JTextField getJtfRegisterName() {
         return (JTextField) jtfRegisterName;
+    }
+
+    public JTextField getJtfRegisterEmail() {
+        return jtfRegisterEmail;
+    }
+
+    public JPasswordField getJpfRegisterPassword() {
+        return jpfRegisterPassword;
+    }
+
+    public JPasswordField getJpfConfirmPassword() {
+        return jpfConfirmPassword;
+    }
+
+    public JTextField getJtfLoginUsername() {
+        return jtfLoginUsername;
+    }
+
+    public JPasswordField getJpfLoginPassword() {
+        return jpfLoginPassword;
     }
 }
