@@ -54,7 +54,6 @@ public class TableCreatorPanel extends JPanel{
     }
 
     public void registerController(Controller c) {
-
         jbAdd.addActionListener(c);
     }
 

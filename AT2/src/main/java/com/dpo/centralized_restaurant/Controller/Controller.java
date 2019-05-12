@@ -217,6 +217,7 @@ public class Controller implements ActionListener {
                         boolean done = conectorDB.createWorker(workerActual);
 
                         if(done){
+                            vista.changeUserView(workerActual.getUsername());
                             vista.changePanel("MAIN");
                             vista.changeHeader(true);
                         }
@@ -231,7 +232,7 @@ public class Controller implements ActionListener {
 
                 break;
 
-            case "LOGGING-USER":
+            case "LOGGING USER":
                 String loginUsername = vista.getJpLogIn().getJtfLoginUsername().getText();
                 String loginPassword = new String(vista.getJpLogIn().getJpfLoginPassword().getPassword());
 

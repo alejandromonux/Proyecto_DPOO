@@ -10,22 +10,22 @@ import java.util.ArrayList;
 
 
     public class ConectorDB {
-        static String userName;
-        static String password;
-        static String db;
-        static int port;
-        static String url = "jdbc:mysql://localhost";
-        static Connection conn = null;
-        static Statement s;
+        private String userName;
+        private String password;
+        private String db;
+        private int port;
+        private String url = "jdbc:mysql://localhost";
+        private Connection conn = null;
+        private Statement s;
 
         public ConectorDB(String usr, String pass, String db, int port) {
-            com.dpo.centralized_restaurant.database.ConectorDB.userName = usr;
-            com.dpo.centralized_restaurant.database.ConectorDB.password = pass;
-            com.dpo.centralized_restaurant.database.ConectorDB.db = db;
-            com.dpo.centralized_restaurant.database.ConectorDB.port = port;
-            com.dpo.centralized_restaurant.database.ConectorDB.url += ":"+port+"/";
-            com.dpo.centralized_restaurant.database.ConectorDB.url += db;
-            com.dpo.centralized_restaurant.database.ConectorDB.url += "?verifyServerCertificate=false&useSSL=true";
+            userName = usr;
+            password = pass;
+            this.db = db;
+            this.port = port;
+            url += ":"+port+"/";
+            url += db;
+            url += "?verifyServerCertificate=false&useSSL=true";
         }
 
         public void connect() {
@@ -55,7 +55,7 @@ import java.util.ArrayList;
          *********************************************************************************** */
 
         public synchronized ResultSet findConfigurationByWorker(String name) {
-            String query = "SELECT * FROM Configuration AS c WHERE c.worker = " + name + ";";
+            String query = "SELECT * FROM Configuration AS c WHERE c.worker = '" + name + "';";
             ResultSet rs = null;
             Configuration configurationAux;
 
@@ -70,7 +70,7 @@ import java.util.ArrayList;
         }
 
         public synchronized ResultSet findConfigurationByNameAndWorker(String name, String worker) {
-            String query = "SELECT * FROM Configuration AS c WHERE c.worker = " + worker + " AND c.name = " + name + ";";
+            String query = "SELECT * FROM Configuration AS c WHERE c.worker = " + worker + " AND c.name = '" + name + "';";
             ResultSet rs = null;
             try {
                 s =(Statement) conn.createStatement();
@@ -92,7 +92,7 @@ import java.util.ArrayList;
          *********************************************************************************** */
 
         public synchronized ArrayList<Dish> findDishByName(String name) {
-            String query = "SELECT * FROM Dish AS d WHERE d.name = " + name + ";";
+            String query = "SELECT * FROM Dish AS d WHERE d.name = '" + name + "';";
             ResultSet rs = null;
             ArrayList<Dish> result = new ArrayList<>();
             try {
@@ -229,13 +229,14 @@ import java.util.ArrayList;
          * ***********************************************************************************
          *********************************************************************************** */
         public synchronized boolean createWorker(Worker worker){
-            String query = "INSERT INTO worker(username, email, password, connected) VALUES(" + worker.getUsername() + ", "
-                    + worker.getEmail() + ", " + worker.getPassword() + ", " + worker.isConnected();
-            ResultSet rs = null;
-            Worker aux = null;
+            //ResultSet rs = null;
+            //Worker aux = null;
             try {
-                s =(Statement) conn.createStatement();
-                rs = s.executeQuery(query);
+                PreparedStatement ps = conn.prepareStatement("INSERT INTO worker(username, email, password, connected) VALUES('" + worker.getUsername() + "', '"
+                        + worker.getEmail() + "', '" + worker.getPassword() + "', " + worker.isConnected() + ");");
+                ps.executeUpdate();
+                //s =(Statement) conn.createStatement();
+                //rs = s.executeQuery(query);
                 return true;
 
             } catch (SQLException ex) {
@@ -246,7 +247,7 @@ import java.util.ArrayList;
         }
 
         public synchronized Worker findWorkerByName(String name) {
-            String query = "SELECT * FROM Worker AS w WHERE w.username = " + name + ";";
+            String query = "SELECT * FROM worker AS w WHERE w.username = '" + name + "';";
             ResultSet rs = null;
             Worker aux = null;
             try {
@@ -263,7 +264,7 @@ import java.util.ArrayList;
         }
 
         public synchronized Worker findWorkerByEmail(String email) {
-            String query = "SELECT * FROM Worker AS w WHERE w.email = " + email + ";";
+            String query = "SELECT * FROM worker AS w WHERE w.email = '" + email + "';";
             ResultSet rs = null;
             Worker aux = null;
 
@@ -282,7 +283,7 @@ import java.util.ArrayList;
         }
 
         public synchronized Worker findWorkerByNameAndPassword(String name, String password) {
-            String query = "SELECT * FROM Worker AS w WHERE w.username = " + name + "AND w.password = " + password + ";";
+            String query = "SELECT * FROM worker AS w WHERE w.username = '" + name + "' AND w.password = '" + password + "';";
             ResultSet rs = null;
             Worker aux = null;
 
@@ -300,7 +301,7 @@ import java.util.ArrayList;
         }
 
         public synchronized Worker findWorkerByEmailAndPassword(String email, String password) {
-            String query = "SELECT * FROM Worker AS w WHERE w.email = " + email + "AND w.password = " + password + ";";
+            String query = "SELECT * FROM worker AS w WHERE w.email = '" + email + "' AND w.password = '" + password + "';";
             ResultSet rs = null;
             Worker aux = null;
             try {
