@@ -24,7 +24,7 @@ public class TablePanel extends JPanel{
     private TableCreatorPanel jpCreator;
     private TablesListPanel tableList;
 
-    public TablePanel() {
+    public TablePanel(Controller c) {
 
         Mesa t1 = new Mesa("1",4);
         Mesa t2 = new Mesa("2",8);
@@ -90,7 +90,7 @@ public class TablePanel extends JPanel{
         jpBigLeft.setBackground(new Color(0x232375));
         jpBigLeft.setBackground(new Color(0x03091C));
 
-        tableList = new TablesListPanel(new ArrayList<Mesa>());
+        tableList = new TablesListPanel(new ArrayList<Mesa>(), c);
         jpCreator = new TableCreatorPanel();
         jclContent = new CardLayout();
         jpContent.setLayout(jclContent);
@@ -112,6 +112,7 @@ public class TablePanel extends JPanel{
         jbList.addActionListener(c);
         jbBack.addActionListener(c);
         jpCreator.registerController(c);
+        tableList.registerController(c);
     }
 
     public TablePanel getPanel(TablePanel which) {return which;}

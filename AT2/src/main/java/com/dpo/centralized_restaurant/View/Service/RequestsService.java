@@ -30,7 +30,7 @@ public class RequestsService extends JPanel {
     Object[][] data ;
     String[] columnNames;
 
-    public RequestsService(ArrayList<Mesa> mesas) {
+    public RequestsService(ArrayList<Mesa> mesas, Controller c) {
 
         //renderButton = new JButton();
         editButton = new JButton();
@@ -57,12 +57,12 @@ public class RequestsService extends JPanel {
         for(int i= 0; i < jtable.getColumnCount();i++){
             jtable.getColumnModel().getColumn(i).setCellRenderer(df);
         }
-        jtable.getColumn("Assign").setCellRenderer(new ButtonRenderer());
-        jtable.getColumn("Assign").setCellEditor(new ButtonEditor(new JCheckBox()));
+        jtable.getColumn("Assign").setCellRenderer(new ButtonRenderer("Assign"));
+        jtable.getColumn("Assign").setCellEditor(new ButtonEditor(new JCheckBox(), c, "ASSIGN"));
 
 
-        jtable.getColumn("Delete").setCellRenderer(new ButtonRenderer());
-        jtable.getColumn("Delete").setCellEditor(new ButtonEditor(new JCheckBox()));
+        jtable.getColumn("Delete").setCellRenderer(new ButtonRenderer("Delete"));
+        jtable.getColumn("Delete").setCellEditor(new ButtonEditor(new JCheckBox(), c, "REMOVE-TABLE"));
 
 
         jbBack = new JButton("Back");

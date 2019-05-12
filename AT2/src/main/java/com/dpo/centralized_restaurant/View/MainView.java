@@ -47,20 +47,20 @@ public class MainView extends JFrame {
     private JLabel digitalClock;
     private JLabel jlWelcomeUser;
 
-    public MainView() {
+    public MainView(Controller controlador) {
 
         this.setLayout(new BorderLayout());
         setSize(800,450);
         this.setBackground(new Color(0x1A1A57));
 
         jpMainMenu = new GeneralMenu();
-        jpTables = new TablePanel();
-        jpDish = new DishPanel(new ArrayList<Dish>());
+        jpTables = new TablePanel(controlador);
+        jpDish = new DishPanel(new ArrayList<Dish>(), controlador);
         jpStart = new ServeiPanel();
         jpLogIn = new LogInPanel();
-        jpReq = new RequestsService(new ArrayList<Mesa>());
-        jpOrders = new OrdersService(new ArrayList<Comanda>());
-        jpSDish = new DishService(new ArrayList<ServiceDish>());
+        jpReq = new RequestsService(new ArrayList<Mesa>(), controlador);
+        jpOrders = new OrdersService(new ArrayList<Comanda>(), controlador);
+        jpSDish = new DishService(new ArrayList<ServiceDish>(), controlador);
         jpPost = new PostService();
 
         jpHeader = new JPanel();
@@ -88,8 +88,6 @@ public class MainView extends JFrame {
 
 
         /*
-
-
         JPanel jpAuxH3 = new JPanel();
         jbLogOut = new JButton("LOG OUT");
         jbLogOut.setFont(new Font("Chaparral Pro Light", Font.PLAIN, 20));

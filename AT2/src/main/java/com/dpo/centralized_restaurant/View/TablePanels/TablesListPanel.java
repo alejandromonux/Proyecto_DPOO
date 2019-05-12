@@ -2,9 +2,10 @@ package com.dpo.centralized_restaurant.View.TablePanels;
 
 //import sun.tools.jps.Jps;
 
+import com.dpo.centralized_restaurant.Controller.Controller;
 import com.dpo.centralized_restaurant.Model.Preservice.Mesa;
-import com.dpo.centralized_restaurant.View.Utils.ButtonEditor;
 import com.dpo.centralized_restaurant.View.Utils.ButtonRenderer;
+import com.dpo.centralized_restaurant.View.Utils.ButtonEditor;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -27,9 +28,10 @@ public class TablesListPanel extends JPanel{
     private boolean isButtonColumnEditor;
     Object[][] data ;
     String[] columnNames;
+    private com.dpo.centralized_restaurant.View.ListButton.ButtonEditor buttonEditor;
 
-    public TablesListPanel(ArrayList<Mesa> mesas) {
-
+    public TablesListPanel(ArrayList<Mesa> mesas, Controller c) {
+        buttonEditor = new com.dpo.centralized_restaurant.View.ListButton.ButtonEditor(new JCheckBox());
         //renderButton = new JButton();
         editButton = new JButton();
         editButton.setFocusPainted(false);
@@ -55,11 +57,18 @@ public class TablesListPanel extends JPanel{
         for(int i= 0; i < jtable.getColumnCount();i++){
             jtable.getColumnModel().getColumn(i).setCellRenderer(df);
         }
-        jtable.getColumn("").setCellRenderer(new ButtonRenderer());
-        jtable.getColumn("").setCellEditor(new ButtonEditor(new JCheckBox()));
+        jtable.getColumn("").setCellRenderer(new ButtonRenderer("Remove"));
+        //jtable.getColumn("").setCellEditor(buttonEditor);
+        ButtonEditor nbe = new ButtonEditor(new JCheckBox(), c, "REMOVE-TABLE");
+        jtable.getColumn("").setCellEditor(nbe);
 
         this.add(jsPanel);
         this.setBorder(new EmptyBorder(0,0,0,0));
+    }
+
+    public void registerController(Controller c){
+
+//        buttonEditor.registerController(c, "REMOVE-TABLE");
     }
 
     public void setFocusBorder(Border focusBorder) {

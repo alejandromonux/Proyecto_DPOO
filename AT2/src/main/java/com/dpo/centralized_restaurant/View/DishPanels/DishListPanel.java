@@ -1,5 +1,6 @@
 package com.dpo.centralized_restaurant.View.DishPanels;
 
+import com.dpo.centralized_restaurant.Controller.Controller;
 import com.dpo.centralized_restaurant.View.Utils.ButtonEditor;
 import com.dpo.centralized_restaurant.View.Utils.ButtonRenderer;
 import com.dpo.centralized_restaurant.Model.Preservice.Dish;
@@ -13,8 +14,10 @@ public class DishListPanel extends JPanel {
     private JScrollPane panel;
     private JPanel dish;
     private JTable tabla;
+    private ButtonEditor buttonEditor;
 
-    public DishListPanel(ArrayList<Dish> dishes) {
+    public DishListPanel(ArrayList<Dish> dishes, Controller c) {
+        buttonEditor = new ButtonEditor(new JCheckBox(), c, "REMOVE-DISH");
         //this.setLayout(new BorderLayout());
         String[] columnNames = {"name", "units", "cost", "timecost", "historic Orders", "Delete"};
         Object[][] objects = new Object[dishes.size()][6];
@@ -36,18 +39,22 @@ public class DishListPanel extends JPanel {
             }
         };
 
-        JTable newTabla = new JTable(tm);
-
+        //JTable newTabla = new JTable(tm);
+        tabla = new JTable(tm);
         DefaultTableCellRenderer df = new DefaultTableCellRenderer();
         df.setHorizontalAlignment(JLabel.CENTER);
-        for(int i= 0; i < newTabla.getColumnCount();i++){
-            newTabla.getColumnModel().getColumn(i).setCellRenderer(df);
+        for(int i= 0; i < tabla.getColumnCount();i++){
+            tabla.getColumnModel().getColumn(i).setCellRenderer(df);
         }
-        newTabla.getColumn("Delete").setCellRenderer(new ButtonRenderer());
-        newTabla.getColumn("Delete").setCellEditor(new ButtonEditor(new JCheckBox()));
+        tabla.getColumn("Delete").setCellRenderer(new ButtonRenderer("Delete"));
+        tabla.getColumn("Delete").setCellEditor(buttonEditor);
 
-        panel = new JScrollPane(newTabla);
+        panel = new JScrollPane(tabla);
         this.add(panel);
     }
 
+    public String getDishName() {
+        System.out.println(tabla.getSelectedRow());
+        return tabla.getValueAt(tabla.getSelectedRow(), 1).toString();
+    }
 }

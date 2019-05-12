@@ -21,9 +21,9 @@ public class DishPanel extends JPanel {
     private CardLayout jclContent;
 
 
-    public DishPanel(ArrayList<Dish> dishes) {
+    public DishPanel(ArrayList<Dish> dishes, Controller controlador) {
         jpCreator = new DishesCreatorPanel();
-        jpList = new DishListPanel(dishes);
+        jpList = new DishListPanel(dishes, controlador);
 
         JPanel jpLeft = new JPanel(new BorderLayout(0,15));
         jpLeft.setBackground(null);

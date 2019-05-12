@@ -1,21 +1,22 @@
-package com.dpo.centralized_restaurant.View.Utils;
+package com.dpo.centralized_restaurant.View.ListButton;
 
 import com.dpo.centralized_restaurant.Controller.Controller;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ButtonEditor extends DefaultCellEditor {
     protected JButton button;
     private String    label;
     private boolean   isPushed;
 
-    public ButtonEditor(JCheckBox checkBox, Controller c, String action) {
+    public ButtonEditor(JCheckBox checkBox) {
         super(checkBox);
         button = new JButton();
         button.setOpaque(true);
-        button.setActionCommand(action);
-        button.addActionListener(c);
+        button.setText( "DELETE" );
     }
     public Component getTableCellEditorComponent(JTable table, Object value,
                                                  boolean isSelected, int row, int column) {
@@ -34,7 +35,7 @@ public class ButtonEditor extends DefaultCellEditor {
 
     public Object getCellEditorValue() {
         if (isPushed)  {
-            System.out.println("Aquii");
+            System.out.println("Aquii");    
         }
         isPushed = false;
         return new String( label ) ;
@@ -53,5 +54,4 @@ public class ButtonEditor extends DefaultCellEditor {
         button.setActionCommand(command);
         button.addActionListener(c);
     }
-
 }

@@ -14,6 +14,14 @@ public class Controller implements ActionListener {
     private MainView vista;
     private Model model;
 
+    public Controller(){
+
+    }
+
+    public Controller(Model model){
+        this.model = model;
+    }
+
     public Controller(MainView vista) {
         this.vista = vista;
     }
@@ -76,10 +84,16 @@ public class Controller implements ActionListener {
                         vista.getJpTables().getJpCreator().getJcbQuantity().getSelectedItem().toString()
                 );
                 //Update a la vista
-                vista.getJpTables().setTableList(new TablesListPanel(model.getMesas()));
+                vista.getJpTables().setTableList(new TablesListPanel(model.getMesas(), this));
                 //Vista del servei
-                vista.setJpReq(new RequestsService(model.getMesas()));
+                vista.setJpReq(new RequestsService(model.getMesas(), this));
                 vista.getJpReq().registerControllers(this);
+                break;
+            case "REMOVE-TABLE":
+
+                String dishname = vista.getJpDish().getJpList().getDishName();
+
+                System.out.println(dishname);
                 break;
             case "DISH-CREATE-ACTION":
                 model.addDish(
@@ -88,7 +102,7 @@ public class Controller implements ActionListener {
                         vista.getJpDish().getJpCreator().getJcbQuantity().getSelectedItem().toString(),
                         vista.getJpDish().getJpCreator().getJtTime().getText());
                 //Update a la vista
-                vista.getJpDish().setJpList(new DishListPanel(model.getDishes()));
+                vista.getJpDish().setJpList(new DishListPanel(model.getDishes(), this));
                 break;
             case "CREATING USER":
                 vista.changePanel("MAIN");
@@ -121,5 +135,21 @@ public class Controller implements ActionListener {
             break;
         }
 
+    }
+
+    public MainView getVista() {
+        return vista;
+    }
+
+    public void setVista(MainView vista) {
+        this.vista = vista;
+    }
+
+    public Model getModel() {
+        return model;
+    }
+
+    public void setModel(Model model) {
+        this.model = model;
     }
 }

@@ -30,7 +30,7 @@ public class OrdersService extends JPanel{
     Object[][] data ;
     String[] columnNames;
 
-    public OrdersService(ArrayList<Comanda> comandas) {
+    public OrdersService(ArrayList<Comanda> comandas, Controller c) {
 
         //renderButton = new JButton();
         editButton = new JButton();
@@ -58,8 +58,8 @@ public class OrdersService extends JPanel{
         for(int i= 0; i < jtable.getColumnCount();i++){
             jtable.getColumnModel().getColumn(i).setCellRenderer(df);
         }
-        jtable.getColumn("Prepare").setCellRenderer(new ButtonRenderer());
-        jtable.getColumn("Prepare").setCellEditor(new ButtonEditor(new JCheckBox()));
+        jtable.getColumn("Prepare").setCellRenderer(new ButtonRenderer("Prepare"));
+        jtable.getColumn("Prepare").setCellEditor(new ButtonEditor(new JCheckBox(), c, "PREPARE-DISH"));
 
         jbBack = new JButton("Back");
 

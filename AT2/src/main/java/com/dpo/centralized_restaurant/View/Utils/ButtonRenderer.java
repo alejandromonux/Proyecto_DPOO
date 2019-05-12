@@ -6,8 +6,9 @@ import java.awt.*;
 
 public class ButtonRenderer extends JButton implements TableCellRenderer {
 
-    public ButtonRenderer() {
+    public ButtonRenderer(String text) {
         setOpaque(true);
+        setText( "DELETE" );
     }
 
     public Component getTableCellRendererComponent(JTable table, Object value,
@@ -19,7 +20,6 @@ public class ButtonRenderer extends JButton implements TableCellRenderer {
             setForeground(table.getForeground());
             setBackground(UIManager.getColor("Button.background"));
         }
-        setText( "DELETE" );
         return this;
     }
 }

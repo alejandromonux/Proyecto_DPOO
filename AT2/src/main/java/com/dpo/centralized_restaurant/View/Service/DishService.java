@@ -30,7 +30,7 @@ public class DishService extends JPanel{
     Object[][] data ;
     String[] columnNames;
 
-    public DishService(ArrayList<ServiceDish> dishes) {
+    public DishService(ArrayList<ServiceDish> dishes, Controller c) {
 
         //renderButton = new JButton();
         editButton = new JButton();
@@ -58,8 +58,8 @@ public class DishService extends JPanel{
         for(int i= 0; i < jtable.getColumnCount();i++){
             jtable.getColumnModel().getColumn(i).setCellRenderer(df);
         }
-        jtable.getColumn("Serve").setCellRenderer(new ButtonRenderer());
-        jtable.getColumn("Serve").setCellEditor(new ButtonEditor(new JCheckBox()));
+        jtable.getColumn("Serve").setCellRenderer(new ButtonRenderer("Serve"));
+        jtable.getColumn("Serve").setCellEditor(new ButtonEditor(new JCheckBox(), c, "SERVE-DISH"));
 
         jbBack = new JButton("Back");
 
