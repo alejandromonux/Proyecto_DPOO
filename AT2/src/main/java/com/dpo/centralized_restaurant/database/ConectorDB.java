@@ -250,7 +250,7 @@ import java.util.ArrayList;
                 rs = s.executeQuery(query);
 
                 while (rs.next()) {
-                    aux.add(new Mesa(rs.getString("id"), rs.getInt("chairs")));
+                    aux.add(new Mesa(rs.getString("name"), rs.getInt("chairs")));
                 }
 
             } catch (SQLException ex) {

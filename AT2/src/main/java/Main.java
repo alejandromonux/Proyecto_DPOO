@@ -1,10 +1,8 @@
 import com.dpo.centralized_restaurant.Controller.Controller;
 import com.dpo.centralized_restaurant.Model.Configuration.configJson;
-import com.dpo.centralized_restaurant.Network.ServerEntrada;
-import com.dpo.centralized_restaurant.Network.ServerTaula;
 import com.dpo.centralized_restaurant.View.MainView;
 import Initialization.modifyProperties;
-import com.dpo.centralized_restaurant.Model.Model;
+import com.dpo.centralized_restaurant.Model.*;
 import com.dpo.centralized_restaurant.database.ConectorDB;
 import com.google.gson.Gson;
 
@@ -13,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 public class Main {
+//public static Model Model = new Model();
     public static void main(String[] args){
         Model model = new Model();
         Gson gson = new Gson();
@@ -24,7 +23,9 @@ public class Main {
             SwingUtilities.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    ConectorDB conectorDB =  new ConectorDB("root", "dan13579", "centralized_restaurant", 3306);
+                    ConectorDB conectorDB =  new ConectorDB("root", "mysql1234", "centralized_restaurant", 3306);
+                    //ConectorDB conectorDB =  new ConectorDB("root", "mysql1234", "oltpdb_p2", 3306);
+
                     conectorDB.connect();
                     Controller controlador = new Controller(model, configInicial, conectorDB);
                     MainView vista = new MainView(controlador);

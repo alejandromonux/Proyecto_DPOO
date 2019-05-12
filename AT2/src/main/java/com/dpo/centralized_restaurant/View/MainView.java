@@ -5,12 +5,12 @@ import com.dpo.centralized_restaurant.Controller.Controller;
 import com.dpo.centralized_restaurant.Model.Preservice.Mesa;
 import com.dpo.centralized_restaurant.Model.Service.Comanda;
 import com.dpo.centralized_restaurant.Model.Service.ServiceDish;
+import com.dpo.centralized_restaurant.View.ConfigurationPanels.ConfigurationPanel;
 import com.dpo.centralized_restaurant.View.DishPanels.DishPanel;
 import com.dpo.centralized_restaurant.View.PostService.PostService;
 import com.dpo.centralized_restaurant.View.Preservice.GeneralMenu;
 import com.dpo.centralized_restaurant.View.Service.DishService;
 import com.dpo.centralized_restaurant.View.Service.OrdersService;
-import com.dpo.centralized_restaurant.View.Service.ServeiPanel;
 import com.dpo.centralized_restaurant.View.TablePanels.TablePanel;
 import com.dpo.centralized_restaurant.View.Service.RequestsService;
 import com.dpo.centralized_restaurant.Model.Preservice.Dish;
@@ -31,7 +31,7 @@ public class MainView extends JFrame {
     private GeneralMenu jpMainMenu;
     private DishPanel jpDish;
     private TablePanel jpTables;
-    private ServeiPanel jpStart;
+    private ConfigurationPanel jpConfig;
     private RequestsService jpReq;
     private LogInPanel jpLogIn;
     private OrdersService jpOrders;
@@ -44,6 +44,7 @@ public class MainView extends JFrame {
 
     /*  HEADER ATTRIBUTES */
     private JButton jbLogOut;
+    private JButton jbConfig;
     private JLabel digitalClock;
     private JLabel jlWelcomeUser;
 
@@ -56,12 +57,12 @@ public class MainView extends JFrame {
         jpMainMenu = new GeneralMenu();
         jpTables = new TablePanel(controlador);
         jpDish = new DishPanel(new ArrayList<Dish>(), controlador);
-        jpStart = new ServeiPanel();
         jpLogIn = new LogInPanel();
         jpReq = new RequestsService(new ArrayList<Mesa>(), controlador);
         jpOrders = new OrdersService(new ArrayList<Comanda>(), controlador);
         jpSDish = new DishService(new ArrayList<ServiceDish>(), controlador);
         jpPost = new PostService();
+        jpConfig = new ConfigurationPanel(controlador);
 
         jpHeader = new JPanel();
         jpHeader.setSize(700,100);
@@ -96,6 +97,7 @@ public class MainView extends JFrame {
         //jbLogOut.setActionCommand("LogIn");
         jpAuxH3.add(jbLogOut);*/
 
+        JPanel miniLoginBox = new JPanel(new GridLayout(2,1));
         // Al registrase o loguearse, aquí se verá el nombre del usuario
         JPanel jpAuxH3 = new JPanel();
         jlWelcomeUser = new JLabel("Welcome, User");
@@ -116,10 +118,19 @@ public class MainView extends JFrame {
         jpAuxH1.setBackground(null);
         jpAuxH2.setBackground(null);
         jpAuxH3.setBackground(null);
+        miniLoginBox.setBackground(null);
+
+        miniLoginBox.add(jpAuxH3);
+        jbConfig = new JButton("CONFIGURATIONS");
+        jbConfig.setFont(new Font("Chaparral Pro Light", Font.PLAIN, 15));
+        jbConfig.setFocusable(false);
+        //jbConfig.setBorder(new EmptyBorder(2, 20, 2, 20));
+        jbConfig.setVisible(false);
+        miniLoginBox.add(jbConfig);
 
         jpHeader.add(jpAuxH1);
         jpHeader.add(jpAuxH2);
-        jpHeader.add(jpAuxH3);
+        jpHeader.add(miniLoginBox);
         jpHeader.setAlignmentY(JPanel.CENTER_ALIGNMENT);
 
 
@@ -132,11 +143,11 @@ public class MainView extends JFrame {
         jpContent.add("MAIN", jpMainMenu);
         jpContent.add("TABLES", jpTables);
         jpContent.add("DISHES", jpDish);
-        jpContent.add("START", jpStart);
         jpContent.add("REQUESTS", jpReq);
         jpContent.add("ORDERS", jpOrders);
         jpContent.add("SERVICE-DISHES", jpSDish);
         jpContent.add("POSTSERVICE", jpPost);
+        jpContent.add("CONFIGURATIONS", jpConfig);
         /* ------------------------------ VIEW PARAMETERS ------------------------------ */
         getContentPane().add(jpHeader, BorderLayout.PAGE_START);
         getContentPane().add(jpContent);
@@ -153,14 +164,17 @@ public class MainView extends JFrame {
         jpTables.registerController(c);
         jpDish.registerController(c);
         jpLogIn.registerController(c);
-        jpStart.registerController(c);
         jpReq.registerControllers(c);
         jpOrders.registerControllers(c);
         jpSDish.registerControllers(c);
         jpPost.registerControllers(c);
+        jpConfig.registerController(c);
 
         jbLogOut.setActionCommand("FORMS");
         jbLogOut.addActionListener(c);
+
+        jbConfig.setActionCommand("CONFIGURATIONS");
+        jbConfig.addActionListener(c);
     }
 
     public void createClock() {
@@ -188,6 +202,8 @@ public class MainView extends JFrame {
         jpTables.changePanel(which);
     }
 
+    public void changeConfigurationPanel (String which) { jpConfig.changePanel(which);}
+
     public DishPanel getJpDish() {
         return jpDish;
     }
@@ -197,14 +213,6 @@ public class MainView extends JFrame {
         return jpTables;
     }
 
-
-    public ServeiPanel getJpStart() {
-        return jpStart;
-    }
-
-    public void setJpStart(ServeiPanel jpStart) {
-        this.jpStart = jpStart;
-    }
 
     public LogInPanel getJpLogIn() {
         return jpLogIn;
@@ -226,6 +234,7 @@ public class MainView extends JFrame {
         if(userLogged){
             jbLogOut.setVisible(true);
             jlWelcomeUser.setVisible(true);
+            jbConfig.setVisible(true);
         }else{
             jbLogOut.setVisible(false);
             jlWelcomeUser.setVisible(false);
