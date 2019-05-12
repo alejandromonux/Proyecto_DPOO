@@ -16,7 +16,7 @@ public static  Model model = new Model();
     public static void main(String[] args){
 
         Gson gson = new Gson();
-        configJson configInicial ;
+        configJson configInicial;
         try {
             configInicial = gson.fromJson(new FileReader("config.json"), configJson.class);
             modifyProperties aiudame = new modifyProperties(configInicial);

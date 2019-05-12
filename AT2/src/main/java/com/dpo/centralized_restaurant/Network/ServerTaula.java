@@ -1,7 +1,7 @@
 package com.dpo.centralized_restaurant.Network;
 
-import com.dpo.centralized_restaurant.Model.Request.RequestManager;
 import com.dpo.centralized_restaurant.Model.Configuration.configJson;
+import com.dpo.centralized_restaurant.Model.Request.RequestManager;
 
 import java.io.IOException;
 import java.net.ServerSocket;

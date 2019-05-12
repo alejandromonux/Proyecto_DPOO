@@ -1,5 +1,8 @@
 package com.dpo.centralized_restaurant.Controller;
 
+import com.dpo.centralized_restaurant.Model.Configuration.configJson;
+import com.dpo.centralized_restaurant.Network.ServerEntrada;
+import com.dpo.centralized_restaurant.Network.ServerTaula;
 import com.dpo.centralized_restaurant.View.DishPanels.DishListPanel;
 import com.dpo.centralized_restaurant.View.MainView;
 import com.dpo.centralized_restaurant.View.TablePanels.TablesListPanel;
@@ -13,6 +16,9 @@ import java.awt.event.ActionListener;
 public class Controller implements ActionListener {
     private MainView vista;
     private Model model;
+    private ServerEntrada serverEntrada;
+    private ServerTaula serverTaula;
+    private configJson configJson;
 
     public Controller(){
 
@@ -26,9 +32,10 @@ public class Controller implements ActionListener {
         this.vista = vista;
     }
 
-    public Controller(MainView vista, Model model) {
+    public Controller(MainView vista, Model model, configJson configJson) {
         this.vista = vista;
         this.model = model;
+        this.configJson = configJson;
     }
 
 
@@ -52,7 +59,10 @@ public class Controller implements ActionListener {
                 break;
             case "START":
                 vista.changePanel(aux.getActionCommand());
+                serverEntrada = new ServerEntrada(configJson);
+                serverTaula = new ServerTaula(configJson);
                 break;
+
             case "TABLE-CREATE":
                 vista.changeTablePanel("TABLE-CREATE");
                 break;
