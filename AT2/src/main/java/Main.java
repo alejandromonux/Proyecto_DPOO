@@ -24,17 +24,11 @@ public static  Model model = new Model();
             SwingUtilities.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    Controller controlador = new Controller(model);
+                    Controller controlador = new Controller(model, configInicial);
                     MainView vista = new MainView(controlador);
                     controlador.setVista(vista);
                     vista.registerController(controlador);
                     vista.setVisible(true);
-                    //de momento creo los servidores en el main, se puede hacer tambien en el controller
-                    ServerEntrada entrada = new ServerEntrada(configInicial);
-                    entrada.start();
-
-                    ServerTaula taula = new ServerTaula(configInicial);
-                    taula.start();
                 }
             });
 

@@ -32,8 +32,7 @@ public class Controller implements ActionListener {
         this.vista = vista;
     }
 
-    public Controller(MainView vista, Model model, configJson configJson) {
-        this.vista = vista;
+    public Controller(Model model, configJson configJson) {
         this.model = model;
         this.configJson = configJson;
     }
@@ -60,7 +59,9 @@ public class Controller implements ActionListener {
             case "START":
                 vista.changePanel(aux.getActionCommand());
                 serverEntrada = new ServerEntrada(configJson);
+                serverEntrada.start();
                 serverTaula = new ServerTaula(configJson);
+                serverTaula.start();
                 break;
 
             case "TABLE-CREATE":
