@@ -1,6 +1,7 @@
 package com.dpo.centralized_restaurant.Controller;
 
 import com.dpo.centralized_restaurant.Model.Configuration.configJson;
+import com.dpo.centralized_restaurant.Model.Model;
 import com.dpo.centralized_restaurant.Model.Worker;
 import com.dpo.centralized_restaurant.Network.ServerEntrada;
 import com.dpo.centralized_restaurant.Network.ServerTaula;
@@ -8,7 +9,6 @@ import com.dpo.centralized_restaurant.View.DishPanels.DishListPanel;
 import com.dpo.centralized_restaurant.View.MainView;
 import com.dpo.centralized_restaurant.View.TablePanels.TablesListPanel;
 import com.dpo.centralized_restaurant.View.Service.RequestsService;
-import com.dpo.centralized_restaurant.Model.Model;
 import com.dpo.centralized_restaurant.database.ConectorDB;
 
 import javax.swing.*;
