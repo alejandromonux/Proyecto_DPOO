@@ -15,7 +15,7 @@ import java.io.FileReader;
 public class Main {
 //public static Model model = new Model();
     public static void main(String[] args){
-
+        Model model = new Model();
         Gson gson = new Gson();
         configJson configInicial;
         try {

@@ -17,6 +17,7 @@ public class Mesa {
     @Column(nullable = false)
     private int chairs;
 
+    // La mesa esta ocupada por comensales
     @Column(name = "in_use")
     private boolean inUse;
 

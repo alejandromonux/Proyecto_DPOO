@@ -25,7 +25,6 @@ public class Configuration {
     @OneToMany(mappedBy = "configuration")
     Set<ConfigurationDish> dishesIn;
 
-
     public Configuration(){}
 
     public Configuration(String name, boolean active) {

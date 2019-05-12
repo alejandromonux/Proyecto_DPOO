@@ -55,6 +55,6 @@ public class DishListPanel extends JPanel {
 
     public String getDishName() {
         System.out.println(tabla.getSelectedRow());
-        return tabla.getValueAt(tabla.getSelectedRow(), 1).toString();
+        return tabla.getValueAt(tabla.getSelectedRow(), 0).toString();
     }
 }

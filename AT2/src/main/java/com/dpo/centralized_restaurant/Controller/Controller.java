@@ -59,6 +59,8 @@ public class Controller implements ActionListener {
                 break;
             case "TABLES":
                 vista.changePanel(aux.getActionCommand());
+                model.setMesas(conectorDB.findActiveTables());
+                vista.getJpTables().setTableList(new TablesListPanel(model.getMesas(), this));
                 break;
             case "DISHES":
                 vista.changePanel(aux.getActionCommand());
@@ -102,21 +104,43 @@ public class Controller implements ActionListener {
                 vista.changePanel("ORDERS");
                 break;
             case "TABLE-CREATE-ACTION":
-                model.addTable(
-                        vista.getJpTables().getJpCreator().getJtfId().getText(),
-                        vista.getJpTables().getJpCreator().getJcbQuantity().getSelectedItem().toString()
-                );
-                //Update a la vista
-                vista.getJpTables().setTableList(new TablesListPanel(model.getMesas(), this));
-                //Vista del servei
-                vista.setJpReq(new RequestsService(model.getMesas(), this));
-                vista.getJpReq().registerControllers(this);
+                boolean done = conectorDB.createTable(vista.getJpTables().getJpCreator().getJtfId().getText(),
+                        (int) vista.getJpTables().getJpCreator().getJcbQuantity().getSelectedItem());
+
+                if(!done){
+                    JOptionPane.showMessageDialog(vista,
+                            "Insert table not successfull!",
+                            "Error!",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+                else {
+                    model.addTable(
+                            vista.getJpTables().getJpCreator().getJtfId().getText(),
+                            vista.getJpTables().getJpCreator().getJcbQuantity().getSelectedItem().toString()
+                    );
+                    //Update a la vista
+                    vista.getJpTables().setTableList(new TablesListPanel(model.getMesas(), this));
+                    //Vista del servei
+                    vista.setJpReq(new RequestsService(model.getMesas(), this));
+                    vista.getJpReq().registerControllers(this);
+                }
+
                 break;
             case "REMOVE-TABLE":
+                String tableName = vista.getJpTables().getTableList().getTableName();
+                boolean done3 = conectorDB.deleteTable(tableName);
 
-                String dishname = vista.getJpDish().getJpList().getDishName();
+                if(done3){
+                    model.setMesas(conectorDB.findActiveTables());
+                    vista.getJpTables().setTableList(new TablesListPanel(model.getMesas(), this));
+                }
+                else {
+                    JOptionPane.showMessageDialog(vista,
+                            "Delete table not successfull!",
+                            "Error!",
+                            JOptionPane.ERROR_MESSAGE);
+                }
 
-                System.out.println(dishname);
                 break;
             case "DISH-CREATE-ACTION":
                 model.addDish(
@@ -127,6 +151,7 @@ public class Controller implements ActionListener {
                 //Update a la vista
                 vista.getJpDish().setJpList(new DishListPanel(model.getDishes(), this));
                 break;
+
             case "BACK-TO-MAIN":
                 vista.changePanel("MAIN");
                 vista.changeHeader(true);
@@ -214,9 +239,10 @@ public class Controller implements ActionListener {
                     else {
                         // Registramos usuario en sistema y, posteriormente, lo logueamos automaticamente
                         workerActual = new Worker(registerName, registerEmail, registerPassword);
-                        boolean done = conectorDB.createWorker(workerActual);
+                        boolean done2 = conectorDB.createWorker(workerActual);
 
-                        if(done){
+                        if(done2){
+                            vista.changeUserView(workerActual.getUsername());
                             vista.changePanel("MAIN");
                             vista.changeHeader(true);
                         }
@@ -231,7 +257,7 @@ public class Controller implements ActionListener {
 
                 break;
 
-            case "LOGGING-USER":
+            case "LOGGING USER":
                 String loginUsername = vista.getJpLogIn().getJtfLoginUsername().getText();
                 String loginPassword = new String(vista.getJpLogIn().getJpfLoginPassword().getPassword());
 
