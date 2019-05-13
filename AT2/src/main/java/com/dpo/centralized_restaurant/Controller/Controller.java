@@ -90,6 +90,9 @@ public class Controller implements ActionListener {
             case "CONFIGURATIONS":
                 vista.changePanel("CONFIGURATIONS");
                 break;
+            case "SAVE-CONFIGURATION":
+
+                break;
             case "CONFIGURATION-CREATE":
                 vista.changeConfigurationPanel("CONFIGURATION-CREATE");
                 break;
