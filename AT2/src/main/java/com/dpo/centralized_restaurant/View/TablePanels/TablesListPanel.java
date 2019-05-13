@@ -89,7 +89,6 @@ public class TablesListPanel extends JPanel{
     }
 
     public String getTableName() {
-        System.out.println(jtable.getSelectedRow());
         return jtable.getValueAt(jtable.getSelectedRow(), 0).toString();
     }
 }

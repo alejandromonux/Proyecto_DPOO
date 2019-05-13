@@ -90,6 +90,32 @@ import java.util.ArrayList;
          *
          * ***********************************************************************************
          *********************************************************************************** */
+        public boolean createDish(String name, int units, double cost, double timeCost){
+            try {
+                String query = "SELECT * FROM dish AS d WHERE d.name = '" + name + "'";
+                ResultSet rs = null;
+                s =(Statement) conn.createStatement();
+                rs = s.executeQuery(query);
+
+                if(!rs.next()){
+                    PreparedStatement ps = conn.prepareStatement("INSERT INTO dish(name, cost, units, timecost, active) VALUES('" + name + "', "
+                            + cost + ", " + units + ", "+ timeCost + ", true);");
+                    ps.executeUpdate();
+                }
+                else {
+                    PreparedStatement ps = conn.prepareStatement("UPDATE mesa SET units = " + units + ", cost = " + cost + ", timecost = "+ timeCost +", active = true " +
+                            "WHERE name = '" + name + "';");
+                    ps.executeUpdate();
+                }
+
+                return true;
+
+            } catch (SQLException ex) {
+                System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+                return false;
+            }
+
+        }
 
         public synchronized ArrayList<Dish> findDishByName(String name) {
             String query = "SELECT * FROM Dish AS d WHERE d.name = '" + name + "';";
@@ -139,6 +165,18 @@ import java.util.ArrayList;
                 System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
             }
             return result;
+        }
+
+        public boolean deleteDish(String name){
+            try {
+                PreparedStatement ps = conn.prepareStatement("UPDATE dish SET active = false " +
+                        "WHERE name = '" + name + "';");
+                ps.executeUpdate();
+                return true;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
         }
 
         public synchronized ArrayList<Dish> findAllDishesByCostGreaterThan(double cost) {
@@ -232,6 +270,7 @@ import java.util.ArrayList;
                 return false;
             }
         }
+
         public boolean createTable(String name, int chairs){
             try {
                 String query = "SELECT * FROM mesa AS t WHERE t.name = '" + name + "'";
