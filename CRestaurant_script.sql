@@ -52,6 +52,8 @@ DROP TABLE IF EXISTS request_order;
 CREATE TABLE request_order(
   request_id INT NOT NULL,
   dish_id INT NOT NULL,
+  actual_service boolean,
+  activation_date DATE,
   PRIMARY KEY (request_id, dish_id),
   FOREIGN KEY (request_id) REFERENCES request(id),
   FOREIGN KEY (dish_id) REFERENCES dish(id)
@@ -62,6 +64,7 @@ DROP TABLE IF EXISTS configuration_dish;
 CREATE TABLE configuration_dish(
   configuration_id INT NOT NULL,
   dish_id INT NOT NULL,
+  active boolean,
   PRIMARY KEY (configuration_id, dish_id)
 );
 
@@ -72,6 +75,7 @@ DROP TABLE IF EXISTS configuration_table;
 CREATE TABLE configuration_table(
   configuration_id INT NOT NULL,
   mesa_id VARCHAR(255) NOT NULL,
+  active boolean,
   PRIMARY KEY (configuration_id, mesa_id)
 );
 
