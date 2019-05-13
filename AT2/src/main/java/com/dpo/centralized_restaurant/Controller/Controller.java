@@ -93,7 +93,22 @@ public class Controller implements ActionListener {
                 vista.changePanel("CONFIGURATIONS");
                 break;
             case "SAVE-CONFIGURATION":
+                boolean done6 = conectorDB.createTable(vista.getJpTables().getJpCreator().getJtfId().getText(),
+                        (int) vista.getJpTables().getJpCreator().getJcbQuantity().getSelectedItem());
 
+                if(!done6){
+                    JOptionPane.showMessageDialog(vista,
+                            "Insert table not successfull!",
+                            "Error!",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+                else {
+                    model.setMesas(conectorDB.findActiveTables());
+                    vista.getJpTables().setTableList(new TablesListPanel(model.getMesas(), this));
+                    //Vista del servei
+                    vista.setJpReq(new RequestsService(model.getMesas(), this));
+                    vista.getJpReq().registerControllers(this);
+                }
                 break;
             case "CONFIGURATION-CREATE":
                 vista.changeConfigurationPanel("CONFIGURATION-CREATE");

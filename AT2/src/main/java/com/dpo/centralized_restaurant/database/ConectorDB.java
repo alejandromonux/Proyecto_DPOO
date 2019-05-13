@@ -53,8 +53,10 @@ import java.util.ArrayList;
          *
          * ***********************************************************************************
          *********************************************************************************** */
+        public boolean createConfiguration(){
 
-        public synchronized ResultSet findConfigurationByWorker(String name) {
+        }
+        public ResultSet findConfigurationByWorker(String name) {
             String query = "SELECT * FROM Configuration AS c WHERE c.worker = '" + name + "';";
             ResultSet rs = null;
             Configuration configurationAux;
@@ -69,7 +71,7 @@ import java.util.ArrayList;
             return rs;
         }
 
-        public synchronized ResultSet findConfigurationByNameAndWorker(String name, String worker) {
+        public ResultSet findConfigurationByNameAndWorker(String name, String worker) {
             String query = "SELECT * FROM Configuration AS c WHERE c.worker = " + worker + " AND c.name = '" + name + "';";
             ResultSet rs = null;
             try {
