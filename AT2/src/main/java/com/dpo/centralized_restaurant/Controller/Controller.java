@@ -45,6 +45,10 @@ public class Controller implements ActionListener {
     }
 
 
+    /**
+     * It chooses the action to do once the user triggers an event listener
+     * @param e
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
 

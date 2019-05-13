@@ -29,6 +29,9 @@ import java.util.ArrayList;
             url += "?verifyServerCertificate=false&useSSL=true";
         }
 
+        /**
+         * Connects the system to a mysql database
+         */
         public void connect() {
             try {
                 Class.forName("com.mysql.jdbc.Connection");
@@ -79,6 +82,12 @@ import java.util.ArrayList;
                 return false;
             }
         }
+
+        /**
+         * Get the configuration of a worker, given his name
+         * @param name
+         * @return
+         */
         public ResultSet findConfigurationByWorker(String name) {
             String query = "SELECT * FROM Configuration AS c WHERE c.worker = '" + name + "';";
             ResultSet rs = null;
@@ -94,6 +103,12 @@ import java.util.ArrayList;
             return rs;
         }
 
+        /**
+         * Get the configuration of a worker, given his name and the own worker
+         * @param name
+         * @param worker
+         * @return
+         */
         public ResultSet findConfigurationByNameAndWorker(String name, String worker) {
             String query = "SELECT * FROM Configuration AS c WHERE c.worker = " + worker + " AND c.name = '" + name + "';";
             ResultSet rs = null;
@@ -115,6 +130,15 @@ import java.util.ArrayList;
          *
          * ***********************************************************************************
          *********************************************************************************** */
+
+        /**
+         * Creates a new dish, given its new parameters
+         * @param name
+         * @param units
+         * @param cost
+         * @param timeCost
+         * @return
+         */
         public boolean createDish(String name, int units, double cost, double timeCost){
             try {
                 String query = "SELECT * FROM dish AS d WHERE d.name = '" + name + "'";
@@ -142,6 +166,11 @@ import java.util.ArrayList;
 
         }
 
+        /**
+         * Returns an arrayList of dishes, given their name
+         * @param name
+         * @return
+         */
         public synchronized ArrayList<Dish> findDishByName(String name) {
             String query = "SELECT * FROM Dish AS d WHERE d.name = '" + name + "';";
             ResultSet rs = null;
@@ -167,6 +196,10 @@ import java.util.ArrayList;
             return result;
         }
 
+        /**
+         * Returns an arrayList of dishes that are currently active
+         * @return
+         */
         public synchronized ArrayList<Dish> findActiveDishes() {
             String query = "SELECT * FROM Dish AS d WHERE d.active = true;";
             ResultSet rs = null;
@@ -192,6 +225,11 @@ import java.util.ArrayList;
             return result;
         }
 
+        /**
+         * Deletes a dish, given its name
+         * @param name
+         * @return
+         */
         public boolean deleteDish(String name){
             try {
                 PreparedStatement ps = conn.prepareStatement("UPDATE dish SET active = false " +
@@ -204,6 +242,11 @@ import java.util.ArrayList;
             }
         }
 
+        /**
+         * Returns an arrayList of all the dishes that cost more than a given number
+         * @param cost
+         * @return
+         */
         public synchronized ArrayList<Dish> findAllDishesByCostGreaterThan(double cost) {
             String query = "SELECT * FROM Dish AS d WHERE d.cost >= " + cost + ";";
             ResultSet rs = null;
@@ -248,6 +291,11 @@ import java.util.ArrayList;
          * ***********************************************************************************
          *********************************************************************************** */
 
+        /**
+         * Returns a table, given its ID
+         * @param id
+         * @return
+         */
         public synchronized Mesa findTableById(String id) {
             String query = "SELECT * FROM Mesa AS t WHERE t.id = "+ id + " LIMIT 1;";
             ResultSet rs = null;
@@ -266,6 +314,10 @@ import java.util.ArrayList;
             return aux;
         }
 
+        /**
+         * Returns an arrayList of all the tables that are currently active
+         * @return
+         */
         public synchronized ArrayList<Mesa> findActiveTables() {
             String query = "SELECT * FROM mesa AS t WHERE t.active = true;";
             ResultSet rs = null;
@@ -284,6 +336,11 @@ import java.util.ArrayList;
             return aux;
         }
 
+        /**
+         * Deletes a table, given its name
+         * @param name
+         * @return
+         */
         public boolean deleteTable(String name){
             try {
                 PreparedStatement ps = conn.prepareStatement("UPDATE mesa SET active = false " +
@@ -296,6 +353,12 @@ import java.util.ArrayList;
             }
         }
 
+        /**
+         * Creates a new table, given its name and number of chairs
+         * @param name
+         * @param chairs
+         * @return
+         */
         public boolean createTable(String name, int chairs){
             try {
                 String query = "SELECT * FROM mesa AS t WHERE t.name = '" + name + "'";
@@ -330,6 +393,12 @@ import java.util.ArrayList;
          *
          * ***********************************************************************************
          *********************************************************************************** */
+
+        /**
+         * Creates a new worker, given his full data
+         * @param worker
+         * @return
+         */
         public boolean createWorker(Worker worker){
             //ResultSet rs = null;
             //Worker aux = null;
@@ -348,6 +417,11 @@ import java.util.ArrayList;
 
         }
 
+        /**
+         * Returns a worker instance, given his name
+         * @param name
+         * @return
+         */
         public Worker findWorkerByName(String name) {
             String query = "SELECT * FROM worker AS w WHERE w.username = '" + name + "';";
             ResultSet rs = null;
@@ -365,6 +439,11 @@ import java.util.ArrayList;
             return aux;
         }
 
+        /**
+         * Returns a worker instance, given his mail
+         * @param email
+         * @return
+         */
         public Worker findWorkerByEmail(String email) {
             String query = "SELECT * FROM worker AS w WHERE w.email = '" + email + "';";
             ResultSet rs = null;
@@ -384,6 +463,12 @@ import java.util.ArrayList;
             return aux;
         }
 
+        /**
+         * Returns a worker instance, given its name and password
+         * @param name
+         * @param password
+         * @return
+         */
         public Worker findWorkerByNameAndPassword(String name, String password) {
             String query = "SELECT * FROM worker AS w WHERE w.username = '" + name + "' AND w.password = '" + password + "';";
             ResultSet rs = null;
@@ -402,6 +487,12 @@ import java.util.ArrayList;
             return aux;
         }
 
+        /**
+         * Returns a worker instance, given its email and password
+         * @param email
+         * @param password
+         * @return
+         */
         public Worker findWorkerByEmailAndPassword(String email, String password) {
             String query = "SELECT * FROM worker AS w WHERE w.email = '" + email + "' AND w.password = '" + password + "';";
             ResultSet rs = null;
@@ -421,6 +512,10 @@ import java.util.ArrayList;
 
 
         /* *********************************************************************************** */
+
+        /**
+         * Disconnect the system from the database
+         */
         public void disconnect(){
             try {
                 conn.close();

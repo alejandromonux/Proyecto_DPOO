@@ -55,6 +55,7 @@ public class PostService extends JPanel{
 
     public void registerControllers(Controller c){
         jbGraphics.addActionListener(c);
+        jbEndService.setActionCommand("BACK-TO-MAIN");
         jbEndService.addActionListener(c);
     }
 }
