@@ -16,16 +16,6 @@ public class LogInPanel extends JPanel {
     private JPanel bigPanel;
     private JPanel jpForms;
 
-    private GeneralMenu jpMainMenu;
-    private DishPanel jpDish;
-    private TablePanel jpTables;
-    private ServeiPanel jpStart;
-    private LogInPanel jpLogIn;
-
-    private JPanel jpContent;
-    private CardLayout jclContent;
-
-
     //--------BACK-----------//
     private JButton jbLogin;
     private JButton jbRegister;
@@ -50,10 +40,6 @@ public class LogInPanel extends JPanel {
         setSize(800, 250);
         bigPanel = new JPanel(new CardLayout());
         add(bigPanel);
-
-
-        //--------SHARED-----------//
-        //jbBack = new JButton("BACK");
 
 
         //--------FORMS-----------//

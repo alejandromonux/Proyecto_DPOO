@@ -11,6 +11,11 @@ import java.awt.event.MouseEvent;
 public class MouseListener implements java.awt.event.MouseListener {
     Model m;
     MainView v;
+
+    /**
+     * In case the user presses the button within the table/dish table, it does a certain action
+     * @param e
+     */
     @Override
     public void mouseClicked(MouseEvent e) {
         JTable element = (JTable)e.getSource();
