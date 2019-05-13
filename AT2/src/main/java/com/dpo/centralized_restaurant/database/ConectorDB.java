@@ -1,6 +1,7 @@
 package com.dpo.centralized_restaurant.database;
 
 import com.dpo.centralized_restaurant.Model.Configuration.Configuration;
+import com.dpo.centralized_restaurant.Model.Model;
 import com.dpo.centralized_restaurant.Model.Preservice.Dish;
 import com.dpo.centralized_restaurant.Model.Preservice.Mesa;
 import com.dpo.centralized_restaurant.Model.Worker;
@@ -53,8 +54,30 @@ import java.util.ArrayList;
          *
          * ***********************************************************************************
          *********************************************************************************** */
-        public boolean createConfiguration(){
+        public boolean createConfiguration(String name, Model model){
+            try {
+                String query = "SELECT * FROM configuration AS c WHERE c.name = '" + name + "'";
+                ResultSet rs = null;
+                s =(Statement) conn.createStatement();
+                rs = s.executeQuery(query);
 
+                if(!rs.next()){
+                    PreparedStatement ps = conn.prepareStatement("INSERT INTO configuration(name, worker) VALUES('" + name + "', "
+                            + cost + ", " + units + ", "+ timeCost + ", true);");
+                    ps.executeUpdate();
+                }
+                else {
+                    PreparedStatement ps = conn.prepareStatement("UPDATE mesa SET units = " + units + ", cost = " + cost + ", timecost = "+ timeCost +", active = true " +
+                            "WHERE name = '" + name + "';");
+                    ps.executeUpdate();
+                }
+
+                return true;
+
+            } catch (SQLException ex) {
+                System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+                return false;
+            }
         }
         public ResultSet findConfigurationByWorker(String name) {
             String query = "SELECT * FROM Configuration AS c WHERE c.worker = '" + name + "';";

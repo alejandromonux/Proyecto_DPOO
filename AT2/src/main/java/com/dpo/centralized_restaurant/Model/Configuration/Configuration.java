@@ -13,7 +13,6 @@ public class Configuration {
     private long id;
 
     private String name;
-    private boolean active;
 
     @ManyToOne
     @JoinColumn(name = "worker")
@@ -27,9 +26,8 @@ public class Configuration {
 
     public Configuration(){}
 
-    public Configuration(String name, boolean active) {
+    public Configuration(String name) {
         this.name = name;
-        this.active = active;
     }
 
     public long getId() {
@@ -46,14 +44,6 @@ public class Configuration {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
     }
 
     public Worker getWorker() {
