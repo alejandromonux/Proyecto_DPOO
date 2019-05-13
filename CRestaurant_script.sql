@@ -15,7 +15,6 @@ DROP TABLE IF EXISTS configuration;
 CREATE TABLE configuration (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(255) NOT NULL UNIQUE,
-  active boolean,
   worker_id INT NOT NULL
 );
 
@@ -44,7 +43,7 @@ CREATE TABLE request(
   id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(255) UNIQUE,
   quantity INT NOT NULL,
-  in_service BOOLEAN
+  in_service INT
 );
 
 
@@ -82,3 +81,7 @@ CREATE TABLE configuration_table(
 ALTER TABLE configuration_table ADD FOREIGN KEY (configuration_id) REFERENCES configuration(id);
 ALTER TABLE configuration_table ADD FOREIGN KEY (mesa_id) REFERENCES mesa(name);
 
+DROP TABLE IF EXISTS variables_importantes;
+CREATE TABLE variables_importantes(
+  enServicio BOOLEAN
+);

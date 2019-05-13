@@ -4,18 +4,19 @@ import com.dpo.centralized_restaurant.Controller.Controller;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class ButtonEditor extends DefaultCellEditor {
     protected JButton button;
     private String    label;
     private boolean   isPushed;
 
-    public ButtonEditor(JCheckBox checkBox, Controller c, String action) {
+    public ButtonEditor(JCheckBox checkBox, ActionListener al, String action) {
         super(checkBox);
         button = new JButton();
         button.setOpaque(true);
         button.setActionCommand(action);
-        button.addActionListener(c);
+        button.addActionListener(al);
     }
     public Component getTableCellEditorComponent(JTable table, Object value,
                                                  boolean isSelected, int row, int column) {

@@ -17,6 +17,13 @@ public class Model {
         comandas = new ArrayList<Comanda>();
     }
 
+    /**
+     * Add a dish into the ArrayList of the model from the ActionPerformed in the Controller method
+     * @param dishName
+     * @param dishCost
+     * @param dishQuantity
+     * @param time
+     */
     public void addDish(String dishName, String dishCost, String dishQuantity, String time) {
         dishes.add(new Dish(dishName,
                             Double.parseDouble(dishCost),
@@ -25,11 +32,22 @@ public class Model {
     }
 
 
+    /**
+     * Add a table into the ArrayList of the model
+     * @param id
+     * @param chairs
+     */
     public void addTable(String id, String chairs) {
         mesas.add(new Mesa(id,
                              Integer.parseInt(chairs)));
     }
 
+    /**
+     * Add an order into the ArrayList of the model
+     * @param idTable
+     * @param dishname
+     * @param dishQuant
+     */
     public void addComanda(long idTable, String dishname, int dishQuant){
         comandas.add(new Comanda(idTable, dishname, dishQuant));
     }
@@ -58,6 +76,10 @@ public class Model {
         this.comandas = comandas;
     }
 
+    /**
+     * Deletes all the dishes that has the given name
+     * @param name
+     */
     public void removeDish(String name) {
         boolean found = false;
         for (int i = 0; (!found) && (i < dishes.size());i++){

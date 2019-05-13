@@ -22,6 +22,14 @@ public class DedicatedServerEntrada extends Thread{
     private ObjectOutputStream oos;
     private DataOutputStream dos;
 
+    /**
+     * Prepares this part of the system to work along the rest of the system
+     * @param socket
+     * @param requestsManager
+     * @param dedicatedServers
+     * @param conectorDB
+     * @param controller
+     */
     public DedicatedServerEntrada(Socket socket, RequestManager requestsManager, ArrayList<DedicatedServerEntrada> dedicatedServers, ConectorDB conectorDB, Controller controller) {
         this.socket = socket;
         this.requestManager = requestsManager;

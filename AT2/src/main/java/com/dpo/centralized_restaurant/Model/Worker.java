@@ -81,6 +81,11 @@ public class Worker {
         return connected;
     }
 
+    /**
+     * Checks if a given object its the same instance of a worker
+     * @param obj
+     * @return
+     */
     public boolean equals(Object obj) {
         if (obj == null) {
             return false;

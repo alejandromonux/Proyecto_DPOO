@@ -18,6 +18,10 @@ public class Request {
     @Column(nullable = false)
     private int quantity;
 
+    // 0: Esta preparado
+    // 1: Esta en mesa
+    // 2: Ya esta pagado y es servicio actual
+    // 3: Historico
     @Column(name = "in_service")
     private int inService;
 
