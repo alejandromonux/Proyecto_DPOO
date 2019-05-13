@@ -23,7 +23,7 @@ public class Main {
             SwingUtilities.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    ConectorDB conectorDB =  new ConectorDB("root", "mysql1234", "centralized_restaurant", 3306);
+                    ConectorDB conectorDB =  new ConectorDB(configInicial.getUser(), configInicial.getPassword(), configInicial.getNomBBDD(), configInicial.getPort_BBDD());
                     //ConectorDB conectorDB =  new ConectorDB("root", "mysql1234", "oltpdb_p2", 3306);
 
                     conectorDB.connect();
