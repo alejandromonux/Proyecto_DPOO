@@ -2,12 +2,14 @@ package com.dpo.centralized_restaurant.View;
 
 
 import com.dpo.centralized_restaurant.Controller.Controller;
+import com.dpo.centralized_restaurant.Model.Graphics.OrderedDish;
 import com.dpo.centralized_restaurant.Model.Preservice.Mesa;
 import com.dpo.centralized_restaurant.Model.Service.Comanda;
 import com.dpo.centralized_restaurant.Model.Service.ServiceDish;
 import com.dpo.centralized_restaurant.View.ConfigurationPanels.ConfigurationPanel;
 import com.dpo.centralized_restaurant.View.DishPanels.DishPanel;
 import com.dpo.centralized_restaurant.View.PostService.PostService;
+import com.dpo.centralized_restaurant.View.PostService.Stats;
 import com.dpo.centralized_restaurant.View.Preservice.GeneralMenu;
 import com.dpo.centralized_restaurant.View.Service.DishService;
 import com.dpo.centralized_restaurant.View.Service.OrdersService;
@@ -37,6 +39,7 @@ public class MainView extends JFrame {
     private OrdersService jpOrders;
     private DishService jpSDish;
     private PostService jpPost;
+    private Stats jpStats;
 
     private JPanel jpHeader;
     private JPanel jpContent;
@@ -61,6 +64,7 @@ public class MainView extends JFrame {
         jpReq = new RequestsService(new ArrayList<Mesa>(), controlador);
         jpOrders = new OrdersService(new ArrayList<Comanda>(), controlador);
         jpSDish = new DishService(new ArrayList<ServiceDish>(), controlador);
+        jpStats = new Stats(new ArrayList<OrderedDish>(), new ArrayList<OrderedDish>(),0, 0 , 0, (float) 0.0);
         jpPost = new PostService();
         jpConfig = new ConfigurationPanel(controlador);
 
@@ -148,6 +152,7 @@ public class MainView extends JFrame {
         jpContent.add("SERVICE-DISHES", jpSDish);
         jpContent.add("POSTSERVICE", jpPost);
         jpContent.add("CONFIGURATIONS", jpConfig);
+        jpContent.add("STADISTICS", jpStats);
         /* ------------------------------ VIEW PARAMETERS ------------------------------ */
         getContentPane().add(jpHeader, BorderLayout.PAGE_START);
         getContentPane().add(jpContent);
