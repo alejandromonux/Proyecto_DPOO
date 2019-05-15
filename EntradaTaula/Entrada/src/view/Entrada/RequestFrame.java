@@ -51,4 +51,12 @@ public class RequestFrame extends JFrame {
     public void resetValues() {
         jpRequestMenu.resetValues();
     }
+
+    public void insertNotification(){
+
+        JOptionPane.showMessageDialog(this,
+                "Insert Error on creating user",
+                "Inane error",
+                JOptionPane.ERROR_MESSAGE);
+    }
 }

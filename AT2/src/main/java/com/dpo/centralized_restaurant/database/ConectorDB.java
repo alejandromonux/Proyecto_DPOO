@@ -279,7 +279,64 @@ import java.util.ArrayList;
          *
          * ***********************************************************************************
          *********************************************************************************** */
+        public ArrayList<String> getRequests(){
 
+            String query = "SELECT name FROM request WHERE in_service = true;";
+            ResultSet rs = null;
+            ArrayList<String> result = new ArrayList<>();
+
+            try {
+                s =(Statement) conn.createStatement();
+                rs = s.executeQuery(query);
+                while (rs.next()) {
+                    result.add(rs.getString("name"));
+                }
+
+            } catch (SQLException ex) {
+                System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+            }
+            return result;
+
+        }
+
+        public Boolean deleteRequest(String delete){
+
+            String query = "UPDATE request SET in_service = false WHERE request.name = '" + delete + "';";
+            ResultSet rs = null;
+
+            try {
+                s =(Statement) conn.createStatement();
+                rs = s.executeQuery(query);
+                if (rs.next()) {
+                    return rs.next();
+                }
+
+            } catch (SQLException ex) {
+                System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+            }
+
+            return false;
+        }
+
+
+        public boolean insertRequest(String name, int cantidad){
+            String query = "INSERT INTO request(name, quantity) VALUES('" + name + "', " + cantidad + ");";
+            ResultSet rs = null;
+
+            try {
+                s =(Statement) conn.createStatement();
+                rs = s.executeQuery(query);
+                if (rs.next()) {
+                    return rs.next();
+                }
+
+            } catch (SQLException ex) {
+                System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+            }
+            return false;
+
+
+        }
 
 
 

@@ -375,6 +375,14 @@ public class Controller implements ActionListener {
             case "POSTSERVICE" :
                 vista.changePanel("POSTSERVICE");
             break;
+            case "ACCEPT-REQUEST":
+                //eliminar el panel de la vista
+                //update BBDD
+                break;
+            case "DECLINE-REQUEST" :
+                //eliminar el panel de la vista
+                //avisar client?
+                break;
         }
 
     }

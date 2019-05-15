@@ -54,4 +54,8 @@ public class Controller implements ActionListener {
         vista.changePanel("PASSWORD-VIEW");
     }
 
+    public void insertNotification(){
+
+        vista.insertNotification();
+    }
 }

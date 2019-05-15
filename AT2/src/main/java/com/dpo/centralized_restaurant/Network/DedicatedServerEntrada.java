@@ -52,18 +52,25 @@ public class DedicatedServerEntrada extends Thread{
             while (true) {
                 init = dis.readUTF();
                 switch (init) {
-                    case "NEW-REQUST":
+                    case "REQUEST-COMING":
                         String nameNew = dis.readUTF();
                         int cantidadPersonas = dis.readInt();
-                        break;
-
-                    case "SHOW-ORDERS":
-                        dos.writeUTF("UPDATE-ORDERS");
+                        dos.writeBoolean(conectorDB.insertRequest(nameNew, cantidadPersonas));
 
                         break;
 
-                    case "CANCEL-ORDER":
+                    case "NEED-REQUEST-LIST":
+                        dos.writeUTF("UPDATE-REQUEST-LIST");
+                        ArrayList<String> envia = conectorDB.getRequests();
+                        dos.writeInt(envia.size());
+                        for (int j = 0; j < envia.size(); j++){
+                            dos.writeUTF(envia.get(j));
+                        }
+                        break;
+
+                    case "DELETE-REQUEST":
                         String nameToCancel = dis.readUTF();
+                        dos.writeBoolean(conectorDB.deleteRequest(nameToCancel));
                         break;
 
                 }
@@ -90,4 +97,6 @@ public class DedicatedServerEntrada extends Thread{
             //} catch (IOException e) {}
         }
     }
+
+
 }
