@@ -64,7 +64,7 @@ public class MainView extends JFrame {
         jpReq = new RequestsService(new ArrayList<Mesa>(), controlador);
         jpOrders = new OrdersService(new ArrayList<Comanda>(), controlador);
         jpSDish = new DishService(new ArrayList<ServiceDish>(), controlador);
-        jpStats = new Stats(new ArrayList<OrderedDish>(), new ArrayList<OrderedDish>(),0, 0 , 0, (float) 0.0);
+        //jpStats = new Stats(new ArrayList<OrderedDish>(), new ArrayList<OrderedDish>(),0, 0 , 0, (float) 0.0);
         jpPost = new PostService();
         jpConfig = new ConfigurationPanel(controlador);
 
@@ -152,7 +152,7 @@ public class MainView extends JFrame {
         jpContent.add("SERVICE-DISHES", jpSDish);
         jpContent.add("POSTSERVICE", jpPost);
         jpContent.add("CONFIGURATIONS", jpConfig);
-        jpContent.add("STADISTICS", jpStats);
+        //jpContent.add("STADISTICS", jpStats);
         /* ------------------------------ VIEW PARAMETERS ------------------------------ */
         getContentPane().add(jpHeader, BorderLayout.PAGE_START);
         getContentPane().add(jpContent);
@@ -248,5 +248,13 @@ public class MainView extends JFrame {
     }
     public void changeUserView(String username){
         jlWelcomeUser.setText("Welcome " + username + "! ");
+    }
+
+    public String getConfigName() {
+        return jpConfig.getConfigName();
+    }
+
+    public ConfigurationPanel getJpConfig() {
+        return jpConfig;
     }
 }

@@ -29,6 +29,7 @@ public class ConfigurationListPanel extends JPanel{
 
     public ConfigurationListPanel(ArrayList<Configuration> configs, Controller c) {
         buttonEditor = new com.dpo.centralized_restaurant.View.ListButton.ButtonEditor(new JCheckBox());
+        buttonEditor.setTextButton("REMOVE");
         editButton = new JButton();
         editButton.setFocusPainted(false);
 
@@ -65,7 +66,7 @@ public class ConfigurationListPanel extends JPanel{
 
     public void registerController(Controller c){
 
-//        buttonEditor.registerController(c, "REMOVE-TABLE");
+        buttonEditor.registerController(c, "REMOVE-CONFIGURATION");
     }
 
     public void createData(ArrayList<Configuration> configs){
@@ -80,7 +81,7 @@ public class ConfigurationListPanel extends JPanel{
         columnNames = new String[]{"Name", "Pick", "Delete"};
     }
 
-    public String getTableName() {
+    public String getConfigName() {
         System.out.println(jtable.getSelectedRow());
         return jtable.getValueAt(jtable.getSelectedRow(), 0).toString();
     }

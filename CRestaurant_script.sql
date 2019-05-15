@@ -4,8 +4,7 @@ USE centralized_restaurant;
 
 DROP TABLE IF EXISTS worker;
 CREATE TABLE worker(
-  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  username VARCHAR(255) NOT NULL,
+  username VARCHAR(255) NOT NULL PRIMARY KEY,
   email VARCHAR(255),
   password VARCHAR(255),
   connected boolean
@@ -15,7 +14,7 @@ DROP TABLE IF EXISTS configuration;
 CREATE TABLE configuration (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(255) NOT NULL UNIQUE,
-  worker_id INT NOT NULL
+  worker_name VARCHAR(255) NOT NULL
 );
 
 DROP TABLE IF EXISTS dish;
@@ -31,7 +30,6 @@ CREATE TABLE dish (
 
 DROP TABLE IF EXISTS mesa;
 CREATE TABLE mesa(
-  #id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(255) NOT NULL PRIMARY KEY,
   chairs INT DEFAULT 1,
   in_use boolean DEFAULT false,
@@ -63,7 +61,6 @@ DROP TABLE IF EXISTS configuration_dish;
 CREATE TABLE configuration_dish(
   configuration_id INT NOT NULL,
   dish_id INT NOT NULL,
-  active boolean,
   PRIMARY KEY (configuration_id, dish_id)
 );
 
@@ -73,15 +70,16 @@ ALTER TABLE configuration_dish ADD FOREIGN KEY (dish_id) REFERENCES dish(id);
 DROP TABLE IF EXISTS configuration_table;
 CREATE TABLE configuration_table(
   configuration_id INT NOT NULL,
-  mesa_id VARCHAR(255) NOT NULL,
-  active boolean,
-  PRIMARY KEY (configuration_id, mesa_id)
+  mesa_name VARCHAR(255) NOT NULL,
+  PRIMARY KEY (configuration_id, mesa_name)
 );
 
 ALTER TABLE configuration_table ADD FOREIGN KEY (configuration_id) REFERENCES configuration(id);
-ALTER TABLE configuration_table ADD FOREIGN KEY (mesa_id) REFERENCES mesa(name);
+ALTER TABLE configuration_table ADD FOREIGN KEY (mesa_name) REFERENCES mesa(name);
 
 DROP TABLE IF EXISTS variables_importantes;
 CREATE TABLE variables_importantes(
   enServicio BOOLEAN
 );
+
+INSERT INTO configuration_dish(configuration_id, dish_id) VALUES(1, 1);

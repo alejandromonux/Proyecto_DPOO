@@ -9,7 +9,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class ConfigurationPanel extends JPanel{
+public class ConfigurationPanel extends JPanel {
 
 
     private ArrayList<Mesa> mesas = new ArrayList<>();
@@ -27,12 +27,12 @@ public class ConfigurationPanel extends JPanel{
 
     public ConfigurationPanel(Controller c) {
 
-        JPanel jpLeft = new JPanel(new BorderLayout(0,15));
+        JPanel jpLeft = new JPanel(new BorderLayout(0, 15));
         jpLeft.setBackground(null);
 
         JPanel jpBigLeft = new JPanel(new BorderLayout());
         jpBigLeft.setBorder(new EmptyBorder(0, 50, 90, 50));
-        jpBigLeft.setSize(800,250);
+        jpBigLeft.setSize(800, 250);
 
         JLabel title = new JLabel("CONFIGURATIONS");
         title.setBorder(new EmptyBorder(20, 0, 20, 0));
@@ -76,7 +76,7 @@ public class ConfigurationPanel extends JPanel{
         jpBigLeft.add(jpLeft, BorderLayout.CENTER);
 
         jpContent = new JPanel(new BorderLayout());
-        jpContent.setSize(500,200);
+        jpContent.setSize(500, 200);
         jpContent.setBorder(new EmptyBorder(0, 300, 110, 250));
 
         jpBigLeft.setBackground(new Color(0x186875));
@@ -90,7 +90,7 @@ public class ConfigurationPanel extends JPanel{
         jpContent.add("CONFIGURATION-LIST", configurationList);
 
         setLayout(new SpringLayout());
-        setSize(800,250);
+        setSize(800, 250);
         add(jpBigLeft);
         add(jpContent);
     }
@@ -107,7 +107,9 @@ public class ConfigurationPanel extends JPanel{
         configurationList.registerController(c);
     }
 
-    public ConfigurationPanel getPanel(ConfigurationPanel which) {return which;}
+    public ConfigurationPanel getPanel(ConfigurationPanel which) {
+        return which;
+    }
 
     public void changePanel(String which) {
         jclContent.show(jpContent, which);
@@ -125,5 +127,19 @@ public class ConfigurationPanel extends JPanel{
         this.configurationList = tableList;
         jpContent.remove(1);
         jpContent.add("CONFIGURATION-LIST", tableList);
+    }
+
+    // Obtener nombre de configuracion seleccionado
+    public String getConfigListName() {
+        return configurationList.getConfigName();
+    }
+
+    public void setConfigurationList(JScrollPane jpList) {
+        this.jpList = jpList;
+    }
+
+    // Obtener nombre que el usuario ha escrito para nueva configuracion
+    public String getConfigName(){
+        return jpCreator.getJtfId().getText();
     }
 }

@@ -5,6 +5,7 @@ import com.dpo.centralized_restaurant.Model.Model;
 import com.dpo.centralized_restaurant.Model.Worker;
 import com.dpo.centralized_restaurant.Network.ServerEntrada;
 import com.dpo.centralized_restaurant.Network.ServerTaula;
+import com.dpo.centralized_restaurant.View.ConfigurationPanels.ConfigurationListPanel;
 import com.dpo.centralized_restaurant.View.DishPanels.DishListPanel;
 import com.dpo.centralized_restaurant.View.MainView;
 import com.dpo.centralized_restaurant.View.TablePanels.TablesListPanel;
@@ -94,25 +95,68 @@ public class Controller implements ActionListener {
                 vista.getJpDish().changePanel("DISH-CREATE");
                 break;
             case "CONFIGURATIONS":
+                model.setConfigurations(conectorDB.findConfigurationByWorker(workerActual.getUsername()));
+                vista.getJpConfig().setConfigurationList(new ConfigurationListPanel(model.getConfigurations(), this));
                 vista.changePanel("CONFIGURATIONS");
                 break;
             case "SAVE-CONFIGURATION":
-                boolean done6 = conectorDB.createTable(vista.getJpTables().getJpCreator().getJtfId().getText(),
-                        (int) vista.getJpTables().getJpCreator().getJcbQuantity().getSelectedItem());
+                boolean done6 = conectorDB.createConfiguration(vista.getConfigName(), workerActual);
 
                 if(!done6){
                     JOptionPane.showMessageDialog(vista,
-                            "Insert table not successfull!",
+                            "Create configuration not successfull!",
                             "Error!",
                             JOptionPane.ERROR_MESSAGE);
                 }
                 else {
-                    model.setMesas(conectorDB.findActiveTables());
-                    vista.getJpTables().setTableList(new TablesListPanel(model.getMesas(), this));
-                    //Vista del servei
-                    vista.setJpReq(new RequestsService(model.getMesas(), this));
-                    vista.getJpReq().registerControllers(this);
+                    model.setConfigurations(conectorDB.findConfigurationByWorker(workerActual.getUsername()));
+                    vista.getJpConfig().setConfigurationList(new ConfigurationListPanel(model.getConfigurations(), this));
+
+                    JOptionPane.showMessageDialog(vista,
+                            "Configuration created successfully",
+                            "Completed!",
+                            JOptionPane.INFORMATION_MESSAGE);
                 }
+                break;
+
+            case "REMOVE-CONFIGURATION":
+                String nameToRemove = vista.getJpConfig().getConfigListName();
+                boolean done7 = conectorDB.removeConfiguration(nameToRemove, workerActual);
+
+                if(done7){
+                    model.setConfigurations(conectorDB.findConfigurationByWorker(workerActual.getUsername()));
+                    vista.getJpConfig().setConfigurationList(new ConfigurationListPanel(model.getConfigurations(), this));
+
+                    JOptionPane.showMessageDialog(vista,
+                            "Configuration deleted successfully",
+                            "Completed!",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+                else {
+                    JOptionPane.showMessageDialog(vista,
+                            "Delete configuration not successfull!",
+                            "Error!",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+
+                break;
+            case "PICK-THIS-CONFIGURATION":
+                String nameToPick = vista.getJpConfig().getConfigListName();
+                boolean done8 = conectorDB.pickConfiguration(nameToPick, workerActual);
+
+                if(done8){
+                    JOptionPane.showMessageDialog(vista,
+                            "Configuration set successfully",
+                            "Completed!",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+                else {
+                    JOptionPane.showMessageDialog(vista,
+                            "There was an error downloading configuration settings!",
+                            "Error!",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+
                 break;
             case "CONFIGURATION-CREATE":
                 vista.changeConfigurationPanel("CONFIGURATION-CREATE");
@@ -152,9 +196,11 @@ public class Controller implements ActionListener {
                 else {
                     model.setMesas(conectorDB.findActiveTables());
                     vista.getJpTables().setTableList(new TablesListPanel(model.getMesas(), this));
-                    //Vista del servei
+
+                    /*//Vista del servei
                     vista.setJpReq(new RequestsService(model.getMesas(), this));
                     vista.getJpReq().registerControllers(this);
+                    */
                 }
 
                 break;
@@ -165,8 +211,8 @@ public class Controller implements ActionListener {
                 if(done3){
                     model.setMesas(conectorDB.findActiveTables());
                     vista.getJpTables().setTableList(new TablesListPanel(model.getMesas(), this));
-                    vista.setJpReq(new RequestsService(model.getMesas(), this));
-                    vista.getJpReq().registerControllers(this);
+                    /*vista.setJpReq(new RequestsService(model.getMesas(), this));
+                    vista.getJpReq().registerControllers(this);*/
                 }
                 else {
                     JOptionPane.showMessageDialog(vista,
