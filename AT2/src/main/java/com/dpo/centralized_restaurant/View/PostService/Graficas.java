@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
+/**
+ * Creates the different graphics that will be displayed to the user
+ */
 public class Graficas extends Canvas {
     private ArrayList<OrderedDish> orderedDishes;
     private int HEIGHT = 400;

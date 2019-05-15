@@ -7,6 +7,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Sets the configuration of the button that is within the JTables, thus allowing user to interact with it
+ */
 public class ButtonEditor extends DefaultCellEditor {
     protected JButton button;
     private String    label;

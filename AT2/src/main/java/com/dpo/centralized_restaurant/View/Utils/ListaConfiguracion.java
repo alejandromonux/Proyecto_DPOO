@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 
+/**
+ * Sets the configuration of the list with the different configurations set up
+ */
 public class ListaConfiguracion extends JPanel {
 
     private DefaultListModel infoLlista = new DefaultListModel();

@@ -6,6 +6,9 @@ import com.dpo.centralized_restaurant.Controller.Controller;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Creates and handles all the information that will be displayed in the general Service view
+ */
 public class ServeiPanel extends JPanel {
 
     /* MAIN CONTENT ATTRIBUTES */

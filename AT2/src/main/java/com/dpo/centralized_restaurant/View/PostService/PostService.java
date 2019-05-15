@@ -5,6 +5,9 @@ import com.dpo.centralized_restaurant.Controller.Controller;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Creates and handles all the information that will be displayed in the Post-Service view
+ */
 public class PostService extends JPanel{
 
     /* MAIN CONTENT ATTRIBUTES */

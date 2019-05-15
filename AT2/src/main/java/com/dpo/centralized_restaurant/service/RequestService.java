@@ -4,6 +4,10 @@ import com.dpo.centralized_restaurant.Repository.RequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * Creates the general configuration of the requests
+ */
+
 @Service
 public class RequestService {
     @Autowired

@@ -17,6 +17,9 @@ import java.awt.event.ActionListener;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Handles all the operations between the data and the views, and thus the interaction with the user
+ */
 public class Controller implements ActionListener {
     private MainView vista;
     private Model model;

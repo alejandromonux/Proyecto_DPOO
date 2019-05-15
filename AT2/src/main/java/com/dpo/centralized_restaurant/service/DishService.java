@@ -5,6 +5,9 @@ import com.dpo.centralized_restaurant.Repository.DishRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * Creates the general configuration of the dishes
+ */
 @Service
 public class DishService {
 
@@ -23,6 +26,9 @@ public class DishService {
 
     }
 
+    /**
+     * Create a group of dishes to start with
+     */
     public void testDishes() {
 
         Dish dish1 = new Dish("Fideua", 4.4,10,10);

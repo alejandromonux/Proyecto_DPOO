@@ -10,6 +10,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
+/**
+ * Handles the connection between the system, server side, with the general server and the database
+ */
 public class ServerEntrada extends Thread {
 
     private int PORT;

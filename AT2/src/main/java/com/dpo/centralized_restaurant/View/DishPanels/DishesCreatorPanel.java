@@ -7,6 +7,10 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
+/**
+ * Creates the left side of the panel that the user will see in the view, this being a group of actions
+ * the user will be allowed to do
+ */
 public class DishesCreatorPanel extends JPanel {
 
     private JTextField jtfName;
