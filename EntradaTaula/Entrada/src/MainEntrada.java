@@ -1,3 +1,4 @@
+import com.google.gson.Gson;
 import controller.Controller;
 import model.config.configJSON;
 import network.EntradaManager;
@@ -16,7 +17,7 @@ public class MainEntrada {
                 Gson gson = new Gson();
                 configJSON config;
                 try {
-                    config = gson.fromJson(new FileReader("config.json"), configJson.class);
+                    config = gson.fromJson(new FileReader("config.json"), configJSON.class);
                     EntradaManager networkManager = new EntradaManager();
                     RequestFrame vista = new RequestFrame();
                     ListFrame listFrame = new ListFrame(-50 + vista.getWidth() , vista.getY());
