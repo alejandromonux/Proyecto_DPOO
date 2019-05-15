@@ -7,6 +7,10 @@ import com.dpo.centralized_restaurant.Model.Service.Comanda;
 
 import java.util.ArrayList;
 
+/**
+ * Stores and handles all the data in the model, like the different list of dishes, tables and requests,
+ * thus allowing CRUD actions with the data
+ */
 public class Model {
     private ArrayList<Dish> dishes;
     private ArrayList<Mesa> mesas;

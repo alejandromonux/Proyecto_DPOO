@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+/**
+ * Sets the configuration of the button that is within the JTables, thus allowing user to interact with it
+ */
 public class ListButtonEditor extends DefaultCellEditor {
 
     JButton button;

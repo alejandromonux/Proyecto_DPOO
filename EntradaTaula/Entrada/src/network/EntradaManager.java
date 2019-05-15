@@ -52,10 +52,14 @@ public class EntradaManager extends Thread {
         dos.writeUTF("REQUEST-COMING");
         dos.writeUTF(nameRequest);
         dos.writeInt(quantity);
+        if (!dis.readBoolean()){
+            controller.insertNotification();
+        }
     }
 
     public void askRequests() throws IOException {
         dos.writeUTF("NEED-REQUEST-LIST");
+
     }
 
     public void readUpdates() throws IOException {

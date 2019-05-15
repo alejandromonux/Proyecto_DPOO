@@ -10,6 +10,9 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.util.ArrayList;
 
+/**
+ * Creates the right size of panel that the user will see in the view, this being a list of the dishes
+ */
 public class DishListPanel extends JPanel {
     private JScrollPane panel;
     private JPanel dish;

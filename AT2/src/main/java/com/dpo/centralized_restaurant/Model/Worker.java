@@ -5,6 +5,10 @@ import com.dpo.centralized_restaurant.Model.Configuration.Configuration;
 import javax.persistence.*;
 import java.util.Set;
 
+/**
+ * Stores and handles the data related with a worker, like his attributes, thus allowing CRUD actions with the data
+ */
+
 @Entity
 public class Worker {
     @Id

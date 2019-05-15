@@ -27,6 +27,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * Creates and handles the parent panel that will handle all the views. Also it creates and displays the header
+ * that will be displayed in the other views
+ */
 public class MainView extends JFrame {
 
     /* NEEDED CONTENT CLASSES */
@@ -143,6 +147,7 @@ public class MainView extends JFrame {
         jpContent.setBackground(new Color(0x12123B));
         jclContent = new CardLayout();
         jpContent.setLayout(jclContent);
+
         jpContent.add("FORMS", jpLogIn);
         jpContent.add("MAIN", jpMainMenu);
         jpContent.add("TABLES", jpTables);

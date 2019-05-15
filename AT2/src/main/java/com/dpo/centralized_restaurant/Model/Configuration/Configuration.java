@@ -5,6 +5,10 @@ import com.dpo.centralized_restaurant.Model.Worker;
 import javax.persistence.*;
 import java.util.Set;
 
+/**
+ * Handles the general configuration set by a worker
+ */
+
 @Entity
 public class Configuration {
 

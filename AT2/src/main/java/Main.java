@@ -10,6 +10,9 @@ import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
+/**
+ * Main void that starts the execution of the program
+ */
 public class Main {
 //public static Model Model = new Model();
     public static void main(String[] args){

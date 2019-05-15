@@ -6,6 +6,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Displays the graphics that will be displayed as part of the stats
+ */
 public class Stats extends JPanel {
     Canvas grafica;
     Canvas graficaAll;

@@ -9,7 +9,11 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class ConfigurationPanel extends JPanel {
+/**
+ * Creates the big panel that the user will see in the view, being the other sub-panels of the configuration
+ * within this one
+ */
+public class ConfigurationPanel extends JPanel{
 
 
     private ArrayList<Mesa> mesas = new ArrayList<>();

@@ -4,6 +4,10 @@ import com.dpo.centralized_restaurant.Model.Preservice.Dish;
 
 import javax.persistence.*;
 
+/**
+ * Handles the configuration of the dishes according to the general configuration of a worker
+ */
+
 @Entity
 public class ConfigurationDish {
     @Id

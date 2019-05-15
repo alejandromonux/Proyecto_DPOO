@@ -9,6 +9,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Creates the left side of the panel that the user will see in the view, this being a group of actions
+ * the user will be allowed to do
+ */
 public class TableCreatorPanel extends JPanel{
 
     private JTextField jtfId;

@@ -18,6 +18,10 @@ import javax.swing.table.TableModel;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Creates the right size of panel that the user will see in the view, this being a list of the configurations
+ */
+
 public class ConfigurationListPanel extends JPanel{
 
     private JTable jtable;
@@ -69,6 +73,10 @@ public class ConfigurationListPanel extends JPanel{
         buttonEditor.registerController(c, "REMOVE-CONFIGURATION");
     }
 
+    /**
+     * Create the data into the table according to the current configuration
+     * @param configs
+     */
     public void createData(ArrayList<Configuration> configs){
         data = new Object[configs.size()][3];
         for (int i = 0; i < configs.size() ; i++){

@@ -4,6 +4,9 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 
+/**
+ * Creates and displays the panel that will give information about the stats to the user
+ */
 public class StatsPanel extends JPanel {
     private JLabel gananciaHoy;
     private JLabel gananciaTotal;
