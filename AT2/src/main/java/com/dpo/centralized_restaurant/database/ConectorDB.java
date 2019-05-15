@@ -697,6 +697,49 @@ import java.util.ArrayList;
             return aux;
         }
 
+        /* ***********************************************************************************
+                ***********************************************************************************
+                *
+                *  [   ESTADO DEL SERVICIO   ]
+            *
+            * ***********************************************************************************
+            *********************************************************************************** */
+    /**
+     * Returns the  state at which the program was closed before the change to the login panel.
+     * State 0: Pre-service
+     * State 1: Service
+     * State 2: Post-service
+     * @return
+     */
+        public int estadoServicio(){
+            try {
+                String query = "SELECT estado_servicio FROM variables_importantes;";
+                ResultSet rs = null;
+                s =(Statement) conn.createStatement();
+                rs = s.executeQuery(query);
+                rs.next();
+
+
+                return rs.getInt("estado_servicio");
+
+            } catch (SQLException ex) {
+                System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+                return -1;
+            }
+        }
+
+    public boolean actualizarEstadoServicio(int estado){
+        try {
+            PreparedStatement ps = conn.prepareStatement("UPDATE variables_importantes SET estado_servicio = " + estado + ";");
+            ps.executeUpdate();
+
+            return true;
+
+        } catch (SQLException ex) {
+            System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+            return false;
+        }
+    }
 
         /* *********************************************************************************** */
 

@@ -79,7 +79,7 @@ ALTER TABLE configuration_table ADD FOREIGN KEY (mesa_name) REFERENCES mesa(name
 
 DROP TABLE IF EXISTS variables_importantes;
 CREATE TABLE variables_importantes(
-  enServicio BOOLEAN
+  estado_servicio INT
 );
 
-INSERT INTO configuration_dish(configuration_id, dish_id) VALUES(1, 1);
+INSERT INTO variables_importantes VALUES(0);
