@@ -8,6 +8,9 @@ import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 
+/**
+ * Handles the connection between the system, server side, using sockets
+ */
 public class DedicatedServerEntrada extends Thread{
 
     private RequestManager requestManager;

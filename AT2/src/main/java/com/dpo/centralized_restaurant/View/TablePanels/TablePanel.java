@@ -8,6 +8,10 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Creates the big panel that the user will see in the view, being the other sub-panels of the table view
+ * within this one
+ */
 public class TablePanel extends JPanel{
 
 

@@ -8,6 +8,9 @@ import javax.swing.*;
 import java.awt.event.MouseEvent;
 
 
+/**
+ * Controls the interaction between the user and the mouse within the views
+ */
 public class MouseListener implements java.awt.event.MouseListener {
     Model m;
     MainView v;

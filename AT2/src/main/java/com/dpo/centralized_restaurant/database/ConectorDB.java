@@ -10,6 +10,9 @@ import java.sql.*;
 import java.util.ArrayList;
 
 
+/**
+ *Links the system with the Database and executes the required queries
+ */
     public class ConectorDB {
         private String userName;
         private String password;

@@ -4,6 +4,10 @@ import com.dpo.centralized_restaurant.Model.Preservice.Mesa;
 
 import javax.persistence.*;
 
+/**
+ * Handles the configuration of a table according to the general configuration of a worker
+ */
+
 @Entity
 public class ConfigurationTable {
     @Id
