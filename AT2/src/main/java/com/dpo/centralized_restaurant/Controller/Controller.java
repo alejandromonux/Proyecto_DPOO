@@ -451,6 +451,11 @@ public class Controller implements ActionListener {
 
                 if(done20){
                     vista.changePanel("POSTSERVICE");
+                    serverEntrada.closeServer();
+                    serverEntrada = null;
+
+                    serverTaula.closeServer();
+                    serverTaula = null;
                 }
                 else {
                     JOptionPane.showMessageDialog(vista,
