@@ -15,6 +15,9 @@ import javax.swing.table.TableModel;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Creates and handles all the information that will be displayed in the Service dishes-related view
+ */
 public class DishService extends JPanel{
 
     private JTable jtable;

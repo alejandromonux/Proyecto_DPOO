@@ -1,11 +1,12 @@
+import com.google.gson.Gson;
 import controller.Controller;
+import model.config.configJSON;
 import network.EntradaManager;
-import network.NetworkManager;
 import view.Entrada.ListFrame;
 import view.Entrada.RequestFrame;
-import view.Entrada.RequestMenu;
 
 import javax.swing.*;
+import java.io.FileReader;
 
 public class MainEntrada {
     public static void main(String[] args) {
@@ -13,8 +14,11 @@ public class MainEntrada {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
+                Gson gson = new Gson();
+                configJSON config;
                 try {
-                    EntradaManager networkManager = new EntradaManager();
+                    config = gson.fromJson(new FileReader("config.json"), configJSON.class);
+                    EntradaManager networkManager = new EntradaManager(config);
                     RequestFrame vista = new RequestFrame();
                     ListFrame listFrame = new ListFrame(-50 + vista.getWidth() , vista.getY());
                     listFrame.setVisible(true);

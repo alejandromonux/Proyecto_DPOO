@@ -6,6 +6,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+/**
+ * Sets the configuration of the button that is within the JTables, thus allowing user to interact with it
+ */
 public class ButtonEditor extends DefaultCellEditor {
     protected JButton button;
     private String    label;
@@ -27,7 +30,7 @@ public class ButtonEditor extends DefaultCellEditor {
             button.setForeground(table.getForeground());
             button.setBackground(table.getBackground());
         }
-        label = "DELETE";
+        label = "REMOVE";
         button.setText( label );
         isPushed = true;
         return button;
@@ -39,6 +42,10 @@ public class ButtonEditor extends DefaultCellEditor {
         }
         isPushed = false;
         return new String( label ) ;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 
     public boolean stopCellEditing() {

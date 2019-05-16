@@ -10,6 +10,10 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
+/**
+ * Creates and handles all the information that will be displayed in the first panel the user will see, this is the
+ * Sign In and Sign Up forms. This panel might be just be displayed when no users are logged in
+ */
 public class LogInPanel extends JPanel {
 
     //--------PANELS-----------//

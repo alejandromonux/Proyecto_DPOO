@@ -4,6 +4,10 @@ import com.dpo.centralized_restaurant.Model.Preservice.Mesa;
 
 import javax.persistence.*;
 
+/**
+ * Stores and handles the core data of the requests, such their attributes and configurations
+ */
+
 @Entity
 public class Request {
 

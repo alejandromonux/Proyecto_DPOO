@@ -6,6 +6,10 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Stores and handles the core data of the tables, such their attributes and configurations
+ */
+
 @Entity
 public class Mesa {
 

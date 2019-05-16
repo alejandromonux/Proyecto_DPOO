@@ -18,6 +18,10 @@ import javax.swing.table.TableModel;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Creates the right size of panel that the user will see in the view, this being a list of the configurations
+ */
+
 public class ConfigurationListPanel extends JPanel{
 
     private JTable jtable;
@@ -29,6 +33,7 @@ public class ConfigurationListPanel extends JPanel{
 
     public ConfigurationListPanel(ArrayList<Configuration> configs, Controller c) {
         buttonEditor = new com.dpo.centralized_restaurant.View.ListButton.ButtonEditor(new JCheckBox());
+        buttonEditor.setTextButton("REMOVE");
         editButton = new JButton();
         editButton.setFocusPainted(false);
 
@@ -65,9 +70,13 @@ public class ConfigurationListPanel extends JPanel{
 
     public void registerController(Controller c){
 
-//        buttonEditor.registerController(c, "REMOVE-TABLE");
+        buttonEditor.registerController(c, "REMOVE-CONFIGURATION");
     }
 
+    /**
+     * Create the data into the table according to the current configuration
+     * @param configs
+     */
     public void createData(ArrayList<Configuration> configs){
         data = new Object[configs.size()][3];
         for (int i = 0; i < configs.size() ; i++){
@@ -80,7 +89,7 @@ public class ConfigurationListPanel extends JPanel{
         columnNames = new String[]{"Name", "Pick", "Delete"};
     }
 
-    public String getTableName() {
+    public String getConfigName() {
         System.out.println(jtable.getSelectedRow());
         return jtable.getValueAt(jtable.getSelectedRow(), 0).toString();
     }

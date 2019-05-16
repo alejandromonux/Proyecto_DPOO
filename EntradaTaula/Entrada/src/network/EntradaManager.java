@@ -1,6 +1,7 @@
 package network;
 
 import controller.Controller;
+import model.config.configJSON;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -11,8 +12,8 @@ import java.util.ArrayList;
 
 public class EntradaManager extends Thread {
 
-    private static final String IP = "127.0.0.1";
-    private final static int PORT = 12345;
+    private String IP;
+    private int PORT;
 
     private Socket socket;
     private Controller controller;
@@ -21,8 +22,10 @@ public class EntradaManager extends Thread {
     private DataOutputStream dos;
     private boolean isRunning;
 
-    public EntradaManager() throws IOException {
+    public EntradaManager(configJSON config) throws IOException {
         controller = null;
+        IP = config.getIP();
+        PORT = config.getPort_Entrada();
         socket = new Socket(IP, PORT);
         dis = new DataInputStream(socket.getInputStream());
         ois = new ObjectInputStream(socket.getInputStream());
@@ -52,10 +55,14 @@ public class EntradaManager extends Thread {
         dos.writeUTF("REQUEST-COMING");
         dos.writeUTF(nameRequest);
         dos.writeInt(quantity);
+        if (!dis.readBoolean()){
+            controller.insertNotification();
+        }
     }
 
     public void askRequests() throws IOException {
         dos.writeUTF("NEED-REQUEST-LIST");
+
     }
 
     public void readUpdates() throws IOException {

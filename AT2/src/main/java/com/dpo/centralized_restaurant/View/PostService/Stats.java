@@ -8,6 +8,9 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Displays the graphics that will be displayed as part of the stats
+ */
 public class Stats extends JPanel {
     private Canvas grafica;
     private Canvas graficaAll;
