@@ -8,6 +8,9 @@ import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 
+/**
+ * Handles the connection between the system, server side, using sockets
+ */
 public class DedicatedServerEntrada extends Thread{
 
     private RequestManager requestManager;
@@ -21,6 +24,7 @@ public class DedicatedServerEntrada extends Thread{
     private DataInputStream dis;
     private ObjectOutputStream oos;
     private DataOutputStream dos;
+    private boolean start;
 
     /**
      * Prepares this part of the system to work along the rest of the system
@@ -38,6 +42,7 @@ public class DedicatedServerEntrada extends Thread{
         this.dedicatedServers = dedicatedServers;
         this.conectorDB = conectorDB;
         this.controller = controller;
+        start = true;
     }
 
     @Override
@@ -49,21 +54,28 @@ public class DedicatedServerEntrada extends Thread{
             dos = new DataOutputStream(socket.getOutputStream());
             String init;
 
-            while (true) {
+            while (start) {
                 init = dis.readUTF();
                 switch (init) {
-                    case "NEW-REQUST":
+                    case "REQUEST-COMING":
                         String nameNew = dis.readUTF();
                         int cantidadPersonas = dis.readInt();
-                        break;
-
-                    case "SHOW-ORDERS":
-                        dos.writeUTF("UPDATE-ORDERS");
+                        dos.writeBoolean(conectorDB.insertRequest(nameNew, cantidadPersonas));
 
                         break;
 
-                    case "CANCEL-ORDER":
+                    case "NEED-REQUEST-LIST":
+                        dos.writeUTF("UPDATE-REQUEST-LIST");
+                        ArrayList<String> envia = conectorDB.getRequests();
+                        dos.writeInt(envia.size());
+                        for (int j = 0; j < envia.size(); j++){
+                            dos.writeUTF(envia.get(j));
+                        }
+                        break;
+
+                    case "DELETE-REQUEST":
                         String nameToCancel = dis.readUTF();
+                        dos.writeBoolean(conectorDB.deleteRequest(nameToCancel));
                         break;
 
                 }
@@ -90,4 +102,39 @@ public class DedicatedServerEntrada extends Thread{
             //} catch (IOException e) {}
         }
     }
+
+    public void closeDedicatedServer(){
+        start = false;
+        try {
+            ois.close();
+        } catch (IOException e) {}
+        try {
+            oos.close();
+        } catch (IOException e) {}
+        try {
+            dos.close();
+        } catch (IOException e) {}
+        try {
+            dis.close();
+        } catch (IOException e) {}
+        //try {
+        dedicatedServers.remove(this);
+    }
+
+    public void sendPass(String pass, String User){
+
+        synchronized (this) {
+            try {
+                dos.writeUTF("INCOMING-PASSWORD");
+                dos.writeUTF(User);
+                dos.writeUTF(pass);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+
 }

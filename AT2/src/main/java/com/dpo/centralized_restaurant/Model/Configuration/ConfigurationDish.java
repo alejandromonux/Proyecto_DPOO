@@ -4,29 +4,30 @@ import com.dpo.centralized_restaurant.Model.Preservice.Dish;
 
 import javax.persistence.*;
 
+/**
+ * Handles the configuration of the dishes according to the general configuration of a worker
+ */
+
 @Entity
 public class ConfigurationDish {
     @Id
     @GeneratedValue
-    Long id;
+    private int id;
 
     @ManyToOne
-    Configuration configuration;
+    private Configuration configuration;
 
     @ManyToOne
-    Dish dish;
-
-    boolean active;
+    private Dish dish;
 
     public ConfigurationDish(){}
 
     public ConfigurationDish(Configuration configuration, Dish dish, boolean active) {
         this.configuration = configuration;
         this.dish = dish;
-        this.active = active;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
@@ -46,21 +47,12 @@ public class ConfigurationDish {
         this.dish = dish;
     }
 
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
     @Override
     public String toString() {
         return "ConfigurationDish{" +
                 "id=" + id +
                 ", configuration=" + configuration +
                 ", dish=" + dish +
-                ", active=" + active +
                 '}';
     }
 }

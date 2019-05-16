@@ -3,6 +3,10 @@ package com.dpo.centralized_restaurant.Model.ModelDTO;
 import java.io.Serializable;
 import java.time.LocalTime;
 
+/**
+ * Allows to send messages to Entrada class
+ */
+
 public class DishDTO implements Serializable {
     private String name;
     private int units;

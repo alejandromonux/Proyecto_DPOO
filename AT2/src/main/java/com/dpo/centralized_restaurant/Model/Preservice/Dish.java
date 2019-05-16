@@ -1,12 +1,15 @@
 package com.dpo.centralized_restaurant.Model.Preservice;
 
-
 import com.dpo.centralized_restaurant.Model.Configuration.ConfigurationDish;
 
 import javax.persistence.*;
 
 import javax.persistence.OneToMany;
 import java.util.Set;
+
+/**
+ * Stores and handles the core data of the dishes, such their attributes and configurations
+ */
 
 @Entity
 public class Dish {

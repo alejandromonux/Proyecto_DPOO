@@ -9,6 +9,9 @@ import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 
+/**
+ * Handles the connection between the system, client side, using sockets
+ */
 public class DedicatedServerTaula extends Thread{
 
     private RequestManager requestManager;
@@ -21,6 +24,8 @@ public class DedicatedServerTaula extends Thread{
     private DataInputStream dis;
     private ObjectOutputStream oos;
     private DataOutputStream dos;
+
+    private boolean start;
 
     /**
      * Prepares this part of the system to work along the rest of the system
@@ -38,6 +43,7 @@ public class DedicatedServerTaula extends Thread{
         this.dedicatedServers = dedicatedServers;
         this.conectorDB = conectorDB;
         this.controller = controller;
+        start = true;
     }
 
     @Override
@@ -49,7 +55,7 @@ public class DedicatedServerTaula extends Thread{
             oos = new ObjectOutputStream(socket.getOutputStream());
             dos = new DataOutputStream(socket.getOutputStream());
             String init = "";
-            while (true) {
+            while (start) {
                 init = dis.readUTF();
                 switch (init) {
                     case "USER-LOGIN":
@@ -102,5 +108,23 @@ public class DedicatedServerTaula extends Thread{
                 //socket.close(); --Marc: Dani esto no se si se deberia hacer.
             //} catch (IOException e) {}
         }
+    }
+
+    public void closeDedicatedServer(){
+        start = false;
+        try {
+            ois.close();
+        } catch (IOException e) {}
+        try {
+            oos.close();
+        } catch (IOException e) {}
+        try {
+            dos.close();
+        } catch (IOException e) {}
+        try {
+            dis.close();
+        } catch (IOException e) {}
+        //try {
+        dedicatedServers.remove(this);
     }
 }

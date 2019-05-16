@@ -4,6 +4,9 @@ import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 
+/**
+ * Creates and displays the panel that will give information about the stats to the user
+ */
 public class StatsPanel extends JPanel {
     private JLabel gananciaHoy;
     private JLabel gananciaTotal;
@@ -11,10 +14,10 @@ public class StatsPanel extends JPanel {
     private JLabel preuMigTaula;
 
     public StatsPanel(long gananciaDia, long gananciaTotal, int mitjanaPlatsTaules, float preuMigTaula){
-        this.setLayout(new FlowLayout());
+        this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
         TitledBorder title = BorderFactory.createTitledBorder("Estadistiques");
         title.setTitleJustification(TitledBorder.LEFT);
-        this.setBorder(title);
+        //this.setBorder(title);
         this.gananciaHoy = new JLabel("Today's profit: " + gananciaDia);
         if(gananciaTotal != 0){
             this.gananciaTotal = new JLabel("Total profit: " + gananciaTotal);

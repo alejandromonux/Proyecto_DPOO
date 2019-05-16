@@ -4,6 +4,9 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
+/**
+ * Creates and handles all the information that will be displayed in the Pre-Service view
+ */
 public class ChoicesPanel extends JPanel {
 
     private JButton jbTables;

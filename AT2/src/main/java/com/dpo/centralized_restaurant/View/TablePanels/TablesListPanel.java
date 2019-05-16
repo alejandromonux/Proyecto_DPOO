@@ -15,6 +15,9 @@ import javax.swing.table.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Creates the right size of panel that the user will see in the view, this being a list of the tables
+ */
 public class TablesListPanel extends JPanel{
 
     private JTable jtable;

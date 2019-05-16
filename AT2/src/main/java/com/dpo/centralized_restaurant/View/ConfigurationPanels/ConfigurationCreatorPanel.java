@@ -6,6 +6,10 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
+/**
+ * Creates the left side of the panel that the user will see in the view, this being a group of actions
+ * the user will be allowed to do
+ */
 public class ConfigurationCreatorPanel extends JPanel{
 
     private JTextField jtfId;
@@ -24,7 +28,7 @@ public class ConfigurationCreatorPanel extends JPanel{
         JPanel jpTercer = new JPanel(new BorderLayout());
         jpTercer.setBorder(new EmptyBorder(5,0,0,0));
         jbAdd = new JButton("SAVE-CONFIGURATION");
-        jbAdd.setActionCommand("CONFIGURATION-CREATE-ACTION");
+        jbAdd.setActionCommand("SAVE-CONFIGURATION");
         //jpTercer.add(jbAdd);
 
         setLayout(new GridLayout(10,0,0,10));

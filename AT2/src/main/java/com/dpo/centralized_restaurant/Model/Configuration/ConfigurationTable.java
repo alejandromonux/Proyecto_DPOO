@@ -4,6 +4,10 @@ import com.dpo.centralized_restaurant.Model.Preservice.Mesa;
 
 import javax.persistence.*;
 
+/**
+ * Handles the configuration of a table according to the general configuration of a worker
+ */
+
 @Entity
 public class ConfigurationTable {
     @Id
@@ -16,14 +20,11 @@ public class ConfigurationTable {
     @ManyToOne
     Mesa mesa;
 
-    boolean active;
-
     public ConfigurationTable(){}
 
     public ConfigurationTable(Configuration configuration, Mesa mesa, boolean active) {
         this.configuration = configuration;
         this.mesa = mesa;
-        this.active = active;
     }
 
     public Long getId() {
@@ -44,14 +45,6 @@ public class ConfigurationTable {
 
     public void setMesa(Mesa mesa) {
         this.mesa = mesa;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
     }
 }
 

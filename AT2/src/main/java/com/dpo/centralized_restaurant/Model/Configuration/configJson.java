@@ -1,5 +1,8 @@
 package com.dpo.centralized_restaurant.Model.Configuration;
 
+/**
+ * Gets all the necessary information from the .json file
+ */
 public class configJson {
 
     private int Port_BBDD;

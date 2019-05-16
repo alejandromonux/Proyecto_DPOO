@@ -4,6 +4,10 @@ import com.dpo.centralized_restaurant.Model.Preservice.Dish;
 
 import javax.persistence.*;
 
+/**
+ * Handles the action of ordering a request according to the necessary parameters
+ */
+
 @Entity
 public class RequestOrder {
 

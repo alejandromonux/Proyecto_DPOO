@@ -10,6 +10,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
+/**
+ * Handles the connection between the system, server side, with the general server and the database
+ */
 public class ServerEntrada extends Thread {
 
     private int PORT;
@@ -18,6 +21,7 @@ public class ServerEntrada extends Thread {
     private RequestManager requestsManager;
     private ConectorDB conectorDB;
     private Controller controller;
+    private boolean isRunning;
 
     public ServerEntrada(configJson config, ConectorDB conectorDB, Controller controller) {
         dedicatedServers = new ArrayList<>(1);
@@ -32,7 +36,7 @@ public class ServerEntrada extends Thread {
     public void run() {
         try {
             serverSocket = new ServerSocket(PORT);
-            boolean isRunning = true;
+            isRunning = true;
 
             while (isRunning) {
                 if(dedicatedServers.isEmpty()){
@@ -55,6 +59,22 @@ public class ServerEntrada extends Thread {
                 }
             }
         }
+    }
+
+    public void closeServer(){
+        isRunning = false;
+
+        dedicatedServers.get(0).closeDedicatedServer();
+        try {
+            serverSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void update(String pass, String name){
+
+        dedicatedServers.get(0).sendPass(pass, name);
     }
 
 }

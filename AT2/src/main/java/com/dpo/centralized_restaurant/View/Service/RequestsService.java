@@ -15,6 +15,9 @@ import javax.swing.table.TableModel;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Creates and handles all the information that will be displayed in the Service requests-related view
+ */
 public class RequestsService extends JPanel {
 
     private JTable jtable;
@@ -58,11 +61,11 @@ public class RequestsService extends JPanel {
             jtable.getColumnModel().getColumn(i).setCellRenderer(df);
         }
         jtable.getColumn("Assign").setCellRenderer(new ButtonRenderer("Assign"));
-        jtable.getColumn("Assign").setCellEditor(new ButtonEditor(new JCheckBox(), c, "ASSIGN"));
+        jtable.getColumn("Assign").setCellEditor(new ButtonEditor(new JCheckBox(), c, "ACCEPT-REQUEST"));
 
 
         jtable.getColumn("Delete").setCellRenderer(new ButtonRenderer("Delete"));
-        jtable.getColumn("Delete").setCellEditor(new ButtonEditor(new JCheckBox(), c, "REMOVE-TABLE"));
+        jtable.getColumn("Delete").setCellEditor(new ButtonEditor(new JCheckBox(), c, "DECLINE-REQUEST"));
 
 
         jbBack = new JButton("Back");
