@@ -11,11 +11,7 @@ import java.util.Set;
 
 @Entity
 public class Worker {
-
     @Id
-    @GeneratedValue
-    private long id;
-
     @Column(nullable = false)
     private String username;
 
@@ -39,14 +35,6 @@ public class Worker {
         this.email = email;
         this.password = password;
         this.connected = true;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getUsername() {
@@ -97,14 +85,13 @@ public class Worker {
             return false;
         } else {
             Worker other = (Worker)obj;
-            return id == other.id;
+            return username.equals(other.username);
         }
     }
 
     @Override
     public String toString() {
         return "Worker{" +
-                "id=" + id +
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +

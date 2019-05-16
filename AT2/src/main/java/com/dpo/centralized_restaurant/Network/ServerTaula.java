@@ -21,6 +21,7 @@ public class ServerTaula extends Thread {
     private RequestManager requestsManager;
     private ConectorDB conectorDB;
     private Controller controller;
+    private boolean isRunning;
 
     public ServerTaula(configJson config, ConectorDB conectorDB, Controller controller) {
         dedicatedServers = new ArrayList<>();
@@ -35,7 +36,7 @@ public class ServerTaula extends Thread {
     public void run() {
         try {
             serverSocket = new ServerSocket(PORT);
-            boolean isRunning = true;
+            isRunning = true;
 
             while (isRunning) {
                 Socket socket = serverSocket.accept();  // Esperem a que algun usuari es connecti
@@ -55,6 +56,20 @@ public class ServerTaula extends Thread {
                     e.printStackTrace();
                 }
             }
+        }
+    }
+
+    public void closeServer(){
+        isRunning = false;
+
+        for(DedicatedServerTaula dst : dedicatedServers){
+            dst.closeDedicatedServer();
+        }
+
+        try {
+            serverSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

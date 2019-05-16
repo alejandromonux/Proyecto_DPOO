@@ -20,14 +20,11 @@ public class ConfigurationTable {
     @ManyToOne
     Mesa mesa;
 
-    boolean active;
-
     public ConfigurationTable(){}
 
     public ConfigurationTable(Configuration configuration, Mesa mesa, boolean active) {
         this.configuration = configuration;
         this.mesa = mesa;
-        this.active = active;
     }
 
     public Long getId() {
@@ -48,14 +45,6 @@ public class ConfigurationTable {
 
     public void setMesa(Mesa mesa) {
         this.mesa = mesa;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
     }
 }
 

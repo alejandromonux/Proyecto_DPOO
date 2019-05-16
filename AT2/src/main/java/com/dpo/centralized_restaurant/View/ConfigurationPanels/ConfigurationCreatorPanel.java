@@ -28,7 +28,7 @@ public class ConfigurationCreatorPanel extends JPanel{
         JPanel jpTercer = new JPanel(new BorderLayout());
         jpTercer.setBorder(new EmptyBorder(5,0,0,0));
         jbAdd = new JButton("SAVE-CONFIGURATION");
-        jbAdd.setActionCommand("CONFIGURATION-CREATE-ACTION");
+        jbAdd.setActionCommand("SAVE-CONFIGURATION");
         //jpTercer.add(jbAdd);
 
         setLayout(new GridLayout(10,0,0,10));

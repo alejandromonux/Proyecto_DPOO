@@ -13,6 +13,7 @@ import com.dpo.centralized_restaurant.View.PostService.Stats;
 import com.dpo.centralized_restaurant.View.Preservice.GeneralMenu;
 import com.dpo.centralized_restaurant.View.Service.DishService;
 import com.dpo.centralized_restaurant.View.Service.OrdersService;
+import com.dpo.centralized_restaurant.View.Service.ServeiPanel;
 import com.dpo.centralized_restaurant.View.TablePanels.TablePanel;
 import com.dpo.centralized_restaurant.View.Service.RequestsService;
 import com.dpo.centralized_restaurant.Model.Preservice.Dish;
@@ -43,6 +44,7 @@ public class MainView extends JFrame {
     private OrdersService jpOrders;
     private DishService jpSDish;
     private PostService jpPost;
+    private ServeiPanel jpServiceHome;
     private Stats jpStats;
 
     private JPanel jpHeader;
@@ -61,6 +63,7 @@ public class MainView extends JFrame {
         setSize(800,450);
         this.setBackground(new Color(0x1A1A57));
 
+        jpServiceHome = new ServeiPanel();
         jpMainMenu = new GeneralMenu();
         jpTables = new TablePanel(controlador);
         jpDish = new DishPanel(new ArrayList<Dish>(), controlador);
@@ -68,9 +71,10 @@ public class MainView extends JFrame {
         jpReq = new RequestsService(new ArrayList<Mesa>(), controlador);
         jpOrders = new OrdersService(new ArrayList<Comanda>(), controlador);
         jpSDish = new DishService(new ArrayList<ServiceDish>(), controlador);
-        jpStats = new Stats(new ArrayList<OrderedDish>(), new ArrayList<OrderedDish>(),0, 0 , 0, (float) 0.0);
+        //jpStats = new Stats(new ArrayList<OrderedDish>(), new ArrayList<OrderedDish>(),0, 0 , 0, (float) 0.0);
         jpPost = new PostService();
         jpConfig = new ConfigurationPanel(controlador);
+
 
         jpHeader = new JPanel();
         jpHeader.setSize(700,100);
@@ -157,7 +161,8 @@ public class MainView extends JFrame {
         jpContent.add("SERVICE-DISHES", jpSDish);
         jpContent.add("POSTSERVICE", jpPost);
         jpContent.add("CONFIGURATIONS", jpConfig);
-        jpContent.add("STADISTICS", jpStats);
+        jpContent.add("START", jpServiceHome);
+        //jpContent.add("STADISTICS", jpStats);
         /* ------------------------------ VIEW PARAMETERS ------------------------------ */
         getContentPane().add(jpHeader, BorderLayout.PAGE_START);
         getContentPane().add(jpContent);
@@ -253,5 +258,21 @@ public class MainView extends JFrame {
     }
     public void changeUserView(String username){
         jlWelcomeUser.setText("Welcome " + username + "! ");
+    }
+
+    public String getConfigName() {
+        return jpConfig.getConfigName();
+    }
+
+    public ConfigurationPanel getJpConfig() {
+        return jpConfig;
+    }
+
+    public void hideConfiguration(){
+        jbConfig.setVisible(false);
+    }
+
+    public void showConfiguration(){
+        jbConfig.setVisible(true);
     }
 }

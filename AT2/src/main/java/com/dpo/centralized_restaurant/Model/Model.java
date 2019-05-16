@@ -1,5 +1,6 @@
 package com.dpo.centralized_restaurant.Model;
 
+import com.dpo.centralized_restaurant.Model.Configuration.Configuration;
 import com.dpo.centralized_restaurant.Model.Preservice.Dish;
 import com.dpo.centralized_restaurant.Model.Preservice.Mesa;
 import com.dpo.centralized_restaurant.Model.Service.Comanda;
@@ -14,6 +15,7 @@ public class Model {
     private ArrayList<Dish> dishes;
     private ArrayList<Mesa> mesas;
     private ArrayList<Comanda> comandas;
+    private ArrayList<Configuration> configurations;
 
     public Model(){
         dishes = new ArrayList<Dish>();
@@ -52,8 +54,12 @@ public class Model {
      * @param dishname
      * @param dishQuant
      */
-    public void addComanda(long idTable, String dishname, int dishQuant){
+    public void addComanda(int idTable, String dishname, int dishQuant){
         comandas.add(new Comanda(idTable, dishname, dishQuant));
+    }
+
+    public void addConfig(int id, String name){
+        configurations.add(new Configuration(id, name));
     }
 
     public ArrayList<Dish> getDishes() {
@@ -92,5 +98,13 @@ public class Model {
                 dishes.remove(i);
             }
         }
+    }
+
+    public ArrayList<Configuration> getConfigurations() {
+        return configurations;
+    }
+
+    public void setConfigurations(ArrayList<Configuration> configurations) {
+        this.configurations = configurations;
     }
 }

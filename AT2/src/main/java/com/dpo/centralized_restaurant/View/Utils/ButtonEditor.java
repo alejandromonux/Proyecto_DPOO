@@ -30,7 +30,7 @@ public class ButtonEditor extends DefaultCellEditor {
             button.setForeground(table.getForeground());
             button.setBackground(table.getBackground());
         }
-        label = "DELETE";
+        label = "REMOVE";
         button.setText( label );
         isPushed = true;
         return button;
@@ -42,6 +42,10 @@ public class ButtonEditor extends DefaultCellEditor {
         }
         isPushed = false;
         return new String( label ) ;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 
     public boolean stopCellEditing() {

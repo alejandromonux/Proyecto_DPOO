@@ -24,6 +24,7 @@ public class DedicatedServerEntrada extends Thread{
     private DataInputStream dis;
     private ObjectOutputStream oos;
     private DataOutputStream dos;
+    private boolean start;
 
     /**
      * Prepares this part of the system to work along the rest of the system
@@ -41,6 +42,7 @@ public class DedicatedServerEntrada extends Thread{
         this.dedicatedServers = dedicatedServers;
         this.conectorDB = conectorDB;
         this.controller = controller;
+        start = true;
     }
 
     @Override
@@ -52,7 +54,7 @@ public class DedicatedServerEntrada extends Thread{
             dos = new DataOutputStream(socket.getOutputStream());
             String init;
 
-            while (true) {
+            while (start) {
                 init = dis.readUTF();
                 switch (init) {
                     case "REQUEST-COMING":
@@ -99,6 +101,24 @@ public class DedicatedServerEntrada extends Thread{
                 //socket.close();  --Marc: No se si esto deberia estar ya que se cierra a el mismo
             //} catch (IOException e) {}
         }
+    }
+
+    public void closeDedicatedServer(){
+        start = false;
+        try {
+            ois.close();
+        } catch (IOException e) {}
+        try {
+            oos.close();
+        } catch (IOException e) {}
+        try {
+            dos.close();
+        } catch (IOException e) {}
+        try {
+            dis.close();
+        } catch (IOException e) {}
+        //try {
+        dedicatedServers.remove(this);
     }
 
 

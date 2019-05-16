@@ -5,6 +5,7 @@ import com.dpo.centralized_restaurant.Model.Model;
 import com.dpo.centralized_restaurant.Model.Worker;
 import com.dpo.centralized_restaurant.Network.ServerEntrada;
 import com.dpo.centralized_restaurant.Network.ServerTaula;
+import com.dpo.centralized_restaurant.View.ConfigurationPanels.ConfigurationListPanel;
 import com.dpo.centralized_restaurant.View.DishPanels.DishListPanel;
 import com.dpo.centralized_restaurant.View.MainView;
 import com.dpo.centralized_restaurant.View.TablePanels.TablesListPanel;
@@ -62,7 +63,17 @@ public class Controller implements ActionListener {
             // Pre-servicio:
             //---------------------------------------------
             case "MAIN":
-                vista.changePanel(aux.getActionCommand());
+                boolean done19 = conectorDB.actualizarEstadoServicio(0);
+
+                if(done19){
+                    vista.changePanel(aux.getActionCommand());
+                }
+                else {
+                    JOptionPane.showMessageDialog(vista,
+                            "Error al cargar el programa!",
+                            "Error!",
+                            JOptionPane.ERROR_MESSAGE);
+                }
                 break;
             case "TABLES":
                 vista.changePanel(aux.getActionCommand());
@@ -77,11 +88,23 @@ public class Controller implements ActionListener {
 
             // Starts service
             case "START":
-                vista.changePanel(aux.getActionCommand());
-                serverEntrada = new ServerEntrada(configJson, conectorDB, this);
-                serverEntrada.start();
-                serverTaula = new ServerTaula(configJson, conectorDB, this);
-                serverTaula.start();
+                boolean done = conectorDB.actualizarEstadoServicio(1);
+
+                if(done){
+                    vista.hideConfiguration();
+                    vista.changePanel(aux.getActionCommand());
+                    serverEntrada = new ServerEntrada(configJson, conectorDB, this);
+                    serverEntrada.start();
+                    serverTaula = new ServerTaula(configJson, conectorDB, this);
+                    serverTaula.start();
+                }
+                else {
+                    JOptionPane.showMessageDialog(vista,
+                            "Error al cargar el programa!",
+                            "Error!",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+
                 break;
 
             case "TABLE-CREATE":
@@ -97,25 +120,68 @@ public class Controller implements ActionListener {
                 vista.getJpDish().changePanel("DISH-CREATE");
                 break;
             case "CONFIGURATIONS":
+                model.setConfigurations(conectorDB.findConfigurationByWorker(workerActual.getUsername()));
+                vista.getJpConfig().setConfigurationList(new ConfigurationListPanel(model.getConfigurations(), this));
                 vista.changePanel("CONFIGURATIONS");
                 break;
             case "SAVE-CONFIGURATION":
-                boolean done6 = conectorDB.createTable(vista.getJpTables().getJpCreator().getJtfId().getText(),
-                        (int) vista.getJpTables().getJpCreator().getJcbQuantity().getSelectedItem());
+                boolean done6 = conectorDB.createConfiguration(vista.getConfigName(), workerActual);
 
                 if(!done6){
                     JOptionPane.showMessageDialog(vista,
-                            "Insert table not successfull!",
+                            "Create configuration not successfull!",
                             "Error!",
                             JOptionPane.ERROR_MESSAGE);
                 }
                 else {
-                    model.setMesas(conectorDB.findActiveTables());
-                    vista.getJpTables().setTableList(new TablesListPanel(model.getMesas(), this));
-                    //Vista del servei
-                    vista.setJpReq(new RequestsService(model.getMesas(), this));
-                    vista.getJpReq().registerControllers(this);
+                    model.setConfigurations(conectorDB.findConfigurationByWorker(workerActual.getUsername()));
+                    vista.getJpConfig().setConfigurationList(new ConfigurationListPanel(model.getConfigurations(), this));
+
+                    JOptionPane.showMessageDialog(vista,
+                            "Configuration created successfully",
+                            "Completed!",
+                            JOptionPane.INFORMATION_MESSAGE);
                 }
+                break;
+
+            case "REMOVE-CONFIGURATION":
+                String nameToRemove = vista.getJpConfig().getConfigListName();
+                boolean done7 = conectorDB.removeConfiguration(nameToRemove, workerActual);
+
+                if(done7){
+                    model.setConfigurations(conectorDB.findConfigurationByWorker(workerActual.getUsername()));
+                    vista.getJpConfig().setConfigurationList(new ConfigurationListPanel(model.getConfigurations(), this));
+
+                    JOptionPane.showMessageDialog(vista,
+                            "Configuration deleted successfully",
+                            "Completed!",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+                else {
+                    JOptionPane.showMessageDialog(vista,
+                            "Delete configuration not successfull!",
+                            "Error!",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+
+                break;
+            case "PICK-THIS-CONFIGURATION":
+                String nameToPick = vista.getJpConfig().getConfigListName();
+                boolean done8 = conectorDB.pickConfiguration(nameToPick, workerActual);
+
+                if(done8){
+                    JOptionPane.showMessageDialog(vista,
+                            "Configuration set successfully",
+                            "Completed!",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+                else {
+                    JOptionPane.showMessageDialog(vista,
+                            "There was an error downloading configuration settings!",
+                            "Error!",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+
                 break;
             case "CONFIGURATION-CREATE":
                 vista.changeConfigurationPanel("CONFIGURATION-CREATE");
@@ -143,10 +209,10 @@ public class Controller implements ActionListener {
                 vista.changePanel("ORDERS");
                 break;
             case "TABLE-CREATE-ACTION":
-                boolean done = conectorDB.createTable(vista.getJpTables().getJpCreator().getJtfId().getText(),
+                boolean done18 = conectorDB.createTable(vista.getJpTables().getJpCreator().getJtfId().getText(),
                         (int) vista.getJpTables().getJpCreator().getJcbQuantity().getSelectedItem());
 
-                if(!done){
+                if(!done18){
                     JOptionPane.showMessageDialog(vista,
                             "Insert table not successfull!",
                             "Error!",
@@ -155,9 +221,11 @@ public class Controller implements ActionListener {
                 else {
                     model.setMesas(conectorDB.findActiveTables());
                     vista.getJpTables().setTableList(new TablesListPanel(model.getMesas(), this));
-                    //Vista del servei
+
+                    /*//Vista del servei
                     vista.setJpReq(new RequestsService(model.getMesas(), this));
                     vista.getJpReq().registerControllers(this);
+                    */
                 }
 
                 break;
@@ -168,8 +236,8 @@ public class Controller implements ActionListener {
                 if(done3){
                     model.setMesas(conectorDB.findActiveTables());
                     vista.getJpTables().setTableList(new TablesListPanel(model.getMesas(), this));
-                    vista.setJpReq(new RequestsService(model.getMesas(), this));
-                    vista.getJpReq().registerControllers(this);
+                    /*vista.setJpReq(new RequestsService(model.getMesas(), this));
+                    vista.getJpReq().registerControllers(this);*/
                 }
                 else {
                     JOptionPane.showMessageDialog(vista,
@@ -341,16 +409,17 @@ public class Controller implements ActionListener {
 
                     if (workerName != null){
                         workerActual = workerName;
-                        vista.changePanel("MAIN");
-                        vista.changeHeader(true);
                         vista.changeUserView(workerActual.getUsername());
+                        buscarEstado();
+
                     }
 
                     else if (workerEmail != null){
                         workerActual = workerEmail;
-                        vista.changePanel("MAIN");
-                        vista.changeHeader(true);
                         vista.changeUserView(workerActual.getUsername());
+                        buscarEstado();
+
+
                     }
 
                     else {
@@ -372,12 +441,31 @@ public class Controller implements ActionListener {
             case "REQUESTS":
                 vista.changePanel("REQUESTS");
             break;
+
             case "BACKSERVICE" :
                 vista.changePanel("START");
             break;
+
             case "POSTSERVICE" :
-                vista.changePanel("POSTSERVICE");
+                boolean done20 = conectorDB.actualizarEstadoServicio(2);
+
+                if(done20){
+                    vista.changePanel("POSTSERVICE");
+                    serverEntrada.closeServer();
+                    serverEntrada = null;
+
+                    serverTaula.closeServer();
+                    serverTaula = null;
+                }
+                else {
+                    JOptionPane.showMessageDialog(vista,
+                            "Error al cargar el programa!",
+                            "Error!",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+
             break;
+
             case "ACCEPT-REQUEST":
                 //eliminar el panel de la vista
                 //update BBDD
@@ -390,6 +478,31 @@ public class Controller implements ActionListener {
 
     }
 
+    private void buscarEstado(){
+        int estadoServicio = conectorDB.estadoServicio();
+
+        if(estadoServicio == -1){
+            JOptionPane.showMessageDialog(vista,
+                    "Error al cargar el programa!",
+                    "Error!",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        else if(estadoServicio == 0){
+            vista.changeHeader(true);
+            vista.changePanel("MAIN");
+            vista.showConfiguration();
+        }
+        else if(estadoServicio == 1){
+            vista.changeHeader(true);
+            vista.changePanel("START");
+            vista.hideConfiguration();
+        }
+        else if(estadoServicio == 2){
+            vista.changeHeader(true);
+            vista.changePanel("POSTSERVICE");
+            vista.hideConfiguration();
+        }
+    }
     public MainView getVista() {
         return vista;
     }

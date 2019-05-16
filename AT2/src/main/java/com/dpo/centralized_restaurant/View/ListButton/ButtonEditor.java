@@ -19,7 +19,7 @@ public class ButtonEditor extends DefaultCellEditor {
         super(checkBox);
         button = new JButton();
         button.setOpaque(true);
-        button.setText( "DELETE" );
+        button.setText( "REMOVE" );
     }
     public Component getTableCellEditorComponent(JTable table, Object value,
                                                  boolean isSelected, int row, int column) {
@@ -30,7 +30,7 @@ public class ButtonEditor extends DefaultCellEditor {
             button.setForeground(table.getForeground());
             button.setBackground(table.getBackground());
         }
-        label = "DELETE";
+        label = "REMOVE";
         button.setText( label );
         isPushed = true;
         return button;
@@ -56,5 +56,9 @@ public class ButtonEditor extends DefaultCellEditor {
     public void  registerController(Controller c, String command) {
         button.setActionCommand(command);
         button.addActionListener(c);
+    }
+
+    public void setTextButton(String text){
+        button.setText(text);
     }
 }
