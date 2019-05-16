@@ -41,7 +41,8 @@ CREATE TABLE request(
   id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(255) UNIQUE,
   quantity INT NOT NULL,
-  in_service INT
+  in_service INT,
+  pass VARCHAR(255)
 );
 
 

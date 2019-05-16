@@ -72,4 +72,9 @@ public class ServerEntrada extends Thread {
         }
     }
 
+    public void update(String pass, String name){
+
+        dedicatedServers.get(0).sendPass(pass, name);
+    }
+
 }
