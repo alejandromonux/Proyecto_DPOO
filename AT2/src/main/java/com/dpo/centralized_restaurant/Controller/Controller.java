@@ -15,6 +15,7 @@ import com.dpo.centralized_restaurant.database.ConectorDB;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -468,7 +469,10 @@ public class Controller implements ActionListener {
 
             case "ACCEPT-REQUEST":
                 //eliminar el panel de la vista
-                //update BBDD
+                Random rand = new Random();
+                Long a = Integer.toUnsignedLong(rand.nextInt() + rand.nextInt());
+                conectorDB.updateRequest(Long.toString(a));
+                serverEntrada.update(Long.toString(a), "hardcored");
                 break;
             case "DECLINE-REQUEST" :
                 //eliminar el panel de la vista

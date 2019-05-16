@@ -121,5 +121,20 @@ public class DedicatedServerEntrada extends Thread{
         dedicatedServers.remove(this);
     }
 
+    public void sendPass(String pass, String User){
+
+        synchronized (this) {
+            try {
+                dos.writeUTF("INCOMING-PASSWORD");
+                dos.writeUTF(User);
+                dos.writeUTF(pass);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
 
 }

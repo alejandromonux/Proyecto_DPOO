@@ -468,6 +468,23 @@ import java.util.ArrayList;
 
         }
 
+        public Boolean updateRequest(String password){
+            String query = "UPDATE request  SET request(in_service, pass) VALUES(0, '" + password + "') WHERE ;";
+            ResultSet rs = null;
+
+            try {
+                s =(Statement) conn.createStatement();
+                rs = s.executeQuery(query);
+                if (rs.next()) {
+                    return rs.next();
+                }
+
+            } catch (SQLException ex) {
+                System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+            }
+            return false;
+        }
+
 
 
         /* ***********************************************************************************
