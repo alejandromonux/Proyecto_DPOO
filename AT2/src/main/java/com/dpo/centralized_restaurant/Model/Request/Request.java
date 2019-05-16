@@ -22,16 +22,18 @@ public class Request {
     @Column(nullable = false)
     private int quantity;
 
-    // 0: Esta preparado
+    // 0: Esta esperando
     // 1: Esta en mesa
     // 2: Ya esta pagado y es servicio actual
     // 3: Historico
     @Column(name = "in_service")
     private int inService;
 
+    private String password;
+
     @ManyToOne
     @JoinColumn(name = "table_id")
-    private Mesa mesa;
+    private String mesa_name;
 
     public Request(){}
 
@@ -83,6 +85,25 @@ public class Request {
         }
     }
 
+    public String getMesa_name() {
+        return mesa_name;
+    }
+
+    public void setMesa_name(String mesa_name) {
+        this.mesa_name = mesa_name;
+    }
+
+    public int getInService() {
+        return inService;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     @Override
     public String toString() {

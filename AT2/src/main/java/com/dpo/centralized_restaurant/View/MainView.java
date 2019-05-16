@@ -154,7 +154,6 @@ public class MainView extends JFrame {
 
         jpContent.add("FORMS", jpLogIn);
         jpContent.add("MAIN", jpMainMenu);
-        jpContent.add("FORMS", jpLogIn);
         jpContent.add("TABLES", jpTables);
         jpContent.add("DISHES", jpDish);
         jpContent.add("REQUESTS", jpReq);
@@ -163,7 +162,7 @@ public class MainView extends JFrame {
         jpContent.add("CONFIGURATIONS", jpConfig);
         jpContent.add("START", jpServiceHome);
         jpContent.add("POSTSERVICE", jpPost);
-        jpContent.add("STADISTICS", jpStats);
+      //  jpContent.add("STADISTICS", jpStats);
         /* ------------------------------ VIEW PARAMETERS ------------------------------ */
         getContentPane().add(jpHeader, BorderLayout.PAGE_START);
         getContentPane().add(jpContent);
@@ -185,7 +184,8 @@ public class MainView extends JFrame {
         jpSDish.registerControllers(c);
         jpPost.registerControllers(c);
         jpConfig.registerController(c);
-        jpStats.registerController(c);
+        jpServiceHome.registerController(c);
+//        jpStats.registerController(c);
         jbLogOut.setActionCommand("FORMS");
         jbLogOut.addActionListener(c);
 

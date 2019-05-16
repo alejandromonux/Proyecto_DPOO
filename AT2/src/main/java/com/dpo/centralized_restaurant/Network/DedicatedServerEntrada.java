@@ -61,7 +61,6 @@ public class DedicatedServerEntrada extends Thread{
                         String nameNew = dis.readUTF();
                         int cantidadPersonas = dis.readInt();
                         dos.writeBoolean(conectorDB.insertRequest(nameNew, cantidadPersonas));
-
                         break;
 
                     case "NEED-REQUEST-LIST":
@@ -75,7 +74,13 @@ public class DedicatedServerEntrada extends Thread{
 
                     case "DELETE-REQUEST":
                         String nameToCancel = dis.readUTF();
-                        dos.writeBoolean(conectorDB.deleteRequest(nameToCancel));
+                        boolean done = conectorDB.deleteRequest(nameToCancel);
+                        dos.writeBoolean(done);
+
+                        if(done){
+                            // TODO: Falta actualizar lista requests tras eliminar
+                            conectorDB.getRequestsPendientes();
+                        }
                         break;
 
                 }

@@ -480,12 +480,16 @@ public class Controller implements ActionListener {
             break;
             case "ACCEPT-REQUEST":
                 //eliminar el panel de la vista
-                Random rand = new Random();
+
+                // TODO: Falta asignar mesa correctamente
+                /*Random rand = new Random();
                 Long a = Integer.toUnsignedLong(rand.nextInt() + rand.nextInt());
                 conectorDB.updateRequest(Long.toString(a));
-                serverEntrada.update(Long.toString(a), "hardcored");
+                serverEntrada.update(Long.toString(a), "hardcored");*/
+
                 break;
             case "DECLINE-REQUEST" :
+                // TODO: Falta poder rechazar request
                 //eliminar el panel de la vista
                 //avisar client?
                 break;
