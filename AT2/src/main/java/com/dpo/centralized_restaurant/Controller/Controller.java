@@ -68,17 +68,17 @@ public class Controller implements ActionListener {
                 break;
             case "DISHES":
                 vista.changePanel(aux.getActionCommand());
-                model.setDishes(conectorDB.findActiveDishes());
+//                model.setDishes(conectorDB.findActiveDishes());
                 vista.getJpDish().setJpList(new DishListPanel(model.getDishes(), this));
                 break;
 
             // Starts service
             case "START":
                 vista.changePanel(aux.getActionCommand());
-                serverEntrada = new ServerEntrada(configJson, conectorDB, this);
-                serverEntrada.start();
-                serverTaula = new ServerTaula(configJson, conectorDB, this);
-                serverTaula.start();
+   //             serverEntrada = new ServerEntrada(configJson, conectorDB, this);
+//                serverEntrada.start();
+ //                 serverTaula = new ServerTaula(configJson, conectorDB, this);
+//                serverTaula.start();
                 break;
 
             case "TABLE-CREATE":
@@ -375,6 +375,19 @@ public class Controller implements ActionListener {
             case "POSTSERVICE" :
                 vista.changePanel("POSTSERVICE");
             break;
+            case "GRAPHICS":
+                vista.changePanel("STADISTICS");
+            break;
+            case "TODAYGRAPH":
+                vista.getJpStats().changePanel("TODAYGRAPH");
+            break;
+            case "TOTALGRAPH":
+                vista.getJpStats().changePanel("TOTALGRAPH");
+            break;
+            case "STATSPANEL" :
+                vista.getJpStats().changePanel("STATS");
+            break;
+
         }
 
     }

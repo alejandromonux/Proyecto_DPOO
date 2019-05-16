@@ -65,14 +65,14 @@ import java.util.ArrayList;
                 rs = s.executeQuery(query);
 
                 if(!rs.next()){
-                    PreparedStatement ps = conn.prepareStatement("INSERT INTO configuration(name, worker) VALUES('" + name + "', "
-                            + cost + ", " + units + ", "+ timeCost + ", true);");
-                    ps.executeUpdate();
+//                    PreparedStatement ps = conn.prepareStatement("INSERT INTO configuration(name, worker) VALUES('" + name + "', "
+//                            + cost + ", " + units + ", "+ timeCost + ", true);");
+//                    ps.executeUpdate();
                 }
                 else {
-                    PreparedStatement ps = conn.prepareStatement("UPDATE mesa SET units = " + units + ", cost = " + cost + ", timecost = "+ timeCost +", active = true " +
-                            "WHERE name = '" + name + "';");
-                    ps.executeUpdate();
+//                    PreparedStatement ps = conn.prepareStatement("UPDATE mesa SET units = " + units + ", cost = " + cost + ", timecost = "+ timeCost +", active = true " +
+//                            "WHERE name = '" + name + "';");
+//                    ps.executeUpdate();
                 }
 
                 return true;

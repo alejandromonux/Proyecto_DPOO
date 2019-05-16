@@ -143,14 +143,14 @@ public class MainView extends JFrame {
         jpContent.setBackground(new Color(0x12123B));
         jclContent = new CardLayout();
         jpContent.setLayout(jclContent);
-        jpContent.add("FORMS", jpLogIn);
+        jpContent.add("POSTSERVICE", jpPost);
         jpContent.add("MAIN", jpMainMenu);
+        jpContent.add("FORMS", jpLogIn);
         jpContent.add("TABLES", jpTables);
         jpContent.add("DISHES", jpDish);
         jpContent.add("REQUESTS", jpReq);
         jpContent.add("ORDERS", jpOrders);
         jpContent.add("SERVICE-DISHES", jpSDish);
-        jpContent.add("POSTSERVICE", jpPost);
         jpContent.add("CONFIGURATIONS", jpConfig);
         jpContent.add("STADISTICS", jpStats);
         /* ------------------------------ VIEW PARAMETERS ------------------------------ */
@@ -174,7 +174,7 @@ public class MainView extends JFrame {
         jpSDish.registerControllers(c);
         jpPost.registerControllers(c);
         jpConfig.registerController(c);
-
+        jpStats.registerController(c);
         jbLogOut.setActionCommand("FORMS");
         jbLogOut.addActionListener(c);
 
@@ -248,5 +248,13 @@ public class MainView extends JFrame {
     }
     public void changeUserView(String username){
         jlWelcomeUser.setText("Welcome " + username + "! ");
+    }
+
+    public Stats getJpStats() {
+        return jpStats;
+    }
+
+    public void setJpStats(Stats jpStats) {
+        this.jpStats = jpStats;
     }
 }
