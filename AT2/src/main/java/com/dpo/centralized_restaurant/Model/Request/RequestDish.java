@@ -1,18 +1,6 @@
-package com.dpo.centralized_restaurant.Model.Preservice;
+package com.dpo.centralized_restaurant.Model.Request;
 
-import com.dpo.centralized_restaurant.Model.Configuration.ConfigurationDish;
-
-import javax.persistence.*;
-
-import javax.persistence.OneToMany;
-import java.util.Set;
-
-/**
- * Stores and handles the core data of the dishes, such their attributes and configurations
- */
-
-@Entity
-public class Dish {
+public class RequestDish {
 
     private Long id;
     private String name;
@@ -21,19 +9,19 @@ public class Dish {
     private int timecost;
     private int historicOrders;
     private boolean active;
+    private int actual_service;
+    private String activation_date;
 
-
-    @OneToMany(mappedBy = "dish")
-    Set<ConfigurationDish> configurations;
-
-    public Dish(){}
-
-    public Dish(String name, double cost, int units, int timecost) {
+    public RequestDish(Long id, String name, double cost, int units, int timecost, int historicOrders, boolean active, int actual_service, String activation_date) {
+        this.id = id;
         this.name = name;
         this.cost = cost;
         this.units = units;
         this.timecost = timecost;
-        this.historicOrders = 0;
+        this.historicOrders = historicOrders;
+        this.active = active;
+        this.actual_service = actual_service;
+        this.activation_date = activation_date;
     }
 
     public Long getId() {
@@ -92,26 +80,19 @@ public class Dish {
         this.active = active;
     }
 
-    public boolean equals (Object obj) {
-        if (obj == null) {
-            return false;
-        } else if (getClass() != obj.getClass()) {
-            return false;
-        } else {
-            Dish other = (Dish) obj;
-            return name.equals(other.name);
-        }
-
+    public int getActual_service() {
+        return actual_service;
     }
 
-    @Override
-    public String toString() {
-        return "Dish{" +
-                "name='" + name + '\'' +
-                ", cost=" + cost +
-                ", units=" + units +
-                ", timecost=" + timecost +
-                ", historicOrders=" + historicOrders +
-                '}';
+    public void setActual_service(int actual_service) {
+        this.actual_service = actual_service;
+    }
+
+    public String getActivation_date() {
+        return activation_date;
+    }
+
+    public void setActivation_date(String activation_date) {
+        this.activation_date = activation_date;
     }
 }

@@ -63,7 +63,6 @@ public class ConfigurationListPanel extends JPanel{
         jtable.getColumn("Delete").setCellEditor(nbe);
         jtable.getColumn("Pick").setCellEditor(pbe);
 
-
         this.add(jsPanel);
         this.setBorder(new EmptyBorder(0,0,0,0));
     }

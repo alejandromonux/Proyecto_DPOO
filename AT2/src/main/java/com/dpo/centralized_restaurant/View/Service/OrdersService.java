@@ -32,15 +32,13 @@ public class OrdersService extends JPanel{
     private boolean isButtonColumnEditor;
     Object[][] data ;
     String[] columnNames;
+    private com.dpo.centralized_restaurant.View.ListButton.ButtonEditor buttonEditor;
 
     public OrdersService(ArrayList<Comanda> comandas, Controller c) {
-
-        //renderButton = new JButton();
+        buttonEditor = new com.dpo.centralized_restaurant.View.ListButton.ButtonEditor(new JCheckBox());
+        buttonEditor.setTextButton("SEE MORE");
         editButton = new JButton();
         editButton.setFocusPainted(false);
-        //editButton.addActionListener( this );
-        originalBorder = editButton.getBorder();
-        setFocusBorder(new LineBorder(Color.BLUE));
 
         getColumNames();
         createData(comandas);
@@ -50,21 +48,20 @@ public class OrdersService extends JPanel{
                 return false;
             }
         };
-
         jtable = new JTable(tm);
         jtable.setRowHeight(30);
         JScrollPane jsPanel = new JScrollPane(jtable);
-
 
         DefaultTableCellRenderer df = new DefaultTableCellRenderer();
         df.setHorizontalAlignment(JLabel.CENTER);
         for(int i= 0; i < jtable.getColumnCount();i++){
             jtable.getColumnModel().getColumn(i).setCellRenderer(df);
         }
-        jtable.getColumn("Prepare").setCellRenderer(new ButtonRenderer("Prepare"));
-        jtable.getColumn("Prepare").setCellEditor(new ButtonEditor(new JCheckBox(), c, "PREPARE-DISH"));
-
-        jbBack = new JButton("Back");
+        jtable.getColumn("").setCellRenderer(new ButtonRenderer("SEE"));
+        jtable.getColumn("").setCellEditor(new ButtonEditor(new JCheckBox(), c, "SEE-TABLE-ORDERS"));
+        ButtonEditor nbe = new ButtonEditor(new JCheckBox(), c, "SEE-TABLE-ORDERS");
+        jtable.getColumn("").setCellEditor(nbe);
+        jbBack = new JButton("BACK");
 
         this.add(jsPanel);
         this.add(jbBack);
@@ -77,19 +74,23 @@ public class OrdersService extends JPanel{
     }
 
     public void createData(ArrayList<Comanda> comandas ){
-        data = new Object[comandas.size()][4];
+        data = new Object[comandas.size()][6];
         for (int i =0; i < comandas.size() ; i++){
             data[i][0] = comandas.get(i).getIdTable();
-            data[i][1] = comandas.get(i).getDishname();
-            data[i][2] = comandas.get(i).getDishquant();
-            data[i][3] = "Prepare";
+            data[i][1] = comandas.get(i).getAllDishes();
+            data[i][2] = comandas.get(i).getPendingDishes();
+            data[i][3] = comandas.get(i).getCookingDishes();
+            data[i][4] = comandas.get(i).getDate();
+            data[i][5] = "SEE MORE";
         }
     }
+
+
     public void getColumNames(){
-        columnNames = new String[]{"Mesa ID", "Dish name", "Quantity", "Prepare"};
+        columnNames = new String[]{"Mesa ID", "All Dishes", "Pending Dishes", "Cooking dishes", "Time", ""};
     }
 
-    public void registerControllers(Controller c){
+    public void registerController(Controller c){
         jbBack.setActionCommand("BACKSERVICE");
         jbBack.addActionListener(c);
     }

@@ -50,7 +50,7 @@ DROP TABLE IF EXISTS request_order;
 CREATE TABLE request_order(
   request_id INT NOT NULL,
   dish_id INT NOT NULL,
-  actual_service boolean,
+  actual_service INT,
   activation_date DATE,
   PRIMARY KEY (request_id, dish_id),
   FOREIGN KEY (request_id) REFERENCES request(id),

@@ -2,12 +2,14 @@ package com.dpo.centralized_restaurant.Controller;
 
 import com.dpo.centralized_restaurant.Model.Configuration.configJson;
 import com.dpo.centralized_restaurant.Model.Model;
+import com.dpo.centralized_restaurant.Model.Service.Comanda;
 import com.dpo.centralized_restaurant.Model.Worker;
 import com.dpo.centralized_restaurant.Network.ServerEntrada;
 import com.dpo.centralized_restaurant.Network.ServerTaula;
 import com.dpo.centralized_restaurant.View.ConfigurationPanels.ConfigurationListPanel;
 import com.dpo.centralized_restaurant.View.DishPanels.DishListPanel;
 import com.dpo.centralized_restaurant.View.MainView;
+import com.dpo.centralized_restaurant.View.Service.OrdersService;
 import com.dpo.centralized_restaurant.View.TablePanels.TablesListPanel;
 import com.dpo.centralized_restaurant.View.Service.RequestsService;
 import com.dpo.centralized_restaurant.database.ConectorDB;
@@ -15,6 +17,7 @@ import com.dpo.centralized_restaurant.database.ConectorDB;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -208,6 +211,13 @@ public class Controller implements ActionListener {
                 break;
             case "TABLE-ORDERS":
                 vista.changePanel("ORDERS");
+                ArrayList<Comanda> auxC = new ArrayList<>();
+                auxC.add(new Comanda(1,5,3,2,"23445"));
+                auxC.add(new Comanda(2,12,7,5,"e45g"));
+                auxC.add(new Comanda(3,9,3,6,"4f5g"));
+                auxC.add(new Comanda(4,7,3,4,"f45g"));
+                vista.setTableDishOrder(auxC, this);
+
                 break;
             case "TABLE-CREATE-ACTION":
                 boolean done18 = conectorDB.createTable(vista.getJpTables().getJpCreator().getJtfId().getText(),
@@ -442,7 +452,9 @@ public class Controller implements ActionListener {
             case "REQUESTS":
                 vista.changePanel("REQUESTS");
             break;
-
+            case "SEE-TABLE-ORDERS":
+                vista.changePanel("SPECIFIC-ORDERS");
+                break;
             case "BACKSERVICE" :
                 vista.changePanel("START");
             break;

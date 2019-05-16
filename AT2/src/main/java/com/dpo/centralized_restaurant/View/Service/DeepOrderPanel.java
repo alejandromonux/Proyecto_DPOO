@@ -2,7 +2,9 @@ package com.dpo.centralized_restaurant.View.Service;
 
 import com.dpo.centralized_restaurant.Controller.Controller;
 import com.dpo.centralized_restaurant.Model.Preservice.Dish;
-import com.dpo.centralized_restaurant.Model.Service.ServiceDish;
+import com.dpo.centralized_restaurant.Model.Request.RequestDish;
+import com.dpo.centralized_restaurant.Model.Request.RequestOrder;
+import com.dpo.centralized_restaurant.Model.Service.Comanda;
 import com.dpo.centralized_restaurant.View.Utils.ButtonEditor;
 import com.dpo.centralized_restaurant.View.Utils.ButtonRenderer;
 
@@ -14,12 +16,10 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-/**
- * Creates and handles all the information that will be displayed in the Service dishes-related view
- */
-public class DishService extends JPanel{
+public class DeepOrderPanel extends JPanel {
 
     private JTable jtable;
     private Action action;
@@ -34,8 +34,7 @@ public class DishService extends JPanel{
     Object[][] data ;
     String[] columnNames;
 
-    public DishService(ArrayList<Dish> dishes, Controller c) {
-
+    public DeepOrderPanel(ArrayList<RequestDish> comandas, Controller c) {
         //renderButton = new JButton();
         editButton = new JButton();
         editButton.setFocusPainted(false);
@@ -44,10 +43,10 @@ public class DishService extends JPanel{
         setFocusBorder(new LineBorder(Color.BLUE));
 
         getColumNames();
-        createData(dishes);
+        createData(comandas);
         TableModel tm = new DefaultTableModel(data, columnNames) {
             public boolean isCellEditable(int row, int column) {
-                if(column == columnNames.length -1) return true;
+                if(column == columnNames.length -1 || column == columnNames.length-2) return true;
                 return false;
             }
         };
@@ -62,10 +61,12 @@ public class DishService extends JPanel{
         for(int i= 0; i < jtable.getColumnCount();i++){
             jtable.getColumnModel().getColumn(i).setCellRenderer(df);
         }
-        jtable.getColumn("Stop Serving").setCellRenderer(new ButtonRenderer("CANCEL"));
-        jtable.getColumn("Stop Serving").setCellEditor(new ButtonEditor(new JCheckBox(), c, "CANCEL"));
+        jtable.getColumn("ChangeState").setCellRenderer(new ButtonRenderer("SEE MORE"));
+        jtable.getColumn("ChangeState").setCellEditor(new ButtonEditor(new JCheckBox(), c, "SEE-COMANDA"));
+        jtable.getColumn("Delete").setCellRenderer(new ButtonRenderer("DELETE"));
+        jtable.getColumn("Delete").setCellEditor(new ButtonEditor(new JCheckBox(), c, "SEE-COMANDA"));
 
-        jbBack = new JButton("Back");
+        jbBack = new JButton("BACK");
 
         this.add(jsPanel);
         this.add(jbBack);
@@ -77,20 +78,22 @@ public class DishService extends JPanel{
         editButton.setBorder( focusBorder );
     }
 
-    public void createData(ArrayList<Dish> dishes ){
-        data = new Object[dishes.size()][5];
-        for (int i =0; i < dishes.size() ; i++){
-            data[i][0] = dishes.get(i).getName();
-            data[i][1] = dishes.get(i).getCost();
-            data[i][2] = dishes.get(i).getUnits();
-            data[i][3] = "CANCEL";
+    public void createData(ArrayList<RequestDish> comandas ){
+        data = new Object[comandas.size()][6];
+        for (int i =0; i < comandas.size() ; i++){
+            data[i][0] = comandas.get(i).getName();
+            data[i][1] = comandas.get(i).getUnits();
+            data[i][2] = comandas.get(i).getActual_service();
+            data[i][5] = "HORA ESTIMADA ENTREGA";
+            data[i][6] = "CHANGE STATE";
+            data[i][7] = "DELETE";
         }
     }
     public void getColumNames(){
-        columnNames = new String[]{"Dish name", "Cost", "Units", "Stop Serving"};
+        columnNames = new String[]{"Name", "Units", "State", "Date", "ChangeState", "Delete"};
     }
 
-    public void registerControllers(Controller c){
+    public void registerController(Controller c){
         jbBack.setActionCommand("BACKSERVICE");
         jbBack.addActionListener(c);
     }
