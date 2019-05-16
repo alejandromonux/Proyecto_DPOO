@@ -5,10 +5,12 @@ import com.dpo.centralized_restaurant.Model.Graphics.OrderedDish;
 import com.dpo.centralized_restaurant.Model.Model;
 import com.dpo.centralized_restaurant.Model.Preservice.Dish;
 import com.dpo.centralized_restaurant.Model.Preservice.Mesa;
+import com.dpo.centralized_restaurant.Model.Request.Request;
 import com.dpo.centralized_restaurant.Model.Worker;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.UUID;
 
 
 /**
@@ -411,8 +413,8 @@ import java.util.ArrayList;
          * ***********************************************************************************
          *********************************************************************************** */
         public ArrayList<String> getRequests(){
-
-            String query = "SELECT name FROM request WHERE in_service = true;";
+            // Busca requests que esten pendientes de entrar o que tengan mesa asignada pero que aun no se hayan ido y pagado
+            String query = "SELECT name FROM request WHERE in_service <= 1";
             ResultSet rs = null;
             ArrayList<String> result = new ArrayList<>();
 
@@ -430,7 +432,28 @@ import java.util.ArrayList;
 
         }
 
-        public Boolean deleteRequest(String delete){
+    public ArrayList<String> getRequestsPendientes(){
+        // Busca requests que esten pendientes de entrar o que tengan mesa asignada pero que aun no se hayan ido y pagado
+        String query = "SELECT name FROM request WHERE in_service <= 0;";
+        ResultSet rs = null;
+        ArrayList<String> result = new ArrayList<>();
+
+        try {
+            s =(Statement) conn.createStatement();
+            rs = s.executeQuery(query);
+            while (rs.next()) {
+                result.add(rs.getString("name"));
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+        }
+        return result;
+
+    }
+
+
+    public Boolean deleteRequest(String delete){
 
             String query = "UPDATE request SET in_service = false WHERE request.name = '" + delete + "';";
             ResultSet rs = null;
@@ -451,7 +474,7 @@ import java.util.ArrayList;
 
 
         public boolean insertRequest(String name, int cantidad){
-            String query = "INSERT INTO request(name, quantity) VALUES('" + name + "', " + cantidad + ");";
+            String query = "INSERT INTO request(name, quantity, in_service) VALUES('" + name + "', " + cantidad + ", 0);";
             ResultSet rs = null;
 
             try {
@@ -470,7 +493,7 @@ import java.util.ArrayList;
         }
 
         public Boolean updateRequest(String password){
-            String query = "UPDATE request  SET request(in_service, pass) VALUES(0, '" + password + "') WHERE ;";
+            String query = "UPDATE request SET request(in_service, pass) VALUES(0, '" + password + "') WHERE ;";
             ResultSet rs = null;
 
             try {
@@ -478,6 +501,104 @@ import java.util.ArrayList;
                 rs = s.executeQuery(query);
                 if (rs.next()) {
                     return rs.next();
+                }
+
+            } catch (SQLException ex) {
+                System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+            }
+            return false;
+        }
+
+        public boolean asignarMesa(Request nuevoRequest){
+            String query = "SELECT name, in_use, chairs FROM mesa WHERE chairs >= " + nuevoRequest.getQuantity() + " ORDER BY chairs ASC;";
+            ResultSet rs = null;
+
+            try {
+                s =(Statement) conn.createStatement();
+                rs = s.executeQuery(query);
+                boolean recibido = false;
+
+                while (rs.next()) {
+                    recibido = true;
+                    // Buscamos si hay una mesa  libre que cumpla con la tolerancia de comensales establecida
+                    // (Es viable que haya una tolerancia de dos comensales mas por mesa, pero no mas de dos)
+                    if(!(rs.getBoolean("inUse")) && rs.getInt("chairs") <= nuevoRequest.getQuantity() + 2){
+                        UUID uuid = UUID.randomUUID();
+                        String randomUUIDString = uuid.toString();
+
+                        PreparedStatement ps = conn.prepareStatement("UPDATE mesa SET in_use = true " +
+                                "WHERE name = '" + rs.getString("name") + "';");
+                        ps.executeUpdate();
+
+                        PreparedStatement ps2 = conn.prepareStatement("UPDATE request SET mesa_name = '" + rs.getString("name") + "', " +
+                                "in_service = 1, password = '" + randomUUIDString + "' WHERE id = " + nuevoRequest.getId() + ";");
+                        ps2.executeUpdate();
+
+                        nuevoRequest.setMesa_name(rs.getString("name"));
+                        nuevoRequest.setPassword(randomUUIDString);
+                        return true;
+                    }
+                }
+
+                // No ha habido exito pero si existe una mesa que pueda contener al umero de comensales del pedido
+                if (recibido){
+                    rs.first();
+
+                    // Buscamos mesas ocupadas que entren dentro de la tolerancia para poder poner el pedido de mesa en su cola de espera
+                    while (rs.next()) {
+                        if(rs.getInt("chairs") <= nuevoRequest.getQuantity() + 2){
+                            PreparedStatement ps = conn.prepareStatement("UPDATE request SET mesa_name = '" + rs.getString("name") + "', " +
+                                    "in_service = 0 WHERE id = " + nuevoRequest.getId() + ";");
+                            ps.executeUpdate();
+
+                            nuevoRequest.setMesa_name(rs.getString("name"));
+                            return true;
+                        }
+                    }
+
+                    // Llegado este paso no existen mesas que entren dentro de la tolerancia de comensales
+                    // Hay que buscar mesas mas grandes
+                    rs.first();
+
+                    //Buscamos una mesa que no este usada, ya sin tener en cuenta la tolerancia
+                    while (rs.next()) {
+                        if(!(rs.getBoolean("inUse"))){
+                            UUID uuid = UUID.randomUUID();
+                            String randomUUIDString = uuid.toString();
+
+                            PreparedStatement ps = conn.prepareStatement("UPDATE mesa SET in_use = true " +
+                                    "WHERE name = '" + rs.getString("name") + "';");
+                            ps.executeUpdate();
+
+                            PreparedStatement ps2 = conn.prepareStatement("UPDATE request SET mesa_name = '" + rs.getString("name") + "', " +
+                                    "in_service = 1, password = '" + randomUUIDString + "' WHERE id = " + nuevoRequest.getId() + ";");
+                            ps2.executeUpdate();
+
+                            nuevoRequest.setMesa_name(rs.getString("name"));
+                            nuevoRequest.setPassword(randomUUIDString);
+                            return true;
+                        }
+                    }
+
+                    // Como ultima opcion, ponemos en la cola de espera de la mesa que menos sillas tenga de las opciones disponibles
+                    rs.first();
+                    rs.next();
+
+                    PreparedStatement ps = conn.prepareStatement("UPDATE request SET mesa_name = '" + rs.getString("name") + "', " +
+                            "in_service = 0 WHERE id = " + nuevoRequest.getId() + ";");
+                    ps.executeUpdate();
+
+                    nuevoRequest.setMesa_name(rs.getString("name"));
+                    return true;
+
+                }
+                // No hay mesa que pueda contener a ese numero de comensales (se envia mensaje de error a Entrada)
+                else {
+                    PreparedStatement ps = conn.prepareStatement("DELETE FROM request WHERE id = " + nuevoRequest.getId() + ";");
+                    ps.executeUpdate();
+
+                    nuevoRequest.setMesa_name(rs.getString("NO SE HA ENCONTRADO MESA"));
+                    return false;
                 }
 
             } catch (SQLException ex) {

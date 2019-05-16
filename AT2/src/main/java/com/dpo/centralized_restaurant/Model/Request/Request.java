@@ -73,6 +73,25 @@ public class Request {
         }
     }
 
+    public String getMesa_name() {
+        return mesa_name;
+    }
+
+    public void setMesa_name(String mesa_name) {
+        this.mesa_name = mesa_name;
+    }
+
+    public int getInService() {
+        return inService;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     @Override
     public String toString() {

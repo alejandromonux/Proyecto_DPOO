@@ -280,7 +280,7 @@ public class MainView extends JFrame {
     }
 
 
-    
+
     public String getConfigName() {
         return jpConfig.getConfigName();
     }
