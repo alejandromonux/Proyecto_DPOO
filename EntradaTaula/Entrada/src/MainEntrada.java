@@ -18,7 +18,7 @@ public class MainEntrada {
                 configJSON config;
                 try {
                     config = gson.fromJson(new FileReader("config.json"), configJSON.class);
-                    EntradaManager networkManager = new EntradaManager();
+                    EntradaManager networkManager = new EntradaManager(config);
                     RequestFrame vista = new RequestFrame();
                     ListFrame listFrame = new ListFrame(-50 + vista.getWidth() , vista.getY());
                     listFrame.setVisible(true);
