@@ -9,13 +9,6 @@ public class OrderedDish {
         this.timesOrdered = timesOrdered;
     }
 
-    public static int compare(OrderedDish o1, OrderedDish o2){
-        if (o1.timesOrdered > o2.timesOrdered){
-            return(o1.timesOrdered);
-        }else{
-            return(o2.timesOrdered);
-        }
-    }
 
     public String getDishName() {
         return dishName;

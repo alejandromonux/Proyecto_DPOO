@@ -83,7 +83,7 @@ public class Controller implements ActionListener {
                 break;
             case "DISHES":
                 vista.changePanel(aux.getActionCommand());
-                model.setDishes(conectorDB.findActiveDishes());
+//                model.setDishes(conectorDB.findActiveDishes());
                 vista.getJpDish().setJpList(new DishListPanel(model.getDishes(), this));
                 break;
 
@@ -105,7 +105,7 @@ public class Controller implements ActionListener {
                             "Error!",
                             JOptionPane.ERROR_MESSAGE);
                 }
-
+                vista.changePanel(aux.getActionCommand());
                 break;
 
             case "TABLE-CREATE":
@@ -466,7 +466,18 @@ public class Controller implements ActionListener {
                 }
 
             break;
-
+            case "GRAPHICS":
+                vista.changePanel("STADISTICS");
+            break;
+            case "TODAYGRAPH":
+                vista.getJpStats().changePanel("TODAYGRAPH");
+            break;
+            case "TOTALGRAPH":
+                vista.getJpStats().changePanel("TOTALGRAPH");
+            break;
+            case "STATSPANEL" :
+                vista.getJpStats().changePanel("STATS");
+            break;
             case "ACCEPT-REQUEST":
                 //eliminar el panel de la vista
                 Random rand = new Random();
@@ -478,6 +489,7 @@ public class Controller implements ActionListener {
                 //eliminar el panel de la vista
                 //avisar client?
                 break;
+
         }
 
     }

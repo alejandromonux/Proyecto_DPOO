@@ -154,15 +154,16 @@ public class MainView extends JFrame {
 
         jpContent.add("FORMS", jpLogIn);
         jpContent.add("MAIN", jpMainMenu);
+        jpContent.add("FORMS", jpLogIn);
         jpContent.add("TABLES", jpTables);
         jpContent.add("DISHES", jpDish);
         jpContent.add("REQUESTS", jpReq);
         jpContent.add("ORDERS", jpOrders);
         jpContent.add("SERVICE-DISHES", jpSDish);
-        jpContent.add("POSTSERVICE", jpPost);
         jpContent.add("CONFIGURATIONS", jpConfig);
         jpContent.add("START", jpServiceHome);
-        //jpContent.add("STADISTICS", jpStats);
+        jpContent.add("POSTSERVICE", jpPost);
+        jpContent.add("STADISTICS", jpStats);
         /* ------------------------------ VIEW PARAMETERS ------------------------------ */
         getContentPane().add(jpHeader, BorderLayout.PAGE_START);
         getContentPane().add(jpContent);
@@ -184,7 +185,7 @@ public class MainView extends JFrame {
         jpSDish.registerControllers(c);
         jpPost.registerControllers(c);
         jpConfig.registerController(c);
-
+        jpStats.registerController(c);
         jbLogOut.setActionCommand("FORMS");
         jbLogOut.addActionListener(c);
 
@@ -260,6 +261,14 @@ public class MainView extends JFrame {
         jlWelcomeUser.setText("Welcome " + username + "! ");
     }
 
+    public Stats getJpStats() {
+        return jpStats;
+    }
+
+    public void setJpStats(Stats jpStats) {
+        this.jpStats = jpStats;
+    }
+    
     public String getConfigName() {
         return jpConfig.getConfigName();
     }
