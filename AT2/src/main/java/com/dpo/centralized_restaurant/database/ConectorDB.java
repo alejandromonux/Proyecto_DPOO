@@ -1,6 +1,7 @@
 package com.dpo.centralized_restaurant.database;
 
 import com.dpo.centralized_restaurant.Model.Configuration.Configuration;
+import com.dpo.centralized_restaurant.Model.Graphics.OrderedDish;
 import com.dpo.centralized_restaurant.Model.Model;
 import com.dpo.centralized_restaurant.Model.Preservice.Dish;
 import com.dpo.centralized_restaurant.Model.Preservice.Mesa;
@@ -523,6 +524,59 @@ import java.util.ArrayList;
             return aux;
         }
 
+        public synchronized ArrayList<OrderedDish> getTopDishes(boolean today){
+            String query;
+            ResultSet rs = null;
+            ArrayList<OrderedDish> aux = new ArrayList<>();
+
+            if(today){
+                query  = "SELECT name, historicOrders FROM dish AS d JOIN request_order AS ro ON ro.dish_id = d.dish_id WHERE ro.actual_service = true ORDER BY historics_orders DESC LIMIT 5;";
+            }else{
+                query  = "SELECT name, historics_orders FROM dish AS d ORDER BY historics_orders DESC LIMIT 5;";
+            }
+
+            try {
+                s =(Statement) conn.createStatement();
+                rs = s.executeQuery(query);
+
+                while (rs.next()) {
+                    aux.add(new OrderedDish(    rs.getString("name"), rs.getInt("historicOrders")));
+                }
+
+            } catch (SQLException ex) {
+                System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+            }
+
+            return aux;
+        }
+
+        public synchronized float getGain(boolean today){
+            String query;
+            ResultSet rs = null;
+            float aux = 0;
+
+            if(today){
+                query  = "SELECT sum(d.cost) AS gain FROM dish AS d JOIN request_order AS ro ON ro.dish_id = d.dish_id WHERE ro.actual_service = true;";
+            }else{
+                query  = "SELECT sum(d.cost) AS gain FROM dish AS d JOIN request_order AS ro ON ro.dish_id = d.dish_id;";
+            }
+
+            try {
+                s =(Statement) conn.createStatement();
+                rs = s.executeQuery(query);
+
+                while (rs.next()) {
+                    aux = rs.getInt("gains");
+                }
+
+            } catch (SQLException ex) {
+                System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+            }
+
+            return aux;
+        }
+
+        
         /**
          * Deletes a table, given its name
          * @param name
