@@ -445,7 +445,7 @@ import java.util.UUID;
      */
     public ArrayList<Request> getRequests(){
             // Busca requests que esten pendientes de entrar o que tengan mesa asignada pero que aun no se hayan ido y pagado
-            String query = "SELECT name, mesa_name, password FROM request WHERE in_service <= 1 ORDER BY id";
+            String query = "SELECT name, mesa_name, password FROM request WHERE in_service <= 1 ORDER BY id ASC;";
             ResultSet rs = null;
             ArrayList<Request> result = new ArrayList<>();
 
@@ -521,7 +521,7 @@ import java.util.UUID;
      */
     public Boolean deleteRequest(int id){
         try {
-            PreparedStatement preparedStatement = conn.prepareStatement("DELETE request WHERE request.id = " + id + ";");
+            PreparedStatement preparedStatement = conn.prepareStatement("DELETE FROM request WHERE request.id = " + id + ";");
             preparedStatement.executeUpdate();
 
         } catch (SQLException ex) {
@@ -539,15 +539,11 @@ import java.util.UUID;
      * @return
      */
         public boolean insertRequest(String name, int cantidad){
-            String query = "INSERT INTO request(name, quantity, in_service) VALUES('" + name + "', " + cantidad + ", 0);";
-            ResultSet rs = null;
 
             try {
-                s =(Statement) conn.createStatement();
-                rs = s.executeQuery(query);
-                if (rs.next()) {
-                    return rs.next();
-                }
+                PreparedStatement ps = conn.prepareStatement("INSERT INTO request(name, quantity, in_service) VALUES('" + name + "', " + cantidad + ", 0);");
+                ps.executeUpdate();
+                return true;
 
             } catch (SQLException ex) {
                 System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
@@ -557,21 +553,11 @@ import java.util.UUID;
 
         }
 
-    /**
-     * Sets a request to inactive
-     * @param password
-     * @return
-     */
-    public Boolean updateRequest(String password){
-            String query = "UPDATE request SET request(in_service, pass) VALUES(0, '" + password + "') WHERE ;";
-            ResultSet rs = null;
-
+        public Boolean updateRequest(String password){
             try {
-                s =(Statement) conn.createStatement();
-                rs = s.executeQuery(query);
-                if (rs.next()) {
-                    return rs.next();
-                }
+                PreparedStatement ps = conn.prepareStatement("UPDATE request SET request(in_service, pass) VALUES(0, '" + password + "') WHERE ;");
+                ps.executeUpdate();
+                return true;
 
             } catch (SQLException ex) {
                 System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
@@ -801,7 +787,47 @@ import java.util.UUID;
             return aux;
         }
 
-        
+        public synchronized float getAvgPrice(){
+            String query = "SELECT avg(aux.pricePerTable) AS priceTable FROM (SELECT sum(cost*ro.quantity)/(SELECT count(*) AS n_mesas FROM mesa AS m) AS pricePerTable" +
+                   "FROM Dish as d JOIN request_order AS ro ON d.id = ro.dish_id JOIN request AS r ON ro.request_id = r.id JOIN mesa AS m ON m.name = r.mesa_name" +
+                   "GROUP BY m.name) AS aux;";
+            ResultSet rs = null;
+            float aux = 0;
+            try {
+                s =(Statement) conn.createStatement();
+                rs = s.executeQuery(query);
+
+                while (rs.next()) {
+                    aux = rs.getFloat("priceTable");
+                }
+
+            } catch (SQLException ex) {
+                System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+            }
+            return aux;
+
+        }
+
+        public synchronized float getAvgDishes(){
+            String query = "SELECT avg(aux.dishPerTable) AS dishPerTable FROM (SELECT sum(ro.quantity)/(SELECT count(*) AS n_mesas FROM mesa AS m) AS dishPerTable" +
+                    "FROM Dish as d JOIN request_order AS ro ON d.id = ro.dish_id JOIN request AS r ON ro.request_id = r.id JOIN mesa AS m ON m.name = r.mesa_name" +
+                    "GROUP BY m.name) AS aux;";
+            ResultSet rs = null;
+            float aux = 0;
+            try {
+                s =(Statement) conn.createStatement();
+                rs = s.executeQuery(query);
+
+                while (rs.next()) {
+                    aux = rs.getFloat("dishPerTable");
+                }
+
+            } catch (SQLException ex) {
+                System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+            }
+            return aux;
+        }
+
         /**
          * Deletes a table, given its name
          * @param name

@@ -21,9 +21,7 @@ public class DedicatedServerEntrada extends Thread{
 
 
     private final Socket socket;
-    private ObjectInputStream ois;
     private DataInputStream dis;
-    private ObjectOutputStream oos;
     private DataOutputStream dos;
     private boolean start;
 
@@ -44,17 +42,15 @@ public class DedicatedServerEntrada extends Thread{
         this.conectorDB = conectorDB;
         this.controller = controller;
         start = true;
+
     }
 
     @Override
     public void run() {
         try {
-            dis = new DataInputStream(socket.getInputStream());
-            ois = new ObjectInputStream(socket.getInputStream());
-            oos = new ObjectOutputStream(socket.getOutputStream());
-            dos = new DataOutputStream(socket.getOutputStream());
             String init;
-
+            dis = new DataInputStream(socket.getInputStream());
+            dos = new DataOutputStream(socket.getOutputStream());
             while (start) {
                 init = dis.readUTF();
                 switch (init) {
@@ -65,12 +61,7 @@ public class DedicatedServerEntrada extends Thread{
                         break;
 
                     case "NEED-REQUEST-LIST":
-                        dos.writeUTF("UPDATE-REQUEST-LIST");
-                        ArrayList<Request> envia = conectorDB.getRequests();
-                        dos.writeInt(envia.size());
-                        for (int j = 0; j < envia.size(); j++){
-                            oos.writeObject(envia.get(j));
-                        }
+                        sendAll(conectorDB.getRequests());
                         break;
 
                     case "DELETE-REQUEST":
@@ -92,12 +83,6 @@ public class DedicatedServerEntrada extends Thread{
         } catch (IOException e) {
         } finally {
             try {
-                ois.close();
-            } catch (IOException e) {}
-            try {
-                oos.close();
-            } catch (IOException e) {}
-            try {
                 dos.close();
             } catch (IOException e) {}
             try {
@@ -115,12 +100,6 @@ public class DedicatedServerEntrada extends Thread{
      */
     public void closeDedicatedServer(){
         start = false;
-        try {
-            ois.close();
-        } catch (IOException e) {}
-        try {
-            oos.close();
-        } catch (IOException e) {}
         try {
             dos.close();
         } catch (IOException e) {}
