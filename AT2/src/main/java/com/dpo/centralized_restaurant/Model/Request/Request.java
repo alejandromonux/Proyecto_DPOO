@@ -23,6 +23,20 @@ public class Request {
     private String mesa_name;
     private String password;
 
+    public Request(int id, String name, int quantity, int inService, String mesa_name, String password) {
+        this.id = id;
+        this.name = name;
+        this.quantity = quantity;
+        this.inService = inService;
+        this.mesa_name = mesa_name;
+        this.password = password;
+    }
+
+    public Request(int id, String name){
+        this.id = id;
+        this.name = name;
+    }
+
     public Request(String name, String password){
         this.name = name;
         this.password = password;
