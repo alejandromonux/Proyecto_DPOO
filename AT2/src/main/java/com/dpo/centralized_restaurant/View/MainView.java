@@ -281,7 +281,10 @@ public class MainView extends JFrame {
     }
 
     public void updateRequests(ArrayList<Request> listaRequests, Controller controller){
+        jpContent.remove(jpReq);
         jpReq = new RequestsService(listaRequests, controller);
+        jpReq.registerControllers(controller);
+        jpContent.add("REQUESTS", jpReq);
     }
 
     public String getConfigName() {

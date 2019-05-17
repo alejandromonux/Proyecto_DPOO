@@ -414,7 +414,7 @@ import java.util.UUID;
          *********************************************************************************** */
         public ArrayList<Request> getRequests(){
             // Busca requests que esten pendientes de entrar o que tengan mesa asignada pero que aun no se hayan ido y pagado
-            String query = "SELECT name, mesa_name, password FROM request WHERE in_service <= 1 ORDER BY id";
+            String query = "SELECT name, mesa_name, password FROM request WHERE in_service <= 1 ORDER BY id ASC;";
             ResultSet rs = null;
             ArrayList<Request> result = new ArrayList<>();
 
@@ -476,7 +476,7 @@ import java.util.UUID;
 
     public Boolean deleteRequest(int id){
         try {
-            PreparedStatement preparedStatement = conn.prepareStatement("DELETE request WHERE request.id = " + id + ";");
+            PreparedStatement preparedStatement = conn.prepareStatement("DELETE FROM request WHERE request.id = " + id + ";");
             preparedStatement.executeUpdate();
 
         } catch (SQLException ex) {
@@ -488,15 +488,11 @@ import java.util.UUID;
 
 
         public boolean insertRequest(String name, int cantidad){
-            String query = "INSERT INTO request(name, quantity, in_service) VALUES('" + name + "', " + cantidad + ", 0);";
-            ResultSet rs = null;
 
             try {
-                s =(Statement) conn.createStatement();
-                rs = s.executeQuery(query);
-                if (rs.next()) {
-                    return rs.next();
-                }
+                PreparedStatement ps = conn.prepareStatement("INSERT INTO request(name, quantity, in_service) VALUES('" + name + "', " + cantidad + ", 0);");
+                ps.executeUpdate();
+                return true;
 
             } catch (SQLException ex) {
                 System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
@@ -507,15 +503,10 @@ import java.util.UUID;
         }
 
         public Boolean updateRequest(String password){
-            String query = "UPDATE request SET request(in_service, pass) VALUES(0, '" + password + "') WHERE ;";
-            ResultSet rs = null;
-
             try {
-                s =(Statement) conn.createStatement();
-                rs = s.executeQuery(query);
-                if (rs.next()) {
-                    return rs.next();
-                }
+                PreparedStatement ps = conn.prepareStatement("UPDATE request SET request(in_service, pass) VALUES(0, '" + password + "') WHERE ;");
+                ps.executeUpdate();
+                return true;
 
             } catch (SQLException ex) {
                 System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());

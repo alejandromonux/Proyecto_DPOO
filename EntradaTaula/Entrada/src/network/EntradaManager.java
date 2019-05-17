@@ -46,6 +46,14 @@ public class EntradaManager extends Thread {
                 readUpdates();// Estem sempre a l'espera de rebre actualizacions.
             } catch (Exception e) {
                 e.printStackTrace();
+                isRunning = false;
+                try {
+                    dos.close();
+                    dis.close();
+                    socket.close();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
             }
             // Es aixi perque en haver-hi diversos usuaris, si algu envia nova informacio
             // volem obtenir aquesta actualitzacio gracies a un broadcast
