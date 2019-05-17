@@ -88,6 +88,8 @@ public class EntradaManager extends Thread {
                     }else{
                         if  (newRequest.getPassword() == null){
 
+                        }else{
+
                         }
                     }
                     //controller.showPassword(requestName, requestPassword);
