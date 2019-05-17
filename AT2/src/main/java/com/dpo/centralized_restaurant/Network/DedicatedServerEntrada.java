@@ -79,7 +79,8 @@ public class DedicatedServerEntrada extends Thread{
                         dos.writeBoolean(done);
 
                         if(done){
-                            // TODO: Falta actualizar lista requests tras eliminar
+                            conectorDB.deleteRequest(id);
+                            sendAll(conectorDB.getRequests());
                             controller.actualizarVistaRequests(conectorDB.getRequestsPendientes());
                         }
                         break;
@@ -132,9 +133,7 @@ public class DedicatedServerEntrada extends Thread{
         synchronized (this) {
             try {
                 dos.writeUTF("INCOMING-ASSIGNMENT");
-                dos.writeInt(request.getId());
                 dos.writeUTF(request.getName());
-                dos.writeUTF(request.getPassword());
 
             } catch (IOException e) {
                 e.printStackTrace();
