@@ -933,6 +933,31 @@ import java.util.UUID;
         }
     }
 
+    public boolean setHistoricos(){
+        try {
+            String query = "SELECT ro.dish_id AS dish_id, SUM(ro.quantity) AS cantidad_total FROM request AS r, request_order AS ro " +
+                    "WHERE r.id = ro.request_id AND r.in_service <= 2 GROUP BY dish_id;";
+            ResultSet rs = null;
+            s =(Statement) conn.createStatement();
+            rs = s.executeQuery(query);
+
+            while(rs.next()){
+                PreparedStatement ps = conn.prepareStatement("UPDATE dish SET historics_orders = historics_orders + " + rs.getInt("cantidad_total") + " " +
+                        "WHERE id = " + rs.getInt("dish_id")+ ";");
+                ps.executeUpdate();
+            }
+
+            PreparedStatement ps2 = conn.prepareStatement("UPDATE request SET in_service = 3;");
+            ps2.executeUpdate();
+
+            return true;
+
+        } catch (SQLException ex) {
+            System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+            return false;
+        }
+    }
+
         /* *********************************************************************************** */
 
         /**

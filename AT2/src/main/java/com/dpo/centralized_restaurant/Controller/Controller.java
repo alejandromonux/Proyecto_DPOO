@@ -64,10 +64,20 @@ public class Controller implements ActionListener {
             // Pre-servicio:
             //---------------------------------------------
             case "MAIN":
-                boolean done19 = conectorDB.actualizarEstadoServicio(0);
+                boolean done19 = conectorDB.setHistoricos();
 
                 if(done19){
-                    vista.changePanel(aux.getActionCommand());
+                    done19 = conectorDB.actualizarEstadoServicio(0);
+
+                    if(done19){
+                        vista.changePanel(aux.getActionCommand());
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(vista,
+                                "Error al cargar el programa!",
+                                "Error!",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
                 }
                 else {
                     JOptionPane.showMessageDialog(vista,
@@ -75,7 +85,9 @@ public class Controller implements ActionListener {
                             "Error!",
                             JOptionPane.ERROR_MESSAGE);
                 }
+
                 break;
+
             case "TABLES":
                 vista.changePanel(aux.getActionCommand());
                 model.setMesas(conectorDB.findActiveTables());

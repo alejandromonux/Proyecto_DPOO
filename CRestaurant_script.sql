@@ -39,10 +39,11 @@ CREATE TABLE mesa(
 DROP TABLE IF EXISTS request;
 CREATE TABLE request(
   id INT AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(255) UNIQUE,
+  mesa_name VARCHAR(255),
+  name VARCHAR(255),
   quantity INT NOT NULL,
   in_service INT,
-  pass VARCHAR(255)
+  password VARCHAR(255)
 );
 
 
@@ -50,7 +51,8 @@ DROP TABLE IF EXISTS request_order;
 CREATE TABLE request_order(
   request_id INT NOT NULL,
   dish_id INT NOT NULL,
-  actual_service boolean,
+  quantity INT,
+  actual_service INT,
   activation_date DATE,
   PRIMARY KEY (request_id, dish_id),
   FOREIGN KEY (request_id) REFERENCES request(id),
