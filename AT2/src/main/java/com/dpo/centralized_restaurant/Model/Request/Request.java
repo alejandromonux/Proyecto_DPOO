@@ -20,7 +20,7 @@ public class Request {
     // 2: Ya esta pagado y es servicio actual
     // 3: Historico
     private int inService;
-    private int mesa_id;
+    private String mesa_name;
     private String password;
 
     public Request(){}
