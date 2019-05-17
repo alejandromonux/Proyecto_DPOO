@@ -476,7 +476,9 @@ public class Controller implements ActionListener {
 
                 if(done20){
                     vista.changePanel("POSTSERVICE");
-                    serverEntrada.closeServer();
+                    if  (serverEntrada != null) {
+                        serverEntrada.closeServer();
+                    }
                     serverEntrada = null;
 
                     serverTaula.closeServer();

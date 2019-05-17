@@ -64,8 +64,9 @@ public class ServerEntrada extends Thread {
 
     public void closeServer(){
         isRunning = false;
-
-        dedicatedServers.get(0).closeDedicatedServer();
+        if  (dedicatedServers != null) {
+            dedicatedServers.get(0).closeDedicatedServer();
+        }
         try {
             serverSocket.close();
         } catch (IOException e) {
