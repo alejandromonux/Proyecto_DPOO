@@ -58,6 +58,7 @@ public class DedicatedServerEntrada extends Thread{
                         String nameNew = dis.readUTF();
                         int cantidadPersonas = dis.readInt();
                         dos.writeBoolean(conectorDB.insertRequest(nameNew, cantidadPersonas));
+                        controller.actualizarVistaRequests(conectorDB.getRequestsPendientes());
                         break;
 
                     case "NEED-REQUEST-LIST":
