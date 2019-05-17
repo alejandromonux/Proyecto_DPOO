@@ -28,7 +28,7 @@ public class DedicatedServerEntrada extends Thread{
     private boolean start;
 
     /**
-     * Prepares this part of the system to work along the rest of the system
+     * Prepares this part of the system to work along the rest of it
      * @param socket
      * @param requestsManager
      * @param dedicatedServers
@@ -110,6 +110,9 @@ public class DedicatedServerEntrada extends Thread{
         }
     }
 
+    /**
+     * Finish the connection between the server and the system
+     */
     public void closeDedicatedServer(){
         start = false;
         try {
@@ -128,6 +131,10 @@ public class DedicatedServerEntrada extends Thread{
         dedicatedServers.remove(this);
     }
 
+    /**
+     * Sends the assigned request trough the connection between server and client
+     * @param request
+     */
     public void sendPass(Request request){
 
         synchronized (this) {
@@ -142,6 +149,11 @@ public class DedicatedServerEntrada extends Thread{
         }
 
     }
+
+    /**
+     * Sends all the requests trough the connection between server and client
+     * @param listaRequests
+     */
     public void sendAll(ArrayList<Request> listaRequests){
         synchronized (this) {
             try {

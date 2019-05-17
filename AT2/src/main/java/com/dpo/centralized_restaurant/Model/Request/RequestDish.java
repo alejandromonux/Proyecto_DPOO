@@ -1,5 +1,8 @@
 package com.dpo.centralized_restaurant.Model.Request;
 
+/**
+ * Stores all the required information related to a dish request
+ */
 public class RequestDish {
 
     private Long id;
