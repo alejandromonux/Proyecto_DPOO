@@ -1,6 +1,7 @@
 package com.dpo.centralized_restaurant.Controller;
 
 import com.dpo.centralized_restaurant.Model.Configuration.configJson;
+import com.dpo.centralized_restaurant.Model.Graphics.OrderedDish;
 import com.dpo.centralized_restaurant.Model.Model;
 import com.dpo.centralized_restaurant.Model.Service.Comanda;
 import com.dpo.centralized_restaurant.Model.Worker;
@@ -9,6 +10,7 @@ import com.dpo.centralized_restaurant.Network.ServerTaula;
 import com.dpo.centralized_restaurant.View.ConfigurationPanels.ConfigurationListPanel;
 import com.dpo.centralized_restaurant.View.DishPanels.DishListPanel;
 import com.dpo.centralized_restaurant.View.MainView;
+import com.dpo.centralized_restaurant.View.PostService.Stats;
 import com.dpo.centralized_restaurant.View.Service.OrdersService;
 import com.dpo.centralized_restaurant.View.TablePanels.TablesListPanel;
 import com.dpo.centralized_restaurant.View.Service.RequestsService;
@@ -472,6 +474,13 @@ public class Controller implements ActionListener {
             break;
 
             case "POSTSERVICE" :
+                ArrayList<OrderedDish> today = conectorDB.getTopDishes(true);
+                ArrayList<OrderedDish> all = conectorDB.getTopDishes(false);
+                float todayGain = conectorDB.getGain(true);
+                float totalGain = conectorDB.getGain(false);
+                float priceTable = conectorDB.getAvgPrice();
+                float dishTable = conectorDB.getAvgDishes();
+
                 boolean done20 = conectorDB.actualizarEstadoServicio(2);
 
                 if(done20){
@@ -495,7 +504,7 @@ public class Controller implements ActionListener {
                             "Error!",
                             JOptionPane.ERROR_MESSAGE);
                 }
-
+                vista.setJpStats(new Stats(today, all, todayGain, totalGain, dishTable ,priceTable));
             break;
             case "GRAPHICS":
                 vista.changePanel("STADISTICS");

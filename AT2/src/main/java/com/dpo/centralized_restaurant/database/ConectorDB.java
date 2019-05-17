@@ -717,7 +717,47 @@ import java.util.UUID;
             return aux;
         }
 
-        
+        public synchronized float getAvgPrice(){
+            String query = "SELECT avg(aux.pricePerTable) AS priceTable FROM (SELECT sum(cost*ro.quantity)/(SELECT count(*) AS n_mesas FROM mesa AS m) AS pricePerTable" +
+                   "FROM Dish as d JOIN request_order AS ro ON d.id = ro.dish_id JOIN request AS r ON ro.request_id = r.id JOIN mesa AS m ON m.name = r.mesa_name" +
+                   "GROUP BY m.name) AS aux;";
+            ResultSet rs = null;
+            float aux = 0;
+            try {
+                s =(Statement) conn.createStatement();
+                rs = s.executeQuery(query);
+
+                while (rs.next()) {
+                    aux = rs.getFloat("priceTable");
+                }
+
+            } catch (SQLException ex) {
+                System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+            }
+            return aux;
+
+        }
+
+        public synchronized float getAvgDishes(){
+            String query = "SELECT avg(aux.dishPerTable) AS dishPerTable FROM (SELECT sum(ro.quantity)/(SELECT count(*) AS n_mesas FROM mesa AS m) AS dishPerTable" +
+                    "FROM Dish as d JOIN request_order AS ro ON d.id = ro.dish_id JOIN request AS r ON ro.request_id = r.id JOIN mesa AS m ON m.name = r.mesa_name" +
+                    "GROUP BY m.name) AS aux;";
+            ResultSet rs = null;
+            float aux = 0;
+            try {
+                s =(Statement) conn.createStatement();
+                rs = s.executeQuery(query);
+
+                while (rs.next()) {
+                    aux = rs.getFloat("dishPerTable");
+                }
+
+            } catch (SQLException ex) {
+                System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+            }
+            return aux;
+        }
+
         /**
          * Deletes a table, given its name
          * @param name
