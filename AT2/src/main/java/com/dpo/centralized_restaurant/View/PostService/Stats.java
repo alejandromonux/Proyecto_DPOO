@@ -23,7 +23,7 @@ public class Stats extends JPanel {
     private CardLayout LContent;
 
     public Stats(ArrayList<OrderedDish> dish, ArrayList<OrderedDish> dishtotal,
-        long today, long total, int platsTaules, float preuMig ){
+        float today, float total, float platsTaules, float preuMig ){
 
         JPanel jpLeft = new JPanel(new BorderLayout(0,15));
         jpLeft.setBackground(null);
@@ -89,20 +89,9 @@ public class Stats extends JPanel {
         jpBigLeft.add(jpLeft, BorderLayout.CENTER);
 
 
-        dish.add(new OrderedDish("Pavo", 64));
-        dish.add(new OrderedDish("Pato", 50));
-        dish.add(new OrderedDish("Test", 40));
-        dish.add(new OrderedDish("Oca", 30));
-        dish.add(new OrderedDish("Entrada", 26));
         grafica = new Graficas(dish, (int) this.getSize().getWidth() - jpBigLeft.getSize().width,this.getHeight()-100 );
-        dishtotal.add(new OrderedDish("Marc", 64));
-        dishtotal.add(new OrderedDish("Pato", 50));
-        dishtotal.add(new OrderedDish("Ger", 40));
-        dishtotal.add(new OrderedDish("Oca", 30));
-        dishtotal.add(new OrderedDish("Cafe", 26));
         graficaAll = new Graficas(dishtotal, (int) this.getSize().getWidth() - jpBigLeft.getSize().width,this.getHeight()-100 );
         stats = new StatsPanel(today, total, platsTaules, preuMig);
-
 
         content = new JPanel();
         JPanel graficaAux = new JPanel();

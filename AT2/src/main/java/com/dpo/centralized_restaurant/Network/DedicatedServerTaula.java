@@ -110,6 +110,9 @@ public class DedicatedServerTaula extends Thread{
         }
     }
 
+    /**
+     * Sends all the requests trough the connection between server and client
+     */
     public void closeDedicatedServer(){
         start = false;
         try {

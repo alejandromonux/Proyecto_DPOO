@@ -551,6 +551,10 @@ public class Controller implements ActionListener {
 
     }
 
+    /**
+     * Status Machine, checks the current status of the service and runs the right choice
+     * (pre-service, service, post-service)
+     */
     private void buscarEstado(){
         int estadoServicio = conectorDB.estadoServicio();
 

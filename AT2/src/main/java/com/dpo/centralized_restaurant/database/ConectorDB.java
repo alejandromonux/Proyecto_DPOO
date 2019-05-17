@@ -63,7 +63,15 @@ import java.util.UUID;
          *
          * ***********************************************************************************
          *********************************************************************************** */
-        public boolean createConfiguration(String name, Worker worker){
+
+    /**
+     * Creates the configuration of a worker with the name he wishes,
+     * if that configuration has not been previusly created
+     * @param name
+     * @param worker
+     * @return
+     */
+    public boolean createConfiguration(String name, Worker worker){
             try {
                 // Miramos si existe la configuracion en la base de datos
                 String query = "SELECT c.id FROM configuration AS c WHERE c.name = '" + name + "' AND c.worker_name = '" + worker.getUsername() + "';";
@@ -98,6 +106,12 @@ import java.util.UUID;
             }
         }
 
+    /**
+     * Links the configuration of a given worker with group of dishes and tables
+     * @param name
+     * @param worker
+     * @throws SQLException
+     */
         public void insertarConfiguraciones(String name, Worker worker) throws SQLException {
             // Buscamos mesas activas
             String query4 = "SELECT m.name FROM mesa AS m WHERE m.active = true;";
@@ -133,6 +147,12 @@ import java.util.UUID;
             }
         }
 
+    /**
+     * Deletes the configuration unlinking its existing attributes
+     * @param name
+     * @param worker
+     * @return
+     */
         public boolean removeConfiguration(String name, Worker worker){
             try {
                 String query = "SELECT c.id FROM configuration AS c WHERE c.name = '" + name + "' AND c.worker_name = '" + worker.getUsername() + "';";
@@ -160,9 +180,15 @@ import java.util.UUID;
 
         }
 
+    /**
+     * Gets a configuration given its name and its worker
+     * @param name
+     * @param worker
+     * @return
+     */
         public boolean pickConfiguration(String name, Worker worker){
             try {
-                // Ponemos todos los actives de mesaa y dishes a falso para actualizarlos desde el principio
+                // Ponemos todos los actives de mesa y dishes a falso para actualizarlos desde el principio
                 PreparedStatement ps = conn.prepareStatement("UPDATE dish SET active = false;");
                 ps.executeUpdate();
 
@@ -412,7 +438,12 @@ import java.util.UUID;
          *
          * ***********************************************************************************
          *********************************************************************************** */
-        public ArrayList<Request> getRequests(){
+
+    /**
+     * Get unactive requests to be processed within an ArrayList
+     * @return
+     */
+    public ArrayList<Request> getRequests(){
             // Busca requests que esten pendientes de entrar o que tengan mesa asignada pero que aun no se hayan ido y pagado
             String query = "SELECT name, mesa_name, password FROM request WHERE in_service <= 1 ORDER BY id ASC;";
             ResultSet rs = null;
@@ -433,6 +464,10 @@ import java.util.UUID;
 
         }
 
+    /**
+     * Get active requests to be processed within an ArrayList
+     * @return
+     */
     public ArrayList<Request> getRequestsPendientes(){
         // Busca requests que esten pendientes de entrar o que tengan mesa asignada pero que aun no se hayan ido y pagado
         String query = "SELECT id, name FROM request WHERE in_service = 0 ORDER BY id;";
@@ -453,6 +488,11 @@ import java.util.UUID;
 
     }
 
+    /**
+     * Gets a single request given its ID
+     * @param id
+     * @return
+     */
     public Request findRequest(int id){
         // Busca requests que esten pendientes de entrar o que tengan mesa asignada pero que aun no se hayan ido y pagado
         String query = "SELECT * FROM request WHERE id = " + id +";";
@@ -474,6 +514,11 @@ import java.util.UUID;
     }
 
 
+    /**
+     * Delete a single request givne its id
+     * @param id
+     * @return
+     */
     public Boolean deleteRequest(int id){
         try {
             PreparedStatement preparedStatement = conn.prepareStatement("DELETE FROM request WHERE request.id = " + id + ";");
@@ -488,6 +533,12 @@ import java.util.UUID;
     }
 
 
+    /**
+     * Creates a new request
+     * @param name
+     * @param cantidad
+     * @return
+     */
         public boolean insertRequest(String name, int cantidad){
 
             try {
@@ -515,7 +566,12 @@ import java.util.UUID;
             return false;
         }
 
-        public boolean asignarMesa(Request nuevoRequest){
+    /**
+     * Links a new request with an available table that can handle the request's needs
+     * @param nuevoRequest
+     * @return
+     */
+    public boolean asignarMesa(Request nuevoRequest){
             String query = "SELECT name, in_use, chairs FROM mesa WHERE chairs >= " + nuevoRequest.getQuantity() + " ORDER BY chairs ASC;";
             ResultSet rs = null;
 
@@ -546,7 +602,7 @@ import java.util.UUID;
                     }
                 }
 
-                // No ha habido exito pero si existe una mesa que pueda contener al umero de comensales del pedido
+                // No ha habido exito pero si existe una mesa que pueda contener al numero de comensales del pedido
                 if (recibido){
                     rs.first();
 
@@ -670,7 +726,12 @@ import java.util.UUID;
             return aux;
         }
 
-        public synchronized ArrayList<OrderedDish> getTopDishes(boolean today){
+    /**
+     * Get an array with the dishes with most historic orders
+     * @param today
+     * @return
+     */
+    public synchronized ArrayList<OrderedDish> getTopDishes(boolean today){
             String query;
             ResultSet rs = null;
             ArrayList<OrderedDish> aux = new ArrayList<>();
@@ -696,7 +757,12 @@ import java.util.UUID;
             return aux;
         }
 
-        public synchronized float getGain(boolean today){
+    /**
+     * Get the economic balance of the dishes given today
+     * @param today
+     * @return
+     */
+    public synchronized float getGain(boolean today){
             String query;
             ResultSet rs = null;
             float aux = 0;
@@ -968,6 +1034,11 @@ import java.util.UUID;
             }
         }
 
+    /**
+     * Updates the Service Status in the database
+     * @param estado
+     * @return
+     */
     public boolean actualizarEstadoServicio(int estado){
         try {
             PreparedStatement ps = conn.prepareStatement("UPDATE variables_importantes SET estado_servicio = " + estado + ";");
@@ -981,6 +1052,10 @@ import java.util.UUID;
         }
     }
 
+    /**
+     * Sets the number of historic orders by dish
+     * @return
+     */
     public boolean setHistoricos(){
         try {
             String query = "SELECT ro.dish_id AS dish_id, SUM(ro.quantity) AS cantidad_total FROM request AS r, request_order AS ro " +

@@ -63,6 +63,9 @@ public class ServerEntrada extends Thread {
         }
     }
 
+    /**
+     * Finishes the connection between the system from the Server side
+     */
     public void closeServer(){
         isRunning = false;
         dedicatedServers.get(0).closeDedicatedServer();
@@ -74,6 +77,10 @@ public class ServerEntrada extends Thread {
         }
     }
 
+    /**
+     * Sends a new request
+     * @param nuevoRequest
+     */
     public void updateAssignment(Request nuevoRequest){
         try {
             dedicatedServers.get(0).sendPass(nuevoRequest);
@@ -84,6 +91,10 @@ public class ServerEntrada extends Thread {
         }
     }
 
+    /**
+     * Sends all the request within the list
+     * @param listaRequests
+     */
     public void updateAll(ArrayList<Request> listaRequests){
         try {
             dedicatedServers.get(0).sendAll(listaRequests);

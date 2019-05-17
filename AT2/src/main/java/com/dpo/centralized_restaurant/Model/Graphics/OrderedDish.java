@@ -1,5 +1,8 @@
 package com.dpo.centralized_restaurant.Model.Graphics;
 
+/**
+ * Saves the name of a dish that has been ordered and how many times has so
+ */
 public class OrderedDish {
     private String dishName;
     private int timesOrdered;
