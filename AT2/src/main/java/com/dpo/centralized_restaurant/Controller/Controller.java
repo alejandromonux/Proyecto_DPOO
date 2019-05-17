@@ -478,10 +478,17 @@ public class Controller implements ActionListener {
 
                 if(done20){
                     vista.changePanel("POSTSERVICE");
-                    serverEntrada.closeServer();
-                    serverEntrada = null;
+                    try {
+                        serverEntrada.closeServer();
+                    }catch (IndexOutOfBoundsException b){
 
-                    serverTaula.closeServer();
+                    }
+                    serverEntrada = null;
+                    try {
+                        serverTaula.closeServer();
+                    }catch (NullPointerException s){
+
+                    }
                     serverTaula = null;
                 }
                 else {
