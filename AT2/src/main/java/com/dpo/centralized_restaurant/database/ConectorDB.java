@@ -478,12 +478,13 @@ import java.util.UUID;
         try {
             PreparedStatement preparedStatement = conn.prepareStatement("DELETE FROM request WHERE request.id = " + id + ";");
             preparedStatement.executeUpdate();
+            return true;
 
         } catch (SQLException ex) {
             System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+            return false;
         }
 
-        return false;
     }
 
 

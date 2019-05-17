@@ -6,6 +6,7 @@ import com.dpo.centralized_restaurant.Model.Request.Request;
 import com.dpo.centralized_restaurant.Model.Request.RequestManager;
 import com.dpo.centralized_restaurant.database.ConectorDB;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -74,11 +75,23 @@ public class ServerEntrada extends Thread {
     }
 
     public void updateAssignment(Request nuevoRequest){
-        dedicatedServers.get(0).sendPass(nuevoRequest);
+        try {
+            dedicatedServers.get(0).sendPass(nuevoRequest);
+        }catch (NullPointerException e){
+
+        }catch (IndexOutOfBoundsException e1){
+
+        }
     }
 
     public void updateAll(ArrayList<Request> listaRequests){
-        dedicatedServers.get(0).sendAll(listaRequests);
+        try {
+            dedicatedServers.get(0).sendAll(listaRequests);
+        }catch (NullPointerException e){
+
+        }catch (IndexOutOfBoundsException e1){
+
+        }
     }
 
 }
