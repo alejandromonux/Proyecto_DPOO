@@ -1,6 +1,7 @@
 package network;
 
 import controller.Controller;
+import model.Request;
 import model.config.configJSON;
 
 import java.io.DataInputStream;
@@ -78,11 +79,25 @@ public class EntradaManager extends Thread {
                 }
                 controller.updateRequestList(requests);
                 break;
-            case "INCOMING-PASSWORD":
-                String requestName = dis.readUTF();
-                String requestPassword = dis.readUTF();
-                controller.showPassword(requestName, requestPassword);
+            case "INCOMING-ASSIGMENT":
+                try {
+                    Request newRequest = (Request) ois.readObject();
+                    if (newRequest.getMesa_name().equals("NO SE HA ENCONTRADO MESA")){
+                        //mostrar error, actualizar lista
+                        dos.writeUTF("NEED-REQUEST-LIST");
+                    }else{
+                        if  (newRequest.getPassword() == null){
+
+                        }
+                    }
+                    //controller.showPassword(requestName, requestPassword);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+
                 break;
+
         }
 
     }
