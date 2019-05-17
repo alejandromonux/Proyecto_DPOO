@@ -81,7 +81,9 @@ public class EntradaManager extends Thread {
                 while (size > 0) {
                     int id = dis.readInt();
                     String name = dis.readUTF();
+                    name = name.equals("NULL") ? null: name;
                     String pass = dis.readUTF();
+                    pass = pass.equals("NULL") ? null: pass;
                     requests.add(new Request(name, id, pass));
                     size--;
                 }
