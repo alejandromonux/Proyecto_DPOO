@@ -23,7 +23,10 @@ public class Request {
     private String mesa_name;
     private String password;
 
-    public Request(){}
+    public Request(String name, String password){
+        this.name = name;
+        this.password = password;
+    }
 
     public Request(String name, int quantity) {
         this.name = name;

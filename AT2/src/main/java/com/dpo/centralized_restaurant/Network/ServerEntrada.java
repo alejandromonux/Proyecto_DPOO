@@ -2,6 +2,7 @@ package com.dpo.centralized_restaurant.Network;
 
 import com.dpo.centralized_restaurant.Controller.Controller;
 import com.dpo.centralized_restaurant.Model.Configuration.configJson;
+import com.dpo.centralized_restaurant.Model.Request.Request;
 import com.dpo.centralized_restaurant.Model.Request.RequestManager;
 import com.dpo.centralized_restaurant.database.ConectorDB;
 
@@ -72,9 +73,9 @@ public class ServerEntrada extends Thread {
         }
     }
 
-    public void update(String pass, String name){
+    public void update(Request nuevoRequest){
 
-        dedicatedServers.get(0).sendPass(pass, name);
+        dedicatedServers.get(0).sendPass(nuevoRequest);
     }
 
 }
