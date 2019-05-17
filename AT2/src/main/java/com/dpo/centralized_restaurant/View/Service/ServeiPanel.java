@@ -100,7 +100,6 @@ public class ServeiPanel extends JPanel {
     }
 
 
-
     public void registerController(Controller c) {
 
         jbOrders.setActionCommand("TABLE-ORDERS");

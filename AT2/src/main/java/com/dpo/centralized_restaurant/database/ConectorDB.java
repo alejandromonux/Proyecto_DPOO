@@ -317,7 +317,7 @@ import java.util.UUID;
                             rs.getString(0),
                             rs.getDouble(1),
                             rs.getInt(2),
-                            rs.getDouble(3)
+                            rs.getInt(3)
                     );
                     result.add(aux);
                 }
@@ -347,7 +347,7 @@ import java.util.UUID;
                             rs.getString("name"),
                             rs.getDouble("cost"),
                             rs.getInt("units"),
-                            rs.getDouble("timecost")
+                            rs.getInt("timecost")
                     );
                     result.add(aux);
                 }
@@ -393,7 +393,7 @@ import java.util.UUID;
                             rs.getString(0),
                             rs.getDouble(1),
                             rs.getInt(2),
-                            rs.getDouble(3)
+                            rs.getInt(3)
                     );
                     result.add(aux);
                 }

@@ -34,7 +34,7 @@ public class Model {
         dishes.add(new Dish(dishName,
                             Double.parseDouble(dishCost),
                             Integer.parseInt(dishQuantity),
-                            Double.parseDouble(time)));
+                            Integer.parseInt(time)));
     }
 
 
@@ -50,13 +50,10 @@ public class Model {
 
     /**
      * Add an order into the ArrayList of the model
-     * @param idTable
-     * @param dishname
-     * @param dishQuant
      */
-    public void addComanda(int idTable, String dishname, int dishQuant){
+    /*public void addComanda(int idTable, String dishname, int dishQuant){
         comandas.add(new Comanda(idTable, dishname, dishQuant));
-    }
+    }*/
 
     public void addConfig(int id, String name){
         configurations.add(new Configuration(id, name));

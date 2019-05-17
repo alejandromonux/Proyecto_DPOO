@@ -11,29 +11,17 @@ import javax.persistence.*;
 @Entity
 public class Request {
 
-    @Id
-    @GeneratedValue
     private int id;
-
-    @Column(nullable = false)
     private String name;
-
     // Para saber cuantas personas hay reservadas, y asi pder adjuntarle una mesa a la reserva
-    @Column(nullable = false)
     private int quantity;
-
-    // 0: Esta esperando
+    // 0: Esta preparado
     // 1: Esta en mesa
     // 2: Ya esta pagado y es servicio actual
     // 3: Historico
-    @Column(name = "in_service")
     private int inService;
-
+    private int mesa_id;
     private String password;
-
-    @ManyToOne
-    @JoinColumn(name = "table_id")
-    private String mesa_name;
 
     public Request(){}
 

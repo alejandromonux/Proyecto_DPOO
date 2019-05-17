@@ -11,12 +11,10 @@ import com.dpo.centralized_restaurant.View.DishPanels.DishPanel;
 import com.dpo.centralized_restaurant.View.PostService.PostService;
 import com.dpo.centralized_restaurant.View.PostService.Stats;
 import com.dpo.centralized_restaurant.View.Preservice.GeneralMenu;
-import com.dpo.centralized_restaurant.View.Service.DishService;
-import com.dpo.centralized_restaurant.View.Service.OrdersService;
-import com.dpo.centralized_restaurant.View.Service.ServeiPanel;
+import com.dpo.centralized_restaurant.View.Service.*;
 import com.dpo.centralized_restaurant.View.TablePanels.TablePanel;
-import com.dpo.centralized_restaurant.View.Service.RequestsService;
 import com.dpo.centralized_restaurant.Model.Preservice.Dish;
+import com.dpo.centralized_restaurant.View.TablePanels.TablesListPanel;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -42,6 +40,7 @@ public class MainView extends JFrame {
     private RequestsService jpReq;
     private LogInPanel jpLogIn;
     private OrdersService jpOrders;
+    private DeepOrderPanel jpTableOrders;
     private DishService jpSDish;
     private PostService jpPost;
     private ServeiPanel jpServiceHome;
@@ -70,7 +69,8 @@ public class MainView extends JFrame {
         jpLogIn = new LogInPanel();
         jpReq = new RequestsService(new ArrayList<Mesa>(), controlador);
         jpOrders = new OrdersService(new ArrayList<Comanda>(), controlador);
-        jpSDish = new DishService(new ArrayList<ServiceDish>(), controlador);
+        jpSDish = new DishService(new ArrayList<Dish>(), controlador);
+        jpTableOrders = new DeepOrderPanel(new ArrayList<>(),controlador);
         //jpStats = new Stats(new ArrayList<OrderedDish>(), new ArrayList<OrderedDish>(),0, 0 , 0, (float) 0.0);
         jpPost = new PostService();
         jpConfig = new ConfigurationPanel(controlador);
@@ -158,11 +158,12 @@ public class MainView extends JFrame {
         jpContent.add("DISHES", jpDish);
         jpContent.add("REQUESTS", jpReq);
         jpContent.add("ORDERS", jpOrders);
+        jpContent.add("SPECIFIC-ORDERS", jpTableOrders);
         jpContent.add("SERVICE-DISHES", jpSDish);
         jpContent.add("CONFIGURATIONS", jpConfig);
         jpContent.add("START", jpServiceHome);
         jpContent.add("POSTSERVICE", jpPost);
-      //  jpContent.add("STADISTICS", jpStats);
+        //jpContent.add("STADISTICS", jpStats);
         /* ------------------------------ VIEW PARAMETERS ------------------------------ */
         getContentPane().add(jpHeader, BorderLayout.PAGE_START);
         getContentPane().add(jpContent);
@@ -180,11 +181,12 @@ public class MainView extends JFrame {
         jpDish.registerController(c);
         jpLogIn.registerController(c);
         jpReq.registerControllers(c);
-        jpOrders.registerControllers(c);
+        jpOrders.registerController(c);
         jpSDish.registerControllers(c);
         jpPost.registerControllers(c);
         jpConfig.registerController(c);
         jpServiceHome.registerController(c);
+        jpTableOrders.registerController(c);
 //        jpStats.registerController(c);
         jbLogOut.setActionCommand("FORMS");
         jbLogOut.addActionListener(c);
@@ -220,6 +222,14 @@ public class MainView extends JFrame {
 
     public void changeConfigurationPanel (String which) { jpConfig.changePanel(which);}
 
+    public void setTableDishOrder(ArrayList<Comanda> comandes, Controller c) {
+        jpContent.remove(jpOrders);
+        this.jpOrders = new OrdersService(comandes, c);
+        this.jpOrders.registerController(c);
+        jpContent.add("ORDERS", jpOrders);
+        jclContent.show(jpContent, "ORDERS");
+    }
+
     public DishPanel getJpDish() {
         return jpDish;
     }
@@ -228,7 +238,6 @@ public class MainView extends JFrame {
     public TablePanel getJpTables() {
         return jpTables;
     }
-
 
     public LogInPanel getJpLogIn() {
         return jpLogIn;
@@ -257,6 +266,7 @@ public class MainView extends JFrame {
         }
 
     }
+
     public void changeUserView(String username){
         jlWelcomeUser.setText("Welcome " + username + "! ");
     }
@@ -268,7 +278,9 @@ public class MainView extends JFrame {
     public void setJpStats(Stats jpStats) {
         this.jpStats = jpStats;
     }
-    
+
+
+
     public String getConfigName() {
         return jpConfig.getConfigName();
     }
