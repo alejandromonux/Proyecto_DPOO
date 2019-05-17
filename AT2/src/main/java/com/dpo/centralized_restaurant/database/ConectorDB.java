@@ -433,17 +433,17 @@ import java.util.UUID;
 
         }
 
-    public ArrayList<String> getRequestsPendientes(){
+    public ArrayList<Request> getRequestsPendientes(){
         // Busca requests que esten pendientes de entrar o que tengan mesa asignada pero que aun no se hayan ido y pagado
-        String query = "SELECT name FROM request WHERE in_service = 0 ORDER BY id;";
+        String query = "SELECT id, name FROM request WHERE in_service = 0 ORDER BY id;";
         ResultSet rs = null;
-        ArrayList<String> result = new ArrayList<>();
+        ArrayList<Request> result = new ArrayList<>();
 
         try {
             s =(Statement) conn.createStatement();
             rs = s.executeQuery(query);
             while (rs.next()) {
-                result.add(rs.getString("name"));
+                result.add(new Request(rs.getInt("id"), rs.getString("name")));
             }
 
         } catch (SQLException ex) {
@@ -453,25 +453,38 @@ import java.util.UUID;
 
     }
 
+    public Request findRequest(int id){
+        // Busca requests que esten pendientes de entrar o que tengan mesa asignada pero que aun no se hayan ido y pagado
+        String query = "SELECT * FROM request WHERE id = " + id +";";
+        ResultSet rs = null;
 
-    public Boolean deleteRequest(String delete){
-
-            String query = "UPDATE request SET in_service = false WHERE request.name = '" + delete + "';";
-            ResultSet rs = null;
-
-            try {
-                s =(Statement) conn.createStatement();
-                rs = s.executeQuery(query);
-                if (rs.next()) {
-                    return rs.next();
-                }
-
-            } catch (SQLException ex) {
-                System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+        try {
+            s =(Statement) conn.createStatement();
+            rs = s.executeQuery(query);
+            if (rs.next()) {
+                return new Request(rs.getInt("id"), rs.getString("name"), rs.getInt("quantity"),
+                        rs.getInt("in_service"), rs.getString("mesa_name"), rs.getString("password"));
             }
 
-            return false;
+        } catch (SQLException ex) {
+            System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
         }
+        return null;
+
+    }
+
+
+    public Boolean deleteRequest(int id){
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement("DELETE request WHERE request.id = " + id + ";");
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+        }
+
+        return false;
+    }
 
 
         public boolean insertRequest(String name, int cantidad){

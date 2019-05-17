@@ -1,6 +1,7 @@
 package view.Entrada;
 
 import controller.Controller;
+import model.Request;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -10,14 +11,14 @@ import java.util.ArrayList;
 
 public class ListPanel extends JPanel {
 
-    private ArrayList<String> content;
+    private ArrayList<Request> content;
     private JButton jbtnDelete;
 
     public ListPanel() {
 
         content = new ArrayList<>();
         jbtnDelete = new JButton("DELETE");
-        generaStrings();
+        //generaStrings();
         generalLlista();
 
         this.setBorder(new EmptyBorder(10,10,0,10));
@@ -29,7 +30,7 @@ public class ListPanel extends JPanel {
         generalLlista();
     }
 
-    private void generaStrings() {
+   /* private void generaStrings() {
         content.add(new String("LE ROUMAND"));
         content.add(new String("LE ROCAFORTE"));
         content.add(new String("SVRISHNAIM"));
@@ -43,21 +44,30 @@ public class ListPanel extends JPanel {
         content.add(new String("PTHY6THOENIX"));
         content.add(new String("Joan"));
 
-    }
+    }*/
 
     private void generalLlista() {
         this.setLayout(new GridLayout(content.size(),1,0,10));
         updateList(new ArrayList<>());
     }
 
-    public void updateList(ArrayList<String> list) {
+    public void updateList(ArrayList<Request> list) {
 
         Color cAux = new Color(0x1A0D08);
 
-        content = (ArrayList<String>) list.clone();
+        content = (ArrayList<Request>) list.clone();
         for (int i = 0; i < content.size();i++) {
             JPanel jpAux = new JPanel(new GridLayout(1,2,0,10));
-            JLabel jlAux = new JLabel(content.get(i));
+            JLabel jlAux;
+            if (content.get(i).getMesa_name() == null){
+                 jlAux = new JLabel(content.get(i).getName() + "\t Esperando asignacion de mesa...");
+            }else {
+                if (list.get(i).getPassword() == null) {
+                    jlAux = new JLabel(content.get(i).getName() + "\t En cola");
+                } else {
+                    jlAux = new JLabel(content.get(i).getName() + "\t Pass: " + content.get(i).getPassword());
+                }
+            }
             jlAux.setForeground(Color.white);
 
             JButton jbtnAux = new JButton("DELETE");

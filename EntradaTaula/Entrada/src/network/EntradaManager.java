@@ -71,32 +71,28 @@ public class EntradaManager extends Thread {
 
         switch (inDuty) {
             case "UPDATE-REQUEST-LIST":
-                ArrayList<String> requests = new ArrayList<>();
+                ArrayList<Request> requests = new ArrayList<>();
                 int size = dis.readInt();
                 while (size > 0) {
-                    requests.add(dis.readUTF());
+                    int id = dis.readInt();
+                    String name = dis.readUTF();
+                    String pass = dis.readUTF();
+                    requests.add(new Request(name, id, pass));
                     size--;
                 }
                 controller.updateRequestList(requests);
                 break;
             case "INCOMING-ASSIGMENT":
-                try {
-                    Request newRequest = (Request) ois.readObject();
-                    if (newRequest.getMesa_name().equals("NO SE HA ENCONTRADO MESA")){
-                        //mostrar error, actualizar lista
-                        dos.writeUTF("NEED-REQUEST-LIST");
-                    }else{
-                        if  (newRequest.getPassword() == null){
+                    int id = dis.readInt();
+                    String name = dis.readUTF();
 
-                        }else{
-
-                        }
+                    if (name.equals("NO SE HA ENCONTRADO MESA")){
+                        controller.notificationComanda(id);
                     }
-                    //controller.showPassword(requestName, requestPassword);
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
+                        //mostrar error, actualizar lista
 
+                    dos.writeUTF("NEED-REQUEST-LIST");
+                    //controller.showPassword(requestName, requestPassword);
 
                 break;
 
