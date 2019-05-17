@@ -142,8 +142,16 @@ public class DedicatedServerEntrada extends Thread{
                 dos.writeInt(listaRequests.size());
                 for (Request request : listaRequests){
                     dos.writeInt(request.getId());
-                    dos.writeUTF(request.getName());
-                    dos.writeUTF(request.getPassword());
+                    if (request.getName() != null) {
+                        dos.writeUTF(request.getName());
+                    }else{
+                        dos.writeUTF("NULL");
+                    }
+                    if (request.getPassword() != null) {
+                        dos.writeUTF(request.getPassword());
+                    }else{
+                        dos.writeUTF("NULL");
+                    }
                 }
 
 
