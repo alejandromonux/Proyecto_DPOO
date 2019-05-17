@@ -14,6 +14,8 @@ public class RequestOrder {
     private int request_id;
     private int dish_id;
     private int actual_service;
+    // Cantidad de platos pedidos de ese tipo de plato
+    private int quantity;
     private String activation_date;
 
     public RequestOrder() {}

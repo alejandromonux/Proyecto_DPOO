@@ -2,6 +2,7 @@ package com.dpo.centralized_restaurant.Controller;
 
 import com.dpo.centralized_restaurant.Model.Configuration.configJson;
 import com.dpo.centralized_restaurant.Model.Model;
+import com.dpo.centralized_restaurant.Model.Request.Request;
 import com.dpo.centralized_restaurant.Model.Service.Comanda;
 import com.dpo.centralized_restaurant.Model.Worker;
 import com.dpo.centralized_restaurant.Network.ServerEntrada;
@@ -462,6 +463,7 @@ public class Controller implements ActionListener {
                 vista.changePanel("SERVICE-DISHES");
                 break;
             case "REQUESTS":
+                actualizarVistaRequests(conectorDB.getRequestsPendientes());
                 vista.changePanel("REQUESTS");
             break;
             case "SEE-TABLE-ORDERS":
@@ -503,19 +505,30 @@ public class Controller implements ActionListener {
                 vista.getJpStats().changePanel("STATS");
             break;
             case "ACCEPT-REQUEST":
-                //eliminar el panel de la vista
+                int id = vista.getJpReq().getSelectedRequestName();
+                Request requestAceptado = conectorDB.findRequest(id);
 
-                // TODO: Falta asignar mesa correctamente
-                /*Random rand = new Random();
-                Long a = Integer.toUnsignedLong(rand.nextInt() + rand.nextInt());
-                conectorDB.updateRequest(Long.toString(a));
-                serverEntrada.update(Long.toString(a), "hardcored");*/
+                conectorDB.asignarMesa(requestAceptado);
+                serverEntrada.updateAssignment(requestAceptado);
+                actualizarVistaRequests(conectorDB.getRequestsPendientes());
 
                 break;
             case "DECLINE-REQUEST" :
-                // TODO: Falta poder rechazar request
-                //eliminar el panel de la vista
-                //avisar client?
+                int idAEliminar = vista.getJpReq().getSelectedRequestName();
+
+                boolean finished = conectorDB.deleteRequest(idAEliminar);
+
+                if(finished){
+                    serverEntrada.updateAll(conectorDB.getRequests());
+                    actualizarVistaRequests(conectorDB.getRequestsPendientes());
+                }
+                else {
+                    JOptionPane.showMessageDialog(vista,
+                            "Error al eliminar la peticion de mesa!",
+                            "Error!",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+
                 break;
 
         }
@@ -551,6 +564,11 @@ public class Controller implements ActionListener {
             vista.hideConfiguration();
         }
     }
+
+    public void actualizarVistaRequests(ArrayList<Request> listaRequests){
+        vista.updateRequests(listaRequests, this);
+    }
+
     public MainView getVista() {
         return vista;
     }

@@ -73,9 +73,12 @@ public class ServerEntrada extends Thread {
         }
     }
 
-    public void update(Request nuevoRequest){
-
+    public void updateAssignment(Request nuevoRequest){
         dedicatedServers.get(0).sendPass(nuevoRequest);
+    }
+
+    public void updateAll(ArrayList<Request> listaRequests){
+        dedicatedServers.get(0).sendAll(listaRequests);
     }
 
 }

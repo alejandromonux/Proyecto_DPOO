@@ -4,6 +4,7 @@ package com.dpo.centralized_restaurant.View;
 import com.dpo.centralized_restaurant.Controller.Controller;
 import com.dpo.centralized_restaurant.Model.Graphics.OrderedDish;
 import com.dpo.centralized_restaurant.Model.Preservice.Mesa;
+import com.dpo.centralized_restaurant.Model.Request.Request;
 import com.dpo.centralized_restaurant.Model.Service.Comanda;
 import com.dpo.centralized_restaurant.Model.Service.ServiceDish;
 import com.dpo.centralized_restaurant.View.ConfigurationPanels.ConfigurationPanel;
@@ -67,7 +68,7 @@ public class MainView extends JFrame {
         jpTables = new TablePanel(controlador);
         jpDish = new DishPanel(new ArrayList<Dish>(), controlador);
         jpLogIn = new LogInPanel();
-        jpReq = new RequestsService(new ArrayList<Mesa>(), controlador);
+        jpReq = new RequestsService(new ArrayList<Request>(), controlador);
         jpOrders = new OrdersService(new ArrayList<Comanda>(), controlador);
         jpSDish = new DishService(new ArrayList<Dish>(), controlador);
         jpTableOrders = new DeepOrderPanel(new ArrayList<>(),controlador);
@@ -279,7 +280,9 @@ public class MainView extends JFrame {
         this.jpStats = jpStats;
     }
 
-
+    public void updateRequests(ArrayList<Request> listaRequests, Controller controller){
+        jpReq = new RequestsService(listaRequests, controller);
+    }
 
     public String getConfigName() {
         return jpConfig.getConfigName();

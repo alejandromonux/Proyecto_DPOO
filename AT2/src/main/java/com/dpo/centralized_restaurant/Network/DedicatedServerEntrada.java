@@ -74,13 +74,13 @@ public class DedicatedServerEntrada extends Thread{
                         break;
 
                     case "DELETE-REQUEST":
-                        String nameToCancel = dis.readUTF();
-                        boolean done = conectorDB.deleteRequest(nameToCancel);
+                        int id = dis.readInt();
+                        boolean done = conectorDB.deleteRequest(id);
                         dos.writeBoolean(done);
 
                         if(done){
                             // TODO: Falta actualizar lista requests tras eliminar
-                            conectorDB.getRequestsPendientes();
+                            controller.actualizarVistaRequests(conectorDB.getRequestsPendientes());
                         }
                         break;
 
@@ -132,13 +132,32 @@ public class DedicatedServerEntrada extends Thread{
         synchronized (this) {
             try {
                 dos.writeUTF("INCOMING-ASSIGNMENT");
-                oos.writeObject(request);
+                dos.writeInt(request.getId());
+                dos.writeUTF(request.getName());
+                dos.writeUTF(request.getPassword());
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
+    }
+    public void sendAll(ArrayList<Request> listaRequests){
+        synchronized (this) {
+            try {
+                dos.writeUTF("UPDATE-REQUEST-LIST");
+                dos.writeInt(listaRequests.size());
+                for (Request request : listaRequests){
+                    dos.writeInt(request.getId());
+                    dos.writeUTF(request.getName());
+                    dos.writeUTF(request.getPassword());
+                }
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 
