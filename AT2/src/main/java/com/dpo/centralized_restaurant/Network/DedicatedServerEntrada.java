@@ -1,6 +1,7 @@
 package com.dpo.centralized_restaurant.Network;
 
 import com.dpo.centralized_restaurant.Controller.Controller;
+import com.dpo.centralized_restaurant.Model.Request.Request;
 import com.dpo.centralized_restaurant.Model.Request.RequestManager;
 import com.dpo.centralized_restaurant.database.ConectorDB;
 
@@ -65,10 +66,10 @@ public class DedicatedServerEntrada extends Thread{
 
                     case "NEED-REQUEST-LIST":
                         dos.writeUTF("UPDATE-REQUEST-LIST");
-                        ArrayList<String> envia = conectorDB.getRequests();
+                        ArrayList<Request> envia = conectorDB.getRequests();
                         dos.writeInt(envia.size());
                         for (int j = 0; j < envia.size(); j++){
-                            dos.writeUTF(envia.get(j));
+                            oos.writeObject(envia.get(j));
                         }
                         break;
 
@@ -126,13 +127,12 @@ public class DedicatedServerEntrada extends Thread{
         dedicatedServers.remove(this);
     }
 
-    public void sendPass(String pass, String User){
+    public void sendPass(Request request){
 
         synchronized (this) {
             try {
-                dos.writeUTF("INCOMING-PASSWORD");
-                dos.writeUTF(User);
-                dos.writeUTF(pass);
+                dos.writeUTF("INCOMING-ASSIGNMENT");
+                oos.writeObject(request);
 
             } catch (IOException e) {
                 e.printStackTrace();

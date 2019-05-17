@@ -412,17 +412,18 @@ import java.util.UUID;
          *
          * ***********************************************************************************
          *********************************************************************************** */
-        public ArrayList<String> getRequests(){
+        public ArrayList<Request> getRequests(){
             // Busca requests que esten pendientes de entrar o que tengan mesa asignada pero que aun no se hayan ido y pagado
-            String query = "SELECT name FROM request WHERE in_service <= 1";
+            String query = "SELECT name, mesa_name, password FROM request WHERE in_service <= 1 ORDER BY id";
             ResultSet rs = null;
-            ArrayList<String> result = new ArrayList<>();
+            ArrayList<Request> result = new ArrayList<>();
 
             try {
                 s =(Statement) conn.createStatement();
                 rs = s.executeQuery(query);
                 while (rs.next()) {
-                    result.add(rs.getString("name"));
+                    Request requestAux = new Request(rs.getString("mesa_name"), rs.getString("password"));
+                    result.add(requestAux);
                 }
 
             } catch (SQLException ex) {
@@ -434,7 +435,7 @@ import java.util.UUID;
 
     public ArrayList<String> getRequestsPendientes(){
         // Busca requests que esten pendientes de entrar o que tengan mesa asignada pero que aun no se hayan ido y pagado
-        String query = "SELECT name FROM request WHERE in_service <= 0;";
+        String query = "SELECT name FROM request WHERE in_service = 0 ORDER BY id;";
         ResultSet rs = null;
         ArrayList<String> result = new ArrayList<>();
 
@@ -552,6 +553,7 @@ import java.util.UUID;
                             ps.executeUpdate();
 
                             nuevoRequest.setMesa_name(rs.getString("name"));
+                            nuevoRequest.setPassword(null);
                             return true;
                         }
                     }
@@ -589,6 +591,7 @@ import java.util.UUID;
                     ps.executeUpdate();
 
                     nuevoRequest.setMesa_name(rs.getString("name"));
+                    nuevoRequest.setPassword(null);
                     return true;
 
                 }

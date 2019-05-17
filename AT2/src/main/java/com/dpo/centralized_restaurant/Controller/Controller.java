@@ -537,6 +537,10 @@ public class Controller implements ActionListener {
             vista.showConfiguration();
         }
         else if(estadoServicio == 1){
+            serverEntrada = new ServerEntrada(configJson, conectorDB, this);
+            serverEntrada.start();
+            serverTaula = new ServerTaula(configJson, conectorDB, this);
+            serverTaula.start();
             vista.changeHeader(true);
             vista.changePanel("START");
             vista.hideConfiguration();
