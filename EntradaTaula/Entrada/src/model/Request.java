@@ -3,7 +3,7 @@ package model;/*
  */
 
 
-public class Request {
+public class Request implements Cloneable{
 
     private int id;
     private String name;
@@ -17,11 +17,10 @@ public class Request {
     private String mesa_name;
     private String password;
 
-    public Request(){}
-
-    public Request(String name, int quantity) {
+    public Request(String name, int id, String pass){
+        this.id = id;
         this.name = name;
-        this.quantity = quantity;
+        this.password = pass;
     }
 
     public String getName() {

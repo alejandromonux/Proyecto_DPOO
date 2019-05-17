@@ -1,5 +1,6 @@
 package controller;
 
+import model.Request;
 import network.EntradaManager;
 import view.Entrada.ListFrame;
 import view.Entrada.RequestFrame;
@@ -45,7 +46,7 @@ public class Controller implements ActionListener {
 
     }
 
-    public void updateRequestList(ArrayList<String> requests) {
+    public void updateRequestList(ArrayList<Request> requests) {
         requestList.updateList(requests);
     }
 
@@ -57,5 +58,9 @@ public class Controller implements ActionListener {
     public void insertNotification(){
 
         vista.insertNotification();
+    }
+    public void notificationComanda(int id){
+
+        vista.errorComandaImposible(id);
     }
 }
