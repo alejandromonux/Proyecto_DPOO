@@ -104,4 +104,6 @@ public class RequestsService extends JPanel {
     public int getSelectedRequestName(){
         return (int) jtable.getValueAt(jtable.getSelectedRow(), 0);
     }
+
+
 }

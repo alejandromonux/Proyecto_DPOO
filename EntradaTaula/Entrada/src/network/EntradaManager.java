@@ -64,9 +64,6 @@ public class EntradaManager extends Thread {
         dos.writeUTF("REQUEST-COMING");
         dos.writeUTF(nameRequest);
         dos.writeInt(quantity);
-        if (!dis.readBoolean()){
-            controller.insertNotification();
-        }
     }
 
     public void askRequests() throws IOException {
@@ -75,7 +72,7 @@ public class EntradaManager extends Thread {
     }
 
     public void readUpdates() throws IOException {
-        String inDuty = dis.readUTF();
+        String inDuty  = dis.readUTF();
 
         switch (inDuty) {
             case "UPDATE-REQUEST-LIST":
@@ -101,6 +98,13 @@ public class EntradaManager extends Thread {
 
                     dos.writeUTF("NEED-REQUEST-LIST");
                     //controller.showPassword(requestName, requestPassword);
+
+                break;
+            case "REQUEST-COMING":
+                boolean done = dis.readBoolean();
+                if (!done){
+                    controller.insertNotification();
+                }
 
                 break;
 
