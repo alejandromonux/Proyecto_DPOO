@@ -715,6 +715,26 @@ public class ConectorDB {
      * ***********************************************************************************
      *********************************************************************************** */
 
+    public synchronized boolean insertComanda(ArrayList<RequestDish> listaRequests){
+        boolean done = true;
+        for (RequestDish requestDish : listaRequests){
+            PreparedStatement ps = null;
+            try {
+                ps = conn.prepareStatement("INSERT INTO request_order(request_id, dish_id, quantity, actual_service, activation_date, timecost) " +
+                        "VALUES(" + requestDish.getRequest_id() + ", " + requestDish.getId() + ", " + requestDish.getUnits() + ", " + requestDish.getActualService() + "" +
+                        ", " + requestDish.getActivation_date() + ", " + requestDish.getTimecost() + ");");
+                ps.executeUpdate();
+
+            } catch (SQLException e) {
+                done = false;
+                e.printStackTrace();
+                break;
+            }
+        }
+
+        return done;
+    }
+
     public synchronized Request payBill(Request requestPagado){
         PreparedStatement ps = null;
         PreparedStatement ps2 = null;
