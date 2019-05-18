@@ -60,8 +60,11 @@ public class EntradaManager extends Thread {
 
     public void sendRequest(String nameRequest, int quantity) throws IOException {
         dos.writeUTF("REQUEST-COMING");
+        System.out.println("REQUEST-COMING");
         dos.writeUTF(nameRequest);
+        System.out.println(nameRequest + " 1");
         dos.writeInt(quantity);
+        System.out.println(quantity + " 2");
     }
 
     public void askRequests() throws IOException {
@@ -71,17 +74,21 @@ public class EntradaManager extends Thread {
 
     public void readUpdates() throws IOException {
         String inDuty = dis.readUTF();
-
+        System.out.println(inDuty + " readUpdates()");
         switch (inDuty) {
             case "UPDATE-REQUEST-LIST":
                 ArrayList<Request> requests = new ArrayList<>();
                 int size = dis.readInt();
+                System.out.println(size);
                 while (size > 0) {
                     int id = dis.readInt();
+                    System.out.println(id);
                     String name = dis.readUTF();
                     name = name.equals("NULL") ? null: name;
+                    System.out.println(name);
                     String pass = dis.readUTF();
                     pass = pass.equals("NULL") ? null: pass;
+                    System.out.println(pass);
                     requests.add(new Request(name, id, pass));
                     size--;
                 }
@@ -89,11 +96,11 @@ public class EntradaManager extends Thread {
                 break;
             case "INCOMING-ASSIGNMENT":
                     int id = dis.readInt();
-                System.out.printf("mecago en mi puta madre ya ostias");
+                System.out.println(id);
                     String name = dis.readUTF();
-                System.out.println("dnf,zsdnsnd");
+                System.out.println(name);
                     String pass = dis.readUTF();
-                    System.out.println("joooljlsjd");
+                    System.out.println(pass);
                     if (name.equals("NO SE HA ENCONTRADO MESA")){
                         controller.notificationComanda(id);
                     }
@@ -105,6 +112,7 @@ public class EntradaManager extends Thread {
                 break;
             case "REQUEST-COMING":
                 boolean done = dis.readBoolean();
+                System.out.println(done + " 3");
                 if (!done){
                     controller.insertNotification();
                 }
