@@ -49,14 +49,14 @@ CREATE TABLE request(
 
 DROP TABLE IF EXISTS request_order;
 CREATE TABLE request_order(
-  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  id INT NOT NULL AUTO_INCREMENT,
   request_id INT NOT NULL,
   dish_id INT NOT NULL,
   quantity INT,
   actual_service INT,
   activation_date DATETIME,
   timecost INT,
-  PRIMARY KEY (request_id, dish_id),
+  PRIMARY KEY (id, request_id, dish_id),
   FOREIGN KEY (request_id) REFERENCES request(id),
   FOREIGN KEY (dish_id) REFERENCES dish(id)
 

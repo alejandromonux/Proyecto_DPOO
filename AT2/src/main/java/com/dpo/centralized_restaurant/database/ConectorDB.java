@@ -367,7 +367,7 @@ public class ConectorDB {
      * @return
      */
     public synchronized ArrayList<Dish> findActiveDishes() {
-        String query = "SELECT * FROM Dish AS d WHERE d.active = true;";
+        String query = "SELECT * FROM Dish AS d WHERE d.active = 1;";
         ResultSet rs = null;
         ArrayList<Dish> result = new ArrayList<>();
 

@@ -86,7 +86,7 @@ public class Controller implements ActionListener {
                 break;
             case "DISHES":
                 vista.changePanel(aux.getActionCommand());
-//                model.setDishes(conectorDB.findActiveDishes());
+                model.setDishes(conectorDB.findActiveDishes());
                 vista.getJpDish().setJpList(new DishListPanel(model.getDishes(), this));
                 break;
 
