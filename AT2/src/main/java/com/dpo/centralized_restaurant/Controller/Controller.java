@@ -494,6 +494,7 @@ public class Controller implements ActionListener {
 
                 boolean done20 = conectorDB.actualizarEstadoServicio(2);
                 vista.setJpStats(new Stats(today, all, todayGain, totalGain, dishTable ,priceTable));
+                vista.getJpStats().registerController(this);
 
                 if(done20){
                     vista.changePanel("POSTSERVICE");

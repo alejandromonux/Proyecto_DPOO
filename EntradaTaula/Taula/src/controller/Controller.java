@@ -157,7 +157,7 @@ public class Controller implements ActionListener {
     private void sendComanda() {
         try {
             networkManager.sendComanda(vista.getBagOfOrders());
-        } catch (IOException ex) {
+            } catch (IOException ex) {
             ex.printStackTrace();
         }
     }

@@ -272,7 +272,10 @@ public class MainView extends JFrame {
     }
 
     public void setJpStats(Stats jpStats) {
+        jpContent.remove(this.jpStats);
         this.jpStats = jpStats;
+        jpContent.add("STADISTICS", this.jpStats);
+
     }
 
     public void updateRequests(ArrayList<Request> listaRequests, Controller controller){
