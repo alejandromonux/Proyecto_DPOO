@@ -1,9 +1,5 @@
 package model;
 
-
-//import javax.persistence.*;
-
-//@Entity
 public class Dish {
 
     private String name;
@@ -12,7 +8,7 @@ public class Dish {
 
     private int units;
 
-    private double timecost;
+    private int timecost;
 
     private int historicOrders;
 
@@ -20,7 +16,7 @@ public class Dish {
 
     public Dish(){}
 
-    public Dish(String name, double cost, int units, double timecost) {
+    public Dish(String name, double cost, int units, int timecost) {
         this.name = name;
         this.cost = cost;
         this.units = units;
@@ -52,11 +48,11 @@ public class Dish {
         this.units = units;
     }
 
-    public double getTimecost() {
+    public int getTimecost() {
         return timecost;
     }
 
-    public void setTimecost(double timecost) {
+    public void setTimecost(int timecost) {
         this.timecost = timecost;
     }
 

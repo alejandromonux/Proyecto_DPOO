@@ -41,6 +41,10 @@ public class MainWindow extends JFrame {
 
     }
 
+    public void createClock() {
+        userOptionsMenu.createClock();
+    }
+
     public void changePanel(String which) {
 
         if (which.equals("TO-TAULA-PANEL")) {
@@ -80,7 +84,7 @@ public class MainWindow extends JFrame {
         return userOptionsMenu.getDishToDelete();
     }
 
-    public void updateMenu(ArrayList<RequestDish> menu) {
+    public void updateMenu(ArrayList<Dish> menu) {
         userOptionsMenu.updateMenu(menu);
     }
 

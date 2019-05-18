@@ -1,14 +1,19 @@
 package controller;
 
 import model.Dish;
+import model.Request;
 import model.RequestDish;
 import network.NetworkManager;
 import view.MainWindow;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Controller implements ActionListener {
 
@@ -18,6 +23,7 @@ public class Controller implements ActionListener {
     public Controller(MainWindow vista, NetworkManager networkManager) {
         this.networkManager = networkManager;
         this.vista = vista;
+        createClock();
     }
 
     @Override
@@ -27,8 +33,9 @@ public class Controller implements ActionListener {
             case "TO-TAULA-PANEL":
                 vista.changePanel("TO-TAULA-PANEL");
                 break;
-            case "TAULA-OPTIONS":
+            case "TAULA-OPTIONS": //Haurem de demanar el menu
                 vista.changeTaulaPanel("TAULA-OPTIONS");
+                networkManager.askForMenu();
                 break;
             case "TAULA-LOGIN":
                 vista.changeTaulaPanel("TAULA-LOGIN");
@@ -37,13 +44,14 @@ public class Controller implements ActionListener {
                 vista.changeTaulaPanel("TAULA-ORDER");
                 break;
             case "TAULA-SEE-ORDERS":
+                networkManager.askOrders();
                 vista.changeTaulaPanel("TAULA-SEE-ORDERS");
                 break;
             case "TO-PAY":// Per dirigir-nos a la taula de pagament
                 vista.changeTaulaPanel("TAULA-PAY");
                 break;
             case "PAY-BILL":
-                //TODO: let the server know this client wants to finish its service
+                networkManager.payBill();
                 break;
             case "BACK-TO-ORDERS":
                 vista.changeTaulaPanel("TAULA-ORDER");
@@ -51,7 +59,7 @@ public class Controller implements ActionListener {
             case "SEND-COMANDA":
                 sendComanda();
                 break;
-            case "REMOVE-FROM-ORDER":
+            case "REMOVE-FROM-ORDER":   //Eliminem el producte de la comanda
                 vista.removeComandaFromCard(vista.getSelectedComanda(), this);
                 break;
             case "REMOVE-COMANDA":
@@ -74,10 +82,15 @@ public class Controller implements ActionListener {
             case "ORDER":
                 vista.addComandaToCart(vista.getComandaToAdd(), this);
                 break;
-            case "DELETE":
+            case "DELETE-ORDER":
                 try {
                     System.out.println(vista.getDishToDelete());
-                    networkManager.sendDishToEliminate(vista.getDishToDelete());
+                    if (!networkManager.sendDishToEliminate(vista.getDishToDelete())) {
+                        JOptionPane.showMessageDialog(vista,
+                                "Error when Removing Dish!",
+                                "Remove Error",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
@@ -85,14 +98,41 @@ public class Controller implements ActionListener {
         }
     }
 
-    public void updateMenu(ArrayList<RequestDish> menu) {
-        vista.updateMenu(menu);
-        vista.registerController(this);
+    public void createClock() {
+        Timer timer;
+        ActionListener actionListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vista.createClock();
+            }
+        };
+        timer = new Timer(1000, actionListener);
+        timer.setInitialDelay(0);
+        timer.start();
+    }
+
+    public void updateMenu(ArrayList<Dish> menu) {
+        if (menu != null) {
+            vista.updateMenu(menu);
+            vista.registerController(this);
+        } else {
+            JOptionPane.showMessageDialog(vista,
+                    "Cannot get the Menu, sorry!",
+                    "Receiving Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public void updateBill(ArrayList<RequestDish> bill) {
-        vista.updateBill(bill);
-        vista.registerController(this);
+        if (bill != null) {
+            vista.updateBill(bill);
+            vista.registerController(this);
+        } else {
+            JOptionPane.showMessageDialog(vista,
+                    "Cannot get the Orders, sorry!",
+                    "Receiving Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public void correctLogin() {
@@ -100,7 +140,10 @@ public class Controller implements ActionListener {
     }
 
     public void badLogin() {
-        vista.badLogin();
+        JOptionPane.showMessageDialog(vista,
+                "Incorrect Login or Password, try again!",
+                "Login Error",
+                JOptionPane.ERROR_MESSAGE);
     }
 
     public void paymentResult(Boolean r) {
@@ -113,8 +156,7 @@ public class Controller implements ActionListener {
 
     private void sendComanda() {
         try {
-
-            networkManager.sendRequestedDish(vista.getSelectedDish());
+            networkManager.sendComanda(vista.getBagOfOrders());
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -124,6 +166,14 @@ public class Controller implements ActionListener {
         vista.clearBagOfComandes();
     }
 
+    public void badSending() {
+        JOptionPane.showMessageDialog(vista,
+                "Orders were not applied!",
+                "Sending Error",
+                JOptionPane.ERROR_MESSAGE);
+    }
+
+/*
     private ArrayList<RequestDish> rawData() {
         ArrayList<RequestDish> dishes = new ArrayList<>();
         RequestDish dish = new RequestDish(Long.MAX_VALUE, "Arros",10,5, 6,"");
@@ -139,6 +189,6 @@ public class Controller implements ActionListener {
         dishes.add(dish4);
         return dishes;
     }
-
+*/
 
 }

@@ -6,10 +6,14 @@ import view.Entrada.ListFrame;
 import view.Entrada.RequestFrame;
 import view.Entrada.RequestMenu;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Controller implements ActionListener {
 
@@ -21,6 +25,7 @@ public class Controller implements ActionListener {
         this.networkManager = networkManager;
         this.vista = vista;
         this.requestList = listFrame;
+        createClock();
     }
 
     @Override
@@ -45,6 +50,20 @@ public class Controller implements ActionListener {
         }
 
     }
+
+    public void createClock() {
+        Timer timer;
+        ActionListener actionListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vista.createClock();
+            }
+        };
+        timer = new Timer(1000, actionListener);
+        timer.setInitialDelay(0);
+        timer.start();
+    }
+
 
     public void updateRequestList(ArrayList<Request> requests) {
         requestList.updateList(requests);

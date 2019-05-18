@@ -96,19 +96,10 @@ public class RequestMenu extends JPanel{
     }
 
     public void createClock() {
-        Timer timer;
-        ActionListener actionListener = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Date date = new Date();
-                DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-                String time = timeFormat.format(date);
-                digitalClock.setText(time);
-            }
-        };
-        timer = new Timer(1000, actionListener);
-        timer.setInitialDelay(0);
-        timer.start();
+        Date date = new Date();
+        DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+        String time = timeFormat.format(date);
+        digitalClock.setText(time);
     }
 
     public void setValuesToShow(String requestName, String password) {

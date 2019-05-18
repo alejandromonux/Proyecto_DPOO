@@ -2,6 +2,7 @@ package com.dpo.centralized_restaurant.Network;
 
 import com.dpo.centralized_restaurant.Controller.Controller;
 import com.dpo.centralized_restaurant.Model.ModelDTO.ClientDTO;
+import com.dpo.centralized_restaurant.Model.Preservice.Dish;
 import com.dpo.centralized_restaurant.Model.Request.Request;
 import com.dpo.centralized_restaurant.Model.Request.RequestDish;
 import com.dpo.centralized_restaurant.Model.Request.RequestManager;
@@ -83,10 +84,24 @@ public class DedicatedServerTaula extends Thread{
                         break;
                     case "ELIMINATE-DISH":
                         String dishToEliminate = dis.readUTF();
+                        dos.writeBoolean(conectorDB);
                         long idMesaAfectadaEliminate = dis.readLong();
                         break;
                     case "SEE-MENU":
+                        ArrayList<Dish> menu = conectorDB.findActiveDishes();
                         dos.writeUTF("UPDATE-MENU");
+                        dos.writeInt(menu.size());
+                        for (Dish d: menu) {
+                            oos.writeObject(d);
+                        }
+                        break;
+                    case "SEE-MY-ORDERS":
+                        ArrayList<RequestDish> comanda = conectorDB.getMyOrders(requestActual);
+                        dos.writeUTF("UPDATE-CLIENT-ORDERS");
+                        dos.writeInt(comanda.size());
+                        for (RequestDish d: comanda) {
+                            oos.writeObject(d);
+                        }
                         break;
                     case "PAY-BILL":
                         doPayment();
@@ -137,21 +152,24 @@ public class DedicatedServerTaula extends Thread{
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
-    public void doPayment() throws IOException, ClassNotFoundException {
-        Request inRequest = (Request)ois.readObject();
-        Request newR = conectorDB.payBill(inRequest);
-        if (newR != null) {
-            // Si se ha asignado una mesa a un request en cola, se debe informar a la Entrada
-            if(newR.getId() != -1) {
-                controller.informarEntrada(newR);
-            }
-            dos.writeUTF("PAYMENT-ACCEPTED");
-            requestActual = null;
+    public void doPayment() {
+        try {
+            Request inRequest = (Request) ois.readObject();
+            Request newR = conectorDB.payBill(inRequest);
+            if (newR != null) {
+                if (newR.getId() != -1) {
+                    controller.informarEntrada(newR);
+                }
+                dos.writeUTF("PAYMENT-ACCEPTED");
             } else {
-            dos.writeUTF("PAYMENT-DECLINED");
+                dos.writeUTF("PAYMENT-DECLINED");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 

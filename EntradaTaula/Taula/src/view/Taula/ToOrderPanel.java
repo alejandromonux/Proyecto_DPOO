@@ -17,7 +17,7 @@ public class ToOrderPanel extends JPanel {
 
     private final Color cAux = new Color(0x1A0D08);
 
-    private ArrayList<RequestDish> dishes;
+    private ArrayList<Dish> dishes;
 
     private JScrollPane jScrollPane;
     private JTable jpContent;
@@ -98,11 +98,11 @@ public class ToOrderPanel extends JPanel {
     }
 
     public void dishCreator() {
-        RequestDish dish = new RequestDish(Long.MAX_VALUE, "Arros",10,5, 6,"");
-        RequestDish dish1 = new RequestDish(Long.MAX_VALUE,"Patates fregides",10,3, 5,"");
-        RequestDish dish2 = new RequestDish(Long.MAX_VALUE,"Llenguado",20,4, 4,"");
-        RequestDish dish3 = new RequestDish(Long.MAX_VALUE, "Sopa",15,6, 3,"");
-        RequestDish dish4 = new RequestDish(Long.MAX_VALUE, "Bacalla", 10.0,7, 2,"");
+        Dish dish = new Dish("Arros",10,5, 6);
+        Dish dish1 = new Dish("Patates fregides",10,3, 5);
+        Dish dish2 = new Dish("Llenguado",20,4, 4);
+        Dish dish3 = new Dish("Sopa",15,6, 3);
+        Dish dish4 = new Dish("Bacalla", 10.0,7, 2);
 
         dishes.add(dish);
         dishes.add(dish1);
@@ -150,7 +150,7 @@ public class ToOrderPanel extends JPanel {
         jbtnSeeComanda.addActionListener(c);
     }
 
-    public void updateMenu(ArrayList<RequestDish> menu) {
+    public void updateMenu(ArrayList<Dish> menu) {
         dishes = menu;
         data = new Object[menu.size()][columnNames.length];
         for (int i = 0; i < data.length;i++) {
@@ -181,7 +181,7 @@ public class ToOrderPanel extends JPanel {
         return jpContent.getSelectedRow();
     }
 
-    public RequestDish getSelectedDish2() {
+    public Dish getSelectedDish2() {
         return dishes.get(jpContent.getSelectedRow());
     }
 
