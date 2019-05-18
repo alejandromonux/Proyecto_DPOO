@@ -624,7 +624,10 @@ public class Controller implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 vista.createClock();
-                ArrayList<RequestDish> listaRequestDishes = conectorDB.comprobarServidos();
+                int estadoServicio = conectorDB.estadoServicio();
+                if(estadoServicio == 1){
+                    ArrayList<RequestDish> listaRequestDishes = conectorDB.comprobarServidos();
+                }
 
             }
         };
