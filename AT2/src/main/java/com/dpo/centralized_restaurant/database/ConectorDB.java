@@ -459,19 +459,10 @@ public class ConectorDB {
                 if (rs.next()) {
                     result = new Request(rs.getString("mesa_name"), rs.getString("password"));
                 }
-
-        try {
-            s = (Statement) conn.createStatement();
-            rs = s.executeQuery(query);
-            while (rs.next()) {
-                Request requestAux = new Request(rs.getString("mesa_name"), rs.getString("password"));
-                result.add(requestAux);
+            } catch (SQLException ex) {
+                System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
             }
-
-        } catch (SQLException ex) {
-            System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
-        }
-        return result;
+            return result;
     }
 
     /**
