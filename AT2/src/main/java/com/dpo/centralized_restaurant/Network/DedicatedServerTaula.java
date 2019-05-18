@@ -84,7 +84,7 @@ public class DedicatedServerTaula extends Thread{
                         break;
                     case "ELIMINATE-DISH":
                         String dishToEliminate = dis.readUTF();
-                        dos.writeBoolean(conectorDB);
+                        //dos.writeBoolean(conectorDB);
                         long idMesaAfectadaEliminate = dis.readLong();
                         break;
                     case "SEE-MENU":
@@ -113,8 +113,6 @@ public class DedicatedServerTaula extends Thread{
             }
 
         } catch (IOException e) {
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         } finally {
             try {
                 ois.close();

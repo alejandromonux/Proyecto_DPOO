@@ -7,12 +7,13 @@ public class RequestDish {
     private int dish_id;
     private int request_id;
     private String name;
-    private double cost;
+    private float cost;
     private int units;
     private int timecost;
     private String activation_date;
+    private int actualService;
 
-    public RequestDish(int dish_id, int request_id, String name, double cost, int units, int timecost, String activation_date) {
+    public RequestDish(int dish_id, int request_id, String name, float cost, int units, int timecost, String activation_date, int actualService) {
         this.dish_id = dish_id;
         this.request_id = request_id;
         this.name = name;
@@ -20,6 +21,7 @@ public class RequestDish {
         this.units = units;
         this.timecost = timecost;
         this.activation_date = activation_date;
+        this.actualService = actualService;
     }
 
     public int getId() {
@@ -38,11 +40,11 @@ public class RequestDish {
         this.name = name;
     }
 
-    public double getCost() {
+    public float getCost() {
         return cost;
     }
 
-    public void setCost(double cost) {
+    public void setCost(float cost) {
         this.cost = cost;
     }
 
@@ -76,5 +78,13 @@ public class RequestDish {
 
     public void setActivation_date(String activation_date) {
         this.activation_date = activation_date;
+    }
+
+    public int getActualService() {
+        return actualService;
+    }
+
+    public void setActualService(int actualService) {
+        this.actualService = actualService;
     }
 }

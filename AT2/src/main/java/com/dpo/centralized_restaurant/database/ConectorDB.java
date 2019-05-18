@@ -795,7 +795,7 @@ public class ConectorDB {
 
             while(rs.next()){
                 result.add(new RequestDish(rs.getInt("dish_id"), rs.getInt("request_id"), rs.getString("name"),
-                        rs.getFloat("cost"), rs.getInt("units"), rs.getInt("timecost"), rs.getString("activation_date")), rs.getInt("actual_service"));
+                        rs.getFloat("cost"), rs.getInt("units"), rs.getInt("timecost"), rs.getString("activation_date"), rs.getInt("actual_service")));
             }
 
             return result;
@@ -820,7 +820,7 @@ public class ConectorDB {
 
             while(rs.next()){
                 result.add(new RequestDish(rs.getInt("dish_id"), rs.getInt("request_id"), rs.getString("name"),
-                        rs.getFloat("cost"), rs.getInt("units"), rs.getInt("timecost"), rs.getString("activation_date")), rs.getInt("actual_service"));
+                        rs.getFloat("cost"), rs.getInt("units"), rs.getInt("timecost"), rs.getString("activation_date"), rs.getInt("actual_service")));
             }
 
             return result;
