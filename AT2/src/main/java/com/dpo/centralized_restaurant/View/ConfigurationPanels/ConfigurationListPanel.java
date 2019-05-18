@@ -58,8 +58,8 @@ public class ConfigurationListPanel extends JPanel{
         jtable.getColumn("Delete").setCellRenderer(new ButtonRenderer("Remove"));
         jtable.getColumn("Pick").setCellRenderer(new ButtonRenderer("Pick"));
         //jtable.getColumn("").setCellEditor(buttonEditor);
-        ButtonEditor nbe = new ButtonEditor(new JCheckBox(), c, "REMOVE-CONFIGURATION");
-        ButtonEditor pbe = new ButtonEditor(new JCheckBox(), c, "PICK-THIS-CONFIGURATION");
+        ButtonEditor nbe = new ButtonEditor(new JCheckBox(), c, "REMOVE-CONFIGURATION", "Remove");
+        ButtonEditor pbe = new ButtonEditor(new JCheckBox(), c, "PICK-THIS-CONFIGURATION", "Pick");
         jtable.getColumn("Delete").setCellEditor(nbe);
         jtable.getColumn("Pick").setCellEditor(pbe);
 
