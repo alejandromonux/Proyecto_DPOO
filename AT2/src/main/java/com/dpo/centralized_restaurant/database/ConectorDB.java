@@ -312,11 +312,11 @@ public class ConectorDB {
             rs = s.executeQuery(query);
 
             if (!rs.next()) {
-                PreparedStatement ps = conn.prepareStatement("INSERT INTO dish(name, cost, units, timecost, active) VALUES('" + name + "', "
-                        + cost + ", " + units + ", " + timeCost + ", true);");
+                PreparedStatement ps = conn.prepareStatement("INSERT INTO dish(name, cost, units, units_backup, timecost, active) VALUES('" + name + "', "
+                        + cost + ", " + units + ", " + units + ", " + timeCost + ", true);");
                 ps.executeUpdate();
             } else {
-                PreparedStatement ps = conn.prepareStatement("UPDATE mesa SET units = " + units + ", cost = " + cost + ", timecost = " + timeCost + ", active = true " +
+                PreparedStatement ps = conn.prepareStatement("UPDATE mesa SET units = " + units + ", units_backup = " + units + ", cost = " + cost + ", timecost = " + timeCost + ", active = true " +
                         "WHERE name = '" + name + "';");
                 ps.executeUpdate();
             }
@@ -1277,6 +1277,9 @@ public class ConectorDB {
 
             PreparedStatement ps3 = conn.prepareStatement("UPDATE mesa SET in_use = false;");
             ps3.executeUpdate();
+
+            PreparedStatement ps4 = conn.prepareStatement("UPDATE dish SET units = units_backup;");
+            ps4.executeUpdate();
 
             return true;
 
