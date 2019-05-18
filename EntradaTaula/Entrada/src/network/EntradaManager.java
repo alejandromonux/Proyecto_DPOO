@@ -29,7 +29,7 @@ public class EntradaManager extends Thread {
         PORT = config.getPort_Entrada();
         socket = new Socket(IP, PORT);
         dis = new DataInputStream(socket.getInputStream());
-        //ois = new ObjectInputStream(socket.getInputStream());
+        ois = new ObjectInputStream(socket.getInputStream());
         dos = new DataOutputStream(socket.getOutputStream());
     }
 
@@ -106,10 +106,10 @@ public class EntradaManager extends Thread {
                 boolean done = dis.readBoolean();
                 if (!done){
                     controller.insertNotification();
+                } else {
+                    controller.updateRequestList();
                 }
-
                 break;
-
         }
 
     }
