@@ -1,11 +1,14 @@
 package com.dpo.centralized_restaurant.Model.Request;
 
+import java.io.Serializable;
+
 /**
  * Stores all the required information related to a dish request
  */
-public class RequestDish {
-    private int dish_id;
+public class RequestDish implements Serializable {
+    private int id;
     private int request_id;
+    private int dish_id;
     private String name;
     private float cost;
     private int units;
@@ -13,7 +16,8 @@ public class RequestDish {
     private String activation_date;
     private int actualService;
 
-    public RequestDish(int dish_id, int request_id, String name, float cost, int units, int timecost, String activation_date, int actualService) {
+    public RequestDish(int id, int dish_id, int request_id, String name, float cost, int units, int timecost, String activation_date, int actualService) {
+        this.id = id;
         this.dish_id = dish_id;
         this.request_id = request_id;
         this.name = name;
@@ -25,11 +29,19 @@ public class RequestDish {
     }
 
     public int getId() {
-        return dish_id;
+        return id;
     }
 
     public void setId(int id) {
-        this.dish_id = id;
+        this.id = id;
+    }
+
+    public int getDish_id() {
+        return dish_id;
+    }
+
+    public void setDish_id(int dish_id) {
+        this.dish_id = dish_id;
     }
 
     public String getName() {
