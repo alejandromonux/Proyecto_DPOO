@@ -23,6 +23,8 @@ public class DedicatedServerEntrada extends Thread{
     private final Socket socket;
     private DataInputStream dis;
     private DataOutputStream dos;
+    private ObjectInputStream ois;
+    private ObjectOutputStream oos;
     private boolean start;
 
     /**
@@ -51,6 +53,8 @@ public class DedicatedServerEntrada extends Thread{
             String init;
             dis = new DataInputStream(socket.getInputStream());
             dos = new DataOutputStream(socket.getOutputStream());
+            ois = new ObjectInputStream(socket.getInputStream());
+            oos = new ObjectOutputStream(socket.getOutputStream());
             while (start) {
                 init = dis.readUTF();
                 switch (init) {
@@ -103,9 +107,9 @@ public class DedicatedServerEntrada extends Thread{
     public void closeDedicatedServer(){
         start = false;
         try {
+            ois.close();
+            oos.close();
             dos.close();
-        } catch (IOException e) {}
-        try {
             dis.close();
         } catch (IOException e) {}
         //try {

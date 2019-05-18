@@ -1,6 +1,8 @@
 package model;
 
-public class RequestDish {
+import java.io.Serializable;
+
+public class RequestDish implements Serializable {
 
     private Long id;
     private int request_id;
