@@ -19,7 +19,6 @@ public class EntradaManager extends Thread {
     private Socket socket;
     private Controller controller;
     private DataInputStream dis;
-    private ObjectInputStream ois;
     private DataOutputStream dos;
     private boolean isRunning;
 
@@ -29,7 +28,6 @@ public class EntradaManager extends Thread {
         PORT = config.getPort_Entrada();
         socket = new Socket(IP, PORT);
         dis = new DataInputStream(socket.getInputStream());
-        ois = new ObjectInputStream(socket.getInputStream());
         dos = new DataOutputStream(socket.getOutputStream());
     }
 
@@ -89,25 +87,26 @@ public class EntradaManager extends Thread {
                 }
                 controller.updateRequestList(requests);
                 break;
-            case "INCOMING-ASSIGMENT":
+            case "INCOMING-ASSIGNMENT":
                     int id = dis.readInt();
+                System.out.printf("mecago en mi puta madre ya ostias");
                     String name = dis.readUTF();
-
+                System.out.println("dnf,zsdnsnd");
+                    String pass = dis.readUTF();
+                    System.out.println("joooljlsjd");
                     if (name.equals("NO SE HA ENCONTRADO MESA")){
                         controller.notificationComanda(id);
                     }
                         //mostrar error, actualizar lista
 
                     dos.writeUTF("NEED-REQUEST-LIST");
-                    //controller.showPassword(requestName, requestPassword);
+                    controller.showPassword(name, pass);
 
                 break;
             case "REQUEST-COMING":
                 boolean done = dis.readBoolean();
                 if (!done){
                     controller.insertNotification();
-                } else {
-                    //controller.updateRequestList();
                 }
                 break;
         }

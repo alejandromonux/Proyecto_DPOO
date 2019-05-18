@@ -68,13 +68,13 @@ public class ListPanel extends JPanel {
                     jlAux = new JLabel(content.get(i).getName() + "\t Pass: " + content.get(i).getPassword());
                 }
             }
-            jlAux.setForeground(Color.white);
+            //jlAux.setForeground(Color.white);
 
             JButton jbtnAux = new JButton("DELETE");
             jbtnAux.setActionCommand("DELETE-REQUEST");
             jbtnAux.setPreferredSize(new Dimension(50,20));
-            jbtnAux.setBackground(new Color(0x791311));
-            jbtnAux.setForeground(Color.white);
+            //jbtnAux.setBackground(new Color(0x791311));
+            //jbtnAux.setForeground(Color.white);
 
             //jbtnAux.addActionListener(jbtnDelete.getActionListeners()[0]);
             jpAux.add(jlAux);
@@ -82,7 +82,9 @@ public class ListPanel extends JPanel {
             jpAux.setPreferredSize(new Dimension(350,30));
             jpAux.setBorder(new EmptyBorder(0,20,0,20));
             jpAux.setBackground(cAux);
+            this.removeAll();
             this.add(jpAux);
+            repaint();
         }
     }
 }
