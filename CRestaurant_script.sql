@@ -49,14 +49,14 @@ CREATE TABLE request(
 
 DROP TABLE IF EXISTS request_order;
 CREATE TABLE request_order(
-  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  id INT NOT NULL AUTO_INCREMENT,
   request_id INT NOT NULL,
   dish_id INT NOT NULL,
   quantity INT,
   actual_service INT,
   activation_date DATETIME,
   timecost INT,
-  PRIMARY KEY (request_id, dish_id),
+  PRIMARY KEY (id, request_id, dish_id),
   FOREIGN KEY (request_id) REFERENCES request(id),
   FOREIGN KEY (dish_id) REFERENCES dish(id)
 
@@ -84,12 +84,7 @@ ALTER TABLE configuration_table ADD FOREIGN KEY (mesa_name) REFERENCES mesa(name
 
 DROP TABLE IF EXISTS variables_importantes;
 CREATE TABLE variables_importantes(
-  estado_servicio INT,
-  recaudacion_actual FLOAT,
-  recaudacion_historica FLOAT
+  estado_servicio INT
 );
 
-INSERT INTO variables_importantes VALUES(0, 0, 0);
-INSERT INTO request(name, quantity, in_service) VALUES('asdasd', 2, 0);
-
-UPDATE request_order SET actual_service = 2 WHERE NOW() < addtime(activation_date, concat(timecost / 60, ':', MOD(timecost, 60), ':00'));
+INSERT INTO variables_importantes VALUES(0);
