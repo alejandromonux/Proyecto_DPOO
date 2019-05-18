@@ -2,6 +2,7 @@ package view.Taula;
 
 import controller.Controller;
 import model.Dish;
+import model.RequestDish;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -128,10 +129,10 @@ public class SeeOrdersPanel extends JPanel {
 
         jpContent.getColumn("").setCellRenderer(btnRenderer);
         jpContent.getColumn("").setCellEditor(new ButtonEditor(new JCheckBox(), c, "DELETE"));
-        jbtnDelete.registerController(c);
+        jbtnDelete.registerController(c, "DELETE-ORDER");
     }
 
-    public void updateDishes(ArrayList<Dish> dishes) {
+    public void updateDishes(ArrayList<RequestDish> dishes) {
         data = new Object[dishes.size()][columnNames.length];
         for (int i = 0; i < data.length;i++) {
             Object[] obj = new Object[]{

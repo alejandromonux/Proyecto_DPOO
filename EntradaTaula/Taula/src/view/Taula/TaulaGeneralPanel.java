@@ -2,6 +2,7 @@ package view.Taula;
 
 import controller.Controller;
 import model.Dish;
+import model.RequestDish;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -25,6 +26,7 @@ public class TaulaGeneralPanel extends JPanel {
     private ToOrderPanel orderPanel;
     private SeeOrdersPanel requestedOrders;
     private PaymentPanel paymentPanel;
+    private ComandaPanel comandesPanel;
 
 
     public TaulaGeneralPanel() {
@@ -75,6 +77,7 @@ public class TaulaGeneralPanel extends JPanel {
         orderPanel = new ToOrderPanel();
         requestedOrders = new SeeOrdersPanel();
         paymentPanel = new PaymentPanel();
+        comandesPanel = new ComandaPanel();
 
         cardLayout = new CardLayout();
         jpPanels = new JPanel(cardLayout);
@@ -83,6 +86,7 @@ public class TaulaGeneralPanel extends JPanel {
         jpPanels.add("TAULA-ORDER", orderPanel);
         jpPanels.add("TAULA-SEE-ORDERS", requestedOrders);
         jpPanels.add("TAULA-PAY", paymentPanel);
+        jpPanels.add("BAG", comandesPanel);
 
 
         /*····················   CONFIGURATION    ···················· */
@@ -126,6 +130,7 @@ public class TaulaGeneralPanel extends JPanel {
         orderPanel.registerController(c);
         requestedOrders.registerController(c);
         paymentPanel.registerController(c);
+        comandesPanel.registerController(c);
     }
 
     public void changePanel(String which) {
@@ -140,19 +145,53 @@ public class TaulaGeneralPanel extends JPanel {
         return userLogin.getJtPassword().getText();
     }
 
-    public String getSelectedDish() {
-        return orderPanel.getSelectedDish();
-    }
-
     public String getDishToDelete() {
         return requestedOrders.getDishToDelete();
     }
 
-    public void updateMenu(ArrayList<Dish> menu) {
+    public void updateMenu(ArrayList<RequestDish> menu) {
         orderPanel.updateMenu(menu);
     }
 
-    public void updateBill(ArrayList<Dish> bill) {
+    public void updateBill(ArrayList<RequestDish> bill) {
         requestedOrders.updateDishes(bill);
+    }
+
+    // ***************************    ORDERS    ************************************************************************
+
+
+    public String getSelectedDish() {   // Quan necessitem l'String
+        return orderPanel.getSelectedDish();
+    }
+
+    public int getIndexOfSelectedDish() {       // Quan necessitem la posicio en la taula
+        return orderPanel.getIndexOfSelectedDish();
+    }
+
+    public void removeComandaFromCard(int index, ActionListener c){
+        comandesPanel.removeOrderFromCart(index);
+        comandesPanel.registerController((Controller) c);
+        orderPanel.decrBag();
+    }
+
+    public void addComandaToCart(RequestDish d, ActionListener c) {
+        comandesPanel.addOrderToCart(d);
+        comandesPanel.registerController((Controller)c);
+        orderPanel.incBag();
+    }
+
+    public int getSelectedComanda() {
+        return comandesPanel.getSelectedComanda();
+    }
+
+    public RequestDish getComandaToAdd() {
+        return orderPanel.getSelectedDish2();
+    }
+    public ArrayList<RequestDish> getBagOfOrders() {
+        return comandesPanel.getBagOfOrders();
+    }
+
+    public void clearBagOfComandes() {
+        comandesPanel.clearComandes();
     }
 }

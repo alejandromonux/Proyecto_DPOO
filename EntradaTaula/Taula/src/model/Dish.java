@@ -6,28 +6,18 @@ package model;
 //@Entity
 public class Dish {
 
-    //@Id
-    //@Column(nullable = false)
     private String name;
 
-    //@Column(nullable = false)
     private double cost;
 
-    //@Column(nullable = false)
     private int units;
 
-    //@Column(nullable = false)
     private double timecost;
 
-    //@Column(name = "historic_orders")
     private int historicOrders;
 
     private boolean active;
 
-    /*
-    @OneToMany(mappedBy = "dish")
-    Set<ConfigurationDish> configurations;
-*/
     public Dish(){}
 
     public Dish(String name, double cost, int units, double timecost) {

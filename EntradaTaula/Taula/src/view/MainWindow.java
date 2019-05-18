@@ -2,10 +2,12 @@ package view;
 
 import controller.Controller;
 import model.Dish;
+import model.RequestDish;
 import view.Taula.TaulaGeneralPanel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class MainWindow extends JFrame {
@@ -78,11 +80,44 @@ public class MainWindow extends JFrame {
         return userOptionsMenu.getDishToDelete();
     }
 
-    public void updateMenu(ArrayList<Dish> menu) {
+    public void updateMenu(ArrayList<RequestDish> menu) {
         userOptionsMenu.updateMenu(menu);
     }
 
-    public void updateBill(ArrayList<Dish> bill) {
+    public void updateBill(ArrayList<RequestDish> bill) {
         userOptionsMenu.updateBill(bill);
     }
+
+    public String getSelectedDishString() {   // Quan necessitem l'String
+        return userOptionsMenu.getSelectedDish();
+    }
+
+    public int getIndexOfSelectedDish() {       // Quan necessitem la posicio en la taula
+        return userOptionsMenu.getIndexOfSelectedDish();
+    }
+
+    public void removeComandaFromCard(int index, ActionListener c){
+        userOptionsMenu.removeComandaFromCard(index, c);
+    }
+
+    public int getSelectedComanda() {
+        return userOptionsMenu.getSelectedComanda();
+    }
+
+    public void clearBagOfComandes() {
+        userOptionsMenu.clearBagOfComandes();
+    }
+
+    public void addComandaToCart(RequestDish d, ActionListener c) {
+        userOptionsMenu.addComandaToCart(d, c);
+    }
+
+    public RequestDish getComandaToAdd() {
+        return userOptionsMenu.getComandaToAdd();
+    }
+
+    public ArrayList<RequestDish> getBagOfOrders() {
+        return userOptionsMenu.getBagOfOrders();
+    }
+
 }

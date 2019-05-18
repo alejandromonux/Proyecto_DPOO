@@ -2,6 +2,7 @@ package network;
 
 import controller.Controller;
 import model.Dish;
+import model.RequestDish;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -72,21 +73,21 @@ public class NetworkManager extends Thread {
             switch (dis.readUTF()) {
                 case "UPDATE-MENU":
                         int cmpt = dis.readInt();   // Rebem la quantitat de Dishes que ens enviaran
-                        ArrayList<Dish> menu = new ArrayList<>();
+                        ArrayList<RequestDish> menu = new ArrayList<>();
                         while (cmpt > 0) {
-                            menu.add((Dish)ois.readObject());
+                            menu.add((RequestDish)ois.readObject());
                             cmpt--;
                         }
-                        controller.updateMenu((ArrayList<Dish>) menu);
+                        controller.updateMenu((ArrayList<RequestDish>) menu);
                         break;
                 case "UPDATE-CLIENT-ORDERS":            // El servidor ens envia tots els plats que ha demanat la reserva.
                         int compt2 = dis.readInt();   // Rebem la quantitat de Dishes que ens enviaran
-                        ArrayList<Dish> bill = new ArrayList<>();
+                        ArrayList<RequestDish> bill = new ArrayList<>();
                         while (compt2 > 0) {
-                            bill.add((Dish)ois.readObject());
+                            bill.add((RequestDish)ois.readObject());
                             compt2--;
                         }
-                        controller.updateBill((ArrayList<Dish>) bill);
+                        controller.updateBill((ArrayList<RequestDish>) bill);
                     break;
             }
 

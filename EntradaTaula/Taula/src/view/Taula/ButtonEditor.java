@@ -49,8 +49,8 @@ public class ButtonEditor extends DefaultCellEditor {
         super.fireEditingStopped();
     }
 
-    public void registerController(Controller c) {
-        button.setActionCommand("ORDER");
+    public void registerController(Controller c, String command) {
+        button.setActionCommand(command);
         button.addActionListener(c);
     }
 }

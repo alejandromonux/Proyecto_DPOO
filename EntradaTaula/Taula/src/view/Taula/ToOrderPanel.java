@@ -2,6 +2,7 @@ package view.Taula;
 
 import controller.Controller;
 import model.Dish;
+import model.RequestDish;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -16,7 +17,7 @@ public class ToOrderPanel extends JPanel {
 
     private final Color cAux = new Color(0x1A0D08);
 
-    private ArrayList<Dish> dishes;
+    private ArrayList<RequestDish> dishes;
 
     private JScrollPane jScrollPane;
     private JTable jpContent;
@@ -27,25 +28,43 @@ public class ToOrderPanel extends JPanel {
     private JButton jbtnBack;
     private ButtonEditor jbtnOrder;
 
-    public ToOrderPanel() {
+    private JPanel jpFooter;
 
+    private JButton jbtnDoComanda;
+    private JButton jbtnRemoveComanda;
+    private JButton jbtnSeeComanda;
+    private JLabel jlEnunciat;
+    private int bagCounter;
+
+    public ToOrderPanel() {
+        bagCounter = 0;
         dishes = new ArrayList<>();
-        //dishCreator();      // INVENTED DATA
+        dishCreator();      // INVENTED DATA
         tableCreator();
 
-        JPanel jpButton = new JPanel();
         jbtnBack = new JButton("BACK");
-        jpButton.add(jbtnBack);
-        jpButton.setBorder(new EmptyBorder(10,0,0,0));
 
-        jpButton.setBackground(cAux);
         scrollPaneConfig(jScrollPane);
+
+        jpFooter = new JPanel(new GridLayout(1,4,0,0));
+        jlEnunciat = new JLabel("IN BAG: " + bagCounter);
+        jbtnSeeComanda = new JButton("SEE ORDERS");
+        jbtnRemoveComanda = new JButton("CANCEL");
+        jbtnDoComanda = new JButton("ACCEPT");
+        jpFooter.add(jbtnSeeComanda);
+        jpFooter.add(jbtnDoComanda);
+        jpFooter.add(jbtnRemoveComanda);
+        jpFooter.add(jlEnunciat);
+
+        JPanel jpDown = new JPanel(new GridLayout(2,1));
+        jpDown.add(jpFooter);
+        jpDown.add(jbtnBack);
 
         this.setBackground(cAux);
         this.setBorder(new EmptyBorder(0,10,0,10));
         this.setLayout(new BorderLayout(0,10));
         this.add(jScrollPane, BorderLayout.CENTER);
-        this.add(jbtnBack, BorderLayout.PAGE_END);
+        this.add(jpDown, BorderLayout.PAGE_END);
 
     }
 
@@ -79,11 +98,11 @@ public class ToOrderPanel extends JPanel {
     }
 
     public void dishCreator() {
-        Dish dish = new Dish("Arros", 7.9,10,5);
-        Dish dish1 = new Dish("Patates fregides", 2.9,10,3);
-        Dish dish2 = new Dish("Llenguado", 2.9,20,4);
-        Dish dish3 = new Dish("Sopa", 5.9,15,6);
-        Dish dish4 = new Dish("Bacalla", 4.9,10,7);
+        RequestDish dish = new RequestDish(Long.MAX_VALUE, "Arros",10,5, 6,"");
+        RequestDish dish1 = new RequestDish(Long.MAX_VALUE,"Patates fregides",10,3, 5,"");
+        RequestDish dish2 = new RequestDish(Long.MAX_VALUE,"Llenguado",20,4, 4,"");
+        RequestDish dish3 = new RequestDish(Long.MAX_VALUE, "Sopa",15,6, 3,"");
+        RequestDish dish4 = new RequestDish(Long.MAX_VALUE, "Bacalla", 10.0,7, 2,"");
 
         dishes.add(dish);
         dishes.add(dish1);
@@ -121,11 +140,18 @@ public class ToOrderPanel extends JPanel {
         jbtnOrder = new ButtonEditor(new JCheckBox(), c, "ORDER");
         jpContent.getColumn("").setCellRenderer(new ButtonRenderer("ORDER"));
         jpContent.getColumn("").setCellEditor(new ButtonEditor(new JCheckBox(), c, "ORDER"));
-        jbtnOrder.registerController(c);
+        jbtnOrder.registerController(c, "ORDER-DISH");
+
+        jbtnDoComanda.setActionCommand("SEND-COMANDA");
+        jbtnDoComanda.addActionListener(c);
+        jbtnRemoveComanda.setActionCommand("REMOVE-COMANDA");
+        jbtnRemoveComanda.addActionListener(c);
+        jbtnSeeComanda.setActionCommand("SEE-COMANDES");
+        jbtnSeeComanda.addActionListener(c);
     }
 
-    public void updateMenu(ArrayList<Dish> menu) {
-
+    public void updateMenu(ArrayList<RequestDish> menu) {
+        dishes = menu;
         data = new Object[menu.size()][columnNames.length];
         for (int i = 0; i < data.length;i++) {
                 Object[] obj = new Object[]{
@@ -142,11 +168,29 @@ public class ToOrderPanel extends JPanel {
         scrollPaneConfig(jScrollPane);
 
         this.removeAll();
-        this.add(jScrollPane, BorderLayout.CENTER);
+        this.add(jScrollPane, BorderLayout.PAGE_START);
+        this.add(jpFooter, BorderLayout.CENTER);
         this.add(jbtnBack, BorderLayout.PAGE_END);
     }
 
     public String getSelectedDish() {
         return jpContent.getValueAt(jpContent.getSelectedRow(), 0).toString();
     }
+
+    public int getIndexOfSelectedDish() {
+        return jpContent.getSelectedRow();
+    }
+
+    public RequestDish getSelectedDish2() {
+        return dishes.get(jpContent.getSelectedRow());
+    }
+
+    public void incBag() {
+        bagCounter++;
+    }
+
+    public void decrBag() {
+        bagCounter--;
+    }
+
 }
