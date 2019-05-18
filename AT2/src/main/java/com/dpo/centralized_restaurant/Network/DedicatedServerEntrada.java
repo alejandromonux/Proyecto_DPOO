@@ -55,9 +55,9 @@ public class DedicatedServerEntrada extends Thread{
                 init = dis.readUTF();
                 switch (init) {
                     case "REQUEST-COMING":
-                        dos.writeUTF("REQUEST-COMING");
                         String nameNew = dis.readUTF();
                         int cantidadPersonas = dis.readInt();
+                        dos.writeUTF("REQUEST-COMING");
                         dos.writeBoolean(conectorDB.insertRequest(nameNew, cantidadPersonas));
                         controller.actualizarVistaRequests(conectorDB.getRequestsPendientes());
                         break;

@@ -367,7 +367,7 @@ public class ConectorDB {
      * @return
      */
     public synchronized ArrayList<Dish> findActiveDishes() {
-        String query = "SELECT * FROM Dish AS d WHERE d.active = true;";
+        String query = "SELECT * FROM Dish AS d WHERE d.active = 1;";
         ResultSet rs = null;
         ArrayList<Dish> result = new ArrayList<>();
 
@@ -901,7 +901,7 @@ public class ConectorDB {
         ArrayList<OrderedDish> aux = new ArrayList<>();
 
         if (today) {
-            query = "SELECT name, historicOrders FROM dish AS d JOIN request_order AS ro ON ro.dish_id = d.dish_id WHERE ro.actual_service = true ORDER BY historics_orders DESC LIMIT 5;";
+            query = "SELECT name, historics_orders FROM dish AS d WHERE d.active = 1 ORDER BY historics_orders DESC LIMIT 5;";
         } else {
             query = "SELECT name, historics_orders FROM dish AS d ORDER BY historics_orders DESC LIMIT 5;";
         }
@@ -911,7 +911,7 @@ public class ConectorDB {
             rs = s.executeQuery(query);
 
             while (rs.next()) {
-                aux.add(new OrderedDish(rs.getString("name"), rs.getInt("historicOrders")));
+                aux.add(new OrderedDish(rs.getString("name"), rs.getInt("historics_orders")));
             }
 
         } catch (SQLException ex) {
@@ -933,9 +933,9 @@ public class ConectorDB {
         float aux = 0;
 
         if (today) {
-            query = "SELECT sum(d.cost) AS gain FROM dish AS d JOIN request_order AS ro ON ro.dish_id = d.dish_id WHERE ro.actual_service = true;";
+            query = "SELECT sum(d.cost) AS gain FROM dish AS d JOIN request_order AS ro ON ro.dish_id = d.id WHERE ro.actual_service = true;";
         } else {
-            query = "SELECT sum(d.cost) AS gain FROM dish AS d JOIN request_order AS ro ON ro.dish_id = d.dish_id;";
+            query = "SELECT sum(d.cost) AS gain FROM dish AS d JOIN request_order AS ro ON ro.dish_id = d.id;";
         }
 
         try {
@@ -943,7 +943,7 @@ public class ConectorDB {
             rs = s.executeQuery(query);
 
             while (rs.next()) {
-                aux = rs.getInt("gains");
+                aux = rs.getInt("gain");
             }
 
         } catch (SQLException ex) {
@@ -954,9 +954,8 @@ public class ConectorDB {
     }
 
     public synchronized float getAvgPrice() {
-        String query = "SELECT avg(aux.pricePerTable) AS priceTable FROM (SELECT sum(cost*ro.quantity)/(SELECT count(*) AS n_mesas FROM mesa AS m) AS pricePerTable" +
-                "FROM Dish as d JOIN request_order AS ro ON d.id = ro.dish_id JOIN request AS r ON ro.request_id = r.id JOIN mesa AS m ON m.name = r.mesa_name" +
-                "GROUP BY m.name) AS aux;";
+        String query = "SELECT avg(aux.pricePerTable) AS priceTable FROM (SELECT sum(cost*ro.quantity)/(SELECT count(*) AS n_mesas FROM mesa AS m) AS pricePerTable\n" +
+                "        FROM Dish as d JOIN request_order AS ro ON d.id = ro.dish_id JOIN request AS r ON ro.request_id = r.id JOIN mesa AS m ON m.name = r.mesa_name GROUP BY m.name) AS aux;";
         ResultSet rs = null;
         float aux = 0;
         try {
@@ -975,9 +974,8 @@ public class ConectorDB {
     }
 
     public synchronized float getAvgDishes() {
-        String query = "SELECT avg(aux.dishPerTable) AS dishPerTable FROM (SELECT sum(ro.quantity)/(SELECT count(*) AS n_mesas FROM mesa AS m) AS dishPerTable" +
-                "FROM Dish as d JOIN request_order AS ro ON d.id = ro.dish_id JOIN request AS r ON ro.request_id = r.id JOIN mesa AS m ON m.name = r.mesa_name" +
-                "GROUP BY m.name) AS aux;";
+        String query = "SELECT avg(aux.dishPerTable) AS dishPerTable FROM (SELECT sum(ro.quantity)/(SELECT count(*) AS n_mesas FROM mesa AS m) AS dishPerTable \n" +
+                "FROM Dish as d JOIN request_order AS ro ON d.id = ro.dish_id JOIN request AS r ON ro.request_id = r.id JOIN mesa AS m ON m.name = r.mesa_name GROUP BY m.name) AS aux;";
         ResultSet rs = null;
         float aux = 0;
         try {
