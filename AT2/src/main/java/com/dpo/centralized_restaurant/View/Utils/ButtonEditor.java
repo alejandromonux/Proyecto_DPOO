@@ -14,12 +14,13 @@ public class ButtonEditor extends DefaultCellEditor {
     private String    label;
     private boolean   isPushed;
 
-    public ButtonEditor(JCheckBox checkBox, ActionListener al, String action) {
+    public ButtonEditor(JCheckBox checkBox, ActionListener al, String action, String label) {
         super(checkBox);
         button = new JButton();
         button.setOpaque(true);
         button.setActionCommand(action);
         button.addActionListener(al);
+        this.label = label;
     }
     public Component getTableCellEditorComponent(JTable table, Object value,
                                                  boolean isSelected, int row, int column) {
@@ -30,7 +31,6 @@ public class ButtonEditor extends DefaultCellEditor {
             button.setForeground(table.getForeground());
             button.setBackground(table.getBackground());
         }
-        label = "REMOVE";
         button.setText( label );
         isPushed = true;
         return button;

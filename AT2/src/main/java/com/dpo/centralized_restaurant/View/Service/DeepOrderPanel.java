@@ -62,9 +62,9 @@ public class DeepOrderPanel extends JPanel {
             jtable.getColumnModel().getColumn(i).setCellRenderer(df);
         }
         jtable.getColumn("ChangeState").setCellRenderer(new ButtonRenderer("SEE MORE"));
-        jtable.getColumn("ChangeState").setCellEditor(new ButtonEditor(new JCheckBox(), c, "SEE-COMANDA"));
+        jtable.getColumn("ChangeState").setCellEditor(new ButtonEditor(new JCheckBox(), c, "SEE-COMANDA", "SEE MORE"));
         jtable.getColumn("Delete").setCellRenderer(new ButtonRenderer("DELETE"));
-        jtable.getColumn("Delete").setCellEditor(new ButtonEditor(new JCheckBox(), c, "SEE-COMANDA"));
+        jtable.getColumn("Delete").setCellEditor(new ButtonEditor(new JCheckBox(), c, "DELETE-COMANDA", "DELETE"));
 
         jbBack = new JButton("BACK");
 

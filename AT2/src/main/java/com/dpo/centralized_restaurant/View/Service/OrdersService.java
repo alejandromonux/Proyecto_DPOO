@@ -58,8 +58,8 @@ public class OrdersService extends JPanel{
             jtable.getColumnModel().getColumn(i).setCellRenderer(df);
         }
         jtable.getColumn("").setCellRenderer(new ButtonRenderer("SEE"));
-        jtable.getColumn("").setCellEditor(new ButtonEditor(new JCheckBox(), c, "SEE-TABLE-ORDERS"));
-        ButtonEditor nbe = new ButtonEditor(new JCheckBox(), c, "SEE-TABLE-ORDERS");
+        jtable.getColumn("").setCellEditor(new ButtonEditor(new JCheckBox(), c, "SEE-TABLE-ORDERS", "SEE"));
+        ButtonEditor nbe = new ButtonEditor(new JCheckBox(), c, "SEE-TABLE-ORDERS", "SEE");
         jtable.getColumn("").setCellEditor(nbe);
         jbBack = new JButton("BACK");
 

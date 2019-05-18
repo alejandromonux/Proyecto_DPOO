@@ -62,7 +62,7 @@ public class TablesListPanel extends JPanel{
         }
         jtable.getColumn("").setCellRenderer(new ButtonRenderer("Remove"));
         //jtable.getColumn("").setCellEditor(buttonEditor);
-        ButtonEditor nbe = new ButtonEditor(new JCheckBox(), c, "REMOVE-TABLE");
+        ButtonEditor nbe = new ButtonEditor(new JCheckBox(), c, "REMOVE-TABLE", "Remove");
         jtable.getColumn("").setCellEditor(nbe);
 
         this.add(jsPanel);

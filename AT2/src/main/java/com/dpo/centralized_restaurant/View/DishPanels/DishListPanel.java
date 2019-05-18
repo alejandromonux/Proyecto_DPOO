@@ -20,7 +20,7 @@ public class DishListPanel extends JPanel {
     private ButtonEditor buttonEditor;
 
     public DishListPanel(ArrayList<Dish> dishes, Controller c) {
-        buttonEditor = new ButtonEditor(new JCheckBox(), c, "REMOVE-DISH");
+        buttonEditor = new ButtonEditor(new JCheckBox(), c, "REMOVE-DISH", "Delete");
         //this.setLayout(new BorderLayout());
         String[] columnNames = {"name", "units", "cost", "timecost", "historic Orders", "Delete"};
         Object[][] objects = new Object[dishes.size()][6];
