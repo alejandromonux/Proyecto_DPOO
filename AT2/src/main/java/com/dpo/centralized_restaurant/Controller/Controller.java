@@ -589,6 +589,10 @@ public class Controller implements ActionListener {
         vista.updateRequests(listaRequests, this);
     }
 
+    public void informarEntrada(Request requestAceptado){
+        serverEntrada.updateAssignment(requestAceptado);
+    }
+
     public MainView getVista() {
         return vista;
     }

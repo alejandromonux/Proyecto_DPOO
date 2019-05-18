@@ -12,7 +12,7 @@ public class RequestDish {
     private int timecost;
     private String activation_date;
 
-    public RequestDish(Long id, String name, double cost, int units, int timecost, int historicOrders, boolean active, int actual_service, String activation_date) {
+    public RequestDish(Long id, String name, double cost, int units, int timecost, String activation_date) {
         this.id = id;
         this.name = name;
         this.cost = cost;
