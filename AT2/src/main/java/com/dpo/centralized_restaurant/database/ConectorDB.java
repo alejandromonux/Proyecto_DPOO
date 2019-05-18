@@ -785,7 +785,7 @@ public class ConectorDB {
             ps.executeUpdate();
 
             String query = "SELECT ro.dish_id AS dish_id, r.id AS request_id, d.name AS name, d.cost AS cost, ro.quantity AS units, " +
-                    "d.timecost AS timecost, ro.activation_date AS activation_date" +
+                    "d.timecost AS timecost, ro.activation_date AS activation_date, ro.actual_service AS actual_service" +
                     "FROM request AS r, request_order AS ro, dish AS d WHERE r.id = ro.request_id AND ro.activation_date <> null AND r.in_service <= 1 AND d.id = ro.dish_id;";
             ResultSet rs = null;
 
@@ -795,7 +795,7 @@ public class ConectorDB {
 
             while(rs.next()){
                 result.add(new RequestDish(rs.getInt("dish_id"), rs.getInt("request_id"), rs.getString("name"),
-                        rs.getFloat("cost"), rs.getInt("units"), rs.getInt("timecost"), rs.getString("activation_date")));
+                        rs.getFloat("cost"), rs.getInt("units"), rs.getInt("timecost"), rs.getString("activation_date")), rs.getInt("actual_service"));
             }
 
             return result;
@@ -810,7 +810,7 @@ public class ConectorDB {
     public synchronized ArrayList<RequestDish> getMyOrders(Request request){
         try {
             String query = "SELECT ro.dish_id AS dish_id, r.id AS request_id, d.name AS name, d.cost AS cost, ro.quantity AS units, " +
-                    "d.timecost AS timecost, ro.activation_date AS activation_date" +
+                    "d.timecost AS timecost, ro.activation_date AS activation_date, ro.actual_service AS actual_service" +
                     "FROM request AS r, request_order AS ro, dish AS d WHERE r.id = ro.request_id AND r.id = " + request.getId() +" AND d.id = ro.dish_id;";
             ResultSet rs = null;
 
@@ -820,7 +820,7 @@ public class ConectorDB {
 
             while(rs.next()){
                 result.add(new RequestDish(rs.getInt("dish_id"), rs.getInt("request_id"), rs.getString("name"),
-                        rs.getFloat("cost"), rs.getInt("units"), rs.getInt("timecost"), rs.getString("activation_date")));
+                        rs.getFloat("cost"), rs.getInt("units"), rs.getInt("timecost"), rs.getString("activation_date")), rs.getInt("actual_service"));
             }
 
             return result;
