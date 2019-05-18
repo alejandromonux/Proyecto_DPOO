@@ -1,7 +1,5 @@
 package com.dpo.centralized_restaurant.Model.Request;
 
-import com.dpo.centralized_restaurant.Model.Preservice.Mesa;
-
 import javax.persistence.*;
 
 /**

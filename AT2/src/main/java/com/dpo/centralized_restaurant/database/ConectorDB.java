@@ -778,7 +778,7 @@ public class ConectorDB {
         }
     }
 
-    public ArrayList<RequestDish> comprobarServidos(){
+    public synchronized ArrayList<RequestDish> comprobarServidos(){
         try {
             PreparedStatement ps = conn.prepareStatement("UPDATE request_order SET actual_service = 2 WHERE NOW() <= " +
                     "addtime(activation_date, concat(timecost / 60, ':', MOD(timecost, 60), ':00')) AND actual_service = 1;");
@@ -805,6 +805,30 @@ public class ConectorDB {
             return null;
         }
 
+    }
+
+    public synchronized ArrayList<RequestDish> getMyOrders(Request request){
+        try {
+            String query = "SELECT ro.dish_id AS dish_id, r.id AS request_id, d.name AS name, d.cost AS cost, ro.quantity AS units, " +
+                    "d.timecost AS timecost, ro.activation_date AS activation_date" +
+                    "FROM request AS r, request_order AS ro, dish AS d WHERE r.id = ro.request_id AND r.id = " + request.getId() +" AND d.id = ro.dish_id;";
+            ResultSet rs = null;
+
+            s = (Statement) conn.createStatement();
+            rs = s.executeQuery(query);
+            ArrayList<RequestDish> result = new ArrayList<>();
+
+            while(rs.next()){
+                result.add(new RequestDish(rs.getInt("dish_id"), rs.getInt("request_id"), rs.getString("name"),
+                        rs.getFloat("cost"), rs.getInt("units"), rs.getInt("timecost"), rs.getString("activation_date")));
+            }
+
+            return result;
+
+        } catch (SQLException ex) {
+            System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+            return null;
+        }
     }
 
 
