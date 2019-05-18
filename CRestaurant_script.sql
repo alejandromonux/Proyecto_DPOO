@@ -56,7 +56,7 @@ CREATE TABLE request_order(
   actual_service INT,
   activation_date DATETIME,
   timecost INT,
-  PRIMARY KEY (id),
+  PRIMARY KEY (id, request_id, dish_id),
   FOREIGN KEY (request_id) REFERENCES request(id),
   FOREIGN KEY (dish_id) REFERENCES dish(id)
 
