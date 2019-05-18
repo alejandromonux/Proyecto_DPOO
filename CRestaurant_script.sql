@@ -85,9 +85,7 @@ ALTER TABLE configuration_table ADD FOREIGN KEY (mesa_name) REFERENCES mesa(name
 
 DROP TABLE IF EXISTS variables_importantes;
 CREATE TABLE variables_importantes(
-  estado_servicio INT,
-  recaudacion_actual FLOAT,
-  recaudacion_historica FLOAT
+  estado_servicio INT
 );
 
-INSERT INTO variables_importantes VALUES(0, 0, 0);
+INSERT INTO variables_importantes VALUES(0);

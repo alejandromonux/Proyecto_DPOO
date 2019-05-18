@@ -304,7 +304,7 @@ public class ConectorDB {
      * @param timeCost
      * @return
      */
-    public boolean createDish(String name, int units, double cost, double timeCost) {
+    public boolean createDish(String name, int units, double cost, int timeCost) {
         try {
             String query = "SELECT * FROM dish AS d WHERE d.name = '" + name + "'";
             ResultSet rs = null;
@@ -719,10 +719,6 @@ public class ConectorDB {
         PreparedStatement ps = null;
         PreparedStatement ps2 = null;
         try {
-            ps = conn.prepareStatement("UPDATE variables_importantes SET recaudacion_actual = (SELECT SUM(ro.cost) FROM request AS r," +
-                    " request_order AS ro WHERE r.id = " + requestPagado.getId() + " AND r.id = ro.request_id AND ro.activation_date <> null);");
-            ps.executeUpdate();
-
             ps2 = conn.prepareStatement("UPDATE request SET in_service = 2 WHERE id = " + requestPagado.getId() + ";");
             ps2.executeUpdate();
 
@@ -1245,12 +1241,6 @@ public class ConectorDB {
 
             PreparedStatement ps2 = conn.prepareStatement("UPDATE request SET in_service = 3;");
             ps2.executeUpdate();
-
-            PreparedStatement ps3 = conn.prepareStatement("UPDATE variables_importantes SET recaudacion_historica = recaudacion_historica + recaudacion_actual;");
-            ps3.executeUpdate();
-
-            PreparedStatement ps4 = conn.prepareStatement("UPDATE variables_importantes SET recaudacion_actual = 0;");
-            ps4.executeUpdate();
 
             return true;
 
