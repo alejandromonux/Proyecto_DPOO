@@ -95,6 +95,8 @@ public class DedicatedServerTaula extends Thread{
             }
 
         } catch (IOException e) {
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         } finally {
             try {
                 ois.close();
