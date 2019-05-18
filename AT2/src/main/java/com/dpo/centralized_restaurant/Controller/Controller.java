@@ -1,7 +1,9 @@
 package com.dpo.centralized_restaurant.Controller;
 
 import com.dpo.centralized_restaurant.Model.Configuration.configJson;
+import com.dpo.centralized_restaurant.Model.Graphics.OrderedDish;
 import com.dpo.centralized_restaurant.Model.Model;
+import com.dpo.centralized_restaurant.Model.Request.Request;
 import com.dpo.centralized_restaurant.Model.Service.Comanda;
 import com.dpo.centralized_restaurant.Model.Worker;
 import com.dpo.centralized_restaurant.Network.ServerEntrada;
@@ -9,6 +11,7 @@ import com.dpo.centralized_restaurant.Network.ServerTaula;
 import com.dpo.centralized_restaurant.View.ConfigurationPanels.ConfigurationListPanel;
 import com.dpo.centralized_restaurant.View.DishPanels.DishListPanel;
 import com.dpo.centralized_restaurant.View.MainView;
+import com.dpo.centralized_restaurant.View.PostService.Stats;
 import com.dpo.centralized_restaurant.View.Service.OrdersService;
 import com.dpo.centralized_restaurant.View.TablePanels.TablesListPanel;
 import com.dpo.centralized_restaurant.View.Service.RequestsService;
@@ -462,6 +465,7 @@ public class Controller implements ActionListener {
                 vista.changePanel("SERVICE-DISHES");
                 break;
             case "REQUESTS":
+                actualizarVistaRequests(conectorDB.getRequestsPendientes());
                 vista.changePanel("REQUESTS");
             break;
             case "SEE-TABLE-ORDERS":
@@ -472,14 +476,28 @@ public class Controller implements ActionListener {
             break;
 
             case "POSTSERVICE" :
+                ArrayList<OrderedDish> today = conectorDB.getTopDishes(true);
+                ArrayList<OrderedDish> all = conectorDB.getTopDishes(false);
+                float todayGain = conectorDB.getGain(true);
+                float totalGain = conectorDB.getGain(false);
+                float priceTable = conectorDB.getAvgPrice();
+                float dishTable = conectorDB.getAvgDishes();
+
                 boolean done20 = conectorDB.actualizarEstadoServicio(2);
 
                 if(done20){
                     vista.changePanel("POSTSERVICE");
-                    serverEntrada.closeServer();
-                    serverEntrada = null;
+                    try {
+                        serverEntrada.closeServer();
+                    }catch (IndexOutOfBoundsException b){
 
-                    serverTaula.closeServer();
+                    }
+                    serverEntrada = null;
+                    try {
+                        serverTaula.closeServer();
+                    }catch (NullPointerException s){
+
+                    }
                     serverTaula = null;
                 }
                 else {
@@ -488,7 +506,7 @@ public class Controller implements ActionListener {
                             "Error!",
                             JOptionPane.ERROR_MESSAGE);
                 }
-
+                vista.setJpStats(new Stats(today, all, todayGain, totalGain, dishTable ,priceTable));
             break;
             case "GRAPHICS":
                 vista.changePanel("STADISTICS");
@@ -503,25 +521,40 @@ public class Controller implements ActionListener {
                 vista.getJpStats().changePanel("STATS");
             break;
             case "ACCEPT-REQUEST":
-                //eliminar el panel de la vista
+                int id = vista.getJpReq().getSelectedRequestName();
+                Request requestAceptado = conectorDB.findRequest(id);
 
-                // TODO: Falta asignar mesa correctamente
-                /*Random rand = new Random();
-                Long a = Integer.toUnsignedLong(rand.nextInt() + rand.nextInt());
-                conectorDB.updateRequest(Long.toString(a));
-                serverEntrada.update(Long.toString(a), "hardcored");*/
+                conectorDB.asignarMesa(requestAceptado);
+                serverEntrada.updateAssignment(requestAceptado);
+                actualizarVistaRequests(conectorDB.getRequestsPendientes());
 
                 break;
             case "DECLINE-REQUEST" :
-                // TODO: Falta poder rechazar request
-                //eliminar el panel de la vista
-                //avisar client?
+                int idAEliminar = vista.getJpReq().getSelectedRequestName();
+
+                boolean finished = conectorDB.deleteRequest(idAEliminar);
+
+                if(finished){
+                    serverEntrada.updateAll(conectorDB.getRequests());
+                    actualizarVistaRequests(conectorDB.getRequestsPendientes());
+                }
+                else {
+                    JOptionPane.showMessageDialog(vista,
+                            "Error al eliminar la peticion de mesa!",
+                            "Error!",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+
                 break;
 
         }
 
     }
 
+    /**
+     * Status Machine, checks the current status of the service and runs the right choice
+     * (pre-service, service, post-service)
+     */
     private void buscarEstado(){
         int estadoServicio = conectorDB.estadoServicio();
 
@@ -537,6 +570,10 @@ public class Controller implements ActionListener {
             vista.showConfiguration();
         }
         else if(estadoServicio == 1){
+            serverEntrada = new ServerEntrada(configJson, conectorDB, this);
+            serverEntrada.start();
+            serverTaula = new ServerTaula(configJson, conectorDB, this);
+            serverTaula.start();
             vista.changeHeader(true);
             vista.changePanel("START");
             vista.hideConfiguration();
@@ -547,6 +584,11 @@ public class Controller implements ActionListener {
             vista.hideConfiguration();
         }
     }
+
+    public void actualizarVistaRequests(ArrayList<Request> listaRequests){
+        vista.updateRequests(listaRequests, this);
+    }
+
     public MainView getVista() {
         return vista;
     }

@@ -86,3 +86,4 @@ CREATE TABLE variables_importantes(
 );
 
 INSERT INTO variables_importantes VALUES(0);
+INSERT INTO request(name, quantity, in_service) VALUES('asdasd', 2, 0);

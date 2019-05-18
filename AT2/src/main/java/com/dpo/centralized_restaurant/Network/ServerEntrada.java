@@ -2,9 +2,11 @@ package com.dpo.centralized_restaurant.Network;
 
 import com.dpo.centralized_restaurant.Controller.Controller;
 import com.dpo.centralized_restaurant.Model.Configuration.configJson;
+import com.dpo.centralized_restaurant.Model.Request.Request;
 import com.dpo.centralized_restaurant.Model.Request.RequestManager;
 import com.dpo.centralized_restaurant.database.ConectorDB;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -61,10 +63,13 @@ public class ServerEntrada extends Thread {
         }
     }
 
+    /**
+     * Finishes the connection between the system from the Server side
+     */
     public void closeServer(){
         isRunning = false;
-
         dedicatedServers.get(0).closeDedicatedServer();
+
         try {
             serverSocket.close();
         } catch (IOException e) {
@@ -72,9 +77,32 @@ public class ServerEntrada extends Thread {
         }
     }
 
-    public void update(String pass, String name){
+    /**
+     * Sends a new request
+     * @param nuevoRequest
+     */
+    public void updateAssignment(Request nuevoRequest){
+        try {
+            dedicatedServers.get(0).sendPass(nuevoRequest);
+        }catch (NullPointerException e){
 
-        dedicatedServers.get(0).sendPass(pass, name);
+        }catch (IndexOutOfBoundsException e1){
+
+        }
+    }
+
+    /**
+     * Sends all the request within the list
+     * @param listaRequests
+     */
+    public void updateAll(ArrayList<Request> listaRequests){
+        try {
+            dedicatedServers.get(0).sendAll(listaRequests);
+        }catch (NullPointerException e){
+
+        }catch (IndexOutOfBoundsException e1){
+
+        }
     }
 
 }

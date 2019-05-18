@@ -1,6 +1,7 @@
 package network;
 
 import controller.Controller;
+import model.Request;
 import model.config.configJSON;
 
 import java.io.DataInputStream;
@@ -28,7 +29,7 @@ public class EntradaManager extends Thread {
         PORT = config.getPort_Entrada();
         socket = new Socket(IP, PORT);
         dis = new DataInputStream(socket.getInputStream());
-        ois = new ObjectInputStream(socket.getInputStream());
+        //ois = new ObjectInputStream(socket.getInputStream());
         dos = new DataOutputStream(socket.getOutputStream());
     }
 
@@ -45,6 +46,14 @@ public class EntradaManager extends Thread {
                 readUpdates();// Estem sempre a l'espera de rebre actualizacions.
             } catch (Exception e) {
                 e.printStackTrace();
+                isRunning = false;
+                try {
+                    dos.close();
+                    dis.close();
+                    socket.close();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
             }
             // Es aixi perque en haver-hi diversos usuaris, si algu envia nova informacio
             // volem obtenir aquesta actualitzacio gracies a un broadcast
@@ -55,9 +64,6 @@ public class EntradaManager extends Thread {
         dos.writeUTF("REQUEST-COMING");
         dos.writeUTF(nameRequest);
         dos.writeInt(quantity);
-        if (!dis.readBoolean()){
-            controller.insertNotification();
-        }
     }
 
     public void askRequests() throws IOException {
@@ -66,23 +72,44 @@ public class EntradaManager extends Thread {
     }
 
     public void readUpdates() throws IOException {
-        String inDuty = dis.readUTF();
+        String inDuty  = dis.readUTF();
 
         switch (inDuty) {
             case "UPDATE-REQUEST-LIST":
-                ArrayList<String> requests = new ArrayList<>();
+                ArrayList<Request> requests = new ArrayList<>();
                 int size = dis.readInt();
                 while (size > 0) {
-                    requests.add(dis.readUTF());
+                    int id = dis.readInt();
+                    String name = dis.readUTF();
+                    name = name.equals("NULL") ? null: name;
+                    String pass = dis.readUTF();
+                    pass = pass.equals("NULL") ? null: pass;
+                    requests.add(new Request(name, id, pass));
                     size--;
                 }
                 controller.updateRequestList(requests);
                 break;
-            case "INCOMING-PASSWORD":
-                String requestName = dis.readUTF();
-                String requestPassword = dis.readUTF();
-                controller.showPassword(requestName, requestPassword);
+            case "INCOMING-ASSIGMENT":
+                    int id = dis.readInt();
+                    String name = dis.readUTF();
+
+                    if (name.equals("NO SE HA ENCONTRADO MESA")){
+                        controller.notificationComanda(id);
+                    }
+                        //mostrar error, actualizar lista
+
+                    dos.writeUTF("NEED-REQUEST-LIST");
+                    //controller.showPassword(requestName, requestPassword);
+
                 break;
+            case "REQUEST-COMING":
+                boolean done = dis.readBoolean();
+                if (!done){
+                    controller.insertNotification();
+                }
+
+                break;
+
         }
 
     }

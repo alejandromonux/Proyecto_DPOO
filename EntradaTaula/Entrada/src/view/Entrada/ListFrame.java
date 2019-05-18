@@ -1,6 +1,7 @@
 package view.Entrada;
 
 import controller.Controller;
+import model.Request;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -55,7 +56,7 @@ public class ListFrame extends JFrame {
         jpList.registerController(c);
     }
 
-    public void updateList(ArrayList<String> requests) {
+    public void updateList(ArrayList<Request> requests) {
         jpList.updateList(requests);
     }
 

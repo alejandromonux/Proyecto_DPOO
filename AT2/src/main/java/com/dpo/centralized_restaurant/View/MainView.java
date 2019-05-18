@@ -4,6 +4,7 @@ package com.dpo.centralized_restaurant.View;
 import com.dpo.centralized_restaurant.Controller.Controller;
 import com.dpo.centralized_restaurant.Model.Graphics.OrderedDish;
 import com.dpo.centralized_restaurant.Model.Preservice.Mesa;
+import com.dpo.centralized_restaurant.Model.Request.Request;
 import com.dpo.centralized_restaurant.Model.Service.Comanda;
 import com.dpo.centralized_restaurant.Model.Service.ServiceDish;
 import com.dpo.centralized_restaurant.View.ConfigurationPanels.ConfigurationPanel;
@@ -67,11 +68,11 @@ public class MainView extends JFrame {
         jpTables = new TablePanel(controlador);
         jpDish = new DishPanel(new ArrayList<Dish>(), controlador);
         jpLogIn = new LogInPanel();
-        jpReq = new RequestsService(new ArrayList<Mesa>(), controlador);
+        jpReq = new RequestsService(new ArrayList<Request>(), controlador);
         jpOrders = new OrdersService(new ArrayList<Comanda>(), controlador);
         jpSDish = new DishService(new ArrayList<Dish>(), controlador);
         jpTableOrders = new DeepOrderPanel(new ArrayList<>(),controlador);
-        //jpStats = new Stats(new ArrayList<OrderedDish>(), new ArrayList<OrderedDish>(),0, 0 , 0, (float) 0.0);
+        jpStats = new Stats(new ArrayList<OrderedDish>(), new ArrayList<OrderedDish>(),0, 0 , 0, (float) 0.0);
         jpPost = new PostService();
         jpConfig = new ConfigurationPanel(controlador);
 
@@ -163,7 +164,7 @@ public class MainView extends JFrame {
         jpContent.add("CONFIGURATIONS", jpConfig);
         jpContent.add("START", jpServiceHome);
         jpContent.add("POSTSERVICE", jpPost);
-        //jpContent.add("STADISTICS", jpStats);
+        jpContent.add("STADISTICS", jpStats);
         /* ------------------------------ VIEW PARAMETERS ------------------------------ */
         getContentPane().add(jpHeader, BorderLayout.PAGE_START);
         getContentPane().add(jpContent);
@@ -187,7 +188,7 @@ public class MainView extends JFrame {
         jpConfig.registerController(c);
         jpServiceHome.registerController(c);
         jpTableOrders.registerController(c);
-//        jpStats.registerController(c);
+        jpStats.registerController(c);
         jbLogOut.setActionCommand("FORMS");
         jbLogOut.addActionListener(c);
 
@@ -212,7 +213,6 @@ public class MainView extends JFrame {
     }
 
     public void changePanel (String which) {
-
         jclContent.show(jpContent,which);
     }
 
@@ -279,7 +279,12 @@ public class MainView extends JFrame {
         this.jpStats = jpStats;
     }
 
-
+    public void updateRequests(ArrayList<Request> listaRequests, Controller controller){
+        jpContent.remove(jpReq);
+        jpReq = new RequestsService(listaRequests, controller);
+        jpReq.registerControllers(controller);
+        jpContent.add("REQUESTS", jpReq);
+    }
 
     public String getConfigName() {
         return jpConfig.getConfigName();

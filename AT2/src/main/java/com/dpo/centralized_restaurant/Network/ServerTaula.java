@@ -59,6 +59,9 @@ public class ServerTaula extends Thread {
         }
     }
 
+    /**
+     * Finishes the connection between the system from the Client side
+     */
     public void closeServer(){
         isRunning = false;
 

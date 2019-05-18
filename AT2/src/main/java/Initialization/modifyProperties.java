@@ -10,6 +10,10 @@ public class modifyProperties {
 
     private configJson configuration;
 
+    /**
+     * Changes the information content of the given .json
+     * @param config
+     */
     public modifyProperties(configJson config){
 
         this.configuration = config;

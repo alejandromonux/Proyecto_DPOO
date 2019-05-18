@@ -59,4 +59,13 @@ public class RequestFrame extends JFrame {
                 "Inane error",
                 JOptionPane.ERROR_MESSAGE);
     }
+
+    public void errorComandaImposible(int id){
+        JOptionPane.showMessageDialog(this,
+                "La comanda " + id + " ha sido rechazada por falta de espacio en las mesas.",
+                "Inane error",
+                JOptionPane.ERROR_MESSAGE);
+    }
+
+
 }

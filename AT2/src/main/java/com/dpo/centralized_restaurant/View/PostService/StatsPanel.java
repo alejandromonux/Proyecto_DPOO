@@ -13,7 +13,7 @@ public class StatsPanel extends JPanel {
     private JLabel mitjanaPlatsTaules;
     private JLabel preuMigTaula;
 
-    public StatsPanel(long gananciaDia, long gananciaTotal, int mitjanaPlatsTaules, float preuMigTaula){
+    public StatsPanel(float gananciaDia, float gananciaTotal, float mitjanaPlatsTaules, float preuMigTaula){
         this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
         TitledBorder title = BorderFactory.createTitledBorder("Estadistiques");
         title.setTitleJustification(TitledBorder.LEFT);

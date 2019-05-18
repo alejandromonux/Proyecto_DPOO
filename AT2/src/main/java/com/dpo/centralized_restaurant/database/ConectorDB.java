@@ -63,7 +63,15 @@ import java.util.UUID;
          *
          * ***********************************************************************************
          *********************************************************************************** */
-        public boolean createConfiguration(String name, Worker worker){
+
+    /**
+     * Creates the configuration of a worker with the name he wishes,
+     * if that configuration has not been previusly created
+     * @param name
+     * @param worker
+     * @return
+     */
+    public boolean createConfiguration(String name, Worker worker){
             try {
                 // Miramos si existe la configuracion en la base de datos
                 String query = "SELECT c.id FROM configuration AS c WHERE c.name = '" + name + "' AND c.worker_name = '" + worker.getUsername() + "';";
@@ -98,6 +106,12 @@ import java.util.UUID;
             }
         }
 
+    /**
+     * Links the configuration of a given worker with group of dishes and tables
+     * @param name
+     * @param worker
+     * @throws SQLException
+     */
         public void insertarConfiguraciones(String name, Worker worker) throws SQLException {
             // Buscamos mesas activas
             String query4 = "SELECT m.name FROM mesa AS m WHERE m.active = true;";
@@ -133,6 +147,12 @@ import java.util.UUID;
             }
         }
 
+    /**
+     * Deletes the configuration unlinking its existing attributes
+     * @param name
+     * @param worker
+     * @return
+     */
         public boolean removeConfiguration(String name, Worker worker){
             try {
                 String query = "SELECT c.id FROM configuration AS c WHERE c.name = '" + name + "' AND c.worker_name = '" + worker.getUsername() + "';";
@@ -160,9 +180,15 @@ import java.util.UUID;
 
         }
 
+    /**
+     * Gets a configuration given its name and its worker
+     * @param name
+     * @param worker
+     * @return
+     */
         public boolean pickConfiguration(String name, Worker worker){
             try {
-                // Ponemos todos los actives de mesaa y dishes a falso para actualizarlos desde el principio
+                // Ponemos todos los actives de mesa y dishes a falso para actualizarlos desde el principio
                 PreparedStatement ps = conn.prepareStatement("UPDATE dish SET active = false;");
                 ps.executeUpdate();
 
@@ -412,17 +438,23 @@ import java.util.UUID;
          *
          * ***********************************************************************************
          *********************************************************************************** */
-        public ArrayList<String> getRequests(){
+
+    /**
+     * Get unactive requests to be processed within an ArrayList
+     * @return
+     */
+    public ArrayList<Request> getRequests(){
             // Busca requests que esten pendientes de entrar o que tengan mesa asignada pero que aun no se hayan ido y pagado
-            String query = "SELECT name FROM request WHERE in_service <= 1";
+            String query = "SELECT name, mesa_name, password FROM request WHERE in_service <= 1 ORDER BY id ASC;";
             ResultSet rs = null;
-            ArrayList<String> result = new ArrayList<>();
+            ArrayList<Request> result = new ArrayList<>();
 
             try {
                 s =(Statement) conn.createStatement();
                 rs = s.executeQuery(query);
                 while (rs.next()) {
-                    result.add(rs.getString("name"));
+                    Request requestAux = new Request(rs.getString("mesa_name"), rs.getString("password"));
+                    result.add(requestAux);
                 }
 
             } catch (SQLException ex) {
@@ -432,17 +464,21 @@ import java.util.UUID;
 
         }
 
-    public ArrayList<String> getRequestsPendientes(){
+    /**
+     * Get active requests to be processed within an ArrayList
+     * @return
+     */
+    public ArrayList<Request> getRequestsPendientes(){
         // Busca requests que esten pendientes de entrar o que tengan mesa asignada pero que aun no se hayan ido y pagado
-        String query = "SELECT name FROM request WHERE in_service <= 0;";
+        String query = "SELECT id, name FROM request WHERE in_service = 0 ORDER BY id;";
         ResultSet rs = null;
-        ArrayList<String> result = new ArrayList<>();
+        ArrayList<Request> result = new ArrayList<>();
 
         try {
             s =(Statement) conn.createStatement();
             rs = s.executeQuery(query);
             while (rs.next()) {
-                result.add(rs.getString("name"));
+                result.add(new Request(rs.getInt("id"), rs.getString("name")));
             }
 
         } catch (SQLException ex) {
@@ -452,37 +488,63 @@ import java.util.UUID;
 
     }
 
+    /**
+     * Gets a single request given its ID
+     * @param id
+     * @return
+     */
+    public Request findRequest(int id){
+        // Busca requests que esten pendientes de entrar o que tengan mesa asignada pero que aun no se hayan ido y pagado
+        String query = "SELECT * FROM request WHERE id = " + id +";";
+        ResultSet rs = null;
 
-    public Boolean deleteRequest(String delete){
-
-            String query = "UPDATE request SET in_service = false WHERE request.name = '" + delete + "';";
-            ResultSet rs = null;
-
-            try {
-                s =(Statement) conn.createStatement();
-                rs = s.executeQuery(query);
-                if (rs.next()) {
-                    return rs.next();
-                }
-
-            } catch (SQLException ex) {
-                System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+        try {
+            s =(Statement) conn.createStatement();
+            rs = s.executeQuery(query);
+            if (rs.next()) {
+                return new Request(rs.getInt("id"), rs.getString("name"), rs.getInt("quantity"),
+                        rs.getInt("in_service"), rs.getString("mesa_name"), rs.getString("password"));
             }
 
+        } catch (SQLException ex) {
+            System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+        }
+        return null;
+
+    }
+
+
+    /**
+     * Delete a single request givne its id
+     * @param id
+     * @return
+     */
+    public Boolean deleteRequest(int id){
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement("DELETE FROM request WHERE request.id = " + id + ";");
+            preparedStatement.executeUpdate();
+            return true;
+
+        } catch (SQLException ex) {
+            System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
             return false;
         }
 
+    }
 
+
+    /**
+     * Creates a new request
+     * @param name
+     * @param cantidad
+     * @return
+     */
         public boolean insertRequest(String name, int cantidad){
-            String query = "INSERT INTO request(name, quantity, in_service) VALUES('" + name + "', " + cantidad + ", 0);";
-            ResultSet rs = null;
 
             try {
-                s =(Statement) conn.createStatement();
-                rs = s.executeQuery(query);
-                if (rs.next()) {
-                    return rs.next();
-                }
+                PreparedStatement ps = conn.prepareStatement("INSERT INTO request(name, quantity, in_service) VALUES('" + name + "', " + cantidad + ", 0);");
+                ps.executeUpdate();
+                return true;
 
             } catch (SQLException ex) {
                 System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
@@ -493,15 +555,10 @@ import java.util.UUID;
         }
 
         public Boolean updateRequest(String password){
-            String query = "UPDATE request SET request(in_service, pass) VALUES(0, '" + password + "') WHERE ;";
-            ResultSet rs = null;
-
             try {
-                s =(Statement) conn.createStatement();
-                rs = s.executeQuery(query);
-                if (rs.next()) {
-                    return rs.next();
-                }
+                PreparedStatement ps = conn.prepareStatement("UPDATE request SET request(in_service, pass) VALUES(0, '" + password + "') WHERE ;");
+                ps.executeUpdate();
+                return true;
 
             } catch (SQLException ex) {
                 System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
@@ -509,7 +566,12 @@ import java.util.UUID;
             return false;
         }
 
-        public boolean asignarMesa(Request nuevoRequest){
+    /**
+     * Links a new request with an available table that can handle the request's needs
+     * @param nuevoRequest
+     * @return
+     */
+    public boolean asignarMesa(Request nuevoRequest){
             String query = "SELECT name, in_use, chairs FROM mesa WHERE chairs >= " + nuevoRequest.getQuantity() + " ORDER BY chairs ASC;";
             ResultSet rs = null;
 
@@ -540,7 +602,7 @@ import java.util.UUID;
                     }
                 }
 
-                // No ha habido exito pero si existe una mesa que pueda contener al umero de comensales del pedido
+                // No ha habido exito pero si existe una mesa que pueda contener al numero de comensales del pedido
                 if (recibido){
                     rs.first();
 
@@ -552,6 +614,7 @@ import java.util.UUID;
                             ps.executeUpdate();
 
                             nuevoRequest.setMesa_name(rs.getString("name"));
+                            nuevoRequest.setPassword(null);
                             return true;
                         }
                     }
@@ -589,6 +652,7 @@ import java.util.UUID;
                     ps.executeUpdate();
 
                     nuevoRequest.setMesa_name(rs.getString("name"));
+                    nuevoRequest.setPassword(null);
                     return true;
 
                 }
@@ -662,7 +726,12 @@ import java.util.UUID;
             return aux;
         }
 
-        public synchronized ArrayList<OrderedDish> getTopDishes(boolean today){
+    /**
+     * Get an array with the dishes with most historic orders
+     * @param today
+     * @return
+     */
+    public synchronized ArrayList<OrderedDish> getTopDishes(boolean today){
             String query;
             ResultSet rs = null;
             ArrayList<OrderedDish> aux = new ArrayList<>();
@@ -688,7 +757,12 @@ import java.util.UUID;
             return aux;
         }
 
-        public synchronized float getGain(boolean today){
+    /**
+     * Get the economic balance of the dishes given today
+     * @param today
+     * @return
+     */
+    public synchronized float getGain(boolean today){
             String query;
             ResultSet rs = null;
             float aux = 0;
@@ -714,7 +788,47 @@ import java.util.UUID;
             return aux;
         }
 
-        
+        public synchronized float getAvgPrice(){
+            String query = "SELECT avg(aux.pricePerTable) AS priceTable FROM (SELECT sum(cost*ro.quantity)/(SELECT count(*) AS n_mesas FROM mesa AS m) AS pricePerTable" +
+                   "FROM Dish as d JOIN request_order AS ro ON d.id = ro.dish_id JOIN request AS r ON ro.request_id = r.id JOIN mesa AS m ON m.name = r.mesa_name" +
+                   "GROUP BY m.name) AS aux;";
+            ResultSet rs = null;
+            float aux = 0;
+            try {
+                s =(Statement) conn.createStatement();
+                rs = s.executeQuery(query);
+
+                while (rs.next()) {
+                    aux = rs.getFloat("priceTable");
+                }
+
+            } catch (SQLException ex) {
+                System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+            }
+            return aux;
+
+        }
+
+        public synchronized float getAvgDishes(){
+            String query = "SELECT avg(aux.dishPerTable) AS dishPerTable FROM (SELECT sum(ro.quantity)/(SELECT count(*) AS n_mesas FROM mesa AS m) AS dishPerTable" +
+                    "FROM Dish as d JOIN request_order AS ro ON d.id = ro.dish_id JOIN request AS r ON ro.request_id = r.id JOIN mesa AS m ON m.name = r.mesa_name" +
+                    "GROUP BY m.name) AS aux;";
+            ResultSet rs = null;
+            float aux = 0;
+            try {
+                s =(Statement) conn.createStatement();
+                rs = s.executeQuery(query);
+
+                while (rs.next()) {
+                    aux = rs.getFloat("dishPerTable");
+                }
+
+            } catch (SQLException ex) {
+                System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+            }
+            return aux;
+        }
+
         /**
          * Deletes a table, given its name
          * @param name
@@ -920,6 +1034,11 @@ import java.util.UUID;
             }
         }
 
+    /**
+     * Updates the Service Status in the database
+     * @param estado
+     * @return
+     */
     public boolean actualizarEstadoServicio(int estado){
         try {
             PreparedStatement ps = conn.prepareStatement("UPDATE variables_importantes SET estado_servicio = " + estado + ";");
@@ -933,6 +1052,10 @@ import java.util.UUID;
         }
     }
 
+    /**
+     * Sets the number of historic orders by dish
+     * @return
+     */
     public boolean setHistoricos(){
         try {
             String query = "SELECT ro.dish_id AS dish_id, SUM(ro.quantity) AS cantidad_total FROM request AS r, request_order AS ro " +

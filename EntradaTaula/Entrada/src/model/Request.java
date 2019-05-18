@@ -1,15 +1,9 @@
-package com.dpo.centralized_restaurant.Model.Request;
-
-import com.dpo.centralized_restaurant.Model.Preservice.Mesa;
-
-import javax.persistence.*;
-
-/**
+package model;/*
  * Stores and handles the core data of the requests, such their attributes and configurations
  */
 
-@Entity
-public class Request {
+
+public class Request implements Cloneable{
 
     private int id;
     private String name;
@@ -23,28 +17,10 @@ public class Request {
     private String mesa_name;
     private String password;
 
-    public Request(int id, String name, int quantity, int inService, String mesa_name, String password) {
+    public Request(String name, int id, String pass){
         this.id = id;
         this.name = name;
-        this.quantity = quantity;
-        this.inService = inService;
-        this.mesa_name = mesa_name;
-        this.password = password;
-    }
-
-    public Request(int id, String name){
-        this.id = id;
-        this.name = name;
-    }
-
-    public Request(String name, String password){
-        this.name = name;
-        this.password = password;
-    }
-
-    public Request(String name, int quantity) {
-        this.name = name;
-        this.quantity = quantity;
+        this.password = pass;
     }
 
     public String getName() {

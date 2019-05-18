@@ -1,6 +1,7 @@
 package com.dpo.centralized_restaurant.Network;
 
 import com.dpo.centralized_restaurant.Controller.Controller;
+import com.dpo.centralized_restaurant.Model.Request.Request;
 import com.dpo.centralized_restaurant.Model.Request.RequestManager;
 import com.dpo.centralized_restaurant.database.ConectorDB;
 
@@ -20,14 +21,12 @@ public class DedicatedServerEntrada extends Thread{
 
 
     private final Socket socket;
-    private ObjectInputStream ois;
     private DataInputStream dis;
-    private ObjectOutputStream oos;
     private DataOutputStream dos;
     private boolean start;
 
     /**
-     * Prepares this part of the system to work along the rest of the system
+     * Prepares this part of the system to work along the rest of it
      * @param socket
      * @param requestsManager
      * @param dedicatedServers
@@ -43,43 +42,39 @@ public class DedicatedServerEntrada extends Thread{
         this.conectorDB = conectorDB;
         this.controller = controller;
         start = true;
+
     }
 
     @Override
     public void run() {
         try {
-            dis = new DataInputStream(socket.getInputStream());
-            ois = new ObjectInputStream(socket.getInputStream());
-            oos = new ObjectOutputStream(socket.getOutputStream());
-            dos = new DataOutputStream(socket.getOutputStream());
             String init;
-
+            dis = new DataInputStream(socket.getInputStream());
+            dos = new DataOutputStream(socket.getOutputStream());
             while (start) {
                 init = dis.readUTF();
                 switch (init) {
                     case "REQUEST-COMING":
+                        dos.writeUTF("REQUEST-COMING");
                         String nameNew = dis.readUTF();
                         int cantidadPersonas = dis.readInt();
                         dos.writeBoolean(conectorDB.insertRequest(nameNew, cantidadPersonas));
+                        controller.actualizarVistaRequests(conectorDB.getRequestsPendientes());
                         break;
 
                     case "NEED-REQUEST-LIST":
-                        dos.writeUTF("UPDATE-REQUEST-LIST");
-                        ArrayList<String> envia = conectorDB.getRequests();
-                        dos.writeInt(envia.size());
-                        for (int j = 0; j < envia.size(); j++){
-                            dos.writeUTF(envia.get(j));
-                        }
+                        sendAll(conectorDB.getRequests());
                         break;
 
                     case "DELETE-REQUEST":
-                        String nameToCancel = dis.readUTF();
-                        boolean done = conectorDB.deleteRequest(nameToCancel);
+                        int id = dis.readInt();
+                        boolean done = conectorDB.deleteRequest(id);
                         dos.writeBoolean(done);
 
                         if(done){
-                            // TODO: Falta actualizar lista requests tras eliminar
-                            conectorDB.getRequestsPendientes();
+                            conectorDB.deleteRequest(id);
+                            sendAll(conectorDB.getRequests());
+                            controller.actualizarVistaRequests(conectorDB.getRequestsPendientes());
                         }
                         break;
 
@@ -89,12 +84,6 @@ public class DedicatedServerEntrada extends Thread{
 
         } catch (IOException e) {
         } finally {
-            try {
-                ois.close();
-            } catch (IOException e) {}
-            try {
-                oos.close();
-            } catch (IOException e) {}
             try {
                 dos.close();
             } catch (IOException e) {}
@@ -108,14 +97,11 @@ public class DedicatedServerEntrada extends Thread{
         }
     }
 
+    /**
+     * Finish the connection between the server and the system
+     */
     public void closeDedicatedServer(){
         start = false;
-        try {
-            ois.close();
-        } catch (IOException e) {}
-        try {
-            oos.close();
-        } catch (IOException e) {}
         try {
             dos.close();
         } catch (IOException e) {}
@@ -126,19 +112,53 @@ public class DedicatedServerEntrada extends Thread{
         dedicatedServers.remove(this);
     }
 
-    public void sendPass(String pass, String User){
+    /**
+     * Sends the assigned request trough the connection between server and client
+     * @param request
+     */
+    public void sendPass(Request request){
 
         synchronized (this) {
             try {
-                dos.writeUTF("INCOMING-PASSWORD");
-                dos.writeUTF(User);
-                dos.writeUTF(pass);
+                dos.writeUTF("INCOMING-ASSIGNMENT");
+                dos.writeInt(request.getId());
+                dos.writeUTF(request.getName());
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
+    }
+
+    /**
+     * Sends all the requests trough the connection between server and client
+     * @param listaRequests
+     */
+    public void sendAll(ArrayList<Request> listaRequests){
+        synchronized (this) {
+            try {
+                dos.writeUTF("UPDATE-REQUEST-LIST");
+                dos.writeInt(listaRequests.size());
+                for (Request request : listaRequests){
+                    dos.writeInt(request.getId());
+                    if (request.getName() != null) {
+                        dos.writeUTF(request.getName());
+                    }else{
+                        dos.writeUTF("NULL");
+                    }
+                    if (request.getPassword() != null) {
+                        dos.writeUTF(request.getPassword());
+                    }else{
+                        dos.writeUTF("NULL");
+                    }
+                }
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 
