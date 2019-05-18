@@ -732,11 +732,15 @@ public class ConectorDB {
         boolean done = true;
         for (RequestDish requestDish : listaRequests){
             PreparedStatement ps = null;
+            PreparedStatement ps2 = null;
             try {
                 ps = conn.prepareStatement("INSERT INTO request_order(request_id, dish_id, quantity, actual_service, activation_date, timecost) " +
                         "VALUES(" + requestDish.getRequest_id() + ", " + requestDish.getDish_id() + ", " + requestDish.getUnits() + ", " + requestDish.getActualService() + "" +
                         ", " + requestDish.getActivation_date() + ", " + requestDish.getTimecost() + ");");
                 ps.executeUpdate();
+
+                ps2 = conn.prepareStatement("UPDATE dish SET units = units - " + requestDish.getUnits() + " WHERE id = " + requestDish.getDish_id() + ";");
+                ps2.executeUpdate();
 
             } catch (SQLException e) {
                 done = false;
