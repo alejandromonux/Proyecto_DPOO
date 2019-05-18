@@ -11,7 +11,7 @@ public class ButtonRenderer extends JButton implements TableCellRenderer {
 
     public ButtonRenderer(String text) {
         setOpaque(true);
-        setText( "DELETE" );
+        setText( text );
     }
 
     public Component getTableCellRendererComponent(JTable table, Object value,
