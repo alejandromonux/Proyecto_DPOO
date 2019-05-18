@@ -1,10 +1,12 @@
 package model;
 
+import java.io.Serializable;
+
 /**
  * Stores and handles the core data of the requests, such their attributes and configurations
  */
 
-public class Request {
+public class Request implements Serializable {
 
     private int id;
     private String name;

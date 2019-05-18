@@ -7,6 +7,10 @@ import model.RequestDish;
 import model.config.configJSON;
 
 import java.io.*;
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 
@@ -18,9 +22,7 @@ public class NetworkManager extends Thread {
     private Socket socket;
     private Controller controller;
     private DataInputStream dis;
-    private ObjectInputStream ois;
     private DataOutputStream dos;
-    private ObjectOutputStream oos;
     private boolean isRunning;
 
     private Request myRequest;
@@ -31,9 +33,9 @@ public class NetworkManager extends Thread {
         PORT = config.getPort_Entrada();
         socket = new Socket(IP, PORT);
         dis = new DataInputStream(socket.getInputStream());
-        ois = new ObjectInputStream(socket.getInputStream());
         dos = new DataOutputStream(socket.getOutputStream());
-        oos = new ObjectOutputStream(socket.getOutputStream());
+        //oos = new ObjectOutputStream(socket.getOutputStream());
+        //ois = new ObjectInputStream(socket.getInputStream());
     }
 
     public void startServerConnection(Controller controller) {
@@ -126,6 +128,7 @@ public class NetworkManager extends Thread {
 
     public void readUpdates() {
         try {
+
             switch (dis.readUTF()) {
                 case "UPDATE-MENU":
                         int cmpt = dis.readInt();   // Rebem la quantitat de Dishes que ens enviaran
@@ -150,12 +153,12 @@ public class NetworkManager extends Thread {
         } catch (Exception e) {
             try {
                 dos.close();
+                ois.close();
+                oos.close();
                 dis.close();
-                socket.close();
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-            e.printStackTrace();
         }
     }
 }

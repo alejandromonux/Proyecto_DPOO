@@ -19,7 +19,7 @@ public class Main {
                     config = gson.fromJson(new FileReader("config.json"), configJSON.class);
                     NetworkManager networkManager = new NetworkManager(config);
                     MainWindow vista = new MainWindow();
-                    Controller controller = new Controller(vista, null);
+                    Controller controller = new Controller(vista, networkManager);
                     networkManager.startServerConnection(controller);
                     vista.registerController(controller);
                     vista.setVisible(true);

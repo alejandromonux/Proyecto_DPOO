@@ -46,6 +46,12 @@ CREATE TABLE request(
   password VARCHAR(255)
 );
 
+
+INSERT INTO request (mesa_name, name, quantity, in_service, password)
+VALUES ('m15', 'reserva', 4,1,'1234');
+
+SELECT * FROM request;
+
 DROP TABLE IF EXISTS request_order;
 CREATE TABLE request_order(
   id INT NOT NULL AUTO_INCREMENT,
