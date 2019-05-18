@@ -47,7 +47,7 @@ public class RequestsService extends JPanel {
         createData(requests);
         TableModel tm = new DefaultTableModel(data, columnNames) {
             public boolean isCellEditable(int row, int column) {
-                if(column == columnNames.length -1) return true;
+                if((column == columnNames.length -1)||(column == columnNames.length -2)) return true;
                 return false;
             }
         };
@@ -70,7 +70,6 @@ public class RequestsService extends JPanel {
 
 
         jbBack = new JButton("Back");
-
         this.add(jsPanel);
         this.add(jbBack);
         this.setBorder(new EmptyBorder(0,0,0,0));
