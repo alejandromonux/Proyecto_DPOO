@@ -4,16 +4,17 @@ package com.dpo.centralized_restaurant.Model.Request;
  * Stores all the required information related to a dish request
  */
 public class RequestDish {
-
-    private Long id;
+    private int dish_id;
+    private int request_id;
     private String name;
     private double cost;
     private int units;
     private int timecost;
     private String activation_date;
 
-    public RequestDish(Long id, String name, double cost, int units, int timecost, String activation_date) {
-        this.id = id;
+    public RequestDish(int dish_id, int request_id, String name, double cost, int units, int timecost, String activation_date) {
+        this.dish_id = dish_id;
+        this.request_id = request_id;
         this.name = name;
         this.cost = cost;
         this.units = units;
@@ -21,12 +22,12 @@ public class RequestDish {
         this.activation_date = activation_date;
     }
 
-    public Long getId() {
-        return id;
+    public int getId() {
+        return dish_id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(int id) {
+        this.dish_id = id;
     }
 
     public String getName() {
@@ -51,6 +52,14 @@ public class RequestDish {
 
     public void setUnits(int units) {
         this.units = units;
+    }
+
+    public int getRequest_id() {
+        return request_id;
+    }
+
+    public void setRequest_id(int request_id) {
+        this.request_id = request_id;
     }
 
     public int getTimecost() {

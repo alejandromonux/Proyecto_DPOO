@@ -28,6 +28,8 @@ public class DedicatedServerTaula extends Thread{
     private ObjectOutputStream oos;
     private DataOutputStream dos;
 
+    private Request requestActual;
+
     private boolean start;
 
     /**
@@ -47,6 +49,7 @@ public class DedicatedServerTaula extends Thread{
         this.conectorDB = conectorDB;
         this.controller = controller;
         start = true;
+        requestActual = null;
     }
 
     @Override
@@ -126,6 +129,7 @@ public class DedicatedServerTaula extends Thread{
                     dos.writeUTF("LOGIN-INCORRECT");
             } else {
                 dos.writeUTF("LOGIN-CORRECT");
+                requestActual = rAux;
                 oos.writeObject(rAux);
             }
         } catch (Exception e) {
@@ -138,10 +142,12 @@ public class DedicatedServerTaula extends Thread{
         Request inRequest = (Request)ois.readObject();
         Request newR = conectorDB.payBill(inRequest);
         if (newR != null) {
+            // Si se ha asignado una mesa a un request en cola, se debe informar a la Entrada
             if(newR.getId() != -1) {
                 controller.informarEntrada(newR);
             }
-             dos.writeUTF("PAYMENT-ACCEPTED");
+            dos.writeUTF("PAYMENT-ACCEPTED");
+            requestActual = null;
             } else {
             dos.writeUTF("PAYMENT-DECLINED");
         }
