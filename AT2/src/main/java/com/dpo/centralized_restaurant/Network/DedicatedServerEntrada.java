@@ -121,9 +121,11 @@ public class DedicatedServerEntrada extends Thread{
         synchronized (this) {
             try {
                 dos.writeUTF("INCOMING-ASSIGNMENT");
+                System.out.printf("me cgao iasuhdkajsdn");
                 dos.writeInt(request.getId());
                 dos.writeUTF(request.getName());
-
+                dos.writeUTF(request.getPassword());
+                System.out.println("aiudame que tengo muchos quereseres");
             } catch (IOException e) {
                 e.printStackTrace();
             }

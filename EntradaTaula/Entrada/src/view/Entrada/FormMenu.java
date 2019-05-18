@@ -67,7 +67,7 @@ public class FormMenu extends JPanel{
     }
 
     public int getRequestQuantity() {
-        return jcChairs.getSelectedIndex();
+        return jcChairs.getSelectedIndex()+1;
     }
 
 }

@@ -46,6 +46,7 @@ CREATE TABLE request(
   password VARCHAR(255)
 );
 
+Select * from request
 
 DROP TABLE IF EXISTS request_order;
 CREATE TABLE request_order(
@@ -84,12 +85,7 @@ ALTER TABLE configuration_table ADD FOREIGN KEY (mesa_name) REFERENCES mesa(name
 
 DROP TABLE IF EXISTS variables_importantes;
 CREATE TABLE variables_importantes(
-  estado_servicio INT,
-  recaudacion_actual FLOAT,
-  recaudacion_historica FLOAT
+  estado_servicio INT
 );
 
-INSERT INTO variables_importantes VALUES(0, 0, 0);
-INSERT INTO request(name, quantity, in_service) VALUES('asdasd', 2, 0);
-
-UPDATE request_order SET actual_service = 2 WHERE NOW() < addtime(activation_date, concat(timecost / 60, ':', MOD(timecost, 60), ':00'));
+INSERT INTO variables_importantes VALUES(0);
