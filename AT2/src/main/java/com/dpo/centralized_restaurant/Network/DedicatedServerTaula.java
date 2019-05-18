@@ -3,6 +3,7 @@ package com.dpo.centralized_restaurant.Network;
 import com.dpo.centralized_restaurant.Controller.Controller;
 import com.dpo.centralized_restaurant.Model.ModelDTO.ClientDTO;
 import com.dpo.centralized_restaurant.Model.Request.RequestManager;
+import com.dpo.centralized_restaurant.Model.Worker;
 import com.dpo.centralized_restaurant.database.ConectorDB;
 
 import java.io.*;
@@ -58,30 +59,22 @@ public class DedicatedServerTaula extends Thread{
             while (start) {
                 init = dis.readUTF();
                 switch (init) {
-                    case "USER-LOGIN":
-                        try {
-                            ClientDTO loginClient = (ClientDTO) ois.readObject();
-                        } catch (ClassNotFoundException e) {
-                            e.printStackTrace();
-                        }
+                    case "LOGIN-REQUEST":
+                        loginRequest();
                         break;
                     case "DISH-ORDER-COMING":
                         String dishOrdered = dis.readUTF();
                         long idMesaAfectadaOrder = dis.readLong();
                         break;
-
                     case "ELIMINATE-DISH":
                         String dishToEliminate = dis.readUTF();
                         long idMesaAfectadaEliminate = dis.readLong();
-
                         break;
                     case "SEE-MENU":
-
                         dos.writeUTF("UPDATE-MENU");
-
                         break;
-                    default:
-
+                    case "PAY-BILL":
+                        doPayment();
                         break;
                 }
 
@@ -108,6 +101,32 @@ public class DedicatedServerTaula extends Thread{
                 //socket.close(); --Marc: Dani esto no se si se deberia hacer.
             //} catch (IOException e) {}
         }
+    }
+
+    public void loginRequest() {
+
+        try {
+            String requestName = dis.readUTF();
+            String password = dis.readUTF();
+
+            if (conectorDB.findWorkerByNameAndPassword(requestName, password) == null) {
+                if (conectorDB.findWorkerByEmailAndPassword(requestName, password) == null) {
+                    dos.writeUTF("LOGIN-INCORRECT");
+                } else {
+                    dos.writeUTF("LOGIN-CORRECT");
+                    oos.writeObject();
+                }
+            } else {
+                dos.writeUTF("LOGIN-CORRECT");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void doPayment() {
+
     }
 
     /**

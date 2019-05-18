@@ -1,14 +1,9 @@
-package com.dpo.centralized_restaurant.Model.Request;
-
-import com.dpo.centralized_restaurant.Model.Preservice.Mesa;
-
-import javax.persistence.*;
+package model;
 
 /**
  * Stores and handles the core data of the requests, such their attributes and configurations
  */
 
-@Entity
 public class Request {
 
     private int id;
@@ -22,8 +17,6 @@ public class Request {
     private int inService;
     private String mesa_name;
     private String password;
-
-    public Request(){}
 
     public Request(int id, String name, int quantity, int inService, String mesa_name, String password) {
         this.id = id;

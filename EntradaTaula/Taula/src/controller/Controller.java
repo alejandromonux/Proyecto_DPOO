@@ -103,6 +103,14 @@ public class Controller implements ActionListener {
         vista.registerController(this);
     }
 
+    public void correctLogin() {
+        vista.changeTaulaPanel("TAULA-OPTIONS");
+    }
+
+    public void badLogin() {
+        vista.badLogin();
+    }
+
     private ArrayList<RequestDish> rawData() {
         ArrayList<RequestDish> dishes = new ArrayList<>();
         RequestDish dish = new RequestDish(Long.MAX_VALUE, "Arros",10,5, 6,"");

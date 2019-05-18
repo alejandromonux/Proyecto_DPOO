@@ -120,4 +120,11 @@ public class MainWindow extends JFrame {
         return userOptionsMenu.getBagOfOrders();
     }
 
+    public void badLogin() {
+        JOptionPane.showMessageDialog(this,
+                "Incorrect Login or Password, try again!",
+                "Login Error",
+                JOptionPane.ERROR_MESSAGE);
+    }
+
 }

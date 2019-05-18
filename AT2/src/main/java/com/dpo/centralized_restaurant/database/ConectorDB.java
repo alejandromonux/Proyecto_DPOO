@@ -439,6 +439,26 @@ import java.util.UUID;
          * ***********************************************************************************
          *********************************************************************************** */
 
+
+        public Request loginRequest(String requestName, String password) {
+            // Busca requests que esten pendientes de entrar o que tengan mesa asignada pero que aun no se hayan ido y pagado
+            String query = "SELECT name, mesa_name, password FROM request WHERE in_service <= 1 ORDER BY id ASC;";
+            ResultSet rs = null;
+            Request result = new Request();
+
+            try {
+                s =(Statement) conn.createStatement();
+                while (rs.next()) {
+                    Request requestAux = new Request(rs.getString("mesa_name"), rs.getString("password"));
+                    result.add(requestAux);
+                }
+
+            } catch (SQLException ex) {
+                System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+            }
+            return result;
+        }
+
     /**
      * Get unactive requests to be processed within an ArrayList
      * @return

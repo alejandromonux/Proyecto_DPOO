@@ -2,12 +2,10 @@ package network;
 
 import controller.Controller;
 import model.Dish;
+import model.Request;
 import model.RequestDish;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 
@@ -21,7 +19,10 @@ public class NetworkManager extends Thread {
     private DataInputStream dis;
     private ObjectInputStream ois;
     private DataOutputStream dos;
+    private ObjectOutputStream oos;
     private boolean isRunning;
+
+    private Request myRequest;
 
     public NetworkManager() throws IOException {
         controller = null;
@@ -29,6 +30,7 @@ public class NetworkManager extends Thread {
         dis = new DataInputStream(socket.getInputStream());
         ois = new ObjectInputStream(socket.getInputStream());
         dos = new DataOutputStream(socket.getOutputStream());
+        oos = new ObjectOutputStream(socket.getOutputStream());
     }
 
     public void startServerConnection(Controller controller) {
@@ -62,11 +64,28 @@ public class NetworkManager extends Thread {
         dos.writeUTF("SEE-MENU");
     }
 
-    public void sendLogInRequest(String requestName, String password)throws IOException {
+    public void sendLogInRequest(String requestName, String password)throws IOException, ClassNotFoundException {
         dos.writeUTF("LOGIN-REQUEST");
         dos.writeUTF(requestName);
         dos.writeUTF(password);
+        String response = dis.readUTF();
+        if (response.equalsIgnoreCase("LOGIN-CORRECT")) {
+            myRequest = (Request)ois.readObject();
+            controller.correctLogin();
+        } else {
+            if (response.equalsIgnoreCase("LOGIN-INCORRECT")) {
+                controller.badLogin();
+            }
+        }
     }
+
+    public void payBill() throws IOException{
+        dos.writeUTF("PAY-BILL");
+
+
+
+    }
+
 
     public void readUpdates() {
         try {
