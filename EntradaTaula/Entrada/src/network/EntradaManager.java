@@ -70,7 +70,7 @@ public class EntradaManager extends Thread {
     }
 
     public void readUpdates() throws IOException {
-        String inDuty  = dis.readUTF();
+        String inDuty = dis.readUTF();
 
         switch (inDuty) {
             case "UPDATE-REQUEST-LIST":

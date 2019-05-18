@@ -89,6 +89,8 @@ CREATE TABLE variables_importantes(
 
 INSERT INTO variables_importantes VALUES(0);
 
+SELECT * from mesa
+
 
 INSERT INTO request (mesa_name, name, quantity, in_service, password)
 VALUES ('m15', 'reserva', 4,1,'1234');
