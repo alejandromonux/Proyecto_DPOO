@@ -83,7 +83,7 @@ public class DeepOrderPanel extends JPanel {
         for (int i =0; i < comandas.size() ; i++){
             data[i][0] = comandas.get(i).getName();
             data[i][1] = comandas.get(i).getUnits();
-            data[i][2] = comandas.get(i).getActual_service();
+            data[i][2] = comandas.get(i).getActualService();
             data[i][5] = "HORA ESTIMADA ENTREGA";
             data[i][6] = "CHANGE STATE";
             data[i][7] = "DELETE";

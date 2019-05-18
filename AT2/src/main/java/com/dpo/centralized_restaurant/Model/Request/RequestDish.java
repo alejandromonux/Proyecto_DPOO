@@ -11,14 +11,16 @@ public class RequestDish {
     private int units;
     private int timecost;
     private String activation_date;
+    private int actualService;
 
-    public RequestDish(Long id, String name, double cost, int units, int timecost, String activation_date) {
+    public RequestDish(Long id, String name, double cost, int units, int timecost, String activation_date, int actualService) {
         this.id = id;
         this.name = name;
         this.cost = cost;
         this.units = units;
         this.timecost = timecost;
         this.activation_date = activation_date;
+        this.actualService = actualService;
     }
 
     public Long getId() {
@@ -67,5 +69,13 @@ public class RequestDish {
 
     public void setActivation_date(String activation_date) {
         this.activation_date = activation_date;
+    }
+
+    public int getActualService() {
+        return actualService;
+    }
+
+    public void setActualService(int actualService) {
+        this.actualService = actualService;
     }
 }
