@@ -62,6 +62,8 @@ public class PasswordShowPanel extends JPanel {
     public void showPasswordTo(String name, String password) {
         sPass = password;
         requestName = name;
+        revalidate();
+        repaint();
     }
 
     public void resetValues() {
