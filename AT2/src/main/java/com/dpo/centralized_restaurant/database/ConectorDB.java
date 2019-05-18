@@ -9,6 +9,7 @@ import com.dpo.centralized_restaurant.Model.Request.Request;
 import com.dpo.centralized_restaurant.Model.Request.RequestDish;
 import com.dpo.centralized_restaurant.Model.Request.RequestOrder;
 import com.dpo.centralized_restaurant.Model.Worker;
+import com.dpo.centralized_restaurant.service.DishService;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -312,11 +313,11 @@ public class ConectorDB {
             rs = s.executeQuery(query);
 
             if (!rs.next()) {
-                PreparedStatement ps = conn.prepareStatement("INSERT INTO dish(name, cost, units, timecost, active) VALUES('" + name + "', "
-                        + cost + ", " + units + ", " + timeCost + ", true);");
+                PreparedStatement ps = conn.prepareStatement("INSERT INTO dish(name, cost, units, units_backup, timecost, active) VALUES('" + name + "', "
+                        + cost + ", " + units + ", " + units + ", " + timeCost + ", true);");
                 ps.executeUpdate();
             } else {
-                PreparedStatement ps = conn.prepareStatement("UPDATE mesa SET units = " + units + ", cost = " + cost + ", timecost = " + timeCost + ", active = true " +
+                PreparedStatement ps = conn.prepareStatement("UPDATE mesa SET units = " + units + ", units_backup = " + units + ", cost = " + cost + ", timecost = " + timeCost + ", active = true " +
                         "WHERE name = '" + name + "';");
                 ps.executeUpdate();
             }
@@ -390,6 +391,7 @@ public class ConectorDB {
         }
         return result;
     }
+
 
     /**
      * Deletes a dish, given its name
@@ -715,15 +717,32 @@ public class ConectorDB {
      * ***********************************************************************************
      *********************************************************************************** */
 
+    public synchronized boolean agotarPlato(String name){
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement("UPDATE dish SET units = 0 WHERE name = '" + name + "';");
+            ps.executeUpdate();
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public synchronized boolean insertComanda(ArrayList<RequestDish> listaRequests){
         boolean done = true;
         for (RequestDish requestDish : listaRequests){
             PreparedStatement ps = null;
+            PreparedStatement ps2 = null;
             try {
                 ps = conn.prepareStatement("INSERT INTO request_order(request_id, dish_id, quantity, actual_service, activation_date, timecost) " +
                         "VALUES(" + requestDish.getRequest_id() + ", " + requestDish.getDish_id() + ", " + requestDish.getUnits() + ", " + requestDish.getActualService() + "" +
                         ", " + requestDish.getActivation_date() + ", " + requestDish.getTimecost() + ");");
                 ps.executeUpdate();
+
+                ps2 = conn.prepareStatement("UPDATE dish SET units = units - " + requestDish.getUnits() + " WHERE id = " + requestDish.getDish_id() + ";");
+                ps2.executeUpdate();
 
             } catch (SQLException e) {
                 done = false;
@@ -1277,6 +1296,9 @@ public class ConectorDB {
 
             PreparedStatement ps3 = conn.prepareStatement("UPDATE mesa SET in_use = false;");
             ps3.executeUpdate();
+
+            PreparedStatement ps4 = conn.prepareStatement("UPDATE dish SET units = units_backup;");
+            ps4.executeUpdate();
 
             return true;
 

@@ -22,6 +22,7 @@ CREATE TABLE dish (
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(255) UNIQUE,
   units INT DEFAULT 0,
+  units_backup INT DEFAULT 0,
   historics_orders INT DEFAULT 0,
   cost FLOAT,
   timecost INT,
@@ -87,4 +88,11 @@ CREATE TABLE variables_importantes(
 );
 
 INSERT INTO variables_importantes VALUES(0);
+
 SELECT * from mesa
+
+
+INSERT INTO request (mesa_name, name, quantity, in_service, password)
+VALUES ('m15', 'reserva', 4,1,'1234');
+
+SELECT * FROM request;
