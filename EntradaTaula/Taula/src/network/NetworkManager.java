@@ -1,5 +1,6 @@
 package network;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import controller.Controller;
 import model.Dish;
 import model.Request;
@@ -81,9 +82,26 @@ public class NetworkManager extends Thread {
 
     public void payBill() throws IOException{
         dos.writeUTF("PAY-BILL");
+        oos.writeObject(myRequest);
+        Boolean result = dis.readBoolean();
+        controller.paymentResult(result);
+        if (!result) {
+            myRequest = null;
+        }
+    }
 
+    public boolean sendComanda(ArrayList<RequestDish> comanda) throws IOException {
 
+        dos.writeUTF("DISHES-COMING");
+        dos.writeInt(comanda.size());
+        for (RequestDish rd: comanda) {
+            oos.writeObject(rd);
+        }
 
+        if (dis.readBoolean()) { // Introduits correctament
+            controller.resetComanda();
+        }
+        return false;
     }
 
 

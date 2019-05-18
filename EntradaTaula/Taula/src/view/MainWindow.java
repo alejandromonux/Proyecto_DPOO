@@ -127,4 +127,11 @@ public class MainWindow extends JFrame {
                 JOptionPane.ERROR_MESSAGE);
     }
 
+    public void paymentDeclined() {
+        JOptionPane.showMessageDialog(this,
+                "PAYMENT DECLINED!",
+                "Payment Error",
+                JOptionPane.ERROR_MESSAGE);
+    }
+
 }

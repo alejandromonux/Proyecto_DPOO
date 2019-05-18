@@ -15,14 +15,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/view/Taula/ToOrderPanel.java">
+        <entry file="file://$PROJECT_DIR$/src/view/Taula/TaulaGeneralPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1656">
-              <caret line="105" selection-start-line="100" selection-start-column="8" selection-end-line="105" />
-              <folding>
-                <element signature="method#tableCreator#0;class#ToOrderPanel#0" />
-                <element signature="method#scrollPaneConfig#0;class#ToOrderPanel#0" />
-              </folding>
+            <state relative-caret-position="370">
+              <caret line="83" column="23" selection-start-line="83" selection-start-column="23" selection-end-line="83" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -66,16 +62,19 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/controller/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2376">
-              <caret line="110" column="25" selection-start-line="110" selection-start-column="25" selection-end-line="110" selection-end-column="25" />
+            <state relative-caret-position="622">
+              <caret line="126" column="35" selection-start-line="126" selection-start-column="35" selection-end-line="126" selection-end-column="35" />
               <folding>
                 <element signature="e#3652#3653#0" expanded="true" />
                 <element signature="e#3707#3708#0" expanded="true" />
                 <element signature="e#3737#3738#0" expanded="true" />
                 <element signature="e#3769#3770#0" expanded="true" />
+                <element signature="method#paymentResult#0;class#Controller#0" />
+                <element signature="e#3955#3956#0" expanded="true" />
+                <element signature="e#3976#3977#0" expanded="true" />
                 <element signature="method#rawData#0;class#Controller#0" />
               </folding>
             </state>
@@ -85,14 +84,13 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/view/MainWindow.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1896">
-              <caret line="122" column="27" selection-start-line="122" selection-start-column="27" selection-end-line="122" selection-end-column="27" />
+            <state relative-caret-position="621">
+              <caret line="135" lean-forward="true" selection-start-line="135" selection-end-line="135" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#changePanel#0;class#MainWindow#0" />
-                <element signature="e#2531#2532#0" expanded="true" />
-                <element signature="e#2594#2595#0" expanded="true" />
                 <element signature="method#badLogin#0;class#MainWindow#0" />
+                <element signature="method#paymetDeclined#0;class#MainWindow#0" />
               </folding>
             </state>
           </provider>
@@ -107,11 +105,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/network/NetworkManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="456">
-              <caret line="32" column="63" selection-start-line="32" selection-start-column="63" selection-end-line="32" selection-end-column="63" />
+            <state relative-caret-position="611">
+              <caret line="101" column="23" selection-start-line="101" selection-start-column="23" selection-end-line="101" selection-end-column="23" />
               <folding>
                 <element signature="method#readUpdates#0;class#NetworkManager#0" />
               </folding>
@@ -122,8 +120,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/model/Request.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="24">
-              <caret line="1" selection-start-line="1" selection-end-line="1" />
+            <state relative-caret-position="432">
+              <caret line="18" column="28" lean-forward="true" selection-start-line="18" selection-start-column="28" selection-end-line="18" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -166,10 +164,10 @@
         <option value="$PROJECT_DIR$/src/view/Taula/SeeOrdersPanel.java" />
         <option value="$PROJECT_DIR$/src/view/Taula/TaulaGeneralPanel.java" />
         <option value="$PROJECT_DIR$/src/view/Taula/ComandaPanel.java" />
-        <option value="$PROJECT_DIR$/src/controller/Controller.java" />
-        <option value="$PROJECT_DIR$/src/view/MainWindow.java" />
         <option value="$PROJECT_DIR$/src/model/Request.java" />
+        <option value="$PROJECT_DIR$/src/view/MainWindow.java" />
         <option value="$PROJECT_DIR$/src/network/NetworkManager.java" />
+        <option value="$PROJECT_DIR$/src/controller/Controller.java" />
       </list>
     </option>
   </component>
@@ -220,13 +218,6 @@
               <item name="Taula" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="view" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Taula" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Taula" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="view" type="462c0819:PsiDirectoryNode" />
-              <item name="Taula" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -307,12 +298,12 @@
       <workItem from="1558086807658" duration="8000" />
       <workItem from="1558106029715" duration="10884000" />
       <workItem from="1558128123474" duration="9400000" />
-      <workItem from="1558168012241" duration="1532000" />
+      <workItem from="1558168012241" duration="4360000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="50925000" />
+    <option name="totallyTimeSpent" value="53753000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="0" width="974" height="1047" extended-state="0" />
@@ -355,12 +346,6 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/view/MainWindow.java</url>
-          <line>99</line>
-          <properties />
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/view/Taula/TaulaGeneralPanel.java</url>
           <line>172</line>
@@ -425,13 +410,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/Taula/TaulaGeneralPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3432">
-          <caret line="171" column="29" selection-start-line="171" selection-start-column="29" selection-end-line="171" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/view/Taula/ToOrderPanel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1656">
@@ -469,34 +447,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/controller/Controller.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2376">
-          <caret line="110" column="25" selection-start-line="110" selection-start-column="25" selection-end-line="110" selection-end-column="25" />
-          <folding>
-            <element signature="e#3652#3653#0" expanded="true" />
-            <element signature="e#3707#3708#0" expanded="true" />
-            <element signature="e#3737#3738#0" expanded="true" />
-            <element signature="e#3769#3770#0" expanded="true" />
-            <element signature="method#rawData#0;class#Controller#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/MainWindow.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1896">
-          <caret line="122" column="27" selection-start-line="122" selection-start-column="27" selection-end-line="122" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#changePanel#0;class#MainWindow#0" />
-            <element signature="e#2531#2532#0" expanded="true" />
-            <element signature="e#2594#2595#0" expanded="true" />
-            <element signature="method#badLogin#0;class#MainWindow#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/view/Taula/ButtonEditor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1128">
@@ -523,19 +473,56 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/Taula/TaulaGeneralPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="370">
+          <caret line="83" column="23" selection-start-line="83" selection-start-column="23" selection-end-line="83" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/MainWindow.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="621">
+          <caret line="135" lean-forward="true" selection-start-line="135" selection-end-line="135" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#changePanel#0;class#MainWindow#0" />
+            <element signature="method#badLogin#0;class#MainWindow#0" />
+            <element signature="method#paymetDeclined#0;class#MainWindow#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/model/Request.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        <state relative-caret-position="432">
+          <caret line="18" column="28" lean-forward="true" selection-start-line="18" selection-start-column="28" selection-end-line="18" selection-end-column="28" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/network/NetworkManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="32" column="63" selection-start-line="32" selection-start-column="63" selection-end-line="32" selection-end-column="63" />
+        <state relative-caret-position="611">
+          <caret line="101" column="23" selection-start-line="101" selection-start-column="23" selection-end-line="101" selection-end-column="23" />
           <folding>
             <element signature="method#readUpdates#0;class#NetworkManager#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/controller/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="622">
+          <caret line="126" column="35" selection-start-line="126" selection-start-column="35" selection-end-line="126" selection-end-column="35" />
+          <folding>
+            <element signature="e#3652#3653#0" expanded="true" />
+            <element signature="e#3707#3708#0" expanded="true" />
+            <element signature="e#3737#3738#0" expanded="true" />
+            <element signature="e#3769#3770#0" expanded="true" />
+            <element signature="method#paymentResult#0;class#Controller#0" />
+            <element signature="e#3955#3956#0" expanded="true" />
+            <element signature="e#3976#3977#0" expanded="true" />
+            <element signature="method#rawData#0;class#Controller#0" />
           </folding>
         </state>
       </provider>

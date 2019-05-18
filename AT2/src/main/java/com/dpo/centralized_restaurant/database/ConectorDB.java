@@ -441,16 +441,17 @@ import java.util.UUID;
 
 
         public Request loginRequest(String requestName, String password) {
-            // Busca requests que esten pendientes de entrar o que tengan mesa asignada pero que aun no se hayan ido y pagado
-            String query = "SELECT name, mesa_name, password FROM request WHERE in_service <= 1 ORDER BY id ASC;";
+
+            String query = "SELECT * FROM request WHERE name = \""+ requestName +
+                            "\" AND password = '" + password + "' LIMIT 1;";
             ResultSet rs = null;
-            Request result = new Request();
+            Request result = null;
 
             try {
                 s =(Statement) conn.createStatement();
-                while (rs.next()) {
-                    Request requestAux = new Request(rs.getString("mesa_name"), rs.getString("password"));
-                    result.add(requestAux);
+                rs = s.executeQuery(query);
+                if (rs.next()) {
+                    result = new Request(rs.getString("mesa_name"), rs.getString("password"));
                 }
 
             } catch (SQLException ex) {

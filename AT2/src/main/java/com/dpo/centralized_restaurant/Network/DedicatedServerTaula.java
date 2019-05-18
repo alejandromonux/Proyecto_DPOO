@@ -2,6 +2,8 @@ package com.dpo.centralized_restaurant.Network;
 
 import com.dpo.centralized_restaurant.Controller.Controller;
 import com.dpo.centralized_restaurant.Model.ModelDTO.ClientDTO;
+import com.dpo.centralized_restaurant.Model.Request.Request;
+import com.dpo.centralized_restaurant.Model.Request.RequestDish;
 import com.dpo.centralized_restaurant.Model.Request.RequestManager;
 import com.dpo.centralized_restaurant.Model.Worker;
 import com.dpo.centralized_restaurant.database.ConectorDB;
@@ -62,8 +64,18 @@ public class DedicatedServerTaula extends Thread{
                     case "LOGIN-REQUEST":
                         loginRequest();
                         break;
-                    case "DISH-ORDER-COMING":
-                        String dishOrdered = dis.readUTF();
+                    case "DISHES-COMING":
+                        int counter = dis.readInt();
+                        ArrayList<RequestDish> comanda = new ArrayList<>();
+                        try {
+                            while (counter-- > 0) {
+                                comanda.add((RequestDish) ois.readObject());
+                            }
+
+                        } catch (ClassNotFoundException e){
+                            e.printStackTrace();
+                        }
+
                         long idMesaAfectadaOrder = dis.readLong();
                         break;
                     case "ELIMINATE-DISH":
@@ -109,15 +121,12 @@ public class DedicatedServerTaula extends Thread{
             String requestName = dis.readUTF();
             String password = dis.readUTF();
 
-            if (conectorDB.findWorkerByNameAndPassword(requestName, password) == null) {
-                if (conectorDB.findWorkerByEmailAndPassword(requestName, password) == null) {
+            Request rAux = conectorDB.loginRequest(requestName, password);
+            if ( rAux == null) {
                     dos.writeUTF("LOGIN-INCORRECT");
-                } else {
-                    dos.writeUTF("LOGIN-CORRECT");
-                    oos.writeObject();
-                }
             } else {
                 dos.writeUTF("LOGIN-CORRECT");
+                oos.writeObject(rAux);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -125,8 +134,17 @@ public class DedicatedServerTaula extends Thread{
 
     }
 
-    public void doPayment() {
-
+    public void doPayment() throws IOException, ClassNotFoundException {
+        Request inRequest = (Request)ois.readObject();
+        Request newR = conectorDB.payBill(inRequest);
+        if (newR != null) {
+            if(newR.getId() != -1) {
+                controller.informarEntrada(newR);
+            }
+             dos.writeUTF("PAYMENT-ACCEPTED");
+            } else {
+            dos.writeUTF("PAYMENT-DECLINED");
+        }
     }
 
     /**

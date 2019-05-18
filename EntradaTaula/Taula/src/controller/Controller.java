@@ -1,5 +1,6 @@
 package controller;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import model.Dish;
 import model.RequestDish;
 import network.NetworkManager;
@@ -49,13 +50,7 @@ public class Controller implements ActionListener {
                 vista.changeTaulaPanel("TAULA-ORDER");
                 break;
             case "SEND-COMANDA":
-                //todo enviar les comandes del client
-                try {
-                    System.out.println(vista.getSelectedDish());
-                    networkManager.sendRequestedDish(vista.getSelectedDish());
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
+                sendComanda();
                 break;
             case "REMOVE-FROM-ORDER":
                 vista.removeComandaFromCard(vista.getSelectedComanda(), this);
@@ -71,8 +66,6 @@ public class Controller implements ActionListener {
                 break;
             case "LOG IN":
                 try {
-                    System.out.println(vista.getRequestName());
-                    System.out.println(vista.getPassword());
                     vista.changeTaulaPanel("TAULA-OPTIONS");
                     //networkManager.sendLogInRequest(vista.getRequestName(), vista.getPassword());
                 } catch (Exception ex) {
@@ -109,6 +102,27 @@ public class Controller implements ActionListener {
 
     public void badLogin() {
         vista.badLogin();
+    }
+
+    public void paymentResult(Boolean r) {
+        if (r) {
+            vista.changePanel("TAULA-LOGIN");
+        } else {
+            vista.paymentDeclined();
+        }
+    }
+
+    private void sendComanda() {
+        try {
+
+            networkManager.sendRequestedDish(vista.getSelectedDish());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void resetComanda() {
+        vista.clearBagOfComandes();
     }
 
     private ArrayList<RequestDish> rawData() {
