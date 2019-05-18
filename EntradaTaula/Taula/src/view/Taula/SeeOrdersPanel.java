@@ -128,7 +128,7 @@ public class SeeOrdersPanel extends JPanel {
         ButtonRenderer btnRenderer = new ButtonRenderer("DELETE");
 
         jpContent.getColumn("").setCellRenderer(btnRenderer);
-        jpContent.getColumn("").setCellEditor(new ButtonEditor(new JCheckBox(), c, "DELETE"));
+        jpContent.getColumn("").setCellEditor(new ButtonEditor(new JCheckBox(), c, "DELETE-ORDER"));
         jbtnDelete.registerController(c, "DELETE-ORDER");
     }
 

@@ -4,6 +4,7 @@ import com.dpo.centralized_restaurant.Model.Configuration.configJson;
 import com.dpo.centralized_restaurant.Model.Graphics.OrderedDish;
 import com.dpo.centralized_restaurant.Model.Model;
 import com.dpo.centralized_restaurant.Model.Request.Request;
+import com.dpo.centralized_restaurant.Model.Request.RequestDish;
 import com.dpo.centralized_restaurant.Model.Service.Comanda;
 import com.dpo.centralized_restaurant.Model.Worker;
 import com.dpo.centralized_restaurant.Network.ServerEntrada;
@@ -20,7 +21,10 @@ import com.dpo.centralized_restaurant.database.ConectorDB;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -53,6 +57,7 @@ public class Controller implements ActionListener {
         this.model = model;
         this.configJson = configJson;
         this.conectorDB = conectorDB;
+        createClock();
     }
 
 
@@ -90,6 +95,8 @@ public class Controller implements ActionListener {
                 boolean done = conectorDB.actualizarEstadoServicio(1);
 
                 if(done){
+                    ArrayList<RequestDish> listaRequestDishes = conectorDB.comprobarServidos();
+                    //TODO: Actualizar vista request orders
                     vista.hideConfiguration();
                     vista.changePanel(aux.getActionCommand());
                     serverEntrada = new ServerEntrada(configJson, conectorDB, this);
@@ -609,5 +616,20 @@ public class Controller implements ActionListener {
 
     public void setModel(Model model) {
         this.model = model;
+    }
+
+    public void createClock() {
+        Timer timer;
+        ActionListener actionListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vista.createClock();
+                ArrayList<RequestDish> listaRequestDishes = conectorDB.comprobarServidos();
+
+            }
+        };
+        timer = new Timer(1000, actionListener);
+        timer.setInitialDelay(0);
+        timer.start();
     }
 }

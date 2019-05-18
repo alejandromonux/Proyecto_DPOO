@@ -3,14 +3,16 @@ package model;
 public class RequestDish {
 
     private Long id;
+    private int request_id;
     private String name;
     private double cost;
     private int units;
     private int timecost;
     private String activation_date;
 
-    public RequestDish(Long id, String name, double cost, int units, int timecost, String activation_date) {
+    public RequestDish(Long id, int request_id, String name, double cost, int units, int timecost, String activation_date) {
         this.id = id;
+        this.request_id = request_id;
         this.name = name;
         this.cost = cost;
         this.units = units;
@@ -24,6 +26,14 @@ public class RequestDish {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public int getRequest_id() {
+        return request_id;
+    }
+
+    public void setRequest_id(int request_id) {
+        this.request_id = request_id;
     }
 
     public String getName() {

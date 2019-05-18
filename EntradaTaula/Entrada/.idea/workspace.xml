@@ -56,12 +56,28 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/view/Entrada/RequestMenu.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="782">
-              <caret line="55" column="43" selection-start-line="55" selection-start-column="21" selection-end-line="55" selection-end-column="43" />
+            <state relative-caret-position="380">
+              <caret line="97" column="31" selection-start-line="97" selection-start-column="31" selection-end-line="97" selection-end-column="31" />
               <folding>
-                <element signature="method#createClock#0;class#RequestMenu#0" />
                 <element signature="method#setValuesToShow#0;class#RequestMenu#0" />
+                <element signature="e#3606#3607#0" expanded="true" />
                 <element signature="method#registerController#0;class#RequestMenu#0" />
+                <element signature="e#3840#3841#0" expanded="true" />
+                <element signature="e#3933#3934#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/controller/Controller.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="288">
+              <caret line="25" column="27" lean-forward="true" selection-start-line="25" selection-start-column="27" selection-end-line="25" selection-end-column="27" />
+              <folding>
+                <element signature="method#createClock#0;class#Controller#0" />
+                <element signature="e#1806#1807#0" expanded="true" />
+                <element signature="e#1857#1858#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -74,8 +90,13 @@
               <caret line="30" column="21" selection-start-line="30" selection-start-column="21" selection-end-line="30" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="method#RequestFrame#0;class#RequestFrame#0" />
                 <element signature="e#838#839#0" expanded="true" />
                 <element signature="e#886#887#0" expanded="true" />
+                <element signature="e#1041#1042#0" expanded="true" />
+                <element signature="e#1084#1085#0" expanded="true" />
+                <element signature="method#insertNotification#0;class#RequestFrame#0" />
+                <element signature="method#errorComandaImposible#0;class#RequestFrame#0" />
               </folding>
             </state>
           </provider>
@@ -84,7 +105,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/view/Entrada/PasswordShowPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
+            <state relative-caret-position="360">
               <caret line="17" column="33" selection-start-line="17" selection-start-column="33" selection-end-line="17" selection-end-column="33" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -97,7 +118,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/view/Entrada/FormMenu.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
+            <state relative-caret-position="504">
               <caret line="24" selection-start-line="15" selection-start-column="8" selection-end-line="24" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -122,7 +143,7 @@
         <entry file="file://$PROJECT_DIR$/src/network/EntradaManager.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="159">
-              <caret line="31" selection-start-line="31" selection-end-line="31" />
+              <caret line="35" selection-start-line="35" selection-end-line="35" />
             </state>
           </provider>
         </entry>
@@ -130,7 +151,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/model/Request.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
+            <state relative-caret-position="120">
               <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
             </state>
           </provider>
@@ -139,7 +160,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
+            <state relative-caret-position="24">
               <caret line="1" column="20" selection-start-line="1" selection-start-column="11" selection-end-line="1" selection-end-column="20" />
             </state>
           </provider>
@@ -148,7 +169,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/model/config/configJSON.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
+            <state relative-caret-position="168">
               <caret line="7" column="27" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="27" />
               <folding>
                 <element signature="e#155#156#0" expanded="true" />
@@ -180,14 +201,14 @@
         <option value="$PROJECT_DIR$/src/view/Entrada/ListPanel.java" />
         <option value="$PROJECT_DIR$/src/view/Entrada/FormMenu.java" />
         <option value="$PROJECT_DIR$/src/view/Entrada/PasswordShowPanel.java" />
-        <option value="$PROJECT_DIR$/src/view/Entrada/RequestMenu.java" />
-        <option value="$PROJECT_DIR$/src/view/Entrada/RequestFrame.java" />
-        <option value="$PROJECT_DIR$/src/controller/Controller.java" />
         <option value="$PROJECT_DIR$/src/model/config/configJSON.java" />
-        <option value="$PROJECT_DIR$/src/MainEntrada.java" />
         <option value="$PROJECT_DIR$/src/model/Request.java" />
         <option value="$PROJECT_DIR$/src/network/EntradaManager.java" />
         <option value="$PROJECT_DIR$/config.json" />
+        <option value="$PROJECT_DIR$/src/view/Entrada/RequestFrame.java" />
+        <option value="$PROJECT_DIR$/src/view/Entrada/RequestMenu.java" />
+        <option value="$PROJECT_DIR$/src/MainEntrada.java" />
+        <option value="$PROJECT_DIR$/src/controller/Controller.java" />
       </list>
     </option>
   </component>
@@ -202,8 +223,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -220,7 +239,7 @@
               <item name="Entrada" type="b2602c69:ProjectViewProjectNode" />
               <item name="Entrada" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="model" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Entrada" type="b2602c69:ProjectViewProjectNode" />
@@ -236,6 +255,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -325,11 +346,12 @@
       <workItem from="1557767950140" duration="1769000" />
       <workItem from="1557773362490" duration="9963000" />
       <workItem from="1557906619939" duration="5274000" />
+      <workItem from="1558175262164" duration="976000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="43737000" />
+    <option name="totallyTimeSpent" value="44713000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -486,7 +508,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/model/config/configJSON.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
+        <state relative-caret-position="168">
           <caret line="7" column="27" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="27" />
           <folding>
             <element signature="e#155#156#0" expanded="true" />
@@ -504,7 +526,7 @@
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/MainEntrada.java">
+    <entry file="file://$PROJECT_DIR$/src/view/Entrada/RequestMenu.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="249">
           <caret line="21" column="49" lean-forward="true" selection-start-line="21" selection-start-column="49" selection-end-line="21" selection-end-column="49" />

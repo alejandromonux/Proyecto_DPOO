@@ -201,19 +201,11 @@ public class MainView extends JFrame {
     }
 
     public void createClock() {
-        Timer timer;
-        ActionListener actionListener = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Date date = new Date();
-                DateFormat timeFormat = new SimpleDateFormat("HH:mm");
-                String time = timeFormat.format(date);
-                digitalClock.setText(time);
-            }
-        };
-        timer = new Timer(1000, actionListener);
-        timer.setInitialDelay(0);
-        timer.start();
+        Date date = new Date();
+        DateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        String time = timeFormat.format(date);
+        digitalClock.setText(time);
+
     }
 
     public void changePanel (String which) {
