@@ -90,18 +90,6 @@ public class NetworkManager extends Thread {
         dos.writeUTF("LOGIN-REQUEST");
         dos.writeUTF(requestName);
         dos.writeUTF(password);
-        String response2 = dis.readLine();
-        String response = dis.readUTF();
-        if (response.equalsIgnoreCase("LOGIN-CORRECT")) {
-            String json = dis.readUTF();
-            Gson g = new Gson();
-            myRequest = g.fromJson(json, Request.class);
-            controller.correctLogin();
-        } else {
-            if (response.equalsIgnoreCase("LOGIN-INCORRECT")) {
-                controller.badLogin();
-            }
-        }
     }
 
     public void payBill() {
@@ -165,6 +153,17 @@ public class NetworkManager extends Thread {
                             compt2--;
                         }
                         controller.updateBill((ArrayList<RequestDish>) bill);
+                    break;
+
+                case "LOGIN-CORRECT":
+                    String json = dis.readUTF();
+                    Gson g = new Gson();
+                    myRequest = g.fromJson(json, Request.class);
+                    controller.correctLogin();
+                    break;
+
+                case "LOGIN-INCORRECT":
+                    controller.badLogin();
                     break;
             }
 

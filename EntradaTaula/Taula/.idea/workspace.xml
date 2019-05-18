@@ -2,24 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b75fb6e8-b311-42ad-b671-5566d91a2755" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../AT2/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../AT2/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../AT2/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../AT2/config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../AT2/src/main/java/com/dpo/centralized_restaurant/View/ConfigurationPanels/ConfigurationListPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../AT2/src/main/java/com/dpo/centralized_restaurant/View/ConfigurationPanels/ConfigurationListPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../AT2/src/main/java/com/dpo/centralized_restaurant/View/DishPanels/DishListPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../AT2/src/main/java/com/dpo/centralized_restaurant/View/DishPanels/DishListPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../AT2/src/main/java/com/dpo/centralized_restaurant/View/MainView.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../AT2/src/main/java/com/dpo/centralized_restaurant/View/MainView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../AT2/src/main/java/com/dpo/centralized_restaurant/View/Service/DeepOrderPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../AT2/src/main/java/com/dpo/centralized_restaurant/View/Service/DeepOrderPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../AT2/src/main/java/com/dpo/centralized_restaurant/View/Service/DishService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../AT2/src/main/java/com/dpo/centralized_restaurant/View/Service/DishService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../AT2/src/main/java/com/dpo/centralized_restaurant/View/Service/OrdersService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../AT2/src/main/java/com/dpo/centralized_restaurant/View/Service/OrdersService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../AT2/src/main/java/com/dpo/centralized_restaurant/View/Service/RequestsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../AT2/src/main/java/com/dpo/centralized_restaurant/View/Service/RequestsService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../AT2/src/main/java/com/dpo/centralized_restaurant/View/TablePanels/TablesListPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../AT2/src/main/java/com/dpo/centralized_restaurant/View/TablePanels/TablesListPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../AT2/src/main/java/com/dpo/centralized_restaurant/View/Utils/ButtonEditor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../AT2/src/main/java/com/dpo/centralized_restaurant/View/Utils/ButtonEditor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Entrada/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Entrada/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Entrada/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Entrada/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Entrada/Entrada.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../Entrada/Entrada.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AT2/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../AT2/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AT2/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../AT2/target/classes/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/network/NetworkManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/network/NetworkManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/network/NetworkManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/network/NetworkManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/Taula.kotlin_module" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/centralized_restaurant/target/" />
@@ -41,7 +29,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/controller/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="157">
+            <state relative-caret-position="1088">
               <caret line="77" selection-start-line="77" selection-end-line="77" />
               <folding>
                 <element signature="method#createClock#0;class#Controller#0" />
@@ -60,13 +48,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="19" selection-start-line="19" selection-end-line="19" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#298#1257#0" expanded="true" />
-                <element signature="e#1256#1257#0" expanded="true" />
-              </folding>
+            <state>
+              <caret column="28" lean-forward="true" selection-start-column="28" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -79,13 +62,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/view/MainWindow.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
+            <state relative-caret-position="969">
               <caret line="83" column="36" selection-start-line="83" selection-start-column="36" selection-end-line="83" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#changePanel#0;class#MainWindow#0" />
-                <element signature="e#1985#1986#0" expanded="true" />
-                <element signature="e#2041#2042#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -94,12 +75,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/view/Taula/TaulaGeneralPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
+            <state relative-caret-position="1921">
               <caret line="138" column="36" selection-start-line="138" selection-start-column="36" selection-end-line="138" selection-end-column="36" />
               <folding>
                 <element signature="method#registerController#0;class#TaulaGeneralPanel#0" />
-                <element signature="e#4419#4420#0" expanded="true" />
-                <element signature="e#4475#4476#0" expanded="true" />
                 <element signature="method#getComandaToAdd#0;class#TaulaGeneralPanel#0" />
               </folding>
             </state>
@@ -109,8 +88,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/network/NetworkManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="493">
-              <caret line="92" column="42" lean-forward="true" selection-start-line="92" selection-start-column="42" selection-end-line="92" selection-end-column="42" />
+            <state relative-caret-position="57">
+              <caret line="156" lean-forward="true" selection-start-line="156" selection-end-line="156" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#sendRequestedDish#0;class#NetworkManager#0" />
@@ -124,7 +103,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="816">
+            <state relative-caret-position="578">
               <caret line="34" selection-start-line="34" selection-end-line="34" />
             </state>
           </provider>
@@ -133,7 +112,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="48">
+            <state relative-caret-position="34">
               <caret line="2" column="25" selection-start-line="2" selection-start-column="25" selection-end-line="2" selection-end-column="25" />
             </state>
           </provider>
@@ -142,7 +121,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/model/Request.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
+            <state relative-caret-position="136">
               <caret line="8" column="44" selection-start-line="8" selection-start-column="44" selection-end-line="8" selection-end-column="44" />
             </state>
           </provider>
@@ -151,14 +130,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/view/Taula/SeeOrdersPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="573">
+            <state relative-caret-position="1819">
               <caret line="154" column="23" selection-start-line="154" selection-start-column="23" selection-end-line="154" selection-end-column="23" />
               <folding>
                 <element signature="method#tableCreator#0;class#SeeOrdersPanel#0" />
-                <element signature="e#2466#3724#0" />
                 <element signature="method#updateDishes#0;class#SeeOrdersPanel#0" />
-                <element signature="e#4932#4933#0" expanded="true" />
-                <element signature="e#4993#4994#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -212,10 +188,10 @@
       </MavenImportingSettings>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="-7" />
-    <option name="width" value="974" />
-    <option name="height" value="1047" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-8" />
+    <option name="width" value="975" />
+    <option name="height" value="1048" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -223,7 +199,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -269,7 +245,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -279,7 +255,7 @@
     <property name="Repository.Attach.Sources" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../../ExercicisClasse/Sockets-Chat-Client" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../AT2" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -361,16 +337,18 @@
       <workItem from="1558195289114" duration="4819000" />
       <workItem from="1558200567105" duration="4584000" />
       <workItem from="1558210558338" duration="5661000" />
+      <workItem from="1558217802467" duration="1233000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="77498000" />
+    <option name="totallyTimeSpent" value="78731000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="0" width="974" height="1047" extended-state="0" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24179432" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12013423" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -379,17 +357,17 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32995495" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3277027" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.39864865" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32719547" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.398017" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Terminal" order="10" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" order="12" weight="0.32882884" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.3286119" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -416,27 +394,15 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/network/NetworkManager.java</url>
-          <line>91</line>
-          <properties />
-          <option name="timeStamp" value="17" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/network/NetworkManager.java</url>
-          <line>90</line>
-          <properties />
-          <option name="timeStamp" value="19" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/network/NetworkManager.java</url>
-          <line>37</line>
-          <properties />
-          <option name="timeStamp" value="21" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/network/NetworkManager.java</url>
           <line>39</line>
           <properties />
           <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/network/NetworkManager.java</url>
+          <line>131</line>
+          <properties />
+          <option name="timeStamp" value="23" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -564,66 +530,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/model/config/configJSON.java">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="816">
-          <caret line="34" selection-start-line="34" selection-end-line="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/model/Request.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="8" column="44" selection-start-line="8" selection-start-column="44" selection-end-line="8" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/view/MainWindow.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="83" column="36" selection-start-line="83" selection-start-column="36" selection-end-line="83" selection-end-column="36" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#changePanel#0;class#MainWindow#0" />
-            <element signature="e#1985#1986#0" expanded="true" />
-            <element signature="e#2041#2042#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/view/Taula/TaulaGeneralPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="138" column="36" selection-start-line="138" selection-start-column="36" selection-end-line="138" selection-end-column="36" />
-          <folding>
-            <element signature="method#registerController#0;class#TaulaGeneralPanel#0" />
-            <element signature="e#4419#4420#0" expanded="true" />
-            <element signature="e#4475#4476#0" expanded="true" />
-            <element signature="method#getComandaToAdd#0;class#TaulaGeneralPanel#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/view/Taula/SeeOrdersPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="573">
-          <caret line="154" column="23" selection-start-line="154" selection-start-column="23" selection-end-line="154" selection-end-column="23" />
-          <folding>
-            <element signature="method#tableCreator#0;class#SeeOrdersPanel#0" />
-            <element signature="e#2466#3724#0" />
-            <element signature="method#updateDishes#0;class#SeeOrdersPanel#0" />
-            <element signature="e#4932#4933#0" expanded="true" />
-            <element signature="e#4993#4994#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/controller/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="157">
+        <state relative-caret-position="1088">
           <caret line="77" selection-start-line="77" selection-end-line="77" />
           <folding>
             <element signature="method#createClock#0;class#Controller#0" />
@@ -638,29 +547,74 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/model/config/configJSON.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/view/MainWindow.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="969">
+          <caret line="83" column="36" selection-start-line="83" selection-start-column="36" selection-end-line="83" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#changePanel#0;class#MainWindow#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/view/Taula/TaulaGeneralPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1921">
+          <caret line="138" column="36" selection-start-line="138" selection-start-column="36" selection-end-line="138" selection-end-column="36" />
+          <folding>
+            <element signature="method#registerController#0;class#TaulaGeneralPanel#0" />
+            <element signature="method#getComandaToAdd#0;class#TaulaGeneralPanel#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="34" selection-start-line="34" selection-end-line="34" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/config.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
+        <state relative-caret-position="34">
           <caret line="2" column="25" selection-start-line="2" selection-start-column="25" selection-end-line="2" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/model/Request.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="44" selection-start-line="8" selection-start-column="44" selection-end-line="8" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/view/Taula/SeeOrdersPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1819">
+          <caret line="154" column="23" selection-start-line="154" selection-start-column="23" selection-end-line="154" selection-end-column="23" />
+          <folding>
+            <element signature="method#tableCreator#0;class#SeeOrdersPanel#0" />
+            <element signature="method#updateDishes#0;class#SeeOrdersPanel#0" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="19" selection-start-line="19" selection-end-line="19" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#298#1257#0" expanded="true" />
-            <element signature="e#1256#1257#0" expanded="true" />
-          </folding>
+        <state>
+          <caret column="28" lean-forward="true" selection-start-column="28" selection-end-column="28" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/network/NetworkManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="92" column="42" lean-forward="true" selection-start-line="92" selection-start-column="42" selection-end-line="92" selection-end-column="42" />
+        <state relative-caret-position="57">
+          <caret line="156" lean-forward="true" selection-start-line="156" selection-end-line="156" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#sendRequestedDish#0;class#NetworkManager#0" />
