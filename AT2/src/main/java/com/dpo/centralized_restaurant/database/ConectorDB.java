@@ -461,7 +461,7 @@ public class ConectorDB {
                 s =(Statement) conn.createStatement();
                 rs = s.executeQuery(query);
                 if (rs.next()) {
-                    result = new Request(rs.getString("mesa_name"), rs.getString("password"));
+                    result = new Request(rs.getString("name"), rs.getString("password"));
                 }
             } catch (SQLException ex) {
                 System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());

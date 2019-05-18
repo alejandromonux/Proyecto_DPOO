@@ -40,7 +40,7 @@ public class ServerTaula extends Thread {
 
             while (isRunning) {
                 Socket socket = serverSocket.accept();  // Esperem a que algun usuari es connecti
-                System.out.println("Connected");
+                System.out.println("Connected Taula");
                 //Modifyed by: Marc --> Added dedicatedServers in constructor
                 DedicatedServerTaula dServer = new DedicatedServerTaula(socket, requestsManager, dedicatedServers, conectorDB, controller);   // Creem un cami dedicat a la connexio amb aquest usuari
                 dedicatedServers.add(dServer);

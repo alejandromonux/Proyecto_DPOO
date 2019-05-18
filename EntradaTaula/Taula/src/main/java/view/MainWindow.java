@@ -80,7 +80,7 @@ public class MainWindow extends JFrame {
         return userOptionsMenu.getSelectedDish();
     }
 
-    public String getDishToDelete() {
+    public RequestDish getDishToDelete() {
         return userOptionsMenu.getDishToDelete();
     }
 

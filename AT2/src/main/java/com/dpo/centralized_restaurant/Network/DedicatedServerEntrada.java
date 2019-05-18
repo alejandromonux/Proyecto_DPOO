@@ -23,8 +23,6 @@ public class DedicatedServerEntrada extends Thread{
     private final Socket socket;
     private DataInputStream dis;
     private DataOutputStream dos;
-    private ObjectInputStream ois;
-    private ObjectOutputStream oos;
     private boolean start;
 
     /**
@@ -111,8 +109,6 @@ public class DedicatedServerEntrada extends Thread{
     public void closeDedicatedServer(){
         start = false;
         try {
-            ois.close();
-            oos.close();
             dos.close();
             dis.close();
         } catch (IOException e) {}

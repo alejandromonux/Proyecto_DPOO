@@ -29,8 +29,6 @@ public class DedicatedServerTaula extends Thread{
     private final Socket socket;
     private DataInputStream dis;
     private DataOutputStream dos;
-    private ObjectOutputStream oos;
-    private ObjectInputStream ois;
 
     private Request requestActual;
 
@@ -52,6 +50,10 @@ public class DedicatedServerTaula extends Thread{
         this.dedicatedServers = dedicatedServers;
         this.conectorDB = conectorDB;
         this.controller = controller;
+        try {
+            dos = new DataOutputStream(socket.getOutputStream());
+            dis = new DataInputStream(socket.getInputStream());
+        } catch (Exception e){}
 
         start = true;
         requestActual = null;
@@ -60,11 +62,7 @@ public class DedicatedServerTaula extends Thread{
     @Override
     public void run() {
         try {
-            oos = new ObjectOutputStream(socket.getOutputStream());
-            dos = new DataOutputStream(socket.getOutputStream());
 
-            ois = new ObjectInputStream(socket.getInputStream());
-            dis = new DataInputStream(socket.getInputStream());
             String init = "";
             while (start) {
                 init = dis.readUTF();
@@ -77,8 +75,8 @@ public class DedicatedServerTaula extends Thread{
                         break;
                     case "ELIMINATE-DISH":
                         String dishToEliminate = dis.readUTF();
-                        //dos.writeBoolean(conectorDB);
-                        long idMesaAfectadaEliminate = dis.readLong();
+                        Gson g = new Gson();
+                        dos.writeBoolean(conectorDB.deleteComanda(g.fromJson(dishToEliminate, RequestDish.class)));
                         break;
                     case "SEE-MENU":
                         ArrayList<Dish> menu = conectorDB.findActiveDishes();
@@ -129,16 +127,16 @@ public class DedicatedServerTaula extends Thread{
         try {
             String requestName = dis.readUTF();
             String password = dis.readUTF();
-
             Request rAux = conectorDB.loginRequest(requestName, password);
-            if ( rAux == null) {
-                    dos.writeUTF("LOGIN-INCORRECT");
-            } else {
+            dos.writeUTF("LOGIN-CORRECT");
+            if ( rAux != null) {
                 dos.writeUTF("LOGIN-CORRECT");
                 requestActual = rAux;
                 ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
                 String jsonRequest = ow.writeValueAsString(requestActual);
                 dos.writeUTF(jsonRequest);
+            } else {
+                dos.writeUTF("LOGIN-INCORRECT");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -187,12 +185,6 @@ public class DedicatedServerTaula extends Thread{
      */
     public void closeDedicatedServer(){
         start = false;
-        try {
-            ois.close();
-        } catch (IOException e) {}
-        try {
-            oos.close();
-        } catch (IOException e) {}
         try {
             dos.close();
         } catch (IOException e) {}

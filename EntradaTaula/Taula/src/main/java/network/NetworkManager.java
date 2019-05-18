@@ -12,6 +12,7 @@ import model.config.configJSON;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 
@@ -33,8 +34,10 @@ public class NetworkManager extends Thread {
         IP = config.getIP();
         PORT = config.getPort_Entrada();
         socket = new Socket(IP, PORT);
+        InputStream inputStream = socket.getInputStream();
         dos = new DataOutputStream(socket.getOutputStream());
-        dis = new DataInputStream(socket.getInputStream());
+        dis = new DataInputStream(inputStream);
+        System.out.println("AQUII");
     }
 
     public void startServerConnection(Controller controller) {
@@ -58,9 +61,11 @@ public class NetworkManager extends Thread {
         dos.writeUTF(dish);
     }
 
-    public boolean sendDishToEliminate(String dish) throws IOException {
+    public boolean sendDishToEliminate(RequestDish dish) throws IOException {
         dos.writeUTF("ELIMINATE-DISH");
-        dos.writeUTF(dish);
+        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+        String jsonDish = ow.writeValueAsString(dish);
+        dos.writeUTF(jsonDish);
         dos.writeUTF(myRequest.getMesa_name());
         return dis.readBoolean();
     }
@@ -81,11 +86,11 @@ public class NetworkManager extends Thread {
         }
     }
 
-    public void sendLogInRequest(String requestName, String password)throws IOException, ClassNotFoundException {
+    public void sendLogInRequest(String requestName, String password)throws IOException {
         dos.writeUTF("LOGIN-REQUEST");
         dos.writeUTF(requestName);
         dos.writeUTF(password);
-
+        String response2 = dis.readLine();
         String response = dis.readUTF();
         if (response.equalsIgnoreCase("LOGIN-CORRECT")) {
             String json = dis.readUTF();
@@ -163,10 +168,11 @@ public class NetworkManager extends Thread {
                     break;
             }
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             try {
                 dos.close();
                 dis.close();
+                socket.close();
             } catch (IOException ex) {
                 ex.printStackTrace();
             }

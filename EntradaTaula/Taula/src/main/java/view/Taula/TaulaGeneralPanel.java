@@ -7,7 +7,6 @@ import model.RequestDish;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -136,7 +135,7 @@ public class TaulaGeneralPanel extends JPanel {
         return userLogin.getJtPassword().getText();
     }
 
-    public String getDishToDelete() {
+    public RequestDish getDishToDelete() {
         return requestedOrders.getDishToDelete();
     }
 
