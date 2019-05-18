@@ -715,6 +715,19 @@ public class ConectorDB {
      * ***********************************************************************************
      *********************************************************************************** */
 
+    public synchronized boolean agotarPlato(String name){
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement("UPDATE dish SET units = 0 WHERE name = '" + name + "';");
+            ps.executeUpdate();
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public synchronized boolean insertComanda(ArrayList<RequestDish> listaRequests){
         boolean done = true;
         for (RequestDish requestDish : listaRequests){
