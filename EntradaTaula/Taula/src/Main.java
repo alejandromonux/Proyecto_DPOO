@@ -1,8 +1,11 @@
+import com.google.gson.Gson;
 import controller.Controller;
+import model.config.configJSON;
 import network.NetworkManager;
 import view.MainWindow;
 
 import javax.swing.*;
+import java.io.FileReader;
 
 public class Main {
     public static void main(String[] args) {
@@ -10,10 +13,14 @@ public class Main {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
+                Gson gson = new Gson();
+                configJSON config;
                 try {
-                    //NetworkManager networkManager = new NetworkManager();
+                    config = gson.fromJson(new FileReader("config.json"), configJSON.class);
+                    NetworkManager networkManager = new NetworkManager(config);
                     MainWindow vista = new MainWindow();
                     Controller controller = new Controller(vista, null);
+                    networkManager.startServerConnection(controller);
                     vista.registerController(controller);
                     vista.setVisible(true);
                 } catch (Exception e) {
