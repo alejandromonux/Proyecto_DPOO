@@ -127,7 +127,7 @@ public class Stats extends JPanel {
         jbStats.setActionCommand("STATSPANEL");
         jbStats.addActionListener(c);
 
-        jbBack.setActionCommand("POSTSERVICE");
+        jbBack.setActionCommand("BACK-TO-PS");
         jbBack.addActionListener(c);
     }
 

@@ -53,15 +53,44 @@ public class Graficas extends Canvas {
         //Líneas del eje Y con los valors de veces las cuales se ha pedido un plato
         for(int i = 0; i < orderedDishes.size(); i++){
             g.setColor(Color.GRAY);
-            g.drawLine(50, delimitadoresY[i], WIDTH, delimitadoresY[i]);
+            if(i!=orderedDishes.size()-1) {
+                if (orderedDishes.get(i).getTimesOrdered() != orderedDishes.get(i+1).getTimesOrdered()) {
+                    g.setColor(Color.GRAY);
+                    g.drawLine(50, delimitadoresY[i], WIDTH, delimitadoresY[i]);
+                    g.setColor(Color.BLACK);
+                    g.drawString(""+this.orderedDishes.get(i).getTimesOrdered(), 30, delimitadoresY[i]);
+                }
+                if(i!=0){
+                    if(orderedDishes.get(i).getTimesOrdered() != orderedDishes.get(i-1).getTimesOrdered()){
+                        g.setColor(Color.GRAY);
+                        g.drawLine(50, delimitadoresY[i], WIDTH, delimitadoresY[i]);
+                        g.setColor(Color.BLACK);
+                        g.drawString(""+this.orderedDishes.get(i).getTimesOrdered(), 30, delimitadoresY[i]);
+                    }
+                }
+            }else{
+                if (orderedDishes.get(i).getTimesOrdered() != orderedDishes.get(i-1).getTimesOrdered()) {
+                    g.setColor(Color.GRAY);
+                    g.drawLine(50, delimitadoresY[i], WIDTH, delimitadoresY[i]);
+                    g.setColor(Color.BLACK);
+                    g.drawString(""+this.orderedDishes.get(i).getTimesOrdered(), 30, delimitadoresY[i]);
+                }
+             }
             g.setColor(Color.BLACK);
-                g.drawString(""+this.orderedDishes.get(i).getTimesOrdered(), 30, delimitadoresY[i]);
         }
 
         //rectángulos de la gráfica y el label asociado a ellos
         for(int i = 0; i < orderedDishes.size(); i++){
             g.setColor(Color.YELLOW);
-            g2.fillRect(posicionesX[i], delimitadoresY[i], 30, HEIGHT - delimitadoresY[i]-100);
+            if(i!=0){
+                if(orderedDishes.get(i).getTimesOrdered() == orderedDishes.get(i-1).getTimesOrdered()){
+                    g2.fillRect(posicionesX[i], delimitadoresY[i-1], 30, HEIGHT - delimitadoresY[i-1]-100);
+                }else{
+                    g2.fillRect(posicionesX[i], delimitadoresY[i], 30, HEIGHT - delimitadoresY[i]-100);
+                }
+            }else{
+                g2.fillRect(posicionesX[i], delimitadoresY[i], 30, HEIGHT - delimitadoresY[i]-100);
+            }
             g.setColor(Color.BLACK);
             g.drawString(this.orderedDishes.get(i).getDishName(), posicionesX[i] , HEIGHT-85);
         }
