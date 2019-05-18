@@ -265,7 +265,7 @@ public class Controller implements ActionListener {
                 boolean done4 = conectorDB.createDish(vista.getJpDish().getJpCreator().getJtfName().getText(),
                         (int) vista.getJpDish().getJpCreator().getJcbQuantity().getSelectedItem(),
                         Double.parseDouble(vista.getJpDish().getJpCreator().getJtCost().getText()),
-                        Double.parseDouble(vista.getJpDish().getJpCreator().getJtTime().getText()));
+                        Integer.parseInt(vista.getJpDish().getJpCreator().getJtTime().getText()));
 
                 if(!done4){
                     JOptionPane.showMessageDialog(vista,

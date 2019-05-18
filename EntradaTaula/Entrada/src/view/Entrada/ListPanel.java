@@ -82,6 +82,7 @@ public class ListPanel extends JPanel {
             jpAux.setPreferredSize(new Dimension(350,30));
             jpAux.setBorder(new EmptyBorder(0,20,0,20));
             jpAux.setBackground(cAux);
+            this.removeAll();
             this.add(jpAux);
             repaint();
         }
