@@ -5,6 +5,7 @@ import com.dpo.centralized_restaurant.Model.Configuration.ConfigurationDish;
 import javax.persistence.*;
 
 import javax.persistence.OneToMany;
+import java.io.Serializable;
 import java.util.Set;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Set;
  */
 
 @Entity
-public class Dish {
+public class Dish implements Serializable {
 
     private Long id;
     private String name;

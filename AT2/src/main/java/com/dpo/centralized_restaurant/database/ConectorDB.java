@@ -721,7 +721,7 @@ public class ConectorDB {
             PreparedStatement ps = null;
             try {
                 ps = conn.prepareStatement("INSERT INTO request_order(request_id, dish_id, quantity, actual_service, activation_date, timecost) " +
-                        "VALUES(" + requestDish.getRequest_id() + ", " + requestDish.getId() + ", " + requestDish.getUnits() + ", " + requestDish.getActualService() + "" +
+                        "VALUES(" + requestDish.getRequest_id() + ", " + requestDish.getDish_id() + ", " + requestDish.getUnits() + ", " + requestDish.getActualService() + "" +
                         ", " + requestDish.getActivation_date() + ", " + requestDish.getTimecost() + ");");
                 ps.executeUpdate();
 
@@ -733,6 +733,19 @@ public class ConectorDB {
         }
 
         return done;
+    }
+
+    public synchronized boolean deleteComanda(RequestDish requestDish){
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement("DELETE FROM request_order WHERE id = " + requestDish.getId() + ";");
+            ps.executeUpdate();
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public synchronized Request payBill(Request requestPagado){
@@ -802,7 +815,7 @@ public class ConectorDB {
                     "addtime(activation_date, concat(timecost / 60, ':', MOD(timecost, 60), ':00')) AND actual_service = 1;");
             ps.executeUpdate();
 
-            String query = "SELECT ro.dish_id AS dish_id, r.id AS request_id, d.name AS name, d.cost AS cost, ro.quantity AS units, " +
+            String query = "SELECT ro.id AS id, ro.dish_id AS dish_id, r.id AS request_id, d.name AS name, d.cost AS cost, ro.quantity AS units, " +
                     "d.timecost AS timecost, ro.activation_date AS activation_date, ro.actual_service AS actual_service" +
                     "FROM request AS r, request_order AS ro, dish AS d WHERE r.id = ro.request_id AND ro.activation_date <> null AND r.in_service <= 1 AND d.id = ro.dish_id;";
             ResultSet rs = null;
@@ -812,7 +825,7 @@ public class ConectorDB {
             ArrayList<RequestDish> result = new ArrayList<>();
 
             while(rs.next()){
-                result.add(new RequestDish(rs.getInt("dish_id"), rs.getInt("request_id"), rs.getString("name"),
+                result.add(new RequestDish(rs.getInt("id"), rs.getInt("dish_id"), rs.getInt("request_id"), rs.getString("name"),
                         rs.getFloat("cost"), rs.getInt("units"), rs.getInt("timecost"), rs.getString("activation_date"), rs.getInt("actual_service")));
             }
 
@@ -827,7 +840,7 @@ public class ConectorDB {
 
     public synchronized ArrayList<RequestDish> getMyOrders(Request request){
         try {
-            String query = "SELECT ro.dish_id AS dish_id, r.id AS request_id, d.name AS name, d.cost AS cost, ro.quantity AS units, " +
+            String query = "SELECT ro.id AS id, ro.dish_id AS dish_id, r.id AS request_id, d.name AS name, d.cost AS cost, ro.quantity AS units, " +
                     "d.timecost AS timecost, ro.activation_date AS activation_date, ro.actual_service AS actual_service" +
                     "FROM request AS r, request_order AS ro, dish AS d WHERE r.id = ro.request_id AND r.id = " + request.getId() +" AND d.id = ro.dish_id;";
             ResultSet rs = null;
@@ -837,7 +850,7 @@ public class ConectorDB {
             ArrayList<RequestDish> result = new ArrayList<>();
 
             while(rs.next()){
-                result.add(new RequestDish(rs.getInt("dish_id"), rs.getInt("request_id"), rs.getString("name"),
+                result.add(new RequestDish(rs.getInt("id"), rs.getInt("dish_id"), rs.getInt("request_id"), rs.getString("name"),
                         rs.getFloat("cost"), rs.getInt("units"), rs.getInt("timecost"), rs.getString("activation_date"), rs.getInt("actual_service")));
             }
 
@@ -949,9 +962,9 @@ public class ConectorDB {
         float aux = 0;
 
         if (today) {
-            query = "SELECT sum(d.cost*ro.quantity) AS gain FROM (dish AS d JOIN request_order AS ro ON ro.dish_id = d.id) JOIN request AS r ON r.id = request_id WHERE ro.actual_service >= 1 AND r.in_service < 3;";
+            query = "SELECT sum(d.cost*ro.quantity) AS gain FROM (dish AS d JOIN request_order AS ro ON ro.name = d.name) JOIN request AS r ON r.id = request_id WHERE ro.actual_service >= 1 AND r.in_service < 3;";
         } else {
-            query = "SELECT sum(d.cost*ro.quantity) AS gain FROM dish AS d JOIN request_order AS ro ON ro.dish_id = d.id WHERE ro.actual_service >= 1;";
+            query = "SELECT sum(d.cost*ro.quantity) AS gain FROM dish AS d JOIN request_order AS ro ON ro.name = d.name WHERE ro.actual_service >= 1;";
         }
 
         try {
@@ -971,7 +984,7 @@ public class ConectorDB {
 
     public synchronized float getAvgPrice() {
         String query = "SELECT avg(aux.pricePerTable) AS priceTable FROM (SELECT sum(cost*ro.quantity)/(SELECT count(*) AS n_mesas FROM mesa AS m) AS pricePerTable\n" +
-                "        FROM Dish as d JOIN request_order AS ro ON d.id = ro.dish_id JOIN request AS r ON ro.request_id = r.id JOIN mesa AS m ON m.name = r.mesa_name GROUP BY m.name) AS aux;";
+                "        FROM Dish as d JOIN request_order AS ro ON d.name = ro.name JOIN request AS r ON ro.request_id = r.id JOIN mesa AS m ON m.name = r.mesa_name GROUP BY m.name) AS aux;";
         ResultSet rs = null;
         float aux = 0;
         try {
@@ -991,7 +1004,7 @@ public class ConectorDB {
 
     public synchronized float getAvgDishes() {
         String query = "SELECT avg(aux.dishPerTable) AS dishPerTable FROM (SELECT sum(ro.quantity)/(SELECT count(*) AS n_mesas FROM mesa AS m) AS dishPerTable \n" +
-                "FROM Dish as d JOIN request_order AS ro ON d.id = ro.dish_id JOIN request AS r ON ro.request_id = r.id JOIN mesa AS m ON m.name = r.mesa_name GROUP BY m.name) AS aux;";
+                "FROM Dish as d JOIN request_order AS ro ON d.name = ro.name JOIN request AS r ON ro.request_id = r.id JOIN mesa AS m ON m.name = r.mesa_name GROUP BY m.name) AS aux;";
         ResultSet rs = null;
         float aux = 0;
         try {
@@ -1247,20 +1260,23 @@ public class ConectorDB {
      */
     public boolean setHistoricos() {
         try {
-            String query = "SELECT ro.dish_id AS dish_id, SUM(ro.quantity) AS cantidad_total FROM request AS r, request_order AS ro " +
-                    "WHERE r.id = ro.request_id AND r.in_service <= 2 GROUP BY dish_id;";
+            String query = "SELECT ro.name AS dish_name, SUM(ro.quantity) AS cantidad_total FROM request AS r, request_order AS ro " +
+                    "WHERE r.id = ro.request_id AND r.in_service <= 2 GROUP BY ro.name;";
             ResultSet rs = null;
             s = (Statement) conn.createStatement();
             rs = s.executeQuery(query);
 
             while (rs.next()) {
                 PreparedStatement ps = conn.prepareStatement("UPDATE dish SET historics_orders = historics_orders + " + rs.getInt("cantidad_total") + " " +
-                        "WHERE id = " + rs.getInt("dish_id") + ";");
+                        "WHERE name = " + rs.getString("dish_name") + ";");
                 ps.executeUpdate();
             }
 
             PreparedStatement ps2 = conn.prepareStatement("UPDATE request SET in_service = 3;");
             ps2.executeUpdate();
+
+            PreparedStatement ps3 = conn.prepareStatement("UPDATE mesa SET in_use = false;");
+            ps3.executeUpdate();
 
             return true;
 
