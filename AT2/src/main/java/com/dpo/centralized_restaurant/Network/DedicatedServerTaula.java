@@ -29,6 +29,8 @@ public class DedicatedServerTaula extends Thread{
     private ObjectOutputStream oos;
     private DataOutputStream dos;
 
+    private Request requestActual;
+
     private boolean start;
 
     /**
@@ -48,6 +50,7 @@ public class DedicatedServerTaula extends Thread{
         this.conectorDB = conectorDB;
         this.controller = controller;
         start = true;
+        requestActual = null;
     }
 
     @Override
@@ -110,6 +113,8 @@ public class DedicatedServerTaula extends Thread{
             }
 
         } catch (IOException e) {
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         } finally {
             try {
                 ois.close();
@@ -141,6 +146,7 @@ public class DedicatedServerTaula extends Thread{
                     dos.writeUTF("LOGIN-INCORRECT");
             } else {
                 dos.writeUTF("LOGIN-CORRECT");
+                requestActual = rAux;
                 oos.writeObject(rAux);
             }
         } catch (Exception e) {

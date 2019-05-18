@@ -60,7 +60,7 @@ public class MainView extends JFrame {
     public MainView(Controller controlador) {
 
         this.setLayout(new BorderLayout());
-        setSize(800,450);
+        setSize(800,500);
         this.setBackground(new Color(0x1A1A57));
 
         jpServiceHome = new ServeiPanel();
@@ -110,7 +110,7 @@ public class MainView extends JFrame {
         //jbLogOut.setActionCommand("LogIn");
         jpAuxH3.add(jbLogOut);*/
 
-        JPanel miniLoginBox = new JPanel(new GridLayout(2,1));
+        JPanel miniLoginBox = new JPanel(new GridLayout(3,0));
         // Al registrase o loguearse, aquí se verá el nombre del usuario
         JPanel jpAuxH3 = new JPanel();
         jlWelcomeUser = new JLabel("Welcome, User");
@@ -119,9 +119,9 @@ public class MainView extends JFrame {
         jlWelcomeUser.setBorder(new EmptyBorder(0, 20, 0, 20));
 
         jbLogOut = new JButton("LOG OUT");
-        jbLogOut.setFont(new Font("Chaparral Pro Light", Font.PLAIN, 15));
+        jbLogOut.setFont(new Font("Chaparral Pro Light", Font.PLAIN, 10));
         jbLogOut.setFocusable(false);
-        jbLogOut.setBorder(new EmptyBorder(2, 20, 2, 20));
+        //jbLogOut.setBorder(new EmptyBorder(2, 20, 2, 20));
         jpAuxH3.add(jlWelcomeUser);
         jpAuxH3.add(jbLogOut);
         jbLogOut.setVisible(false);
@@ -132,14 +132,18 @@ public class MainView extends JFrame {
         jpAuxH2.setBackground(null);
         jpAuxH3.setBackground(null);
         miniLoginBox.setBackground(null);
-
         miniLoginBox.add(jpAuxH3);
+
+        //miniLoginBox.add(jpAuxH3);
+        //miniLoginBox.add(jlWelcomeUser);
+        //miniLoginBox.add(jbLogOut);
         jbConfig = new JButton("CONFIGURATIONS");
         jbConfig.setFont(new Font("Chaparral Pro Light", Font.PLAIN, 15));
         jbConfig.setFocusable(false);
         //jbConfig.setBorder(new EmptyBorder(2, 20, 2, 20));
         jbConfig.setVisible(false);
         miniLoginBox.add(jbConfig);
+        //jpAuxH3.add(jbConfig);
 
         jpHeader.add(jpAuxH1);
         jpHeader.add(jpAuxH2);
@@ -197,19 +201,11 @@ public class MainView extends JFrame {
     }
 
     public void createClock() {
-        Timer timer;
-        ActionListener actionListener = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Date date = new Date();
-                DateFormat timeFormat = new SimpleDateFormat("HH:mm");
-                String time = timeFormat.format(date);
-                digitalClock.setText(time);
-            }
-        };
-        timer = new Timer(1000, actionListener);
-        timer.setInitialDelay(0);
-        timer.start();
+        Date date = new Date();
+        DateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        String time = timeFormat.format(date);
+        digitalClock.setText(time);
+
     }
 
     public void changePanel (String which) {
@@ -280,10 +276,11 @@ public class MainView extends JFrame {
     }
 
     public void updateRequests(ArrayList<Request> listaRequests, Controller controller){
-        jpContent.remove(jpReq);
-        jpReq = new RequestsService(listaRequests, controller);
-        jpReq.registerControllers(controller);
-        jpContent.add("REQUESTS", jpReq);
+        //jpContent.remove(jpReq);
+        //jpReq = new RequestsService(listaRequests, controller);
+        //jpReq.registerControllers(controller);
+        //jpContent.add("REQUESTS", jpReq);
+        jpReq.update(listaRequests, controller);
     }
 
     public String getConfigName() {

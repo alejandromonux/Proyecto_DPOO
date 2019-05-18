@@ -2,12 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="96255d89-aa2c-4b37-ba17-2eb385531910" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/model/Request.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AT2/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../AT2/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../AT2/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../AT2/config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../AT2/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../AT2/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AT2/src/main/java/com/dpo/centralized_restaurant/View/ConfigurationPanels/ConfigurationListPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../AT2/src/main/java/com/dpo/centralized_restaurant/View/ConfigurationPanels/ConfigurationListPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AT2/src/main/java/com/dpo/centralized_restaurant/View/DishPanels/DishListPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../AT2/src/main/java/com/dpo/centralized_restaurant/View/DishPanels/DishListPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AT2/src/main/java/com/dpo/centralized_restaurant/View/MainView.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../AT2/src/main/java/com/dpo/centralized_restaurant/View/MainView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AT2/src/main/java/com/dpo/centralized_restaurant/View/Service/DeepOrderPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../AT2/src/main/java/com/dpo/centralized_restaurant/View/Service/DeepOrderPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AT2/src/main/java/com/dpo/centralized_restaurant/View/Service/DishService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../AT2/src/main/java/com/dpo/centralized_restaurant/View/Service/DishService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AT2/src/main/java/com/dpo/centralized_restaurant/View/Service/OrdersService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../AT2/src/main/java/com/dpo/centralized_restaurant/View/Service/OrdersService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AT2/src/main/java/com/dpo/centralized_restaurant/View/Service/RequestsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../AT2/src/main/java/com/dpo/centralized_restaurant/View/Service/RequestsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AT2/src/main/java/com/dpo/centralized_restaurant/View/TablePanels/TablesListPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../AT2/src/main/java/com/dpo/centralized_restaurant/View/TablePanels/TablesListPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AT2/src/main/java/com/dpo/centralized_restaurant/View/Utils/ButtonEditor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../AT2/src/main/java/com/dpo/centralized_restaurant/View/Utils/ButtonEditor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/network/EntradaManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/network/EntradaManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Entrada.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Entrada.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Taula/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Taula/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Taula/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Taula/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Taula/src/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Taula/src/controller/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Taula/src/network/NetworkManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Taula/src/network/NetworkManager.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -18,6 +30,26 @@
   </component>
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
+  </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="-463265961">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.open.time.3" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="xml" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="XML" value="1" />
+        </counts>
+      </usages-collector>
+    </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
@@ -54,8 +86,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/view/Entrada/RequestFrame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="528">
-              <caret line="39" column="26" lean-forward="true" selection-start-line="39" selection-start-column="26" selection-end-line="39" selection-end-column="26" />
+            <state relative-caret-position="459">
+              <caret line="30" column="21" selection-start-line="30" selection-start-column="21" selection-end-line="30" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#RequestFrame#0;class#RequestFrame#0" />
@@ -98,8 +130,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/MainEntrada.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="19" column="19" lean-forward="true" selection-start-line="19" selection-start-column="19" selection-end-line="19" selection-end-column="19" />
+            <state relative-caret-position="249">
+              <caret line="21" column="49" lean-forward="true" selection-start-line="21" selection-start-column="49" selection-end-line="21" selection-end-column="49" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -113,7 +148,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/model/Request.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="120">
@@ -177,10 +212,10 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="953" />
-    <option name="width" value="974" />
-    <option name="height" value="1047" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-8" />
+    <option name="width" value="975" />
+    <option name="height" value="1048" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -214,9 +249,7 @@
             </path>
             <path>
               <item name="Entrada" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Entrada" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Entrada" type="462c0819:PsiDirectoryNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
           <select />
@@ -234,13 +267,14 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1558179516621" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/gson-2.8.5.jar!/" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
@@ -320,10 +354,10 @@
     <option name="totallyTimeSpent" value="44713000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12739871" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18657719" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -332,8 +366,8 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.18838526" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.398017" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.18723404" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.398017" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -342,7 +376,8 @@
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Terminal" order="10" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" order="12" weight="0.32998884" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.3248227" />
+      <window_info anchor="right" id="Maven Projects" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -356,6 +391,9 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -409,9 +447,40 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/network/NetworkManager.java" />
+    <entry file="file://$PROJECT_DIR$/src/controller/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="610">
+          <caret line="53" column="26" selection-start-line="53" selection-start-column="26" selection-end-line="53" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/Entrada/RequestMenu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="782">
+          <caret line="55" column="43" selection-start-line="55" selection-start-column="21" selection-end-line="55" selection-end-column="43" />
+          <folding>
+            <element signature="method#createClock#0;class#RequestMenu#0" />
+            <element signature="method#setValuesToShow#0;class#RequestMenu#0" />
+            <element signature="method#registerController#0;class#RequestMenu#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/view/Entrada/RequestFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="30" column="21" selection-start-line="30" selection-start-column="21" selection-end-line="30" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#838#839#0" expanded="true" />
+            <element signature="e#886#887#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/view/Entrada/PasswordShowPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
+        <state relative-caret-position="255">
           <caret line="17" column="33" selection-start-line="17" selection-start-column="33" selection-end-line="17" selection-end-column="33" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -422,7 +491,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/view/Entrada/FormMenu.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
+        <state relative-caret-position="357">
           <caret line="24" selection-start-line="15" selection-start-column="8" selection-end-line="24" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -430,16 +499,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/Request.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24">
+        <state relative-caret-position="17">
           <caret line="1" column="20" selection-start-line="1" selection-start-column="11" selection-end-line="1" selection-end-column="20" />
         </state>
       </provider>
@@ -457,57 +519,27 @@
     <entry file="file://$PROJECT_DIR$/src/network/EntradaManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="159">
-          <caret line="35" selection-start-line="35" selection-end-line="35" />
+          <caret line="31" selection-start-line="31" selection-end-line="31" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/MainEntrada.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="19" column="19" lean-forward="true" selection-start-line="19" selection-start-column="19" selection-end-line="19" selection-end-column="19" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/view/Entrada/RequestMenu.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="97" column="31" selection-start-line="97" selection-start-column="31" selection-end-line="97" selection-end-column="31" />
-          <folding>
-            <element signature="method#setValuesToShow#0;class#RequestMenu#0" />
-            <element signature="e#3606#3607#0" expanded="true" />
-            <element signature="method#registerController#0;class#RequestMenu#0" />
-            <element signature="e#3840#3841#0" expanded="true" />
-            <element signature="e#3933#3934#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/Entrada/RequestFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="39" column="26" lean-forward="true" selection-start-line="39" selection-start-column="26" selection-end-line="39" selection-end-column="26" />
+        <state relative-caret-position="249">
+          <caret line="21" column="49" lean-forward="true" selection-start-line="21" selection-start-column="49" selection-end-line="21" selection-end-column="49" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#RequestFrame#0;class#RequestFrame#0" />
-            <element signature="e#838#839#0" expanded="true" />
-            <element signature="e#886#887#0" expanded="true" />
-            <element signature="e#1041#1042#0" expanded="true" />
-            <element signature="e#1084#1085#0" expanded="true" />
-            <element signature="method#insertNotification#0;class#RequestFrame#0" />
-            <element signature="method#errorComandaImposible#0;class#RequestFrame#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/controller/Controller.java">
+    <entry file="file://$PROJECT_DIR$/src/model/Request.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="25" column="27" lean-forward="true" selection-start-line="25" selection-start-column="27" selection-end-line="25" selection-end-column="27" />
-          <folding>
-            <element signature="method#createClock#0;class#Controller#0" />
-            <element signature="e#1806#1807#0" expanded="true" />
-            <element signature="e#1857#1858#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="85">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -528,6 +560,7 @@
       </state>
       <state key="FacetStructureConfigurable.UI">
         <settings>
+          <last-edited>No facets are configured</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -550,6 +583,7 @@
       </state>
       <state key="JdkListConfigurable.UI">
         <settings>
+          <last-edited>11</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -561,6 +595,7 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
+          <last-edited>Entrada</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

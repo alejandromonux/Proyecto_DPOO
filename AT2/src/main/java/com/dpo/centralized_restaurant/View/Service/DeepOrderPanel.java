@@ -62,9 +62,9 @@ public class DeepOrderPanel extends JPanel {
             jtable.getColumnModel().getColumn(i).setCellRenderer(df);
         }
         jtable.getColumn("ChangeState").setCellRenderer(new ButtonRenderer("SEE MORE"));
-        jtable.getColumn("ChangeState").setCellEditor(new ButtonEditor(new JCheckBox(), c, "SEE-COMANDA"));
+        jtable.getColumn("ChangeState").setCellEditor(new ButtonEditor(new JCheckBox(), c, "SEE-COMANDA", "SEE MORE"));
         jtable.getColumn("Delete").setCellRenderer(new ButtonRenderer("DELETE"));
-        jtable.getColumn("Delete").setCellEditor(new ButtonEditor(new JCheckBox(), c, "SEE-COMANDA"));
+        jtable.getColumn("Delete").setCellEditor(new ButtonEditor(new JCheckBox(), c, "DELETE-COMANDA", "DELETE"));
 
         jbBack = new JButton("BACK");
 
@@ -83,7 +83,7 @@ public class DeepOrderPanel extends JPanel {
         for (int i =0; i < comandas.size() ; i++){
             data[i][0] = comandas.get(i).getName();
             data[i][1] = comandas.get(i).getUnits();
-            data[i][2] = comandas.get(i).getActual_service();
+            data[i][2] = comandas.get(i).getActualService();
             data[i][5] = "HORA ESTIMADA ENTREGA";
             data[i][6] = "CHANGE STATE";
             data[i][7] = "DELETE";

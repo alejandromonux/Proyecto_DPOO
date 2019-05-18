@@ -31,8 +31,9 @@ public class RequestsService extends JPanel {
     private JButton editButton;
     private Object editorValue;
     private boolean isButtonColumnEditor;
-    Object[][] data ;
-    String[] columnNames;
+    private JScrollPane jsPanel;
+    private Object[][] data ;
+    private String[] columnNames;
 
     public RequestsService(ArrayList<Request> requests, Controller c) {
 
@@ -54,7 +55,7 @@ public class RequestsService extends JPanel {
 
         jtable = new JTable(tm);
         jtable.setRowHeight(30);
-        JScrollPane jsPanel = new JScrollPane(jtable);
+        jsPanel = new JScrollPane(jtable);
 
         DefaultTableCellRenderer df = new DefaultTableCellRenderer();
         df.setHorizontalAlignment(JLabel.CENTER);
@@ -62,11 +63,11 @@ public class RequestsService extends JPanel {
             jtable.getColumnModel().getColumn(i).setCellRenderer(df);
         }
         jtable.getColumn("Assign").setCellRenderer(new ButtonRenderer("Assign"));
-        jtable.getColumn("Assign").setCellEditor(new ButtonEditor(new JCheckBox(), c, "ACCEPT-REQUEST"));
+        jtable.getColumn("Assign").setCellEditor(new ButtonEditor(new JCheckBox(), c, "ACCEPT-REQUEST", "Assign"));
 
 
         jtable.getColumn("Delete").setCellRenderer(new ButtonRenderer("Delete"));
-        jtable.getColumn("Delete").setCellEditor(new ButtonEditor(new JCheckBox(), c, "DECLINE-REQUEST"));
+        jtable.getColumn("Delete").setCellEditor(new ButtonEditor(new JCheckBox(), c, "DECLINE-REQUEST", "Delete"));
 
 
         jbBack = new JButton("Back");
@@ -105,4 +106,42 @@ public class RequestsService extends JPanel {
     }
 
 
+    public void update(ArrayList<Request> listaRequests, Controller c) {
+        this.remove(jsPanel);
+
+
+        getColumNames();
+        createData(listaRequests);
+        TableModel tm = new DefaultTableModel(data, columnNames) {
+            public boolean isCellEditable(int row, int column) {
+                if((column == columnNames.length -1)||(column == columnNames.length -2)) return true;
+                return false;
+            }
+        };
+
+        jtable = new JTable(tm);
+        jtable.setRowHeight(30);
+        jsPanel = new JScrollPane(jtable);
+
+        DefaultTableCellRenderer df = new DefaultTableCellRenderer();
+        df.setHorizontalAlignment(JLabel.CENTER);
+        for(int i= 0; i < jtable.getColumnCount();i++){
+            jtable.getColumnModel().getColumn(i).setCellRenderer(df);
+        }
+        jtable.getColumn("Assign").setCellRenderer(new ButtonRenderer("Assign"));
+        jtable.getColumn("Assign").setCellEditor(new ButtonEditor(new JCheckBox(), c, "ACCEPT-REQUEST", "Assign"));
+
+
+        jtable.getColumn("Delete").setCellRenderer(new ButtonRenderer("Delete"));
+        jtable.getColumn("Delete").setCellEditor(new ButtonEditor(new JCheckBox(), c, "DECLINE-REQUEST", "Delete"));
+
+
+        jbBack = new JButton("Back");
+        this.add(jsPanel);
+
+        jtable.repaint();
+        jsPanel.repaint();
+        this.repaint();
+
+    }
 }

@@ -62,8 +62,8 @@ public class DishService extends JPanel{
         for(int i= 0; i < jtable.getColumnCount();i++){
             jtable.getColumnModel().getColumn(i).setCellRenderer(df);
         }
-        jtable.getColumn("Stop Serving").setCellRenderer(new ButtonRenderer("CANCEL"));
-        jtable.getColumn("Stop Serving").setCellEditor(new ButtonEditor(new JCheckBox(), c, "CANCEL"));
+        jtable.getColumn("Stop Serving").setCellRenderer(new ButtonRenderer("Cancel"));
+        jtable.getColumn("Stop Serving").setCellEditor(new ButtonEditor(new JCheckBox(), c, "CANCEL", "Cancel"));
 
         jbBack = new JButton("Back");
 
