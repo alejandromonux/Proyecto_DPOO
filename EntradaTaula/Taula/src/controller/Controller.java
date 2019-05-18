@@ -73,8 +73,7 @@ public class Controller implements ActionListener {
                 break;
             case "LOG IN":
                 try {
-                    vista.changeTaulaPanel("TAULA-OPTIONS");
-                    //networkManager.sendLogInRequest(vista.getRequestName(), vista.getPassword());
+                    networkManager.sendLogInRequest(vista.getRequestName(), vista.getPassword());
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }

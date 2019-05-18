@@ -107,7 +107,7 @@ public class EntradaManager extends Thread {
                 if (!done){
                     controller.insertNotification();
                 } else {
-                    controller.updateRequestList();
+                    //controller.updateRequestList();
                 }
                 break;
         }

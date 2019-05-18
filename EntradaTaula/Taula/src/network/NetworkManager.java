@@ -4,6 +4,7 @@ import controller.Controller;
 import model.Dish;
 import model.Request;
 import model.RequestDish;
+import model.config.configJSON;
 
 import java.io.*;
 import java.net.Socket;
@@ -11,8 +12,8 @@ import java.util.ArrayList;
 
 public class NetworkManager extends Thread {
 
-    private static final String IP = "127.0.0.1";
-    private final static int PORT = 12345;
+    private String IP;
+    private int PORT;
 
     private Socket socket;
     private Controller controller;
@@ -24,8 +25,10 @@ public class NetworkManager extends Thread {
 
     private Request myRequest;
 
-    public NetworkManager() throws IOException {
+    public NetworkManager(configJSON config) throws IOException {
         controller = null;
+        IP = config.getIP();
+        PORT = config.getPort_Entrada();
         socket = new Socket(IP, PORT);
         dis = new DataInputStream(socket.getInputStream());
         ois = new ObjectInputStream(socket.getInputStream());
@@ -144,9 +147,14 @@ public class NetworkManager extends Thread {
                     break;
             }
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (Exception e) {
+            try {
+                dos.close();
+                dis.close();
+                socket.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
             e.printStackTrace();
         }
     }
