@@ -474,7 +474,7 @@ public class ConectorDB {
      */
     public ArrayList<Request> getRequests() {
         // Busca requests que esten pendientes de entrar o que tengan mesa asignada pero que aun no se hayan ido y pagado
-        String query = "SELECT name, mesa_name, password FROM request WHERE in_service <= 1 ORDER BY id ASC;";
+        String query = "SELECT * FROM request WHERE in_service <= 1 ORDER BY id ASC;";
         ResultSet rs = null;
         ArrayList<Request> result = new ArrayList<>();
 
@@ -482,7 +482,7 @@ public class ConectorDB {
             s = (Statement) conn.createStatement();
             rs = s.executeQuery(query);
             while (rs.next()) {
-                Request requestAux = new Request(rs.getString("mesa_name"), rs.getString("password"));
+                Request requestAux = new Request(rs.getString("name"), rs.getString("password"));
                 result.add(requestAux);
             }
 
@@ -618,7 +618,9 @@ public class ConectorDB {
                 recibido = true;
                 // Buscamos si hay una mesa  libre que cumpla con la tolerancia de comensales establecida
                 // (Es viable que haya una tolerancia de dos comensales mas por mesa, pero no mas de dos)
-                if (!(rs.getBoolean("inUse")) && rs.getInt("chairs") <= nuevoRequest.getQuantity() + 2) {
+                boolean a = rs.getBoolean("in_use");
+                int num = rs.getInt("chairs");
+                if (!a && num <= nuevoRequest.getQuantity() + 2 && num >= nuevoRequest.getQuantity()) {
                     UUID uuid = UUID.randomUUID();
                     String randomUUIDString = uuid.toString();
 
@@ -642,7 +644,7 @@ public class ConectorDB {
 
                 // Buscamos mesas ocupadas que entren dentro de la tolerancia para poder poner el pedido de mesa en su cola de espera
                 while (rs.next()) {
-                    if (rs.getInt("chairs") <= nuevoRequest.getQuantity() + 2) {
+                    if (rs.getInt("chairs") <= nuevoRequest.getQuantity() + 2 && rs.getInt("chairs") >= nuevoRequest.getQuantity()) {
                         PreparedStatement ps = conn.prepareStatement("UPDATE request SET mesa_name = '" + rs.getString("name") + "', " +
                                 "in_service = 0 WHERE id = " + nuevoRequest.getId() + ";");
                         ps.executeUpdate();
@@ -659,7 +661,7 @@ public class ConectorDB {
 
                 //Buscamos una mesa que no este usada, ya sin tener en cuenta la tolerancia
                 while (rs.next()) {
-                    if (!(rs.getBoolean("inUse"))) {
+                    if (!(rs.getBoolean("in_use"))) {
                         UUID uuid = UUID.randomUUID();
                         String randomUUIDString = uuid.toString();
 
