@@ -70,28 +70,8 @@ public class Controller implements ActionListener {
             // Pre-servicio:
             //---------------------------------------------
             case "MAIN":
-                boolean done19 = conectorDB.setHistoricos();
-
-                if(done19){
-                    done19 = conectorDB.actualizarEstadoServicio(0);
-
-                    if(done19){
-                        vista.changePanel(aux.getActionCommand());
-                    }
-                    else {
-                        JOptionPane.showMessageDialog(vista,
-                                "Error al cargar el programa!",
-                                "Error!",
-                                JOptionPane.ERROR_MESSAGE);
-                    }
-                }
-                else {
-                    JOptionPane.showMessageDialog(vista,
-                            "Error al cargar el programa!",
-                            "Error!",
-                            JOptionPane.ERROR_MESSAGE);
-                }
-
+                vista.changePanel(aux.getActionCommand());
+                vista.changeHeader(true);
                 break;
 
             case "TABLES":
@@ -315,8 +295,30 @@ public class Controller implements ActionListener {
                 break;
 
             case "BACK-TO-MAIN":
-                vista.changePanel("MAIN");
-                vista.changeHeader(true);
+                boolean done19 = conectorDB.setHistoricos();
+
+                if(done19){
+                    done19 = conectorDB.actualizarEstadoServicio(0);
+
+                    if(done19){
+                        vista.changePanel("MAIN");
+                        vista.changeHeader(true);
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(vista,
+                                "Error al cargar el programa!",
+                                "Error!",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+                else {
+                    JOptionPane.showMessageDialog(vista,
+                            "Error al cargar el programa!",
+                            "Error!",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+
+
                 break;
 
                 //Pantalla Login:
