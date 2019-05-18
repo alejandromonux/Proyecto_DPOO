@@ -1246,8 +1246,11 @@ public class ConectorDB {
             PreparedStatement ps2 = conn.prepareStatement("UPDATE request SET in_service = 3;");
             ps2.executeUpdate();
 
-            PreparedStatement ps3 = conn.prepareStatement("UPDATE variables_importantes SET recaudacion_historicos = recaudacion_historicos + recaudacion_actual;");
+            PreparedStatement ps3 = conn.prepareStatement("UPDATE variables_importantes SET recaudacion_historica = recaudacion_historica + recaudacion_actual;");
             ps3.executeUpdate();
+
+            PreparedStatement ps4 = conn.prepareStatement("UPDATE variables_importantes SET recaudacion_actual = 0;");
+            ps4.executeUpdate();
 
             return true;
 
