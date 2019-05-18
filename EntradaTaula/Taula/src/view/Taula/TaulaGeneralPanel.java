@@ -109,19 +109,10 @@ public class TaulaGeneralPanel extends JPanel {
     }
 
     public void createClock() {
-        Timer timer;
-        ActionListener actionListener = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Date date = new Date();
-                DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-                String time = timeFormat.format(date);
-                digitalClock.setText(time);
-            }
-        };
-        timer = new Timer(1000, actionListener);
-        timer.setInitialDelay(0);
-        timer.start();
+        Date date = new Date();
+        DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+        String time = timeFormat.format(date);
+        digitalClock.setText(time);
     }
 
     public void registerController(Controller c) {
@@ -149,7 +140,7 @@ public class TaulaGeneralPanel extends JPanel {
         return requestedOrders.getDishToDelete();
     }
 
-    public void updateMenu(ArrayList<RequestDish> menu) {
+    public void updateMenu(ArrayList<Dish> menu) {
         orderPanel.updateMenu(menu);
     }
 
@@ -185,7 +176,11 @@ public class TaulaGeneralPanel extends JPanel {
     }
 
     public RequestDish getComandaToAdd() {
-        return orderPanel.getSelectedDish2();
+        Dish dAux = orderPanel.getSelectedDish2();
+        RequestDish rdAux = new RequestDish(
+                Long.MIN_VALUE, -1, dAux.getName(),
+                dAux.getCost(), dAux.getUnits(), dAux.getTimecost(), "");
+        return rdAux;
     }
     public ArrayList<RequestDish> getBagOfOrders() {
         return comandesPanel.getBagOfOrders();

@@ -81,11 +81,11 @@ public class ComandaPanel extends JPanel {
     }
 
     public void dishCreator() {
-        RequestDish dish = new RequestDish(Long.MAX_VALUE, "Arros",10,5, 6,"");
-        RequestDish dish1 = new RequestDish(Long.MAX_VALUE,"Patates fregides",10,3, 5,"");
-        RequestDish dish2 = new RequestDish(Long.MAX_VALUE,"Llenguado",20,4, 4,"");
-        RequestDish dish3 = new RequestDish(Long.MAX_VALUE, "Sopa",15,6, 3,"");
-        RequestDish dish4 = new RequestDish(Long.MAX_VALUE, "Bacalla", 10.0,7, 2,"");
+        RequestDish dish = new RequestDish(Long.MAX_VALUE, 1,"Arros",10,5, 6,"");
+        RequestDish dish1 = new RequestDish(Long.MAX_VALUE,2,"Patates fregides",10,3, 5,"");
+        RequestDish dish2 = new RequestDish(Long.MAX_VALUE,3,"Llenguado",20,4, 4,"");
+        RequestDish dish3 = new RequestDish(Long.MAX_VALUE, 4,"Sopa",15,6, 3,"");
+        RequestDish dish4 = new RequestDish(Long.MAX_VALUE, 5,"Bacalla", 10.0,7, 2,"");
 
         comanda.add(dish);
         comanda.add(dish1);

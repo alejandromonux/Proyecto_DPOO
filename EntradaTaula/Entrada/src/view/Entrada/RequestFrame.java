@@ -3,7 +3,11 @@ package view.Entrada;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class RequestFrame extends JFrame {
 
@@ -31,6 +35,11 @@ public class RequestFrame extends JFrame {
     public void changePanel (String which) {
         jpRequestMenu.changePanel(which);
     }
+
+    public void createClock() {
+        jpRequestMenu.createClock();
+    }
+
 
     public void registerController (ActionListener c) {
         jpRequestMenu.registerController(c);

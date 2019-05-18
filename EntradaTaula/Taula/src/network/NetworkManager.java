@@ -55,14 +55,26 @@ public class NetworkManager extends Thread {
         dos.writeUTF(dish);
     }
 
-    public void sendDishToEliminate(String dish) throws IOException {
+    public boolean sendDishToEliminate(String dish) throws IOException {
         dos.writeUTF("ELIMINATE-DISH");
-        //dos.writeUTF();
         dos.writeUTF(dish);
+        return dis.readBoolean();
     }
 
-    public void askForMenu() throws IOException {
-        dos.writeUTF("SEE-MENU");
+    public void askForMenu() {
+        try {
+            dos.writeUTF("SEE-MENU");
+        } catch (IOException e) {
+            controller.updateMenu(null);
+        }
+    }
+
+    public void askOrders() {
+        try {
+            dos.writeUTF("SEE-MY-ORDERS");
+        } catch (IOException e) {
+            controller.updateBill(null);
+        }
     }
 
     public void sendLogInRequest(String requestName, String password)throws IOException, ClassNotFoundException {
@@ -80,13 +92,17 @@ public class NetworkManager extends Thread {
         }
     }
 
-    public void payBill() throws IOException{
-        dos.writeUTF("PAY-BILL");
-        oos.writeObject(myRequest);
-        Boolean result = dis.readBoolean();
-        controller.paymentResult(result);
-        if (!result) {
-            myRequest = null;
+    public void payBill() {
+        try {
+            dos.writeUTF("PAY-BILL");
+            oos.writeObject(myRequest);
+            Boolean result = dis.readBoolean();
+            controller.paymentResult(result);
+            if (!result) {
+                myRequest = null;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -97,9 +113,10 @@ public class NetworkManager extends Thread {
         for (RequestDish rd: comanda) {
             oos.writeObject(rd);
         }
-
         if (dis.readBoolean()) { // Introduits correctament
             controller.resetComanda();
+        } else {
+            controller.badSending();
         }
         return false;
     }
@@ -110,12 +127,12 @@ public class NetworkManager extends Thread {
             switch (dis.readUTF()) {
                 case "UPDATE-MENU":
                         int cmpt = dis.readInt();   // Rebem la quantitat de Dishes que ens enviaran
-                        ArrayList<RequestDish> menu = new ArrayList<>();
+                        ArrayList<Dish> menu = new ArrayList<>();
                         while (cmpt > 0) {
-                            menu.add((RequestDish)ois.readObject());
+                            menu.add((Dish)ois.readObject());
                             cmpt--;
                         }
-                        controller.updateMenu((ArrayList<RequestDish>) menu);
+                        controller.updateMenu((ArrayList<Dish>) menu);
                         break;
                 case "UPDATE-CLIENT-ORDERS":            // El servidor ens envia tots els plats que ha demanat la reserva.
                         int compt2 = dis.readInt();   // Rebem la quantitat de Dishes que ens enviaran
