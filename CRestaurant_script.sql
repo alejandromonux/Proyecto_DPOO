@@ -46,8 +46,6 @@ CREATE TABLE request(
   password VARCHAR(255)
 );
 
-Select * from request
-
 DROP TABLE IF EXISTS request_order;
 CREATE TABLE request_order(
   id INT NOT NULL AUTO_INCREMENT,

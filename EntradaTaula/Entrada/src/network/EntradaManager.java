@@ -109,8 +109,6 @@ public class EntradaManager extends Thread {
                 boolean done = dis.readBoolean();
                 if (!done){
                     controller.insertNotification();
-                } else {
-                    controller.updateRequestList();
                 }
                 break;
         }
