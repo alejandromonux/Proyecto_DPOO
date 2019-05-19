@@ -39,6 +39,11 @@ public class EntradaManager extends Thread {
 
     @Override
     public void run() {
+        try {
+            askRequests();
+        } catch (IOException e) {
+            controller.errorConexio();
+        }
         while (isRunning) {
             try {
                 readUpdates();// Estem sempre a l'espera de rebre actualizacions.
@@ -82,15 +87,21 @@ public class EntradaManager extends Thread {
                     name = name.equals("NULL") ? null: name;
                     String pass = dis.readUTF();
                     pass = pass.equals("NULL") ? null: pass;
-                    requests.add(new Request(name, id, pass));
+                    String mesa = dis.readUTF();
+                    mesa = mesa.equals("NULL") ? null: mesa;
+                    if (pass == null) {
+                        requests.add(new Request(name, id, pass, mesa));
+                    }
                     size--;
                 }
-                controller.updateRequestList(requests);
+                System.out.println(size);
+                    controller.updateRequestList(requests, controller);
                 break;
             case "INCOMING-ASSIGNMENT":
                     int id = dis.readInt();
                     String name = dis.readUTF();
                     String pass = dis.readUTF();
+                    String mesa = dis.readUTF();
                     if (name.equals("NO SE HA ENCONTRADO MESA")){
                         controller.notificationComanda(id);
                     }else{
@@ -98,6 +109,7 @@ public class EntradaManager extends Thread {
                         controller.showPassword(name, pass);
                         controller.registerControllers();
                     }
+                    dos.writeUTF("UPDATE-REQUEST-LIST");
                         //mostrar error, actualizar lista
                 break;
             case "REQUEST-COMING":
@@ -106,13 +118,18 @@ public class EntradaManager extends Thread {
                     controller.insertNotification();
                 }
                 break;
+            case "DELETE-RESPONSE":
+                boolean dona = dis.readBoolean();
+                if (!dona){
+                    controller.errorConexio();
+                }
+                break;
         }
 
     }
 
-    public boolean deleteRequest(String requestName) throws IOException {
+    public void deleteRequest(String requestName) throws IOException {
         dos.writeUTF("DELETE-REQUEST");
         dos.writeUTF(requestName);
-        return dis.readBoolean();
     }
 }

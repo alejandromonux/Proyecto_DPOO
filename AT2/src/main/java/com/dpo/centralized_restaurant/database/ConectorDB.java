@@ -509,7 +509,7 @@ public class ConectorDB {
             s = (Statement) conn.createStatement();
             rs = s.executeQuery(query);
             while (rs.next()) {
-                Request requestAux = new Request(rs.getInt("id"), rs.getString("name"), rs.getString("password"));
+                Request requestAux = new Request(rs.getInt("id"), rs.getString("name"), rs.getString("password"), rs.getString("mesa_name"));
                 result.add(requestAux);
             }
 
@@ -581,6 +581,19 @@ public class ConectorDB {
     public Boolean deleteRequest(int id) {
         try {
             PreparedStatement preparedStatement = conn.prepareStatement("DELETE FROM request WHERE request.id = " + id + ";");
+            preparedStatement.executeUpdate();
+            return true;
+
+        } catch (SQLException ex) {
+            System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+            return false;
+        }
+
+    }
+
+    public Boolean deleteRequest(String id) {
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement("DELETE FROM request WHERE request.name = '" + id + "';");
             preparedStatement.executeUpdate();
             return true;
 

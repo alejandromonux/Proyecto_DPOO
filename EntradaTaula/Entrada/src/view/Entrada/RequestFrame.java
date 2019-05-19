@@ -87,5 +87,12 @@ public class RequestFrame extends JFrame {
                 JOptionPane.ERROR_MESSAGE);
     }
 
+    public void errorEliminacio(){
+        JOptionPane.showMessageDialog(this,
+                "Error al eliminar la Request",
+                "Conexion error",
+                JOptionPane.ERROR_MESSAGE);
+    }
+
 
 }
