@@ -118,8 +118,8 @@ public class NetworkManager extends Thread {
 
     public void readUpdates() {
         try {
-
-            switch (dis.readUTF()) {
+            String textIn = dis.readUTF();
+            switch (textIn) {
                 case "UPDATE-MENU":
                         int cmpt = dis.readInt();   // Rebem la quantitat de Dishes que ens enviaran
                         ArrayList<Dish> menu = new ArrayList<Dish>();
@@ -172,11 +172,14 @@ public class NetworkManager extends Thread {
                 case "PAYMENT-ACCEPTED":
                     controller.paymentResult(true);
                     myRequest = null;
+                    Gson g2 = new Gson();
+                    myRequest = g2.fromJson(dis.readUTF(), Request.class);
                     break;
                 case "PAYMENT-DECLINED":
                     controller.paymentResult(false);
                     break;
             }
+            textIn = "";
 
         } catch (IOException e) {
             try {

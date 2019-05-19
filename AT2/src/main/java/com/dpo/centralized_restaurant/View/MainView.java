@@ -171,7 +171,7 @@ public class MainView extends JFrame {
         /* ------------------------------ VIEW PARAMETERS ------------------------------ */
         getContentPane().add(jpHeader, BorderLayout.PAGE_START);
         getContentPane().add(jpContent);
-       // getContentPane().add(jpContent, BorderLayout.SOUTH);
+        // getContentPane().add(jpContent, BorderLayout.SOUTH);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Servidor");
@@ -199,6 +199,9 @@ public class MainView extends JFrame {
         jbConfig.addActionListener(c);
     }
 
+    /**
+     * Gets the current time in hours:minutes:seconds
+     */
     public void createClock() {
         Date date = new Date();
         DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");

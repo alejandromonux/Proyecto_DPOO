@@ -180,10 +180,11 @@ public class DedicatedServerTaula extends Thread{
             Request inRequest = g.fromJson(dis.readUTF(), Request.class);
             Request newR = conectorDB.payBill(inRequest);
             if (newR != null) {
-                if (newR.getId() != -1) {
-                    controller.informarEntrada(newR);
-                }
                 dos.writeUTF("PAYMENT-ACCEPTED");
+                ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+                String json = ow.writeValueAsString(newR);
+                dos.writeUTF(json);
+                controller.informarEntrada(newR);
             } else {
                 dos.writeUTF("PAYMENT-DECLINED");
             }
