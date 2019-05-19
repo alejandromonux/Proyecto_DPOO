@@ -53,22 +53,17 @@ public class DedicatedServerEntrada extends Thread{
             dos = new DataOutputStream(socket.getOutputStream());
             while (start) {
                 init = dis.readUTF();
-                System.out.println(init + " run()");
                 switch (init) {
                     case "REQUEST-COMING":
                         dos.writeUTF("REQUEST-COMING");
                         String nameNew = dis.readUTF();
-                        System.out.println(nameNew);
                         int cantidadPersonas = dis.readInt();
-                        System.out.println(cantidadPersonas);
                         boolean p = conectorDB.insertRequest(nameNew, cantidadPersonas);
-                        System.out.println(p);
                         dos.writeBoolean(p);
                         controller.actualizarVistaRequests(conectorDB.getRequestsPendientes());
                         break;
 
                     case "NEED-REQUEST-LIST":
-                        System.out.println("NEED-REQUEST-LIST");
                         sendAll(conectorDB.getRequests());
                         break;
 
@@ -89,6 +84,7 @@ public class DedicatedServerEntrada extends Thread{
             }
 
         } catch (IOException e) {
+
         } finally {
             try {
                 dos.close();
@@ -125,13 +121,9 @@ public class DedicatedServerEntrada extends Thread{
         synchronized (this) {
             try {
                 dos.writeUTF("INCOMING-ASSIGNMENT");
-                System.out.printf("INCOMING-ASSIGMENT");
                 dos.writeInt(request.getId());
-                System.out.println(request.getId());
                 dos.writeUTF(request.getName());
-                System.out.println(request.getName());
                 dos.writeUTF(request.getPassword());
-                System.out.println(request.getPassword());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -147,25 +139,18 @@ public class DedicatedServerEntrada extends Thread{
         synchronized (this) {
             try {
                 dos.writeUTF("UPDATE-REQUEST-LIST");
-                System.out.println("UPDATE-REQUEST-LIST");
                 dos.writeInt(listaRequests.size());
-                System.out.println(listaRequests.size() + " int");
                 for (Request request : listaRequests){
                     dos.writeInt(request.getId());
-                    System.out.println(request.getId() + " 12");
                     if (request.getName() != null) {
                         dos.writeUTF(request.getName());
-                        System.out.println(request.getName());
                     }else{
                         dos.writeUTF("NULL");
-                        System.out.println("NULL1");
                     }
                     if (request.getPassword() != null) {
                         dos.writeUTF(request.getPassword());
-                        System.out.println(request.getPassword());
                     }else{
                         dos.writeUTF("NULL");
-                        System.out.println("NULL2");
                     }
                 }
 

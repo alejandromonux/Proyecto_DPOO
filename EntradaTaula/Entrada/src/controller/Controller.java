@@ -82,4 +82,11 @@ public class Controller implements ActionListener {
 
         vista.errorComandaImposible(id);
     }
+    public void errorConexio(){
+        vista.errorConexio();
+    }
+
+    public void registerControllers(){
+        vista.registerController(this);
+    }
 }

@@ -12,6 +12,9 @@ public class PasswordShowPanel extends JPanel {
     private JButton jbtnAccept;
     private JLabel jname;
     private JLabel jpassWord;
+    private JPanel jpNameForm;
+    private JPanel jpPass;
+    private JPanel jpGeneralForm;
 
     public PasswordShowPanel() {
 
@@ -20,9 +23,9 @@ public class PasswordShowPanel extends JPanel {
         sPass = "default_password";
         requestName = "default_name";
 
-        JPanel jpGeneralForm = new JPanel(new GridLayout(2,1));
+        jpGeneralForm = new JPanel(new GridLayout(2,1));
 
-        JPanel jpNameForm = new JPanel(new GridLayout(1,2,10,0));
+        jpNameForm = new JPanel(new GridLayout(1,2,10,0));
         JLabel jRequest = new JLabel("Name of Request:");
         jRequest.setForeground(Color.white);
         jname = new JLabel(requestName);
@@ -30,7 +33,7 @@ public class PasswordShowPanel extends JPanel {
         jpNameForm.add(jRequest);
         jpNameForm.add(jname);
 
-        JPanel jpPass = new JPanel(new GridLayout(1,2,10,0));
+        jpPass = new JPanel(new GridLayout(1,2,10,0));
         JLabel jPass = new JLabel("Password assigned:");
         jPass.setForeground(Color.white);
         jpassWord = new JLabel(sPass);
@@ -56,6 +59,50 @@ public class PasswordShowPanel extends JPanel {
         this.add(jpBtn);
     }
 
+    public PasswordShowPanel(String name, String pass){
+
+        this.setLayout(new GridLayout(2,1,0,10));
+
+        sPass = pass;
+        requestName = name;
+
+        jpGeneralForm = new JPanel(new GridLayout(2,1));
+
+        jpNameForm = new JPanel(new GridLayout(1,2,10,0));
+        JLabel jRequest = new JLabel("Name of Request:");
+        jRequest.setForeground(Color.white);
+        jname = new JLabel(requestName);
+        jname.setForeground(Color.white);
+        jpNameForm.add(jRequest);
+        jpNameForm.add(jname);
+
+        jpPass = new JPanel(new GridLayout(1,2,10,0));
+        JLabel jPass = new JLabel("Password assigned:");
+        jPass.setForeground(Color.white);
+        jpassWord = new JLabel(sPass);
+        jpassWord.setForeground(Color.white);
+        jpPass.add(jPass);
+        jpPass.add(jpassWord);
+
+        jpGeneralForm.add(jpNameForm);
+        jpGeneralForm.add(jpPass);
+
+        JPanel jpBtn = new JPanel();
+        jbtnAccept = new JButton("Accept");
+        jbtnAccept.setPreferredSize(new Dimension(350,30));
+        jpBtn.add(jbtnAccept);
+
+        Color cAux = new Color(0x1A0D08);
+        jpBtn.setBackground(cAux);
+        jpGeneralForm.setBackground(cAux);
+        jpNameForm.setBackground(cAux);
+        jpPass.setBackground(cAux);
+
+        this.add(jpGeneralForm);
+        this.add(jpBtn);
+
+    }
+
     public void registerController(ActionListener c) {
         jbtnAccept.setActionCommand("SEEN-PASSWORD");
         jbtnAccept.addActionListener(c);
@@ -68,6 +115,12 @@ public class PasswordShowPanel extends JPanel {
         jname.repaint();
         jpassWord.repaint();
         jpassWord.revalidate();
+        jpNameForm.revalidate();
+        jpNameForm.repaint();
+        jpPass.revalidate();
+        jpPass.repaint();
+        jpGeneralForm.revalidate();
+        jpGeneralForm.repaint();
         this.revalidate();
         this.repaint();
     }

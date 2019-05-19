@@ -49,6 +49,7 @@ public class EntradaManager extends Thread {
                     dos.close();
                     dis.close();
                     socket.close();
+                    controller.errorConexio();
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
@@ -108,6 +109,7 @@ public class EntradaManager extends Thread {
 
                     dos.writeUTF("NEED-REQUEST-LIST");
                     controller.showPassword(name, pass);
+                    controller.registerControllers();
 
                 break;
             case "REQUEST-COMING":
