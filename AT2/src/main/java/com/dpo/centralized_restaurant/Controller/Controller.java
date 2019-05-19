@@ -654,7 +654,11 @@ public class Controller implements ActionListener {
                 int estadoServicio = conectorDB.estadoServicio();
                 if(estadoServicio == 1){
                     conectorDB.comprobarServidos();
-                    serverTaula.updateOrders();
+                    try {
+                        serverTaula.updateOrders();
+                    } catch(NullPointerException ex){
+
+                    }
                 }
 
             }
