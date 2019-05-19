@@ -82,6 +82,10 @@ public class DeepOrderPanel extends JPanel {
         editButton.setBorder( focusBorder );
     }
 
+    /**
+     * Creates new data for the specific orders
+     * @param comandas
+     */
     public void createData(ArrayList<RequestDish> comandas ){
         data = new Object[comandas.size()][8];
         int hour;
@@ -145,6 +149,10 @@ public class DeepOrderPanel extends JPanel {
         jtable.getColumn("Delete").setCellEditor(new ButtonEditor(new JCheckBox(), c, "DELETE-COMANDA", "DELETE"));
 
         jbBack = new JButton("BACK");
+
+        jbBack.removeActionListener(c);
+        jbBack.setActionCommand("BACKORDERS");
+        jbBack.addActionListener(c);
 
         this.removeAll();
         this.add(jbBack, BorderLayout.PAGE_END);

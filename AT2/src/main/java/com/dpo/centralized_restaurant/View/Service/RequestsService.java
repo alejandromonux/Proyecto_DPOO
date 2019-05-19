@@ -135,6 +135,9 @@ public class RequestsService extends JPanel {
         jtable.getColumn("Delete").setCellRenderer(new ButtonRenderer("Delete"));
         jtable.getColumn("Delete").setCellEditor(new ButtonEditor(new JCheckBox(), c, "DECLINE-REQUEST", "Delete"));
 
+        jbBack.setActionCommand("BACKSERVICE");
+        jbBack.removeActionListener(c);
+        jbBack.addActionListener(c);
 
         jbBack = new JButton("Back");
         this.add(jbBack, BorderLayout.PAGE_END);
