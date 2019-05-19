@@ -12,14 +12,16 @@ import java.util.ArrayList;
 
 public class MainWindow extends JFrame {
 
-
     private CardLayout cardLayout;
     private JPanel jpContent;
 
     private TaulaGeneralPanel userOptionsMenu;  // Taula
 
+    private int counter;
+
     public MainWindow() {
 
+        this.counter = 0;
         this.setLayout(new BorderLayout());
         this.setSize(800,380);
 
@@ -43,6 +45,7 @@ public class MainWindow extends JFrame {
 
     public void createClock() {
         userOptionsMenu.createClock();
+
     }
 
     public void changePanel(String which) {

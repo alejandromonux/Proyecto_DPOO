@@ -135,14 +135,38 @@ public class SeeOrdersPanel extends JPanel {
         this.dishes = dishes;
         data = new Object[dishes.size()][columnNames.length];
         for (int i = 0; i < data.length;i++) {
-            Object[] obj = new Object[]{
-                    dishes.get(i).getName(),
-                    dishes.get(i).getCost(),
-                    dishes.get(i).getUnits(),
-                    dishes.get(i).getTimecost(),
-                    jbtnDelete
-            };
-            data[i] = obj;
+            if (dishes.get(i).getActualService() != 1) {
+                if (dishes.get(i).getActualService() == 0) {
+                    Object[] obj = new Object[]{
+                            dishes.get(i).getName(),
+                            dishes.get(i).getCost(),
+                            dishes.get(i).getUnits(),
+                            "Waiting to be cooked",
+                            jbtnDelete
+                    };
+                    data[i] = obj;
+                } else {
+                    Object[] obj = new Object[]{
+                            dishes.get(i).getName(),
+                            dishes.get(i).getCost(),
+                            dishes.get(i).getUnits(),
+                            "Received",
+                            "----"
+                    };
+                    data[i] = obj;
+                }
+
+            } else {
+                Object[] obj = new Object[]{
+                        dishes.get(i).getName(),
+                        dishes.get(i).getCost(),
+                        dishes.get(i).getUnits(),
+                        dishes.get(i).getTimecost(),
+                        jbtnDelete
+                };
+                data[i] = obj;
+            }
+
         }
 
         tableCreator();

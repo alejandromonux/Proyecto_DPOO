@@ -15,10 +15,12 @@ public class Controller implements ActionListener {
 
     private final NetworkManager networkManager;
     private MainWindow vista;
+    private int counter = 0;
 
     public Controller(MainWindow vista, NetworkManager networkManager) {
         this.networkManager = networkManager;
         this.vista = vista;
+        this.counter = 0;
         createClock();
     }
 
@@ -91,12 +93,31 @@ public class Controller implements ActionListener {
 
     }
 
+    public void lookToUpdate() {
+        if (this.counter >= 60) {
+            ArrayList<RequestDish> updateList = vista.getMyOrders();
+            for (RequestDish d: updateList) {
+                if (d.getActualService() == 1) {
+                    if (1==1) { // todo: Cuando el tiempo de cocinar ya ha pasado...(now-horaQueEmpezoACocinarse)
+                        d.setActualService(2);
+                    }
+                }
+            }
+            vista.updateBill(updateList);
+            this.counter = 0;
+        } else {
+            this.counter++;
+        }
+    }
+
     public void createClock() {
         Timer timer;
         ActionListener actionListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 vista.createClock();
+                lookToUpdate();
+
             }
         };
         timer = new Timer(1000, actionListener);
