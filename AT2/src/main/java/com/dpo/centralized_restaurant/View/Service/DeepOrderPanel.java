@@ -93,7 +93,7 @@ public class DeepOrderPanel extends JPanel {
                 min =(comandas.get(i).getTimecost() + Integer.parseInt(comandas.get(i).getActivation_date().substring(15,16))) - 30;
             }else{
                 min =(comandas.get(i).getTimecost() + Integer.parseInt(comandas.get(i).getActivation_date().substring(15,16)));
-            }   
+            }
             data[i][5] = comandas.get(i).getActivation_date().substring(1,12) + hour + ":" + min + ":" + comandas.get(i).getActivation_date().substring(18,19);
             data[i][6] = "CHANGE STATE";
             data[i][7] = "DELETE";
