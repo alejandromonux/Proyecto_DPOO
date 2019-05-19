@@ -14,7 +14,9 @@ public class PostService extends JPanel{
     private JButton jbGraphics;
     private JButton jbEndService;
 
-
+    /**
+     * Panel de opciones del postServicio
+     */
     public PostService() {
         JPanel jpAuxH4 = new JPanel(new BorderLayout());
         jbGraphics = new JButton("GRAPHIC");
@@ -56,6 +58,10 @@ public class PostService extends JPanel{
         this.add(jpAuxH5);
     }
 
+    /**
+     *
+     * @param c COntroller para los botones de las posibles opciones del postServicio
+     */
     public void registerControllers(Controller c){
         jbGraphics.setActionCommand("GRAPHICS");
         jbGraphics.addActionListener(c);

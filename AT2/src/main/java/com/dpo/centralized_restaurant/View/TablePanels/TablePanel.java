@@ -28,6 +28,9 @@ public class TablePanel extends JPanel{
     private TableCreatorPanel jpCreator;
     private TablesListPanel tableList;
 
+    /**
+     * @param c Controller que se pasará a la lsita de mesas para los botones de la tabla
+     */
     public TablePanel(Controller c) {
 
         Mesa t1 = new Mesa("1",4);
@@ -107,8 +110,11 @@ public class TablePanel extends JPanel{
         add(jpContent);
     }
 
+    /**
+     *
+     * @param c Controller a registrar en los botones
+     */
     public void registerController(Controller c) {
-
         jbCreate.setActionCommand("TABLE-CREATE");
         jbList.setActionCommand("TABLE-LIST");
         jbBack.setActionCommand("TABLE-BACK");
@@ -121,6 +127,10 @@ public class TablePanel extends JPanel{
 
     public TablePanel getPanel(TablePanel which) {return which;}
 
+    /**Se cambia de panel en el cardLayour
+     *
+     * @param which nombre de panel al que cambiar
+     */
     public void changePanel(String which) {
         jclContent.show(jpContent, which);
     }

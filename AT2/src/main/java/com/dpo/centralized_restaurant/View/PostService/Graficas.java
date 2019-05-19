@@ -23,6 +23,12 @@ public class Graficas extends Canvas {
     private int[] delimitadoresY;
     private int[] posicionesX;
 
+    /**
+     *
+     * @param orderedDishes Lista de platos para hacer la gráfica
+     * @param width Anchura de la gráfica
+     * @param height Altura de la gráfica
+     */
     public Graficas(ArrayList<OrderedDish> orderedDishes,int width, int height) {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         this.orderedDishes = orderedDishes;

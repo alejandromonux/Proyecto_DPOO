@@ -19,6 +19,9 @@ public class TableCreatorPanel extends JPanel{
     private JComboBox jcbQuantity;
     private JButton jbAdd;
 
+    /**
+     * Panel de creación de tablas, con la parte de creación y la lista
+     */
     public TableCreatorPanel() {
 
 
