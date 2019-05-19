@@ -46,7 +46,7 @@ public class PasswordShowPanel extends JPanel {
 
         JPanel jpBtn = new JPanel();
         jbtnAccept = new JButton("Accept");
-        jbtnAccept.setPreferredSize(new Dimension(350,30));
+        jbtnAccept.setPreferredSize(new Dimension(750,30));
         jpBtn.add(jbtnAccept);
 
         Color cAux = new Color(0x1A0D08);
@@ -89,7 +89,7 @@ public class PasswordShowPanel extends JPanel {
 
         JPanel jpBtn = new JPanel();
         jbtnAccept = new JButton("Accept");
-        jbtnAccept.setPreferredSize(new Dimension(350,30));
+        jbtnAccept.setPreferredSize(new Dimension(750,30));
         jpBtn.add(jbtnAccept);
 
         Color cAux = new Color(0x1A0D08);
