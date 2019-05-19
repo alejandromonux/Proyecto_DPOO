@@ -769,10 +769,15 @@ public class ConectorDB {
 
     public synchronized boolean deleteComanda(RequestDish requestDish, int rId){
         PreparedStatement ps = null;
+        PreparedStatement ps2 = null;
         try {
-            ps = conn.prepareStatement("DELETE FROM request_order WHERE dish_id = " + requestDish.getDish_id() +
-                    " AND request_id = " + rId + " LIMIT 1;");
+            ps = conn.prepareStatement("UPDATE dish SET units = units + " + requestDish.getUnits() +
+                    " WHERE id = " + requestDish.getDish_id() + ";");
             ps.executeUpdate();
+
+            ps2 = conn.prepareStatement("DELETE FROM request_order WHERE dish_id = " + requestDish.getDish_id() +
+                    " AND request_id = " + rId + " LIMIT 1;");
+            ps2.executeUpdate();
             return true;
 
         } catch (SQLException e) {

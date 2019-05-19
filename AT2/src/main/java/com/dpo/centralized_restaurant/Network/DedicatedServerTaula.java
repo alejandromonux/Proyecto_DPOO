@@ -72,6 +72,7 @@ public class DedicatedServerTaula extends Thread{
                         break;
                     case "DISHES-COMING":
                         dishesComing();
+                        updateDishesToAll();
                         break;
                     case "ELIMINATE-DISH":
                         String dishToEliminate = dis.readUTF();
@@ -82,6 +83,7 @@ public class DedicatedServerTaula extends Thread{
                             dos.writeUTF("ORDER-DELETE-BAD");
                         } else {
                             dos.writeUTF("ORDER-DELETE-CORRECT");
+                            updateDishesToAll();
                         }
                         break;
                     case "SEE-MENU":
@@ -144,6 +146,30 @@ public class DedicatedServerTaula extends Thread{
                 dos.writeUTF("LOGIN-INCORRECT");
             }
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateDishesToAll(){
+        ArrayList<Dish> listaPlatos = conectorDB.findActiveDishes();
+
+        for (DedicatedServerTaula dst : dedicatedServers){
+            dst.updateMenu(listaPlatos);
+        }
+    }
+
+    public void updateMenu(ArrayList<Dish> menu){
+        try {
+            dos.writeUTF("UPDATE-MENU");
+
+            dos.writeInt(menu.size());
+            for (Dish d : menu) {
+                ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+                String jsonRequest = ow.writeValueAsString(d);
+                dos.writeUTF(jsonRequest);
+            }
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
