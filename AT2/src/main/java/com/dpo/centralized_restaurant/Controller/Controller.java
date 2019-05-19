@@ -216,10 +216,7 @@ public class Controller implements ActionListener {
             case "TABLE-ORDERS":
                 vista.changePanel("ORDERS");
                 ArrayList<Comanda> auxC = new ArrayList<>();
-                auxC.add(new Comanda(1,5,3,2,"23445"));
-                auxC.add(new Comanda(2,12,7,5,"e45g"));
-                auxC.add(new Comanda(3,9,3,6,"4f5g"));
-                auxC.add(new Comanda(4,7,3,4,"f45g"));
+                auxC = conectorDB.findActiveTablesWithInfo();
                 vista.setTableDishOrder(auxC, this);
 
                 break;
@@ -236,11 +233,6 @@ public class Controller implements ActionListener {
                 else {
                     model.setMesas(conectorDB.findActiveTables());
                     vista.getJpTables().setTableList(new TablesListPanel(model.getMesas(), this));
-
-                    /*//Vista del servei
-                    vista.setJpReq(new RequestsService(model.getMesas(), this));
-                    vista.getJpReq().registerControllers(this);
-                    */
                 }
 
                 break;
@@ -250,10 +242,7 @@ public class Controller implements ActionListener {
 
                 if(done3){
                     model.setMesas(conectorDB.findActiveTables());
-//                    vista.getJpTables().setTableList(new TablesListPanel(model.getMesas(), this));
                     vista.getJpTables().getTableList().update(model.getMesas(),this);
-                    /*vista.setJpReq(new RequestsService(model.getMesas(), this));
-                    vista.getJpReq().registerControllers(this);*/
                 }
                 else {
                     JOptionPane.showMessageDialog(vista,
@@ -293,7 +282,6 @@ public class Controller implements ActionListener {
 
                 if(done5){
                     model.setDishes(conectorDB.findActiveDishes());
-                    //vista.getJpDish().setJpList(new DishListPanel(model.getDishes(), this));
                     vista.getJpDish().getJpList().update(model.getDishes(), this);
                 }
                 else {
