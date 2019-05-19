@@ -1031,7 +1031,7 @@ public class ConectorDB {
             if (aux.size() > 0) {
                 for (Mesa m : aux) {
                     String query2 = "SELECT * FROM request_order AS ro JOIN request AS r ON r.id = ro.request_id" +
-                            "JOIN mesa AS m ON m.name = r.mesa_name WHERE m.active = true AND m.name = + '" + m.getId() + "';";
+                            "JOIN mesa AS m ON m.name = r.mesa_name WHERE r.in_servie = 1 AND m.active = true AND m.name = + '" + m.getId() + "';";
                     s = (Statement) conn.createStatement();
                     rs2 = s.executeQuery(query2);
                     while (rs.next()) {
