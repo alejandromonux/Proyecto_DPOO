@@ -97,8 +97,8 @@ public class Controller implements ActionListener {
                 boolean done = conectorDB.actualizarEstadoServicio(1);
 
                 if(done){
-                    ArrayList<RequestDish> listaRequestDishes = conectorDB.comprobarServidos();
-                    //TODO: Actualizar vista request orders
+                    conectorDB.comprobarServidos();
+
                     vista.hideConfiguration();
                     vista.changePanel(aux.getActionCommand());
                     serverEntrada = new ServerEntrada(configJson, conectorDB, this);
@@ -653,7 +653,8 @@ public class Controller implements ActionListener {
                 vista.createClock();
                 int estadoServicio = conectorDB.estadoServicio();
                 if(estadoServicio == 1){
-                    ArrayList<RequestDish> listaRequestDishes = conectorDB.comprobarServidos();
+                    conectorDB.comprobarServidos();
+                    serverTaula.updateOrders();
                 }
 
             }

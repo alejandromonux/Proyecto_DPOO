@@ -213,6 +213,21 @@ public class DedicatedServerTaula extends Thread{
         //long idMesaAfectadaOrder = dis.readLong();
     }
 
+    public void updateOrders(){
+        ArrayList<RequestDish> comandaOut = conectorDB.getMyOrders(requestActual.getId());
+        try {
+            dos.writeUTF("UPDATE-CLIENT-ORDERS");
+            dos.writeInt(comandaOut.size());
+            for (RequestDish d: comandaOut) {
+                ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+                String jsonRequest = ow.writeValueAsString(d);
+                dos.writeUTF(jsonRequest);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     /**
      * Sends all the requests trough the connection between server and client
