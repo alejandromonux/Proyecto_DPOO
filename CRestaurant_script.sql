@@ -93,4 +93,8 @@ CREATE TABLE variables_importantes(
 
 INSERT INTO variables_importantes VALUES(0);
 
-SELECT * FROM request_order;
+SELECT * FROM mesa;
+
+SELECT ro.id AS id, ro.dish_id AS dish_id, r.id AS request_id, d.name AS name, d.cost AS cost, ro.quantity AS units,
+                    d.timecost AS timecost, ro.activation_date AS activation_date, ro.actual_service AS actual_service
+                    FROM request AS r, request_order AS ro, dish AS d WHERE r.in_service = 1 AND r.id = ro.request_id AND r.mesa_name= '14' AND d.id = ro.dish_id;
