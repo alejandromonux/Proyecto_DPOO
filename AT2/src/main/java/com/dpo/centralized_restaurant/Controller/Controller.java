@@ -496,6 +496,19 @@ public class Controller implements ActionListener {
                 System.out.println("HEY");
                 vista.changePanel("SPECIFIC-ORDERS");
                 break;
+            case "SEE-COMANDA":
+                int idcomanda = vista.getJpTableOrders().getComandaId();
+                String dishname = vista.getJpTableOrders().getDishName();
+                int unitsDish = vista.getJpTableOrders().getUnits();
+                int dish = 0;
+                for(int i = 0; i < model.getDishes().size(); i++){
+                    if(dishname.equals(model.getDishes().get(i).getName())){
+                        dish = model.getDishes().get(i).getId();
+                    }
+                }
+                conectorDB.updateComanda(new RequestDish(idcomanda, dish, unitsDish),idcomanda);
+                vista.getJpTableOrders().update(conectorDB.getMyOrders(idcomanda), this);
+                break;
             case "DELETE-COMANDA":
                 String dish_Name = vista.getJpTableOrders().getDishName();
                 int units = vista.getJpTableOrders().getUnits();
