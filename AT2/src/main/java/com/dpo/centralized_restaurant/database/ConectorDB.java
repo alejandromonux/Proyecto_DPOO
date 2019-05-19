@@ -369,7 +369,7 @@ public class ConectorDB {
      * @return
      */
     public synchronized ArrayList<Dish> findActiveDishes() {
-        String query = "SELECT * FROM Dish AS d WHERE d.active = 1 AND quantity > 0;";
+        String query = "SELECT * FROM Dish AS d WHERE d.active = 1 AND units > 0;";
         ResultSet rs = null;
         ArrayList<Dish> result = new ArrayList<>();
 
