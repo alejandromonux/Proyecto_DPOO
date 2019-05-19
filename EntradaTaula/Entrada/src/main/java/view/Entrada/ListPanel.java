@@ -62,7 +62,7 @@ public class ListPanel extends JPanel {
 
     private void generalLlista() {
         this.setLayout(new GridLayout(content.size(),1,0,10));
-        updateList(new ArrayList<>());
+        updateList(new ArrayList<Request>());
     }
     private void generaLlista(ArrayList<Request> list){
         this.setLayout(new GridLayout(content.size(), 1, 0, 10));
