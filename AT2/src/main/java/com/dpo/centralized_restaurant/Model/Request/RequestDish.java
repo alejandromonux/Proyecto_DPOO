@@ -18,6 +18,12 @@ public class RequestDish implements Serializable {
 
     public RequestDish(){}
 
+    public RequestDish(int request_id, int dish_id, int units) {
+        this.request_id = request_id;
+        this.dish_id = dish_id;
+        this.units = units;
+    }
+
     public RequestDish(int id, int dish_id, int request_id, String name, float cost, int units, int timecost, String activation_date, int actualService) {
         this.id = id;
         this.dish_id = dish_id;
