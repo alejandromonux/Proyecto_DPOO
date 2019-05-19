@@ -201,7 +201,7 @@ public class MainView extends JFrame {
 
     public void createClock() {
         Date date = new Date();
-        DateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
         String time = timeFormat.format(date);
         digitalClock.setText(time);
 
@@ -274,7 +274,6 @@ public class MainView extends JFrame {
         jpContent.remove(this.jpStats);
         this.jpStats = jpStats;
         jpContent.add("STADISTICS", this.jpStats);
-
     }
 
     public DishService getJpSDish() {
@@ -285,7 +284,24 @@ public class MainView extends JFrame {
         jpContent.remove(this.jpSDish);
         this.jpSDish = jpSDish;
         jpContent.add("SERVICE-DISHES", jpSDish);
+    }
 
+    public OrdersService getJpOrders() {
+        return jpOrders;
+    }
+
+    public void setJpOrders(OrdersService jpOrders) {
+        this.jpOrders = jpOrders;
+    }
+
+    public DeepOrderPanel getJpTableOrders() {
+        return jpTableOrders;
+    }
+
+    public void setJpTableOrders(DeepOrderPanel jpTableOrders) {
+        jpContent.remove(this.jpTableOrders);
+        this.jpTableOrders = jpTableOrders;
+        jpContent.add("SPECIFIC-ORDERS", jpTableOrders);
     }
 
     public void updateRequests(ArrayList<Request> listaRequests, Controller controller){
