@@ -174,7 +174,7 @@ public class MainView extends JFrame {
        // getContentPane().add(jpContent, BorderLayout.SOUTH);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Pre-Service");
+        setTitle("Servidor");
         setResizable(false);
 
     }
