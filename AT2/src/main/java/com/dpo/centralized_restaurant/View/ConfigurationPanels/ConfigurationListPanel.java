@@ -31,6 +31,11 @@ public class ConfigurationListPanel extends JPanel{
     String[] columnNames;
     private com.dpo.centralized_restaurant.View.ListButton.ButtonEditor buttonEditor;
 
+    /**
+     *
+     * @param configs Lista de configuraciones del usuario a escoger, las cuales estarán en la tabla
+     * @param c Controller de los botones de la tabla de configuraciones.
+     */
     public ConfigurationListPanel(ArrayList<Configuration> configs, Controller c) {
         buttonEditor = new com.dpo.centralized_restaurant.View.ListButton.ButtonEditor(new JCheckBox());
         buttonEditor.setTextButton("REMOVE");
