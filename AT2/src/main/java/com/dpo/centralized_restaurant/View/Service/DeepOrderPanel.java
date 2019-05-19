@@ -31,8 +31,9 @@ public class DeepOrderPanel extends JPanel {
     private JButton editButton;
     private Object editorValue;
     private boolean isButtonColumnEditor;
-    Object[][] data ;
-    String[] columnNames;
+    private Object[][] data ;
+    private String[] columnNames;
+    private JScrollPane jsPanel;
 
     public DeepOrderPanel(ArrayList<RequestDish> comandas, Controller c) {
         //renderButton = new JButton();
@@ -53,7 +54,7 @@ public class DeepOrderPanel extends JPanel {
 
         jtable = new JTable(tm);
         jtable.setRowHeight(30);
-        JScrollPane jsPanel = new JScrollPane(jtable);
+        jsPanel = new JScrollPane(jtable);
 
 
         DefaultTableCellRenderer df = new DefaultTableCellRenderer();
@@ -84,7 +85,7 @@ public class DeepOrderPanel extends JPanel {
             data[i][0] = comandas.get(i).getName();
             data[i][1] = comandas.get(i).getUnits();
             data[i][2] = comandas.get(i).getActualService();
-            data[i][5] = "HORA ESTIMADA ENTREGA";
+            data[i][5] = "CALCULAR TIEMPO";//now() - (comandas.get(i).getActivation_date()+comandas.get(i).getTimecost());
             data[i][6] = "CHANGE STATE";
             data[i][7] = "DELETE";
         }
@@ -96,5 +97,43 @@ public class DeepOrderPanel extends JPanel {
     public void registerController(Controller c){
         jbBack.setActionCommand("BACKSERVICE");
         jbBack.addActionListener(c);
+    }
+
+    private void update(ArrayList<RequestDish> comandas, Controller c){
+        this.remove(jsPanel);
+        editButton = new JButton();
+        editButton.setFocusPainted(false);
+        //editButton.addActionListener( this );
+        originalBorder = editButton.getBorder();
+        setFocusBorder(new LineBorder(Color.BLUE));
+
+        getColumNames();
+        createData(comandas);
+        TableModel tm = new DefaultTableModel(data, columnNames) {
+            public boolean isCellEditable(int row, int column) {
+                if(column == columnNames.length -1 || column == columnNames.length-2) return true;
+                return false;
+            }
+        };
+
+        jtable = new JTable(tm);
+        jtable.setRowHeight(30);
+        jsPanel = new JScrollPane(jtable);
+
+
+        DefaultTableCellRenderer df = new DefaultTableCellRenderer();
+        df.setHorizontalAlignment(JLabel.CENTER);
+        for(int i= 0; i < jtable.getColumnCount();i++){
+            jtable.getColumnModel().getColumn(i).setCellRenderer(df);
+        }
+        jtable.getColumn("ChangeState").setCellRenderer(new ButtonRenderer("SEE MORE"));
+        jtable.getColumn("ChangeState").setCellEditor(new ButtonEditor(new JCheckBox(), c, "SEE-COMANDA", "SEE MORE"));
+        jtable.getColumn("Delete").setCellRenderer(new ButtonRenderer("DELETE"));
+        jtable.getColumn("Delete").setCellEditor(new ButtonEditor(new JCheckBox(), c, "DELETE-COMANDA", "DELETE"));
+
+        jbBack = new JButton("BACK");
+
+        this.add(jsPanel);
+        this.setBorder(new EmptyBorder(0,0,0,0));
     }
 }
