@@ -66,8 +66,6 @@ CREATE TABLE request_order(
 ALTER TABLE request_order
     ADD CONSTRAINT FOREIGN KEY (dish_id) REFERENCES dish(id);*/
 
-SELECT ro.id AS id FROM request_order AS ro;
-
 DROP TABLE IF EXISTS configuration_dish;
 CREATE TABLE configuration_dish(
   configuration_id INT NOT NULL,
@@ -94,21 +92,3 @@ CREATE TABLE variables_importantes(
 );
 
 INSERT INTO variables_importantes VALUES(0);
-
-SELECT * from request_order;
-
-
-INSERT INTO request (mesa_name, name, quantity, in_service, password)
-VALUES ('m15', 'reserva', 4,1,'1234');
-
-SELECT * FROM request;
-
-SELECT * FROM request_order;
-SELECT * FROM dish;
-SELECT * FROM Dish AS d WHERE d.active = 1 AND units > 0
-
-SELECT ro.* FROM  request AS r, request_order AS ro WHERE r.id = ro.request_id AND r.id = 1;
-
-SELECT ro.id, ro.dish_id, r.id , d.name, d.cost, ro.quantity,
-                    d.timecost, ro.activation_date, ro.actual_service
-                    FROM request AS r, request_order AS ro, dish AS d WHERE r.id = ro.request_id AND r.id = 1 AND d.id = ro.dish_id;

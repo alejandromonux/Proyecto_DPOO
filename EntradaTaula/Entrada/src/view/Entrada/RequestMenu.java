@@ -27,14 +27,14 @@ public class RequestMenu extends JPanel{
         /*····················   ICON    ···················· */
 
         JPanel jpLogo = new JPanel(new BorderLayout());
-        jpLogo.setSize(400,200);
+        jpLogo.setSize(800,200);
         ImageIcon tablesIcon = new ImageIcon("images/upperLogo3.png");
         Image image2 = tablesIcon.getImage(); // transform it
         Image newimg2 = image2.getScaledInstance(400, 200,  0); // scale it the smooth way
         tablesIcon = new ImageIcon(newimg2);
 
         JLabel jlAux = new JLabel();
-        jlAux.setSize(400,100);
+        jlAux.setSize(800,100);
         jlAux.setHorizontalAlignment(0);
         jlAux.setIcon(tablesIcon);
 
