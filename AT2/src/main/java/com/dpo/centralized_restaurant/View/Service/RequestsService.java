@@ -71,8 +71,9 @@ public class RequestsService extends JPanel {
 
 
         jbBack = new JButton("Back");
-        this.add(jsPanel);
-        this.add(jbBack);
+        this.setLayout(new BorderLayout());
+        this.add(jbBack, BorderLayout.PAGE_END);
+        this.add(jsPanel, BorderLayout.CENTER);
         this.setBorder(new EmptyBorder(0,0,0,0));
     }
 
@@ -136,7 +137,8 @@ public class RequestsService extends JPanel {
 
 
         jbBack = new JButton("Back");
-        this.add(jsPanel);
+        this.add(jbBack, BorderLayout.PAGE_END);
+        this.add(jsPanel, BorderLayout.CENTER);
 
     }
 }

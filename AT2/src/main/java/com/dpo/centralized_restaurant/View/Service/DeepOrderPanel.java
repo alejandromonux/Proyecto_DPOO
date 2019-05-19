@@ -69,8 +69,9 @@ public class DeepOrderPanel extends JPanel {
 
         jbBack = new JButton("BACK");
 
-        this.add(jsPanel);
-        this.add(jbBack);
+        this.setLayout(new BorderLayout());
+        this.add(jbBack, BorderLayout.PAGE_END);
+        this.add(jsPanel, BorderLayout.CENTER);
         this.setBorder(new EmptyBorder(0,0,0,0));
     }
 
@@ -142,7 +143,9 @@ public class DeepOrderPanel extends JPanel {
 
         jbBack = new JButton("BACK");
 
-        this.add(jsPanel);
+        this.removeAll();
+        this.add(jbBack, BorderLayout.PAGE_END);
+        this.add(jsPanel, BorderLayout.CENTER);
         this.setBorder(new EmptyBorder(0,0,0,0));
     }
 }
