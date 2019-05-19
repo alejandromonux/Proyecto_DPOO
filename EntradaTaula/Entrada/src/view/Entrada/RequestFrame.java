@@ -69,6 +69,13 @@ public class RequestFrame extends JFrame {
                 JOptionPane.ERROR_MESSAGE);
     }
 
+    public void errorConexio(){
+        JOptionPane.showMessageDialog(null,
+                "CRestaurant may be disconnect!",
+                "Connexion Error",
+                JOptionPane.ERROR_MESSAGE);
+    }
+
     public void errorComandaImposible(int id){
         JOptionPane.showMessageDialog(this,
                 "La comanda " + id + " ha sido rechazada por falta de espacio en las mesas.",

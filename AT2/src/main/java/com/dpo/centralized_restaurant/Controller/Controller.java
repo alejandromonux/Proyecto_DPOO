@@ -481,7 +481,7 @@ public class Controller implements ActionListener {
             break;
             case "CANCEL":
                 if(conectorDB.deactivateDish(vista.getJpSDish().getDishName())){
-                   vista.getJpSDish().update(conectorDB.findActiveDishes(), this); 
+                   vista.getJpSDish().update(conectorDB.findActiveDishes(), this);
                 }
             break;
             case "REQUESTS":

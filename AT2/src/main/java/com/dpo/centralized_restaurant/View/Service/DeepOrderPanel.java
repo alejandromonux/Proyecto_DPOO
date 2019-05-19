@@ -81,11 +81,20 @@ public class DeepOrderPanel extends JPanel {
 
     public void createData(ArrayList<RequestDish> comandas ){
         data = new Object[comandas.size()][6];
+        int hour;
+        int min;
         for (int i =0; i < comandas.size() ; i++){
             data[i][0] = comandas.get(i).getName();
             data[i][1] = comandas.get(i).getUnits();
             data[i][2] = comandas.get(i).getActualService();
-            data[i][5] = "CALCULAR TIEMPO";//now() - (comandas.get(i).getActivation_date()+comandas.get(i).getTimecost());
+            hour = Integer.parseInt(comandas.get(i).getActivation_date().substring(12,13));
+            if(Integer.parseInt(comandas.get(i).getActivation_date().substring(15,16))+ comandas.get(i).getTimecost() > 30){
+                hour = Integer.parseInt(comandas.get(i).getActivation_date().substring(12,13)) + 1;
+                min =(comandas.get(i).getTimecost() + Integer.parseInt(comandas.get(i).getActivation_date().substring(15,16))) - 30;
+            }else{
+                min =(comandas.get(i).getTimecost() + Integer.parseInt(comandas.get(i).getActivation_date().substring(15,16)));
+            }   
+            data[i][5] = comandas.get(i).getActivation_date().substring(1,12) + hour + ":" + min + ":" + comandas.get(i).getActivation_date().substring(18,19);
             data[i][6] = "CHANGE STATE";
             data[i][7] = "DELETE";
         }
