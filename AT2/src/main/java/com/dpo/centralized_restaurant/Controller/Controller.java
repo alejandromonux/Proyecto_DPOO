@@ -491,8 +491,12 @@ public class Controller implements ActionListener {
                 break;
             case "BACKSERVICE" :
                 vista.changePanel("START");
-            break;
 
+            break;
+            case "BACKORDERS":
+                System.out.println("Hi");
+                vista.changePanel("ORDERS");
+            break;
             case "POSTSERVICE" :
                 ArrayList<OrderedDish> today = conectorDB.getTopDishes(true);
                 ArrayList<OrderedDish> all = conectorDB.getTopDishes(false);

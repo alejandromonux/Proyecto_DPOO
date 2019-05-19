@@ -95,7 +95,7 @@ public class DeepOrderPanel extends JPanel {
     }
 
     public void registerController(Controller c){
-        jbBack.setActionCommand("BACKSERVICE");
+        jbBack.setActionCommand("BACKORDERS");
         jbBack.addActionListener(c);
     }
 
