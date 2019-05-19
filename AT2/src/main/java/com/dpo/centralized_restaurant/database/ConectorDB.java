@@ -678,7 +678,7 @@ public class ConectorDB {
      * @return
      */
     public boolean asignarMesa(Request nuevoRequest) {
-        String query = "SELECT name, in_use, chairs FROM mesa WHERE chairs >= " + nuevoRequest.getQuantity() + " ORDER BY chairs ASC;";
+        String query = "SELECT name, in_use, chairs FROM mesa AS m WHERE m.active = true AND m.chairs >= " + nuevoRequest.getQuantity() + " ORDER BY chairs ASC;";
         ResultSet rs = null;
 
         try {
