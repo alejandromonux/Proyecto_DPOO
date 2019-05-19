@@ -29,6 +29,10 @@ public class ConfigurationPanel extends JPanel{
     private ConfigurationCreatorPanel jpCreator;
     private ConfigurationListPanel configurationList;
 
+    /**
+     *
+     * @param c Contorller que se usará a la hora de crear la lista
+     */
     public ConfigurationPanel(Controller c) {
 
         JPanel jpLeft = new JPanel(new BorderLayout(0, 15));
@@ -99,6 +103,10 @@ public class ConfigurationPanel extends JPanel{
         add(jpContent);
     }
 
+    /**
+     *
+     * @param c Controller para los botones del panel de configuración
+     */
     public void registerController(Controller c) {
 
         jbCreate.setActionCommand("CONFIGURATION-CREATE");

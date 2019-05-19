@@ -15,6 +15,9 @@ public class ConfigurationCreatorPanel extends JPanel{
     private JTextField jtfId;
     private JButton jbAdd;
 
+    /**
+     * Panel para la creación de configuraciones
+     */
     public ConfigurationCreatorPanel() {
 
 
