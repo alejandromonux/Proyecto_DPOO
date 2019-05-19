@@ -82,6 +82,7 @@ public class ListPanel extends JPanel {
         for (int i = 0; i < content.size();i++) {
             JPanel jpAux = new JPanel(new GridLayout(1,2,0,10));
             JLabel jlAux;
+            System.out.println(content.get(i).getMesa_name());
             if (content.get(i).getMesa_name() == null){
                  jlAux = new JLabel(content.get(i).getName() + "\t Esperando asignacion de mesa...");
                  jlAux.setForeground(Color.white);

@@ -509,7 +509,7 @@ public class ConectorDB {
             s = (Statement) conn.createStatement();
             rs = s.executeQuery(query);
             while (rs.next()) {
-                Request requestAux = new Request(rs.getInt("id"), rs.getString("name"), rs.getString("password"));
+                Request requestAux = new Request(rs.getInt("id"), rs.getString("name"), rs.getString("password"), rs.getString("mesa_name"));
                 result.add(requestAux);
             }
 
