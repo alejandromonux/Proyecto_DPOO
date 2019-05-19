@@ -8,6 +8,9 @@ import com.dpo.centralized_restaurant.Model.Request.RequestDish;
 import com.dpo.centralized_restaurant.Model.Request.RequestManager;
 import com.dpo.centralized_restaurant.Model.Worker;
 import com.dpo.centralized_restaurant.database.ConectorDB;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.google.gson.Gson;
 
 import java.io.*;
 import java.net.Socket;
@@ -24,9 +27,7 @@ public class DedicatedServerTaula extends Thread{
     private Controller controller;
 
     private final Socket socket;
-    private ObjectInputStream ois;
     private DataInputStream dis;
-    private ObjectOutputStream oos;
     private DataOutputStream dos;
 
     private Request requestActual;
@@ -49,6 +50,11 @@ public class DedicatedServerTaula extends Thread{
         this.dedicatedServers = dedicatedServers;
         this.conectorDB = conectorDB;
         this.controller = controller;
+        try {
+            dos = new DataOutputStream(socket.getOutputStream());
+            dis = new DataInputStream(socket.getInputStream());
+        } catch (Exception e){}
+
         start = true;
         requestActual = null;
     }
@@ -57,10 +63,6 @@ public class DedicatedServerTaula extends Thread{
     public void run() {
         try {
 
-            dis = new DataInputStream(socket.getInputStream());
-            ois = new ObjectInputStream(socket.getInputStream());
-            oos = new ObjectOutputStream(socket.getOutputStream());
-            dos = new DataOutputStream(socket.getOutputStream());
             String init = "";
             while (start) {
                 init = dis.readUTF();
@@ -69,30 +71,27 @@ public class DedicatedServerTaula extends Thread{
                         loginRequest();
                         break;
                     case "DISHES-COMING":
-                        int counter = dis.readInt();
-                        ArrayList<RequestDish> comanda = new ArrayList<>();
-                        try {
-                            while (counter-- > 0) {
-                                comanda.add((RequestDish) ois.readObject());
-                            }
-
-                        } catch (ClassNotFoundException e){
-                            e.printStackTrace();
-                        }
-
-                        long idMesaAfectadaOrder = dis.readLong();
+                        dishesComing();
                         break;
                     case "ELIMINATE-DISH":
                         String dishToEliminate = dis.readUTF();
-                        //dos.writeBoolean(conectorDB);
-                        long idMesaAfectadaEliminate = dis.readLong();
+                        Gson g = new Gson();
+                        RequestDish rdAux = g.fromJson(dishToEliminate, RequestDish.class);
+                        int requestId = dis.readInt();
+                        if(!conectorDB.deleteComanda(rdAux, requestId)) {
+                            dos.writeUTF("ORDER-DELETE-BAD");
+                        } else {
+                            dos.writeUTF("ORDER-DELETE-CORRECT");
+                        }
                         break;
                     case "SEE-MENU":
                         ArrayList<Dish> menu = conectorDB.findActiveDishes();
                         dos.writeUTF("UPDATE-MENU");
                         dos.writeInt(menu.size());
                         for (Dish d: menu) {
-                            oos.writeObject(d);
+                            ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+                            String jsonRequest = ow.writeValueAsString(d);
+                            dos.writeUTF(jsonRequest);
                         }
                         break;
                     case "SEE-MY-ORDERS":
@@ -100,7 +99,9 @@ public class DedicatedServerTaula extends Thread{
                         dos.writeUTF("UPDATE-CLIENT-ORDERS");
                         dos.writeInt(comandaOut.size());
                         for (RequestDish d: comandaOut) {
-                            oos.writeObject(d);
+                            ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+                            String jsonRequest = ow.writeValueAsString(d);
+                            dos.writeUTF(jsonRequest);
                         }
                         break;
                     case "PAY-BILL":
@@ -114,12 +115,6 @@ public class DedicatedServerTaula extends Thread{
 
         } catch (IOException e) {
         } finally {
-            try {
-                ois.close();
-            } catch (IOException e) {}
-            try {
-                oos.close();
-            } catch (IOException e) {}
             try {
                 dos.close();
             } catch (IOException e) {}
@@ -138,14 +133,15 @@ public class DedicatedServerTaula extends Thread{
         try {
             String requestName = dis.readUTF();
             String password = dis.readUTF();
-
             Request rAux = conectorDB.loginRequest(requestName, password);
-            if ( rAux == null) {
-                    dos.writeUTF("LOGIN-INCORRECT");
-            } else {
+            if ( rAux != null) {
                 dos.writeUTF("LOGIN-CORRECT");
                 requestActual = rAux;
-                oos.writeObject(rAux);
+                ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+                String jsonRequest = ow.writeValueAsString(requestActual);
+                dos.writeUTF(jsonRequest);
+            } else {
+                dos.writeUTF("LOGIN-INCORRECT");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -154,7 +150,8 @@ public class DedicatedServerTaula extends Thread{
 
     public void doPayment() {
         try {
-            Request inRequest = (Request) ois.readObject();
+            Gson g = new Gson();
+            Request inRequest = g.fromJson(dis.readUTF(), Request.class);
             Request newR = conectorDB.payBill(inRequest);
             if (newR != null) {
                 if (newR.getId() != -1) {
@@ -166,22 +163,35 @@ public class DedicatedServerTaula extends Thread{
             }
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }
     }
+
+    public void dishesComing() throws IOException {
+        try {
+            int counter = dis.readInt();
+            ArrayList<RequestDish> comanda = new ArrayList<>();
+            Gson g = new Gson();
+            while (counter-- > 0) {
+                RequestDish rAux = g.fromJson(dis.readUTF(), RequestDish.class);
+                comanda.add(rAux);
+            }
+            conectorDB.insertComanda(comanda);
+            dos.writeUTF("COMANDA-INSERT-OKEY");
+
+        } catch (Exception e){
+            dos.writeUTF("COMANDA-INSERT-BAD");
+            e.printStackTrace();
+        }
+
+        //long idMesaAfectadaOrder = dis.readLong();
+    }
+
 
     /**
      * Sends all the requests trough the connection between server and client
      */
     public void closeDedicatedServer(){
         start = false;
-        try {
-            ois.close();
-        } catch (IOException e) {}
-        try {
-            oos.close();
-        } catch (IOException e) {}
         try {
             dos.close();
         } catch (IOException e) {}

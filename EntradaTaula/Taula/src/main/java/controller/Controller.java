@@ -1,7 +1,6 @@
 package controller;
 
 import model.Dish;
-import model.Request;
 import model.RequestDish;
 import network.NetworkManager;
 import view.MainWindow;
@@ -10,10 +9,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Controller implements ActionListener {
 
@@ -34,6 +30,7 @@ public class Controller implements ActionListener {
                 vista.changePanel("TO-TAULA-PANEL");
                 break;
             case "TAULA-OPTIONS": //Haurem de demanar el menu
+                networkManager.askOrders();
                 vista.changeTaulaPanel("TAULA-OPTIONS");
                 networkManager.askForMenu();
                 break;
@@ -41,6 +38,7 @@ public class Controller implements ActionListener {
                 vista.changeTaulaPanel("TAULA-LOGIN");
                 break;
             case "TAULA-ORDER":
+                networkManager.askForMenu();
                 vista.changeTaulaPanel("TAULA-ORDER");
                 break;
             case "TAULA-SEE-ORDERS":
@@ -48,6 +46,7 @@ public class Controller implements ActionListener {
                 vista.changeTaulaPanel("TAULA-SEE-ORDERS");
                 break;
             case "TO-PAY":// Per dirigir-nos a la taula de pagament
+                vista.seeBill(vista.getMyOrders());
                 vista.changeTaulaPanel("TAULA-PAY");
                 break;
             case "PAY-BILL":
@@ -83,14 +82,8 @@ public class Controller implements ActionListener {
                 break;
             case "DELETE-ORDER":
                 try {
-                    System.out.println(vista.getDishToDelete());
-                    if (!networkManager.sendDishToEliminate(vista.getDishToDelete())) {
-                        JOptionPane.showMessageDialog(vista,
-                                "Error when Removing Dish!",
-                                "Remove Error",
-                                JOptionPane.ERROR_MESSAGE);
-                    }
-                } catch (IOException ex) {
+                    networkManager.sendDishToEliminate(vista.getDishToDelete());
+                } catch (Exception ex) {
                     ex.printStackTrace();
                 }
                 break;
@@ -138,6 +131,13 @@ public class Controller implements ActionListener {
         vista.changeTaulaPanel("TAULA-OPTIONS");
     }
 
+    public void errorDelete() {
+        JOptionPane.showMessageDialog(vista,
+                "Error when Removing Dish!",
+                "Remove Error",
+                JOptionPane.ERROR_MESSAGE);
+    }
+
     public void badLogin() {
         JOptionPane.showMessageDialog(vista,
                 "Incorrect Login or Password, try again!",
@@ -147,7 +147,7 @@ public class Controller implements ActionListener {
 
     public void paymentResult(Boolean r) {
         if (r) {
-            vista.changePanel("TAULA-LOGIN");
+            vista.changeTaulaPanel("TAULA-LOGIN");
         } else {
             vista.paymentDeclined();
         }

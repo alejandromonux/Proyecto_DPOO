@@ -347,10 +347,11 @@ public class ConectorDB {
 
             while (rs.next()) {
                 Dish aux = new Dish(
-                        rs.getString(0),
-                        rs.getDouble(1),
-                        rs.getInt(2),
-                        rs.getInt(3)
+                        rs.getInt("id"),
+                        rs.getString(1),
+                        rs.getDouble(2),
+                        rs.getInt(3),
+                        rs.getInt(4)
                 );
                 result.add(aux);
             }
@@ -378,6 +379,7 @@ public class ConectorDB {
 
             while (rs.next()) {
                 Dish aux = new Dish(
+                        rs.getInt("id"),
                         rs.getString("name"),
                         rs.getDouble("cost"),
                         rs.getInt("units"),
@@ -461,7 +463,7 @@ public class ConectorDB {
                 s =(Statement) conn.createStatement();
                 rs = s.executeQuery(query);
                 if (rs.next()) {
-                    result = new Request(rs.getString("mesa_name"), rs.getString("password"));
+                    result = new Request(rs.getInt("id") ,rs.getString("name"), rs.getString("password"));
                 }
             } catch (SQLException ex) {
                 System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
@@ -484,7 +486,7 @@ public class ConectorDB {
             s = (Statement) conn.createStatement();
             rs = s.executeQuery(query);
             while (rs.next()) {
-                Request requestAux = new Request(rs.getString("name"), rs.getString("password"));
+                Request requestAux = new Request(rs.getInt("id"), rs.getString("name"), rs.getString("password"));
                 result.add(requestAux);
             }
 
@@ -737,8 +739,8 @@ public class ConectorDB {
             PreparedStatement ps2 = null;
             try {
                 ps = conn.prepareStatement("INSERT INTO request_order(request_id, dish_id, quantity, actual_service, activation_date, timecost) " +
-                        "VALUES(" + requestDish.getRequest_id() + ", " + requestDish.getDish_id() + ", " + requestDish.getUnits() + ", " + requestDish.getActualService() + "" +
-                        ", " + requestDish.getActivation_date() + ", " + requestDish.getTimecost() + ");");
+                        "VALUES(" + requestDish.getRequest_id() + ", " + requestDish.getDish_id() + ", " + requestDish.getUnits() + ", " + requestDish.getActualService() +
+                        ", '" + requestDish.getActivation_date() + "', " + requestDish.getTimecost() + ");");
                 ps.executeUpdate();
 
                 ps2 = conn.prepareStatement("UPDATE dish SET units = units - " + requestDish.getUnits() + " WHERE id = " + requestDish.getDish_id() + ";");
@@ -754,10 +756,11 @@ public class ConectorDB {
         return done;
     }
 
-    public synchronized boolean deleteComanda(RequestDish requestDish){
+    public synchronized boolean deleteComanda(RequestDish requestDish, int rId){
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("DELETE FROM request_order WHERE id = " + requestDish.getId() + ";");
+            ps = conn.prepareStatement("DELETE FROM request_order WHERE dish_id = " + requestDish.getDish_id() +
+                    " AND request_id = " + rId + " LIMIT 1;");
             ps.executeUpdate();
             return true;
 
@@ -788,7 +791,7 @@ public class ConectorDB {
                         + "' WHERE id = " + rs.getInt("id") + ";");
                 ps3.executeUpdate();
 
-                Request requestAux = new Request(rs.getString("name"), randomUUIDString);
+                Request requestAux = new Request(0,rs.getString("name"), randomUUIDString);
                 requestAux.setId(rs.getInt("id"));
 
                 return requestAux;
@@ -860,7 +863,7 @@ public class ConectorDB {
     public synchronized ArrayList<RequestDish> getMyOrders(Request request){
         try {
             String query = "SELECT ro.id AS id, ro.dish_id AS dish_id, r.id AS request_id, d.name AS name, d.cost AS cost, ro.quantity AS units, " +
-                    "d.timecost AS timecost, ro.activation_date AS activation_date, ro.actual_service AS actual_service" +
+                    "d.timecost AS timecost, ro.activation_date AS activation_date, ro.actual_service AS actual_service " +
                     "FROM request AS r, request_order AS ro, dish AS d WHERE r.id = ro.request_id AND r.id = " + request.getId() +" AND d.id = ro.dish_id;";
             ResultSet rs = null;
 

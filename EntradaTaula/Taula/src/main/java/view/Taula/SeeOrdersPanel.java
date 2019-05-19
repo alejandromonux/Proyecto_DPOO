@@ -1,7 +1,6 @@
 package view.Taula;
 
 import controller.Controller;
-import model.Dish;
 import model.RequestDish;
 
 import javax.swing.*;
@@ -17,7 +16,7 @@ public class SeeOrdersPanel extends JPanel {
 
     private final Color cAux = new Color(0x1A0D08);
 
-    private ArrayList<Dish> dishes;
+    private ArrayList<RequestDish> dishes;
 
     private JScrollPane jScrollPane;
     private JTable jpContent;
@@ -79,7 +78,7 @@ public class SeeOrdersPanel extends JPanel {
         jScrollPane.setOpaque(false);
     }
 
-    public void dishCreator() {
+    /*public void dishCreator() {
         Dish dish = new Dish("Arros", 7.9,10,5);
         Dish dish1 = new Dish("Patates fregides", 2.9,10,3);
         Dish dish2 = new Dish("Llenguado", 2.9,20,4);
@@ -118,7 +117,7 @@ public class SeeOrdersPanel extends JPanel {
             };
             data[i] = obj;
         }
-    }
+    }*/
 
     public void registerController(Controller c) {
         jbtnBack.setActionCommand("BACK");
@@ -133,6 +132,7 @@ public class SeeOrdersPanel extends JPanel {
     }
 
     public void updateDishes(ArrayList<RequestDish> dishes) {
+        this.dishes = dishes;
         data = new Object[dishes.size()][columnNames.length];
         for (int i = 0; i < data.length;i++) {
             Object[] obj = new Object[]{
@@ -153,7 +153,11 @@ public class SeeOrdersPanel extends JPanel {
         this.add(jbtnBack, BorderLayout.PAGE_END);
     }
 
-    public String getDishToDelete() {
-        return jpContent.getValueAt(jpContent.getSelectedRow(), 0).toString();
+    public RequestDish getDishToDelete() {
+        return dishes.get(jpContent.getSelectedRow());
+    }
+
+    public ArrayList<RequestDish> getOrders() {
+        return dishes;
     }
 }

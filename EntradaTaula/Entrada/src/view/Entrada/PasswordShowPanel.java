@@ -10,6 +10,8 @@ public class PasswordShowPanel extends JPanel {
     private String requestName;
 
     private JButton jbtnAccept;
+    private JLabel jname;
+    private JLabel jpassWord;
 
     public PasswordShowPanel() {
 
@@ -23,7 +25,7 @@ public class PasswordShowPanel extends JPanel {
         JPanel jpNameForm = new JPanel(new GridLayout(1,2,10,0));
         JLabel jRequest = new JLabel("Name of Request:");
         jRequest.setForeground(Color.white);
-        JLabel jname = new JLabel(requestName);
+        jname = new JLabel(requestName);
         jname.setForeground(Color.white);
         jpNameForm.add(jRequest);
         jpNameForm.add(jname);
@@ -31,7 +33,7 @@ public class PasswordShowPanel extends JPanel {
         JPanel jpPass = new JPanel(new GridLayout(1,2,10,0));
         JLabel jPass = new JLabel("Password assigned:");
         jPass.setForeground(Color.white);
-        JLabel jpassWord = new JLabel(sPass);
+        jpassWord = new JLabel(sPass);
         jpassWord.setForeground(Color.white);
         jpPass.add(jPass);
         jpPass.add(jpassWord);
@@ -62,8 +64,12 @@ public class PasswordShowPanel extends JPanel {
     public void showPasswordTo(String name, String password) {
         sPass = password;
         requestName = name;
-        revalidate();
-        repaint();
+        jname.revalidate();
+        jname.repaint();
+        jpassWord.repaint();
+        jpassWord.revalidate();
+        this.revalidate();
+        this.repaint();
     }
 
     public void resetValues() {

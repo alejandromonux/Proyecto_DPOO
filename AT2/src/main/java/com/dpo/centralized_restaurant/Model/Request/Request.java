@@ -37,12 +37,14 @@ public class Request {
         this.name = name;
     }
 
-    public Request(String name, String password){
+    public Request(int id,String name, String password){
         this.name = name;
+        this.id = id;
         this.password = password;
     }
 
-    public Request(String name, int quantity) {
+    public Request(int id, String name, int quantity) {
+        this.id = id;
         this.name = name;
         this.quantity = quantity;
     }

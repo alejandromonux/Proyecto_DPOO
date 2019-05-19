@@ -2,7 +2,6 @@ package view.Taula;
 
 import controller.Controller;
 import model.Dish;
-import model.RequestDish;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -30,6 +29,7 @@ public class ToOrderPanel extends JPanel {
 
     private JPanel jpFooter;
 
+    private JPanel jpDown;
     private JButton jbtnDoComanda;
     private JButton jbtnRemoveComanda;
     private JButton jbtnSeeComanda;
@@ -39,7 +39,7 @@ public class ToOrderPanel extends JPanel {
     public ToOrderPanel() {
         bagCounter = 0;
         dishes = new ArrayList<>();
-        dishCreator();      // INVENTED DATA
+        //dishCreator();      // INVENTED DATA
         tableCreator();
 
         jbtnBack = new JButton("BACK");
@@ -56,7 +56,7 @@ public class ToOrderPanel extends JPanel {
         jpFooter.add(jbtnRemoveComanda);
         jpFooter.add(jlEnunciat);
 
-        JPanel jpDown = new JPanel(new GridLayout(2,1));
+        jpDown = new JPanel(new GridLayout(2,1));
         jpDown.add(jpFooter);
         jpDown.add(jbtnBack);
 
@@ -97,7 +97,7 @@ public class ToOrderPanel extends JPanel {
         jsp.setOpaque(false);
     }
 
-    public void dishCreator() {
+    /*public void dishCreator() {
         Dish dish = new Dish("Arros",10,5, 6);
         Dish dish1 = new Dish("Patates fregides",10,3, 5);
         Dish dish2 = new Dish("Llenguado",20,4, 4);
@@ -132,7 +132,7 @@ public class ToOrderPanel extends JPanel {
             };
             data[i] = obj;
         }
-    }
+    }*/
 
     public void registerController(Controller c) {
         jbtnBack.setActionCommand("BACK");
@@ -168,9 +168,8 @@ public class ToOrderPanel extends JPanel {
         scrollPaneConfig(jScrollPane);
 
         this.removeAll();
-        this.add(jScrollPane, BorderLayout.PAGE_START);
-        this.add(jpFooter, BorderLayout.CENTER);
-        this.add(jbtnBack, BorderLayout.PAGE_END);
+        this.add(jScrollPane, BorderLayout.CENTER);
+        this.add(jpDown, BorderLayout.PAGE_END);
     }
 
     public String getSelectedDish() {

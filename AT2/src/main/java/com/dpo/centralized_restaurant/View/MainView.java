@@ -156,7 +156,6 @@ public class MainView extends JFrame {
         jpContent.setBackground(new Color(0x12123B));
         jclContent = new CardLayout();
         jpContent.setLayout(jclContent);
-
         jpContent.add("FORMS", jpLogIn);
         jpContent.add("MAIN", jpMainMenu);
         jpContent.add("TABLES", jpTables);
