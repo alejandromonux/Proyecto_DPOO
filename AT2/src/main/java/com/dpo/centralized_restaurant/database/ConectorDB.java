@@ -369,7 +369,7 @@ public class ConectorDB {
      * @return
      */
     public synchronized ArrayList<Dish> findActiveDishes() {
-        String query = "SELECT * FROM Dish AS d WHERE d.active = 1;";
+        String query = "SELECT * FROM Dish AS d WHERE d.active = 1 AND quantity > 0;";
         ResultSet rs = null;
         ArrayList<Dish> result = new ArrayList<>();
 
@@ -394,6 +394,17 @@ public class ConectorDB {
         return result;
     }
 
+    public synchronized boolean deactivateDish(String name){
+        try {
+            PreparedStatement ps = conn.prepareStatement("UPDATE dish SET units = 0 " +
+                    "WHERE name = '" + name + "';");
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
     /**
      * Deletes a dish, given its name
@@ -758,10 +769,15 @@ public class ConectorDB {
 
     public synchronized boolean deleteComanda(RequestDish requestDish, int rId){
         PreparedStatement ps = null;
+        PreparedStatement ps2 = null;
         try {
-            ps = conn.prepareStatement("DELETE FROM request_order WHERE dish_id = " + requestDish.getDish_id() +
-                    " AND request_id = " + rId + " LIMIT 1;");
+            ps = conn.prepareStatement("UPDATE dish SET units = units + " + requestDish.getUnits() +
+                    " WHERE id = " + requestDish.getDish_id() + ";");
             ps.executeUpdate();
+
+            ps2 = conn.prepareStatement("DELETE FROM request_order WHERE dish_id = " + requestDish.getDish_id() +
+                    " AND request_id = " + rId + " LIMIT 1;");
+            ps2.executeUpdate();
             return true;
 
         } catch (SQLException e) {

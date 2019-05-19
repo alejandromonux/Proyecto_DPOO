@@ -109,7 +109,6 @@ public class RequestsService extends JPanel {
     public void update(ArrayList<Request> listaRequests, Controller c) {
         this.remove(jsPanel);
 
-
         getColumNames();
         createData(listaRequests);
         TableModel tm = new DefaultTableModel(data, columnNames) {
@@ -138,10 +137,6 @@ public class RequestsService extends JPanel {
 
         jbBack = new JButton("Back");
         this.add(jsPanel);
-
-        jtable.repaint();
-        jsPanel.repaint();
-        this.repaint();
 
     }
 }

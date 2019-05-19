@@ -31,8 +31,9 @@ public class DishService extends JPanel{
     private JButton editButton;
     private Object editorValue;
     private boolean isButtonColumnEditor;
-    Object[][] data ;
-    String[] columnNames;
+    private Object[][] data ;
+    private String[] columnNames;
+    private JScrollPane jsPanel;
 
     public DishService(ArrayList<Dish> dishes, Controller c) {
 
@@ -54,7 +55,7 @@ public class DishService extends JPanel{
 
         jtable = new JTable(tm);
         jtable.setRowHeight(30);
-        JScrollPane jsPanel = new JScrollPane(jtable);
+        jsPanel = new JScrollPane(jtable);
 
 
         DefaultTableCellRenderer df = new DefaultTableCellRenderer();
@@ -93,5 +94,47 @@ public class DishService extends JPanel{
     public void registerControllers(Controller c){
         jbBack.setActionCommand("BACKSERVICE");
         jbBack.addActionListener(c);
+    }
+
+    public void update(ArrayList<Dish> dishes, Controller c){
+        this.remove(jsPanel);
+
+        //renderButton = new JButton();
+        editButton = new JButton();
+        editButton.setFocusPainted(false);
+        //editButton.addActionListener( this );
+        originalBorder = editButton.getBorder();
+        setFocusBorder(new LineBorder(Color.BLUE));
+
+        getColumNames();
+        createData(dishes);
+        TableModel tm = new DefaultTableModel(data, columnNames) {
+            public boolean isCellEditable(int row, int column) {
+                if(column == columnNames.length -1) return true;
+                return false;
+            }
+        };
+
+        jtable = new JTable(tm);
+        jtable.setRowHeight(30);
+        jsPanel = new JScrollPane(jtable);
+
+
+        DefaultTableCellRenderer df = new DefaultTableCellRenderer();
+        df.setHorizontalAlignment(JLabel.CENTER);
+        for(int i= 0; i < jtable.getColumnCount();i++){
+            jtable.getColumnModel().getColumn(i).setCellRenderer(df);
+        }
+        jtable.getColumn("Stop Serving").setCellRenderer(new ButtonRenderer("Cancel"));
+        jtable.getColumn("Stop Serving").setCellEditor(new ButtonEditor(new JCheckBox(), c, "CANCEL", "Cancel"));
+
+        jbBack = new JButton("Back");
+
+        this.add(jsPanel);
+        this.setBorder(new EmptyBorder(0,0,0,0));
+    }
+
+    public String getDishName() {
+        return jtable.getValueAt(jtable.getSelectedRow(), 0).toString();
     }
 }
