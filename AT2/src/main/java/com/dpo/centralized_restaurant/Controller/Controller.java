@@ -3,6 +3,7 @@ package com.dpo.centralized_restaurant.Controller;
 import com.dpo.centralized_restaurant.Model.Configuration.configJson;
 import com.dpo.centralized_restaurant.Model.Graphics.OrderedDish;
 import com.dpo.centralized_restaurant.Model.Model;
+import com.dpo.centralized_restaurant.Model.Preservice.Mesa;
 import com.dpo.centralized_restaurant.Model.Request.Request;
 import com.dpo.centralized_restaurant.Model.Request.RequestDish;
 import com.dpo.centralized_restaurant.Model.Service.Comanda;
@@ -481,7 +482,6 @@ public class Controller implements ActionListener {
                 rd = conectorDB.getMyOrders(vista.getJpOrders().getOrderID());
                 vista.setJpTableOrders(new DeepOrderPanel(rd, this, vista.getJpOrders().getOrderID()));
                 vista.getJpTableOrders().registerController(this);
-                System.out.println("HEY");
                 vista.changePanel("SPECIFIC-ORDERS");
                 break;
             case "SEE-COMANDA":

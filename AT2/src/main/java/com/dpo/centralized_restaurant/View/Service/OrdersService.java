@@ -8,7 +8,6 @@ import com.dpo.centralized_restaurant.View.Utils.ButtonRenderer;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -78,7 +77,7 @@ public class OrdersService extends JPanel{
     public void createData(ArrayList<Comanda> comandas ){
         data = new Object[comandas.size()][6];
         for (int i =0; i < comandas.size() ; i++){
-            data[i][0] = comandas.get(i).getIdTable();
+            data[i][0] = comandas.get(i).getIdRequest();
             data[i][1] = comandas.get(i).getAllDishes();
             data[i][2] = comandas.get(i).getPendingDishes();
             data[i][3] = comandas.get(i).getCookingDishes();

@@ -2,26 +2,26 @@ package com.dpo.centralized_restaurant.Model.Service;
 
 public class Comanda {
 
-    private int idTable;
+    private String tableName;
     private int allDishes;
     private int pendingDishes;
     private int cookingDishes;
     private String date;
 
-    public Comanda(int idTable, int allDishes, int pendingDishes, int cookingDishes, String date) {
-        this.idTable = idTable;
+    public Comanda(String tableName, int allDishes, int pendingDishes, int cookingDishes, String date) {
+        this.tableName = tableName;
         this.allDishes = allDishes;
         this.pendingDishes = pendingDishes;
         this.cookingDishes = cookingDishes;
         this.date = date;
     }
 
-    public int getIdTable() {
-        return idTable;
+    public String getIdRequest() {
+        return tableName;
     }
 
-    public void setIdTable(int idTable) {
-        this.idTable = idTable;
+    public void setIdRequest(String tableName) {
+        this.tableName = tableName;
     }
 
     public int getAllDishes() {
