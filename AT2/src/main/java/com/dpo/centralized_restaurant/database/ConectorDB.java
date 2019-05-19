@@ -804,12 +804,27 @@ public class ConectorDB {
         PreparedStatement ps2 = null;
         try {
             ps = conn.prepareStatement("UPDATE dish SET units = units + " + requestDish.getUnits() +
-                    " WHERE id = " + requestDish.getDish_id() + ";");
+                    " WHERE dish_id = " + requestDish.getDish_id() + " LIMIT 1;");
             ps.executeUpdate();
 
             ps2 = conn.prepareStatement("DELETE FROM request_order WHERE dish_id = " + requestDish.getDish_id() +
                     " AND request_id = " + rId + " LIMIT 1;");
             ps2.executeUpdate();
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    public synchronized boolean updateComanda(RequestDish requestDish, int rId) {
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement("UPDATE request_order SET actual_service = 1, activation_date = now()" +
+                    "WHERE request_id = " + rId + " AND dish_id = " + requestDish.getDish_id() + ";");
+            ps.executeUpdate();
             return true;
 
         } catch (SQLException e) {
