@@ -491,11 +491,24 @@ public class Controller implements ActionListener {
             case "SEE-TABLE-ORDERS":
                 ArrayList<RequestDish> rd = new ArrayList<RequestDish>();
                 rd = conectorDB.getMyOrders(vista.getJpOrders().getOrderID());
-                vista.setJpTableOrders(new DeepOrderPanel(rd, this));
+                vista.setJpTableOrders(new DeepOrderPanel(rd, this, vista.getJpOrders().getOrderID()));
                 vista.getJpTableOrders().registerController(this);
                 System.out.println("HEY");
                 vista.changePanel("SPECIFIC-ORDERS");
                 break;
+            case "DELETE-COMANDA":
+                String dish_Name = vista.getJpTableOrders().getDishName();
+                int units = vista.getJpTableOrders().getUnits();
+                int id_comanda = vista.getJpTableOrders().getComandaId();
+                int id_dish = 0;
+                for(int i = 0; i < model.getDishes().size(); i++){
+                    if(dish_Name.equals(model.getDishes().get(i).getName())){
+                        id_dish = model.getDishes().get(i).getId();
+                    }
+                }
+                conectorDB.deleteComanda(new RequestDish(id_comanda, id_dish, units), id_comanda);
+                vista.getJpTableOrders().update(conectorDB.getMyOrders(id_comanda), this);
+            break;
             case "BACKSERVICE" :
                 vista.changePanel("START");
                 break;
@@ -654,10 +667,8 @@ public class Controller implements ActionListener {
                 int estadoServicio = conectorDB.estadoServicio();
                 if(estadoServicio == 1){
                     conectorDB.comprobarServidos();
-                    try {
+                    if(serverTaula != null){
                         serverTaula.updateOrders();
-                    } catch(NullPointerException ex){
-
                     }
                 }
 

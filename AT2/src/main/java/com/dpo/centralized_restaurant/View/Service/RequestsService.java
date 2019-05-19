@@ -71,8 +71,9 @@ public class RequestsService extends JPanel {
 
 
         jbBack = new JButton("Back");
-        this.add(jsPanel);
-        this.add(jbBack);
+        this.setLayout(new BorderLayout());
+        this.add(jbBack, BorderLayout.PAGE_END);
+        this.add(jsPanel, BorderLayout.CENTER);
         this.setBorder(new EmptyBorder(0,0,0,0));
     }
 
@@ -134,9 +135,13 @@ public class RequestsService extends JPanel {
         jtable.getColumn("Delete").setCellRenderer(new ButtonRenderer("Delete"));
         jtable.getColumn("Delete").setCellEditor(new ButtonEditor(new JCheckBox(), c, "DECLINE-REQUEST", "Delete"));
 
+        jbBack.setActionCommand("BACKSERVICE");
+        jbBack.removeActionListener(c);
+        jbBack.addActionListener(c);
 
         jbBack = new JButton("Back");
-        this.add(jsPanel);
+        this.add(jbBack, BorderLayout.PAGE_END);
+        this.add(jsPanel, BorderLayout.CENTER);
 
     }
 }

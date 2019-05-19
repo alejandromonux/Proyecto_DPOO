@@ -60,8 +60,10 @@ public class ServerTaula extends Thread {
     }
 
     public void updateOrders(){
-        for(DedicatedServerTaula dst : dedicatedServers){
-            dst.updateOrders();
+        if(!dedicatedServers.isEmpty()){
+            for(DedicatedServerTaula dst : dedicatedServers){
+                dst.updateOrders();
+            }
         }
     }
 

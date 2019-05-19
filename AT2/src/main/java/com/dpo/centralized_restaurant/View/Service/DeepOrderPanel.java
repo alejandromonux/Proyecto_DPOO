@@ -34,8 +34,10 @@ public class DeepOrderPanel extends JPanel {
     private Object[][] data ;
     private String[] columnNames;
     private JScrollPane jsPanel;
+    private int comandaId;
 
-    public DeepOrderPanel(ArrayList<RequestDish> comandas, Controller c) {
+    public DeepOrderPanel(ArrayList<RequestDish> comandas, Controller c, int comandaId) {
+        this.comandaId = comandaId;
         //renderButton = new JButton();
         editButton = new JButton();
         editButton.setFocusPainted(false);
@@ -69,8 +71,9 @@ public class DeepOrderPanel extends JPanel {
 
         jbBack = new JButton("BACK");
 
-        this.add(jsPanel);
-        this.add(jbBack);
+        this.setLayout(new BorderLayout());
+        this.add(jbBack, BorderLayout.PAGE_END);
+        this.add(jsPanel, BorderLayout.CENTER);
         this.setBorder(new EmptyBorder(0,0,0,0));
     }
 
@@ -79,8 +82,12 @@ public class DeepOrderPanel extends JPanel {
         editButton.setBorder( focusBorder );
     }
 
+    /**
+     * Creates new data for the specific orders
+     * @param comandas
+     */
     public void createData(ArrayList<RequestDish> comandas ){
-        data = new Object[comandas.size()][6];
+        data = new Object[comandas.size()][8];
         int hour;
         int min;
         for (int i =0; i < comandas.size() ; i++){
@@ -108,7 +115,8 @@ public class DeepOrderPanel extends JPanel {
         jbBack.addActionListener(c);
     }
 
-    private void update(ArrayList<RequestDish> comandas, Controller c){
+
+    public void update(ArrayList<RequestDish> comandas, Controller c){
         this.remove(jsPanel);
         editButton = new JButton();
         editButton.setFocusPainted(false);
@@ -142,7 +150,25 @@ public class DeepOrderPanel extends JPanel {
 
         jbBack = new JButton("BACK");
 
-        this.add(jsPanel);
+        jbBack.removeActionListener(c);
+        jbBack.setActionCommand("BACKORDERS");
+        jbBack.addActionListener(c);
+
+        this.removeAll();
+        this.add(jbBack, BorderLayout.PAGE_END);
+        this.add(jsPanel, BorderLayout.CENTER);
         this.setBorder(new EmptyBorder(0,0,0,0));
+    }
+
+    public String getDishName() {
+        return jtable.getValueAt(jtable.getSelectedRow(), 0).toString();
+    }
+
+    public int getUnits() {
+        return (int)jtable.getValueAt(jtable.getSelectedRow(), 1);
+    }
+
+    public int getComandaId() {
+        return comandaId;
     }
 }

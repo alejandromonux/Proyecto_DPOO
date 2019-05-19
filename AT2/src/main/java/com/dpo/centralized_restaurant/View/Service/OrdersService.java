@@ -64,8 +64,9 @@ public class OrdersService extends JPanel{
         jtable.getColumn("").setCellEditor(nbe);
         jbBack = new JButton("BACK");
 
-        this.add(jsPanel);
-        this.add(jbBack);
+        this.setLayout(new BorderLayout());
+        this.add(jbBack, BorderLayout.PAGE_END);
+        this.add(jsPanel, BorderLayout.CENTER);
         this.setBorder(new EmptyBorder(0,0,0,0));
     }
 
@@ -130,7 +131,13 @@ public class OrdersService extends JPanel{
         jtable.getColumn("").setCellEditor(nbe);
         jbBack = new JButton("BACK");
 
-        this.add(jsPanel);
+        jbBack.removeActionListener(c);
+        jbBack.setActionCommand("BACKSERVICE");
+        jbBack.addActionListener(c);
+
+        this.setLayout(new BorderLayout());
+        this.add(jbBack, BorderLayout.PAGE_END);
+        this.add(jsPanel, BorderLayout.CENTER);
         this.setBorder(new EmptyBorder(0,0,0,0));
     }
 }

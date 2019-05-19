@@ -68,8 +68,9 @@ public class DishService extends JPanel{
 
         jbBack = new JButton("Back");
 
-        this.add(jbBack);
-        this.add(jsPanel);
+        this.setLayout(new BorderLayout());
+        this.add(jbBack, BorderLayout.PAGE_END);
+        this.add(jsPanel, BorderLayout.CENTER);
         this.setBorder(new EmptyBorder(0,0,0,0));
     }
 
@@ -130,7 +131,13 @@ public class DishService extends JPanel{
 
         jbBack = new JButton("Back");
 
-        this.add(jsPanel);
+        jbBack.removeActionListener(c);
+        jbBack.setActionCommand("BACKSERVICE");
+        jbBack.addActionListener(c);
+
+        this.removeAll();
+        this.add(jbBack, BorderLayout.PAGE_END);
+        this.add(jsPanel, BorderLayout.CENTER);
         this.setBorder(new EmptyBorder(0,0,0,0));
     }
 

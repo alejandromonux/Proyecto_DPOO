@@ -71,7 +71,7 @@ public class MainView extends JFrame {
         jpReq = new RequestsService(new ArrayList<Request>(), controlador);
         jpOrders = new OrdersService(new ArrayList<Comanda>(), controlador);
         jpSDish = new DishService(new ArrayList<Dish>(), controlador);
-        jpTableOrders = new DeepOrderPanel(new ArrayList<>(),controlador);
+        jpTableOrders = new DeepOrderPanel(new ArrayList<>(),controlador, 0);
         jpStats = new Stats(new ArrayList<OrderedDish>(), new ArrayList<OrderedDish>(),0, 0 , 0, (float) 0.0);
         jpPost = new PostService();
         jpConfig = new ConfigurationPanel(controlador);
