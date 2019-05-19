@@ -80,7 +80,7 @@ public class DeepOrderPanel extends JPanel {
     }
 
     public void createData(ArrayList<RequestDish> comandas ){
-        data = new Object[comandas.size()][6];
+        data = new Object[comandas.size()][8];
         int hour;
         int min;
         for (int i =0; i < comandas.size() ; i++){

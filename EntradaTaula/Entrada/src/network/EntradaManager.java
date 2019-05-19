@@ -99,9 +99,6 @@ public class EntradaManager extends Thread {
                         controller.registerControllers();
                     }
                         //mostrar error, actualizar lista
-
-
-
                 break;
             case "REQUEST-COMING":
                 boolean done = dis.readBoolean();
