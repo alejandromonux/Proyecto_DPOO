@@ -52,8 +52,10 @@ public class DedicatedServerEntrada extends Thread{
             dis = new DataInputStream(socket.getInputStream());
             dos = new DataOutputStream(socket.getOutputStream());
             while (start) {
+                System.out.println("ruuuunn forest");
                 init = dis.readUTF();
                 System.out.println(init + " run()");
+                System.out.println(dedicatedServers.isEmpty() + " - dedicatedServers - run()");
                 switch (init) {
                     case "REQUEST-COMING":
                         dos.writeUTF("REQUEST-COMING");
@@ -65,6 +67,7 @@ public class DedicatedServerEntrada extends Thread{
                         System.out.println(p);
                         dos.writeBoolean(p);
                         controller.actualizarVistaRequests(conectorDB.getRequestsPendientes());
+                        System.out.println(dedicatedServers.isEmpty() + " - dedicatedServers - REQUEST-COMING");
                         break;
 
                     case "NEED-REQUEST-LIST":
@@ -89,6 +92,7 @@ public class DedicatedServerEntrada extends Thread{
             }
 
         } catch (IOException e) {
+
         } finally {
             try {
                 dos.close();
@@ -97,6 +101,7 @@ public class DedicatedServerEntrada extends Thread{
                 dis.close();
             } catch (IOException e) {}
             //try {
+            System.out.println("eliminar");
                 dedicatedServers.remove(this);
                 //socket.close();  --Marc: No se si esto deberia estar ya que se cierra a el mismo
             //} catch (IOException e) {}
@@ -113,6 +118,7 @@ public class DedicatedServerEntrada extends Thread{
             dis.close();
         } catch (IOException e) {}
         //try {
+        System.out.println(" closeDedicatedServer - deidcated server");
         dedicatedServers.remove(this);
     }
 
@@ -168,6 +174,7 @@ public class DedicatedServerEntrada extends Thread{
                         System.out.println("NULL2");
                     }
                 }
+                System.out.println(dedicatedServers.isEmpty() + " - dedicatedServers - SendAll");
 
 
             } catch (IOException e) {
