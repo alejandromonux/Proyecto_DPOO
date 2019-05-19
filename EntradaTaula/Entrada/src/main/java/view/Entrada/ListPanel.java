@@ -29,9 +29,7 @@ public class ListPanel extends JPanel {
     }
 
     public ListPanel(ArrayList<Request> list, ActionListener c){
-        System.out.println("0");
         content = list;
-        System.out.println("1");
         generaLlista(list);
         for (int i = 0; i < botones.size(); i++){
             botones.get(i).addActionListener(c);
@@ -68,9 +66,7 @@ public class ListPanel extends JPanel {
     }
     private void generaLlista(ArrayList<Request> list){
         this.setLayout(new GridLayout(content.size(), 1, 0, 10));
-        System.out.println("3");
         updateList(list);
-        System.out.println("5");
     }
 
     public void updateList(ArrayList<Request> list) {
@@ -78,11 +74,9 @@ public class ListPanel extends JPanel {
         Color cAux = new Color(0x1A0D08);
 
         content = (ArrayList<Request>) list.clone();
-        System.out.println(content.size());
         for (int i = 0; i < content.size();i++) {
             JPanel jpAux = new JPanel(new GridLayout(1,2,0,10));
             JLabel jlAux;
-            System.out.println(content.get(i).getMesa_name());
             if (content.get(i).getMesa_name() == null){
                  jlAux = new JLabel(content.get(i).getName() + "\t Esperando asignacion de mesa...");
                  jlAux.setForeground(Color.white);
@@ -113,7 +107,6 @@ public class ListPanel extends JPanel {
             this.add(jpAux);
 
         }
-        System.out.println("4");
         repaint();
     }
 

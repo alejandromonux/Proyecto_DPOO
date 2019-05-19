@@ -94,7 +94,6 @@ public class EntradaManager extends Thread {
                     }
                     size--;
                 }
-                System.out.println(size);
                     controller.updateRequestList(requests, controller);
                 break;
             case "INCOMING-ASSIGNMENT":

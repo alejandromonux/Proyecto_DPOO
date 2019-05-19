@@ -20,6 +20,9 @@ public class DishesCreatorPanel extends JPanel {
     private JComboBox jcbQuantity;
     private JButton jbAdd;
 
+    /**
+     * Panel de creación de platos
+     */
     public DishesCreatorPanel() {
 
         JPanel jpPrimer = new JPanel(new BorderLayout());

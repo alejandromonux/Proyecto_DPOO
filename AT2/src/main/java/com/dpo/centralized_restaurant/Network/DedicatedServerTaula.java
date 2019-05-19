@@ -234,17 +234,19 @@ public class DedicatedServerTaula extends Thread{
      * Updates the orders that exist within the system
      */
     public void updateOrders(){
-        ArrayList<RequestDish> comandaOut = conectorDB.getMyOrders(requestActual.getId());
-        try {
-            dos.writeUTF("UPDATE-CLIENT-ORDERS");
-            dos.writeInt(comandaOut.size());
-            for (RequestDish d: comandaOut) {
-                ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-                String jsonRequest = ow.writeValueAsString(d);
-                dos.writeUTF(jsonRequest);
+        if(requestActual != null){
+            ArrayList<RequestDish> comandaOut = conectorDB.getMyOrders(requestActual.getId());
+            try {
+                dos.writeUTF("UPDATE-CLIENT-ORDERS");
+                dos.writeInt(comandaOut.size());
+                for (RequestDish d: comandaOut) {
+                    ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+                    String jsonRequest = ow.writeValueAsString(d);
+                    dos.writeUTF(jsonRequest);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
 
     }
