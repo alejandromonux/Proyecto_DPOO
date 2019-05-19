@@ -479,13 +479,14 @@ public class Controller implements ActionListener {
                 break;
             case "SEE-TABLE-ORDERS":
                 ArrayList<RequestDish> rd = new ArrayList<RequestDish>();
-                rd = conectorDB.getMyOrders(vista.getJpOrders().getOrderID());
+                rd = conectorDB.getTableOrders(vista.getJpOrders().getOrderID()); // GetOrderId == GetTableName
                 vista.setJpTableOrders(new DeepOrderPanel(rd, this, vista.getJpOrders().getOrderID()));
                 vista.getJpTableOrders().registerController(this);
                 vista.changePanel("SPECIFIC-ORDERS");
                 break;
             case "SEE-COMANDA":
-                int idcomanda = vista.getJpTableOrders().getComandaId();
+                String tName = vista.getJpTableOrders().getComandaId();
+                int idcomanda = conectorDB.findRequestByTableName(tName);
                 String dishname = vista.getJpTableOrders().getDishName();
                 int unitsDish = vista.getJpTableOrders().getUnits();
                 int dish = 0;
@@ -500,7 +501,7 @@ public class Controller implements ActionListener {
             case "DELETE-COMANDA":
                 String dish_Name = vista.getJpTableOrders().getDishName();
                 int units = vista.getJpTableOrders().getUnits();
-                int id_comanda = vista.getJpTableOrders().getComandaId();
+                int id_comanda = conectorDB.findRequestByTableName(vista.getJpTableOrders().getComandaId());
                 int id_dish = 0;
                 for(int i = 0; i < model.getDishes().size(); i++){
                     if(dish_Name.equals(model.getDishes().get(i).getName())){
