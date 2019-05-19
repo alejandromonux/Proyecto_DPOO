@@ -24,7 +24,11 @@ public class DishPanel extends JPanel {
     private JPanel jpContent;
     private CardLayout jclContent;
 
-
+    /**
+     *
+     * @param dishes Lista de platos a poner en la lista
+     * @param controlador Controller de los botones del panel
+     */
     public DishPanel(ArrayList<Dish> dishes, Controller controlador) {
         jpCreator = new DishesCreatorPanel();
         jpList = new DishListPanel(dishes, controlador);
@@ -93,8 +97,12 @@ public class DishPanel extends JPanel {
         add(jpBigLeft);
         add(jpContent);
     }
-    public void registerController (Controller c) {
 
+    /**
+     *
+     * @param c Controller de los botones
+     */
+    public void registerController (Controller c) {
         jbCreate.setActionCommand("DISH-CREATE");
         jbList.setActionCommand("DISH-LIST");
         jbBack.setActionCommand("DISH-BACK");

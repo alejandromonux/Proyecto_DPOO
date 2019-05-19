@@ -19,6 +19,11 @@ public class DishListPanel extends JPanel {
     private JTable tabla;
     private ButtonEditor buttonEditor;
 
+    /**
+     *
+     * @param dishes lista de platos a poner en la tabla
+     * @param c Controller par alos botones de la tabla
+     */
     public DishListPanel(ArrayList<Dish> dishes, Controller c) {
         buttonEditor = new ButtonEditor(new JCheckBox(), c, "REMOVE-DISH", "Delete");
         //this.setLayout(new BorderLayout());
@@ -61,6 +66,11 @@ public class DishListPanel extends JPanel {
         return tabla.getValueAt(tabla.getSelectedRow(), 0).toString();
     }
 
+    /**
+     *
+     * @param dishes lsit d eplatos de la nueva tabla
+     * @param c Controller de la nueva tabla
+     */
     public void update(ArrayList<Dish> dishes, Controller c){
         this.remove(panel);
 
