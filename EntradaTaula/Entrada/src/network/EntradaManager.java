@@ -93,12 +93,14 @@ public class EntradaManager extends Thread {
                     String pass = dis.readUTF();
                     if (name.equals("NO SE HA ENCONTRADO MESA")){
                         controller.notificationComanda(id);
+                    }else{
+                        dos.writeUTF("NEED-REQUEST-LIST");
+                        controller.showPassword(name, pass);
+                        controller.registerControllers();
                     }
                         //mostrar error, actualizar lista
 
-                    dos.writeUTF("NEED-REQUEST-LIST");
-                    controller.showPassword(name, pass);
-                    controller.registerControllers();
+
 
                 break;
             case "REQUEST-COMING":

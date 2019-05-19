@@ -130,6 +130,9 @@ public class DedicatedServerTaula extends Thread{
         }
     }
 
+    /**
+     * Reads and handles the request to login to the system, given the name and the password
+     */
     public void loginRequest() {
 
         try {
@@ -150,6 +153,9 @@ public class DedicatedServerTaula extends Thread{
         }
     }
 
+    /**
+     * Updates the menu with the current active dishes
+     */
     public void updateDishesToAll(){
         ArrayList<Dish> listaPlatos = conectorDB.findActiveDishes();
 
@@ -158,6 +164,10 @@ public class DedicatedServerTaula extends Thread{
         }
     }
 
+    /**
+     * Given the list of the dishes above, updates the menu accordingly
+     * @param menu
+     */
     public void updateMenu(ArrayList<Dish> menu){
         try {
             dos.writeUTF("UPDATE-MENU");
@@ -174,6 +184,9 @@ public class DedicatedServerTaula extends Thread{
         }
     }
 
+    /**
+     * Allows the client to finish the payment and update the info in the database
+     */
     public void doPayment() {
         try {
             Gson g = new Gson();
@@ -193,6 +206,10 @@ public class DedicatedServerTaula extends Thread{
         }
     }
 
+    /**
+     * Prepares the system ro recieve a number of requests and add them to the database
+     * @throws IOException
+     */
     public void dishesComing() throws IOException {
         try {
             int counter = dis.readInt();
