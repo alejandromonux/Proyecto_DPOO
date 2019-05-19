@@ -68,8 +68,8 @@ public class DishService extends JPanel{
 
         jbBack = new JButton("Back");
 
-        this.add(jsPanel);
         this.add(jbBack);
+        this.add(jsPanel);
         this.setBorder(new EmptyBorder(0,0,0,0));
     }
 
