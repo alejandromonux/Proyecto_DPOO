@@ -600,11 +600,21 @@ public class ConectorDB {
      * @return
      */
     public boolean insertRequest(String name, int cantidad) {
-
         try {
-            PreparedStatement ps = conn.prepareStatement("INSERT INTO request(name, quantity, in_service) VALUES('" + name + "', " + cantidad + ", 0);");
-            ps.executeUpdate();
-            return true;
+            String query = "SELECT * FROM request WHERE name = '" + name + "' AND in_service < 2;";
+            ResultSet rs = null;
+
+            s = (Statement) conn.createStatement();
+            rs = s.executeQuery(query);
+            if (!(rs.next())) {
+                PreparedStatement ps = conn.prepareStatement("INSERT INTO request(name, quantity, in_service) VALUES('" + name + "', " + cantidad + ", 0);");
+                ps.executeUpdate();
+                return true;
+            } else {
+                return false;
+            }
+
+
 
         } catch (SQLException ex) {
             System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
