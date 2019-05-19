@@ -37,7 +37,6 @@ public class NetworkManager extends Thread {
         InputStream inputStream = socket.getInputStream();
         dos = new DataOutputStream(socket.getOutputStream());
         dis = new DataInputStream(inputStream);
-        System.out.println("AQUII");
     }
 
     public void startServerConnection(Controller controller) {
@@ -61,13 +60,12 @@ public class NetworkManager extends Thread {
         dos.writeUTF(dish);
     }
 
-    public boolean sendDishToEliminate(RequestDish dish) throws IOException {
+    public void sendDishToEliminate(RequestDish dish) throws IOException {
         dos.writeUTF("ELIMINATE-DISH");
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
         String jsonDish = ow.writeValueAsString(dish);
         dos.writeUTF(jsonDish);
-        dos.writeUTF(myRequest.getMesa_name());
-        return dis.readBoolean();
+        dos.writeInt(myRequest.getId());
     }
 
     public void askForMenu() {
@@ -94,15 +92,11 @@ public class NetworkManager extends Thread {
 
     public void payBill() {
         try {
+            myRequest.setInService(2);
             ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
             String json = ow.writeValueAsString(myRequest);
             dos.writeUTF("PAY-BILL");
             dos.writeUTF(json);
-            Boolean result = dis.readBoolean();
-            controller.paymentResult(result);
-            if (!result) {
-                myRequest = null;
-            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -113,14 +107,10 @@ public class NetworkManager extends Thread {
         dos.writeUTF("DISHES-COMING");
         dos.writeInt(comanda.size());
         for (RequestDish rd: comanda) {
+            rd.setRequest_id(myRequest.getId());
             ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
             String json = ow.writeValueAsString(rd);
             dos.writeUTF(json);
-        }
-        if (dis.readBoolean()) { // Introduits correctament
-            controller.resetComanda();
-        } else {
-            controller.badSending();
         }
         return false;
     }
@@ -157,13 +147,34 @@ public class NetworkManager extends Thread {
 
                 case "LOGIN-CORRECT":
                     String json = dis.readUTF();
+                    System.out.println(json);
                     Gson g = new Gson();
-                    myRequest = g.fromJson(json, Request.class);
+                    Request rAux = g.fromJson(json, Request.class);
+                    myRequest = rAux;
                     controller.correctLogin();
                     break;
 
                 case "LOGIN-INCORRECT":
                     controller.badLogin();
+                    break;
+                case "COMANDA-INSERT-OKEY":
+                        controller.resetComanda();
+                    break;
+                case "COMANDA-INSERT-BAD":
+                    controller.badSending();
+                    break;
+                case "ORDER-DELETE-BAD":
+                    controller.errorDelete();
+                    break;
+                case "ORDER-DELETE-CORRECT":
+                    askOrders();
+                    break;
+                case "PAYMENT-ACCEPTED":
+                    controller.paymentResult(true);
+                    myRequest = null;
+                    break;
+                case "PAYMENT-DECLINED":
+                    controller.paymentResult(false);
                     break;
             }
 

@@ -1,43 +1,44 @@
 package model;
 
 import java.io.Serializable;
-
 public class RequestDish implements Serializable {
-
-    private Long id;
+    private int id;
     private int request_id;
+    private int dish_id;
     private String name;
-    private double cost;
+    private float cost;
     private int units;
     private int timecost;
     private String activation_date;
+    private int actualService;
 
     public RequestDish(){}
 
-    public RequestDish(Long id, int request_id, String name, double cost, int units, int timecost, String activation_date) {
-        this.id = id;
+    public RequestDish(int dish_id, int request_id, String name, float cost, int units, int timecost, String activation_date, int actualService) {
+        this.dish_id = dish_id;
         this.request_id = request_id;
         this.name = name;
         this.cost = cost;
         this.units = units;
         this.timecost = timecost;
         this.activation_date = activation_date;
+        this.actualService = actualService;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public int getRequest_id() {
-        return request_id;
+    public int getDish_id() {
+        return dish_id;
     }
 
-    public void setRequest_id(int request_id) {
-        this.request_id = request_id;
+    public void setDish_id(int dish_id) {
+        this.dish_id = dish_id;
     }
 
     public String getName() {
@@ -48,11 +49,11 @@ public class RequestDish implements Serializable {
         this.name = name;
     }
 
-    public double getCost() {
+    public float getCost() {
         return cost;
     }
 
-    public void setCost(double cost) {
+    public void setCost(float cost) {
         this.cost = cost;
     }
 
@@ -62,6 +63,14 @@ public class RequestDish implements Serializable {
 
     public void setUnits(int units) {
         this.units = units;
+    }
+
+    public int getRequest_id() {
+        return request_id;
+    }
+
+    public void setRequest_id(int request_id) {
+        this.request_id = request_id;
     }
 
     public int getTimecost() {
@@ -78,5 +87,13 @@ public class RequestDish implements Serializable {
 
     public void setActivation_date(String activation_date) {
         this.activation_date = activation_date;
+    }
+
+    public int getActualService() {
+        return actualService;
+    }
+
+    public void setActualService(int actualService) {
+        this.actualService = actualService;
     }
 }

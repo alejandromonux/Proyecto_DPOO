@@ -76,7 +76,13 @@ public class DedicatedServerTaula extends Thread{
                     case "ELIMINATE-DISH":
                         String dishToEliminate = dis.readUTF();
                         Gson g = new Gson();
-                        dos.writeBoolean(conectorDB.deleteComanda(g.fromJson(dishToEliminate, RequestDish.class)));
+                        RequestDish rdAux = g.fromJson(dishToEliminate, RequestDish.class);
+                        int requestId = dis.readInt();
+                        if(!conectorDB.deleteComanda(rdAux, requestId)) {
+                            dos.writeUTF("ORDER-DELETE-BAD");
+                        } else {
+                            dos.writeUTF("ORDER-DELETE-CORRECT");
+                        }
                         break;
                     case "SEE-MENU":
                         ArrayList<Dish> menu = conectorDB.findActiveDishes();
@@ -128,7 +134,6 @@ public class DedicatedServerTaula extends Thread{
             String requestName = dis.readUTF();
             String password = dis.readUTF();
             Request rAux = conectorDB.loginRequest(requestName, password);
-            dos.writeUTF("LOGIN-CORRECT");
             if ( rAux != null) {
                 dos.writeUTF("LOGIN-CORRECT");
                 requestActual = rAux;
@@ -147,7 +152,6 @@ public class DedicatedServerTaula extends Thread{
         try {
             Gson g = new Gson();
             Request inRequest = g.fromJson(dis.readUTF(), Request.class);
-
             Request newR = conectorDB.payBill(inRequest);
             if (newR != null) {
                 if (newR.getId() != -1) {
@@ -162,7 +166,7 @@ public class DedicatedServerTaula extends Thread{
         }
     }
 
-    public void dishesComing() {
+    public void dishesComing() throws IOException {
         try {
             int counter = dis.readInt();
             ArrayList<RequestDish> comanda = new ArrayList<>();
@@ -171,8 +175,11 @@ public class DedicatedServerTaula extends Thread{
                 RequestDish rAux = g.fromJson(dis.readUTF(), RequestDish.class);
                 comanda.add(rAux);
             }
+            conectorDB.insertComanda(comanda);
+            dos.writeUTF("COMANDA-INSERT-OKEY");
 
         } catch (Exception e){
+            dos.writeUTF("COMANDA-INSERT-BAD");
             e.printStackTrace();
         }
 

@@ -1,22 +1,29 @@
 package view.Taula;
 
+import model.RequestDish;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class PaymentPanel extends JPanel {
+
+    private final static Color cAux = new Color(0x1A0D08);
 
     private double bill;
 
     private JButton jbtnBack;
     private JButton jbtnPay;
+    private JPanel jpButtons;
+    private JPanel jpBill;
 
     public PaymentPanel() {
 
         this.setLayout(new GridLayout(2,1,0,10));
 
-        JPanel jpBill = new JPanel(new GridLayout(2,1,0,10));
+        jpBill = new JPanel(new GridLayout(2,1,0,10));
         JLabel jlPref = new JLabel("TOTAL COST OF SERVICE: ");
         jlPref.setForeground(Color.white);
         jlPref.setHorizontalAlignment(JLabel.CENTER);
@@ -29,7 +36,7 @@ public class PaymentPanel extends JPanel {
         jpBill.add(jlBill);
         jpBill.setBorder(new EmptyBorder(50,0,0,0));
 
-        JPanel jpButtons = new JPanel(new FlowLayout());
+        jpButtons = new JPanel(new FlowLayout());
         jbtnPay = new JButton("PAY");
         jbtnPay.setPreferredSize(new Dimension(180,40));
         jbtnBack = new JButton("BACK");
@@ -37,7 +44,6 @@ public class PaymentPanel extends JPanel {
         jpButtons.add(jbtnBack);
         jpButtons.add(jbtnPay);
 
-        Color cAux = new Color(0x1A0D08);
         this.setBackground(cAux);
         jpBill.setBackground(cAux);
         jpButtons.setBackground(cAux);
@@ -53,6 +59,34 @@ public class PaymentPanel extends JPanel {
         jbtnBack.addActionListener(c);
         jbtnPay.setActionCommand("PAY-BILL");
         jbtnPay.addActionListener(c);
+    }
+
+    public void updateBill(ArrayList<RequestDish> comandes) {
+        float result = 0;
+        for (RequestDish rd: comandes) {
+            result += rd.getCost();
+        }
+        bill = result;
+    }
+
+    public void updateView() {
+        jpBill = new JPanel(new GridLayout(2,1,0,10));
+        JLabel jlPref = new JLabel("TOTAL COST OF SERVICE: ");
+        jlPref.setForeground(Color.white);
+        jlPref.setHorizontalAlignment(JLabel.CENTER);
+        jlPref.setFont(new Font("Chaparral Pro Light", Font.PLAIN, 25));
+        JLabel jlBill = new JLabel(Double.toString(bill) + "$");
+        jlBill.setForeground(Color.white);
+        jlBill.setHorizontalAlignment(JLabel.CENTER);
+        jlBill.setFont(new Font("Chaparral Pro Light", Font.BOLD, 40));
+        jpBill.add(jlPref);
+        jpBill.add(jlBill);
+        jpBill.setBorder(new EmptyBorder(50,0,0,0));
+        jpBill.setBackground(cAux);
+
+        this.removeAll();
+        this.add(jpBill, BorderLayout.PAGE_END);
+        this.add(jpButtons);
     }
 
     public void setBill(double bill) {

@@ -177,15 +177,24 @@ public class TaulaGeneralPanel extends JPanel {
     public RequestDish getComandaToAdd() {
         Dish dAux = orderPanel.getSelectedDish2();
         RequestDish rdAux = new RequestDish(
-                Long.MIN_VALUE, -1, dAux.getName(),
-                dAux.getCost(), dAux.getUnits(), dAux.getTimecost(), "");
+                dAux.getId(), 0, dAux.getName(),
+                (float) dAux.getCost(), dAux.getUnits(), dAux.getTimecost(), "0000-01-01 00:00:01", 0);
         return rdAux;
     }
     public ArrayList<RequestDish> getBagOfOrders() {
         return comandesPanel.getBagOfOrders();
     }
 
+    public ArrayList<RequestDish> getMyOrders() {
+        return requestedOrders.getOrders();
+    }
+
     public void clearBagOfComandes() {
         comandesPanel.clearComandes();
+    }
+
+    public void seeBill(ArrayList<RequestDish> comandes) {
+        paymentPanel.updateBill(comandes);
+        paymentPanel.updateView();
     }
 }

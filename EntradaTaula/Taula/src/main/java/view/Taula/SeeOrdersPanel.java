@@ -132,6 +132,7 @@ public class SeeOrdersPanel extends JPanel {
     }
 
     public void updateDishes(ArrayList<RequestDish> dishes) {
+        this.dishes = dishes;
         data = new Object[dishes.size()][columnNames.length];
         for (int i = 0; i < data.length;i++) {
             Object[] obj = new Object[]{
@@ -154,5 +155,9 @@ public class SeeOrdersPanel extends JPanel {
 
     public RequestDish getDishToDelete() {
         return dishes.get(jpContent.getSelectedRow());
+    }
+
+    public ArrayList<RequestDish> getOrders() {
+        return dishes;
     }
 }

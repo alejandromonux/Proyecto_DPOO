@@ -120,6 +120,10 @@ public class MainWindow extends JFrame {
         return userOptionsMenu.getComandaToAdd();
     }
 
+    public ArrayList<RequestDish> getMyOrders() {
+        return userOptionsMenu.getMyOrders();
+    }
+
     public ArrayList<RequestDish> getBagOfOrders() {
         return userOptionsMenu.getBagOfOrders();
     }
@@ -136,6 +140,10 @@ public class MainWindow extends JFrame {
                 "PAYMENT DECLINED!",
                 "Payment Error",
                 JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void seeBill(ArrayList<RequestDish> comandes) {
+        userOptionsMenu.seeBill(comandes);
     }
 
 }

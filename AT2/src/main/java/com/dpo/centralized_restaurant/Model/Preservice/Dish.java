@@ -15,7 +15,7 @@ import java.util.Set;
 @Entity
 public class Dish implements Serializable {
 
-    private Long id;
+    private int id;
     private String name;
     private double cost;
     private int units;
@@ -29,6 +29,15 @@ public class Dish implements Serializable {
 
     public Dish(){}
 
+    public Dish(int id, String name, double cost, int units, int timecost) {
+        this.id = id;
+        this.name = name;
+        this.cost = cost;
+        this.units = units;
+        this.timecost = timecost;
+        this.historicOrders = 0;
+    }
+
     public Dish(String name, double cost, int units, int timecost) {
         this.name = name;
         this.cost = cost;
@@ -37,11 +46,11 @@ public class Dish implements Serializable {
         this.historicOrders = 0;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

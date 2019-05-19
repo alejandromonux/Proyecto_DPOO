@@ -2,18 +2,18 @@ package model;
 
 import java.io.Serializable;
 
+/**
+ * Stores and handles the core data of the dishes, such their attributes and configurations
+ */
+
 public class Dish implements Serializable {
 
+    private int id;
     private String name;
-
     private double cost;
-
     private int units;
-
     private int timecost;
-
     private int historicOrders;
-
     private boolean active;
 
     public Dish(){}
@@ -24,6 +24,14 @@ public class Dish implements Serializable {
         this.units = units;
         this.timecost = timecost;
         this.historicOrders = 0;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
