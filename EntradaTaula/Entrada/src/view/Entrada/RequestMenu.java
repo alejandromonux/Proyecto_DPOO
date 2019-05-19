@@ -103,7 +103,12 @@ public class RequestMenu extends JPanel{
     }
 
     public void setValuesToShow(String requestName, String password) {
-        jpPassView.showPasswordTo(requestName, password);
+        //jpPassView.showPasswordTo(requestName, password);
+        jpPanels.remove(jpPassView);
+        jpPassView = new PasswordShowPanel(requestName, password);
+        jpPanels.add("PASSWORD-VIEW", jpPassView);
+        this.repaint();
+        this.revalidate();
     }
 
     public void resetValues() {

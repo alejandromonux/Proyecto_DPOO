@@ -42,27 +42,15 @@ public class ServerEntrada extends Thread {
             isRunning = true;
 
             while (isRunning) {
-                System.out.println("ruuuuuuun boiii 2");
+
                 if(dedicatedServers.isEmpty()){
-                    System.out.println(isRunning + " is running1");
                     Socket socket = serverSocket.accept();  // Esperem a que algun usuari es connecti
-                    System.out.println(isRunning + " is running2");
                     System.out.println("Connected");
                     //Modified by: Marc --> Added dedicatedServers in constructor
                     DedicatedServerEntrada dServer = new DedicatedServerEntrada(socket, requestsManager, dedicatedServers, conectorDB, controller);   // Creem un cami dedicat a la connexio amb aquest usuari
-                    System.out.println(isRunning + " is running3");
                     dedicatedServers.add(dServer);
                     dedicatedServer = dServer;
-                    System.out.println(isRunning + " is running4");
-                    if  (dedicatedServers.isEmpty()){
-                        System.out.println("empty - running");
-                    }else{
-                        System.out.println("no empty - running");
-                    }
-                    System.out.println(isRunning + " is running5");
                     dServer.start();
-                    System.out.println("uala chuta");
-                    System.out.println(isRunning + " is running");
                 }
             }
 
@@ -70,7 +58,6 @@ public class ServerEntrada extends Thread {
         } finally {
             if (serverSocket != null && !serverSocket.isClosed()) {
                 try {
-                    System.out.println("clouseo");
                     serverSocket.close();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -87,19 +74,14 @@ public class ServerEntrada extends Thread {
         //this.stop();
         try {
             serverSocket.close();
-            System.out.println("close");
         } catch (IOException e) {
 
         }
-        System.out.println("closeServer()1");
         dedicatedServers.get(0).closeDedicatedServer();
-        System.out.println("closeServer()2");
         dedicatedServer.closeDedicatedServer();
-        System.out.println("clouseo server");
         dedicatedServer = null;
         dedicatedServers.remove(0);
         try {
-            System.out.println("clouseo 2");
             serverSocket.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -113,13 +95,10 @@ public class ServerEntrada extends Thread {
     public void updateAssignment(Request nuevoRequest){
         try {
             if  (dedicatedServers.isEmpty()){
-                System.out.println("empty");
             }
             dedicatedServer.sendPass(nuevoRequest);
         }catch (NullPointerException e){
-            System.out.println("null pointer");
         }catch (IndexOutOfBoundsException e1){
-            System.out.println("index out of");
         }
     }
 

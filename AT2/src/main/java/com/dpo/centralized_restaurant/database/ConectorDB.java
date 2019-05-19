@@ -369,7 +369,7 @@ public class ConectorDB {
      * @return
      */
     public synchronized ArrayList<Dish> findActiveDishes() {
-        String query = "SELECT * FROM Dish AS d WHERE d.active = 1 AND units > 0;";
+        String query = "SELECT * FROM Dish AS d WHERE d.active = 1 AND d.units > 0;";
         ResultSet rs = null;
         ArrayList<Dish> result = new ArrayList<>();
 
@@ -394,6 +394,11 @@ public class ConectorDB {
         return result;
     }
 
+    /**
+     * Sets the num of available dishes of that name to 0
+     * @param name
+     * @return
+     */
     public synchronized boolean deactivateDish(String name){
         try {
             PreparedStatement ps = conn.prepareStatement("UPDATE dish SET units = 0 " +
@@ -463,6 +468,12 @@ public class ConectorDB {
      * ***********************************************************************************
      *********************************************************************************** */
 
+    /**
+     * Gets a request, given its name and the password to access
+     * @param requestName
+     * @param password
+     * @return
+     */
         public Request loginRequest(String requestName, String password) {
 
             String query = "SELECT * FROM request WHERE name = '"+ requestName +
@@ -561,7 +572,7 @@ public class ConectorDB {
 
 
     /**
-     * Delete a single request givne its id
+     * Delete a single request given its id
      *
      * @param id
      * @return
@@ -602,6 +613,11 @@ public class ConectorDB {
 
     }
 
+    /**
+     * Sets a request as inactive given its password
+     * @param password
+     * @return
+     */
     public Boolean updateRequest(String password) {
         try {
             PreparedStatement ps = conn.prepareStatement("UPDATE request SET request(in_service, pass) VALUES(0, '" + password + "') WHERE ;");
@@ -730,6 +746,11 @@ public class ConectorDB {
      * ***********************************************************************************
      *********************************************************************************** */
 
+    /**
+     * Sets the number of units of a dish to 0, given its name
+     * @param name
+     * @return
+     */
     public synchronized boolean agotarPlato(String name){
         PreparedStatement ps = null;
         try {
@@ -743,6 +764,11 @@ public class ConectorDB {
         }
     }
 
+    /**
+     * Adds a determined number of request into the request_order table
+     * @param listaRequests
+     * @return
+     */
     public synchronized boolean insertComanda(ArrayList<RequestDish> listaRequests){
         boolean done = true;
         for (RequestDish requestDish : listaRequests){
@@ -767,6 +793,12 @@ public class ConectorDB {
         return done;
     }
 
+    /**
+     * Removes a request given its id and unlinks if from its dishes
+     * @param requestDish
+     * @param rId
+     * @return
+     */
     public synchronized boolean deleteComanda(RequestDish requestDish, int rId){
         PreparedStatement ps = null;
         PreparedStatement ps2 = null;
@@ -786,6 +818,11 @@ public class ConectorDB {
         }
     }
 
+    /**
+     * Sets a request as paid, therefore updating the table as available
+     * @param requestPagado
+     * @return
+     */
     public synchronized Request payBill(Request requestPagado){
         PreparedStatement ps = null;
         PreparedStatement ps2 = null;
@@ -827,6 +864,11 @@ public class ConectorDB {
 
     }
 
+    /**
+     * Gets the total cost of a whole request, given itself
+     * @param requestACalcular
+     * @return
+     */
     public synchronized float calcularPrecioTotal(Request requestACalcular){
         try {
             String query = "SELECT SUM(ro.cost) AS coste_total FROM request AS r," +
@@ -847,6 +889,10 @@ public class ConectorDB {
         }
     }
 
+    /**
+     * Gets into an ArrayList all the requests that are currently in service
+     * @return
+     */
     public synchronized ArrayList<RequestDish> comprobarServidos(){
         try {
             PreparedStatement ps = conn.prepareStatement("UPDATE request_order SET actual_service = 2 WHERE NOW() <= " +
@@ -876,6 +922,11 @@ public class ConectorDB {
 
     }
 
+    /**
+     * Gets the group of orders of a request, given its id
+     * @param requestid
+     * @return
+     */
     public synchronized ArrayList<RequestDish> getMyOrders(int requestid){
         try {
             String query = "SELECT ro.id AS id, ro.dish_id AS dish_id, r.id AS request_id, d.name AS name, d.cost AS cost, ro.quantity AS units, " +
@@ -1020,6 +1071,10 @@ public class ConectorDB {
         return aux;
     }
 
+    /**
+     * Get the average price of a table
+     * @return
+     */
     public synchronized float getAvgPrice() {
         String query = "SELECT avg(aux.pricePerTable) AS priceTable FROM (SELECT sum(cost*ro.quantity)/(SELECT count(*) AS n_mesas FROM mesa AS m) AS pricePerTable\n" +
                 "        FROM Dish as d JOIN request_order AS ro ON d.name = ro.dish_id JOIN request AS r ON ro.request_id = r.id JOIN mesa AS m ON m.name = r.mesa_name GROUP BY m.name) AS aux;";

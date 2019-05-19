@@ -86,8 +86,9 @@ public class Controller implements ActionListener {
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
-                break;
+            break;
         }
+
     }
 
     public void createClock() {
