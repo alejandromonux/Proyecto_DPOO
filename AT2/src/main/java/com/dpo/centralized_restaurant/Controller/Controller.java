@@ -250,7 +250,8 @@ public class Controller implements ActionListener {
 
                 if(done3){
                     model.setMesas(conectorDB.findActiveTables());
-                    vista.getJpTables().setTableList(new TablesListPanel(model.getMesas(), this));
+//                    vista.getJpTables().setTableList(new TablesListPanel(model.getMesas(), this));
+                    vista.getJpTables().getTableList().update(model.getMesas(),this);
                     /*vista.setJpReq(new RequestsService(model.getMesas(), this));
                     vista.getJpReq().registerControllers(this);*/
                 }
@@ -288,11 +289,12 @@ public class Controller implements ActionListener {
 
             case "REMOVE-DISH":
                 String dishName = vista.getJpDish().getJpList().getDishName();
-                boolean done5 = conectorDB.deleteTable(dishName);
+                boolean done5 = conectorDB.deleteDish(dishName);
 
                 if(done5){
                     model.setDishes(conectorDB.findActiveDishes());
-                    vista.getJpDish().setJpList(new DishListPanel(model.getDishes(), this));
+                    //vista.getJpDish().setJpList(new DishListPanel(model.getDishes(), this));
+                    vista.getJpDish().getJpList().update(model.getDishes(), this);
                 }
                 else {
                     JOptionPane.showMessageDialog(vista,

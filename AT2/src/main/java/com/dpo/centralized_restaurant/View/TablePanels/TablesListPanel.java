@@ -29,9 +29,10 @@ public class TablesListPanel extends JPanel{
     private JButton editButton;
     private Object editorValue;
     private boolean isButtonColumnEditor;
-    Object[][] data ;
-    String[] columnNames;
+    private Object[][] data ;
+    private String[] columnNames;
     private com.dpo.centralized_restaurant.View.ListButton.ButtonEditor buttonEditor;
+    private JScrollPane jsPanel;
 
     public TablesListPanel(ArrayList<Mesa> mesas, Controller c) {
         buttonEditor = new com.dpo.centralized_restaurant.View.ListButton.ButtonEditor(new JCheckBox());
@@ -53,7 +54,7 @@ public class TablesListPanel extends JPanel{
 
         jtable = new JTable(tm);
         jtable.setRowHeight(30);
-        JScrollPane jsPanel = new JScrollPane(jtable);
+        jsPanel = new JScrollPane(jtable);
 
         DefaultTableCellRenderer df = new DefaultTableCellRenderer();
         df.setHorizontalAlignment(JLabel.CENTER);
@@ -93,5 +94,43 @@ public class TablesListPanel extends JPanel{
 
     public String getTableName() {
         return jtable.getValueAt(jtable.getSelectedRow(), 0).toString();
+    }
+
+    public void update(ArrayList<Mesa> mesas, Controller c){
+        this.remove(jsPanel);
+
+        buttonEditor = new com.dpo.centralized_restaurant.View.ListButton.ButtonEditor(new JCheckBox());
+        //renderButton = new JButton();
+        editButton = new JButton();
+        editButton.setFocusPainted(false);
+        //editButton.addActionListener( this );
+        originalBorder = editButton.getBorder();
+        setFocusBorder(new LineBorder(Color.BLUE));
+
+        getColumNames();
+        createData(mesas);
+        TableModel tm = new DefaultTableModel(data, columnNames) {
+            public boolean isCellEditable(int row, int column) {
+                if(column == columnNames.length -1) return true;
+                return false;
+            }
+        };
+
+        jtable = new JTable(tm);
+        jtable.setRowHeight(30);
+        jsPanel = new JScrollPane(jtable);
+
+        DefaultTableCellRenderer df = new DefaultTableCellRenderer();
+        df.setHorizontalAlignment(JLabel.CENTER);
+        for(int i= 0; i < jtable.getColumnCount();i++){
+            jtable.getColumnModel().getColumn(i).setCellRenderer(df);
+        }
+        jtable.getColumn("").setCellRenderer(new ButtonRenderer("Remove"));
+        //jtable.getColumn("").setCellEditor(buttonEditor);
+        ButtonEditor nbe = new ButtonEditor(new JCheckBox(), c, "REMOVE-TABLE", "Remove");
+        jtable.getColumn("").setCellEditor(nbe);
+
+        this.add(jsPanel);
+        this.setBorder(new EmptyBorder(0,0,0,0));
     }
 }
