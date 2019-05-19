@@ -8,6 +8,7 @@ import com.dpo.centralized_restaurant.Model.Preservice.Mesa;
 import com.dpo.centralized_restaurant.Model.Request.Request;
 import com.dpo.centralized_restaurant.Model.Request.RequestDish;
 import com.dpo.centralized_restaurant.Model.Request.RequestOrder;
+import com.dpo.centralized_restaurant.Model.Service.Comanda;
 import com.dpo.centralized_restaurant.Model.Worker;
 import com.dpo.centralized_restaurant.service.DishService;
 
@@ -1004,6 +1005,63 @@ public class ConectorDB {
         }
         return aux;
     }
+
+    /**
+     * Returns an arrayList of all the tables that are currently active
+     *
+     * @return
+     */
+    public synchronized ArrayList<Comanda> findActiveTablesWithInfo() {
+        String query = "SELECT * FROM mesa AS t WHERE t.active = true;";
+        ResultSet rs = null;
+        ResultSet rs2 = null;
+        ArrayList<Mesa> aux = new ArrayList<>();
+        ArrayList<RequestOrder> orderMesa = new ArrayList<>();
+        ArrayList<Comanda> result = new ArrayList<>();
+        try {
+            s = (Statement) conn.createStatement();
+            rs = s.executeQuery(query);
+
+            while (rs.next()) {
+                aux.add(new Mesa(rs.getString("name"), rs.getInt("chairs")));
+                result.add(new Comanda(rs.getString("name"), 0, 0, 0, "0000-01-01 00:01"));
+            }
+
+            int i = 0;
+            if (aux.size() > 0) {
+                for (Mesa m : aux) {
+                    String query2 = "SELECT * FROM request_order AS ro JOIN request AS r ON r.id = ro.request_id" +
+                            "JOIN mesa AS m ON m.name = r.mesa_name WHERE m.active = true AND m.name = + '" + m.getId() + "';";
+                    s = (Statement) conn.createStatement();
+                    rs2 = s.executeQuery(query2);
+                    while (rs.next()) {
+                        orderMesa.add(new RequestOrder(rs2.getInt("request_id"), rs.getInt("dish_id"),
+                                rs2.getInt("actual_service"), rs2.getInt("quantity"),
+                                rs2.getDate("activation_date").toString()));
+                    }
+                    int pendingDishes = 0, cookingDishes = 0;
+                    for (int j = 0; j < orderMesa.size(); j++) {
+                        if (orderMesa.get(j).getActual_service() == 0) {
+                            pendingDishes++;
+                        }
+                        if (orderMesa.get(j).getActual_service() == 1) {
+                            cookingDishes++;
+                        }
+                    }
+                    result.get(i).setAllDishes(orderMesa.size());
+                    result.get(i).setPendingDishes(pendingDishes);
+                    result.get(i).setCookingDishes(cookingDishes);
+                    i++;
+                }
+            }
+
+
+        } catch (SQLException ex) {
+            System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+        }
+        return result;
+    }
+
 
     /**
      * Get an array with the dishes with most historic orders

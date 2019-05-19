@@ -13,26 +13,10 @@ import java.util.Set;
 @Entity
 public class Mesa {
 
-    @Id
-    @Column(nullable = false, name = "name")
-    @GeneratedValue
     private String id;
-
-    @Column(nullable = false)
     private int chairs;
-
-    // La mesa esta ocupada por comensales
-    @Column(name = "in_use")
     private boolean inUse;
-
-    // Whether the mesa is available.
     private boolean active;
-
-    @OneToMany(mappedBy = "mesa")
-    private List<Request> requests;
-
-    @OneToMany(mappedBy = "mesa")
-    Set<ConfigurationTable> configurations;
 
     public Mesa(){}
 
