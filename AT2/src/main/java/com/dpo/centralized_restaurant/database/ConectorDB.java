@@ -369,7 +369,7 @@ public class ConectorDB {
      * @return
      */
     public synchronized ArrayList<Dish> findActiveDishes() {
-        String query = "SELECT * FROM Dish AS d WHERE d.active = 1;";
+        String query = "SELECT * FROM Dish AS d WHERE d.active = 1 AND quantity > 0;";
         ResultSet rs = null;
         ArrayList<Dish> result = new ArrayList<>();
 
@@ -394,6 +394,17 @@ public class ConectorDB {
         return result;
     }
 
+    public synchronized boolean deactivateDish(String name){
+        try {
+            PreparedStatement ps = conn.prepareStatement("UPDATE dish SET units = 0 " +
+                    "WHERE name = '" + name + "';");
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
     /**
      * Deletes a dish, given its name

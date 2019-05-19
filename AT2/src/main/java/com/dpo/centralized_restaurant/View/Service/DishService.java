@@ -98,7 +98,7 @@ public class DishService extends JPanel{
 
     public void update(ArrayList<Dish> dishes, Controller c){
         this.remove(jsPanel);
-        
+
         //renderButton = new JButton();
         editButton = new JButton();
         editButton.setFocusPainted(false);
@@ -132,5 +132,9 @@ public class DishService extends JPanel{
 
         this.add(jsPanel);
         this.setBorder(new EmptyBorder(0,0,0,0));
+    }
+
+    public String getDishName() {
+        return jtable.getValueAt(jtable.getSelectedRow(), 0).toString();
     }
 }

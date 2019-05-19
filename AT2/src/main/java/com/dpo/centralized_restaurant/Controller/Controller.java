@@ -473,12 +473,17 @@ public class Controller implements ActionListener {
 
 
                 // Servicio:
-                //---------------------------------------------
+                //--------------------------------------------
             case "SERVICE-DISHES":
                 vista.setJpSDish(new DishService(conectorDB.findActiveDishes(),this));
                 vista.changePanel("SERVICE-DISHES");
                 vista.getJpSDish().registerControllers(this);
-                break;
+            break;
+            case "CANCEL":
+                if(conectorDB.deactivateDish(vista.getJpSDish().getDishName())){
+                   vista.getJpSDish().update(conectorDB.findActiveDishes(), this); 
+                }
+            break;
             case "REQUESTS":
                 actualizarVistaRequests(conectorDB.getRequestsPendientes());
                 vista.changePanel("REQUESTS");
