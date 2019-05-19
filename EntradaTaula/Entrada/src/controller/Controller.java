@@ -3,6 +3,7 @@ package controller;
 import model.Request;
 import network.EntradaManager;
 import view.Entrada.ListFrame;
+import view.Entrada.ListPanel;
 import view.Entrada.RequestFrame;
 import view.Entrada.RequestMenu;
 
@@ -38,7 +39,9 @@ public class Controller implements ActionListener {
                     networkManager.askRequests();
                     break;
                 case "DELETE-REQUEST":
-                    networkManager.deleteRequest(vista.getRequestName());
+                    //String a = ListPanel.setListener(e);
+                    networkManager.deleteRequest(ListPanel.setListener(e));
+                    networkManager.askRequests();
                     break;
                 case "SEEN-PASSWORD":
                     vista.changePanel("FORM-REQUEST");
@@ -65,8 +68,8 @@ public class Controller implements ActionListener {
     }
 
 
-    public void updateRequestList(ArrayList<Request> requests) {
-        requestList.updateList(requests);
+    public void updateRequestList(ArrayList<Request> requests, ActionListener c) {
+        requestList.updateList(requests, c);
     }
 
     public void showPassword(String requestName, String passWord) {

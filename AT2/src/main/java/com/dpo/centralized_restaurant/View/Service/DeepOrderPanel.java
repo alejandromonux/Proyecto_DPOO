@@ -34,7 +34,7 @@ public class DeepOrderPanel extends JPanel {
     private Object[][] data ;
     private String[] columnNames;
     private JScrollPane jsPanel;
-    private int comandaId;
+    private String comandaId;
 
     /**
      *
@@ -42,7 +42,7 @@ public class DeepOrderPanel extends JPanel {
      * @param c Controller para las tablas
      * @param comandaId id de la comanda para luego sacar y usar en las queries
      */
-    public DeepOrderPanel(ArrayList<RequestDish> comandas, Controller c, int comandaId) {
+    public DeepOrderPanel(ArrayList<RequestDish> comandas, Controller c, String comandaId) {
         this.comandaId = comandaId;
         //renderButton = new JButton();
         editButton = new JButton();
@@ -188,7 +188,7 @@ public class DeepOrderPanel extends JPanel {
         return (int)jtable.getValueAt(jtable.getSelectedRow(), 1);
     }
 
-    public int getComandaId() {
+    public String getComandaId() {
         return comandaId;
     }
 }

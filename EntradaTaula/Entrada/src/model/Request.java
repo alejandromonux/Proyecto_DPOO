@@ -17,10 +17,11 @@ public class Request implements Cloneable{
     private String mesa_name;
     private String password;
 
-    public Request(String name, int id, String pass){
+    public Request(String name, int id, String pass, String mesa){
         this.id = id;
         this.name = name;
         this.password = pass;
+        this.mesa_name = mesa;
     }
 
     public String getName() {

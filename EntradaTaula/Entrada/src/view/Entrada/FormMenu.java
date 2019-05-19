@@ -19,7 +19,7 @@ public class FormMenu extends JPanel{
         JLabel jRequest = new JLabel("Name of Request:");
         jRequest.setForeground(Color.white);
         jtRequest = new JTextField();
-        jtRequest.setPreferredSize(new Dimension(200,20));
+        jtRequest.setPreferredSize(new Dimension(800,20));
         jpNameForm.add(jRequest, BorderLayout.PAGE_START);
         jpNameForm.add(jtRequest, BorderLayout.CENTER);
 
@@ -32,7 +32,7 @@ public class FormMenu extends JPanel{
             jcChairs.addItem(i+1);
         }
 
-        jcChairs.setPreferredSize(new Dimension(200, 20));
+        jcChairs.setPreferredSize(new Dimension(800, 20));
         jpChairsForm.add(jChairs, BorderLayout.PAGE_START);
         jpChairsForm.add(jcChairs, BorderLayout.CENTER);
 
@@ -43,7 +43,7 @@ public class FormMenu extends JPanel{
 
         JPanel jpAdd = new JPanel(new BorderLayout());
         jbtAddRequest = new JButton("MAKE REQUEST");
-        jbtAddRequest.setPreferredSize(new Dimension(380,40));
+        jbtAddRequest.setPreferredSize(new Dimension(780,40));
         jpAdd.add(jbtAddRequest);
 
         Color cAux = new Color(0x1A0D08);

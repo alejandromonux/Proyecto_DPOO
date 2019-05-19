@@ -43,10 +43,24 @@ public class Request {
         this.password = password;
     }
 
+    public Request(int id,String name, String password, String mesa_name){
+        this.name = name;
+        this.id = id;
+        this.password = password;
+        this.mesa_name = mesa_name;
+    }
+
     public Request(int id, String name, int quantity) {
         this.id = id;
         this.name = name;
         this.quantity = quantity;
+    }
+
+    public Request(int id, String name, int quantity, String mesa_name) {
+        this.id = id;
+        this.name = name;
+        this.quantity = quantity;
+        this.mesa_name = mesa_name;
     }
 
     public String getName() {

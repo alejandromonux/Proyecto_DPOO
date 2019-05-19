@@ -112,8 +112,8 @@ public class OrdersService extends JPanel{
         jbBack.addActionListener(c);
     }
 
-    public int getOrderID() {
-        return (int)jtable.getValueAt(jtable.getSelectedRow(), 0);
+    public String getOrderID() {
+        return jtable.getValueAt(jtable.getSelectedRow(), 0).toString();
     }
 
     /** Actualización de la tabla

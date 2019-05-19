@@ -6,6 +6,7 @@ import model.Request;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class ListFrame extends JFrame {
@@ -17,15 +18,15 @@ public class ListFrame extends JFrame {
     public ListFrame(int coordX, int coordY) {
 
         this.setLayout(new BorderLayout());
-        this.setSize(400,480);
+        this.setSize(800,480);
 
         jpList = new ListPanel();
         jpContent = new JScrollPane(jpList);
-        jpContent.setPreferredSize(new Dimension(400,380));
+        jpContent.setPreferredSize(new Dimension(800,380));
         jpContent.setBorder(new EmptyBorder(10,0,30,0));
 
         JPanel jpTitle = new JPanel(new BorderLayout());
-        jpTitle.setPreferredSize(new Dimension(400,80));
+        jpTitle.setPreferredSize(new Dimension(800,80));
         JLabel jtitle = new JLabel("Waiting List");
         jtitle.setVerticalAlignment(SwingConstants.CENTER);
         jtitle.setHorizontalAlignment(SwingConstants.CENTER);
@@ -34,14 +35,14 @@ public class ListFrame extends JFrame {
         jpTitle.add(jtitle);
 
         jpContainer = new JPanel(new FlowLayout());
-        jpContainer.setPreferredSize(new Dimension(400,480));
+        jpContainer.setPreferredSize(new Dimension(700,480));
         jpContainer.add(jpTitle);
         jpContainer.add(jpContent);
 
         Color cAux = new Color(0x1A0D08);
         jpTitle.setBackground(cAux);
         jpContent.setBackground(Color.white);
-        //jpContent.setBackground(new Color(0xCB7E2E));
+        jpContent.setBackground(new Color(0xCB7E2E));
 
         jpContainer.setBackground(cAux);
 
@@ -56,8 +57,21 @@ public class ListFrame extends JFrame {
         jpList.registerController(c);
     }
 
-    public void updateList(ArrayList<Request> requests) {
-        jpList.updateList(requests);
+    public void updateList(ArrayList<Request> requests , ActionListener c) {
+        //jpList.updateList(requests);
+        jpList = new ListPanel(requests, c);
+        this.remove(jpContainer);
+        jpContainer.remove(jpContent);
+        jpContent = new JScrollPane(jpList);
+        jpContent.setPreferredSize(new Dimension(700,380));
+        jpContent.setBorder(new EmptyBorder(10,0,30,0));
+        jpContent.setBackground(Color.white);
+        jpContainer.add(jpContent);
+        jpContainer.revalidate();
+        jpContainer.repaint();
+        this.add(jpContainer);
+        repaint();
+        revalidate();
     }
 
 }

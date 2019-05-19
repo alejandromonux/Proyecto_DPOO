@@ -92,3 +92,5 @@ CREATE TABLE variables_importantes(
 );
 
 INSERT INTO variables_importantes VALUES(0);
+
+SELECT * FROM request_order;

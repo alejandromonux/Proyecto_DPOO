@@ -509,7 +509,7 @@ public class ConectorDB {
             s = (Statement) conn.createStatement();
             rs = s.executeQuery(query);
             while (rs.next()) {
-                Request requestAux = new Request(rs.getInt("id"), rs.getString("name"), rs.getString("password"));
+                Request requestAux = new Request(rs.getInt("id"), rs.getString("name"), rs.getString("password"), rs.getString("mesa_name"));
                 result.add(requestAux);
             }
 
@@ -591,6 +591,19 @@ public class ConectorDB {
 
     }
 
+    public Boolean deleteRequest(String id) {
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement("DELETE FROM request WHERE request.name = '" + id + "';");
+            preparedStatement.executeUpdate();
+            return true;
+
+        } catch (SQLException ex) {
+            System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+            return false;
+        }
+
+    }
+
 
     /**
      * Creates a new request
@@ -622,6 +635,23 @@ public class ConectorDB {
         return false;
 
 
+    }
+
+    public int findRequestByTableName(String tableName) {
+        String query = "SELECT id FROM request WHERE mesa_name = '" + tableName + "' AND in_service < 2;";
+        ResultSet rs = null;
+        int idReturn = 0;
+
+        try {
+            s = (Statement) conn.createStatement();
+            rs = s.executeQuery(query);
+            if (rs.next()) {
+                idReturn = rs.getInt("id");
+            }
+        } catch (SQLException ex) {
+            System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+        }
+        return idReturn;
     }
 
     /**
@@ -966,6 +996,29 @@ public class ConectorDB {
     }
 
 
+    public synchronized ArrayList<RequestDish> getTableOrders(String tableName) {
+        try {
+            String query = "SELECT ro.id AS id, ro.dish_id AS dish_id, r.id AS request_id, d.name AS name, d.cost AS cost, ro.quantity AS units, " +
+                    "d.timecost AS timecost, ro.activation_date AS activation_date, ro.actual_service AS actual_service " +
+                    "FROM request AS r, request_order AS ro, dish AS d WHERE r.in_service = 1 AND r.id = ro.request_id AND r.mesa_name= '" + tableName +"' AND d.id = ro.dish_id;";
+            ResultSet rs = null;
+
+            s = (Statement) conn.createStatement();
+            rs = s.executeQuery(query);
+            ArrayList<RequestDish> result = new ArrayList<>();
+
+            while(rs.next()){
+                result.add(new RequestDish(rs.getInt("id"), rs.getInt("dish_id"), rs.getInt("request_id"), rs.getString("name"),
+                        rs.getFloat("cost"), rs.getInt("units"), rs.getInt("timecost"), rs.getString("activation_date"), rs.getInt("actual_service")));
+            }
+
+            return result;
+
+        } catch (SQLException ex) {
+            System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+            return null;
+        }
+    }
     /* ***********************************************************************************
      ***********************************************************************************
      *
@@ -1045,8 +1098,8 @@ public class ConectorDB {
             int i = 0;
             if (aux.size() > 0) {
                 for (Mesa m : aux) {
-                    String query2 = "SELECT * FROM request_order AS ro JOIN request AS r ON r.id = ro.request_id" +
-                            "JOIN mesa AS m ON m.name = r.mesa_name WHERE r.in_servie = 1 AND m.active = true AND m.name = + '" + m.getId() + "';";
+                    String query2 = "SELECT * FROM request_order AS ro JOIN request AS r ON r.id = ro.request_id " +
+                            "JOIN mesa AS m ON m.name = r.mesa_name WHERE r.in_service = 1 AND m.active = true AND m.name = + '" + m.getId() + "';";
                     s = (Statement) conn.createStatement();
                     rs2 = s.executeQuery(query2);
                     while (rs.next()) {
@@ -1122,7 +1175,7 @@ public class ConectorDB {
         float aux = 0;
 
         if (today) {
-            query = "SELECT sum(d.cost*ro.quantity) AS gain FROM (dish AS d JOIN request_order AS ro ON ro.dish_id = d.id) JOIN request AS r ON r.id = request_id WHERE ro.actual_service >= 1 AND r.in_service < 3;";
+            query = "SELECT sum(d.cost*ro.quantity) AS gain FROM (dish AS d JOIN request_order AS ro ON ro.dish_id = d.id) JOIN request AS r ON r.id = ro.request_id WHERE ro.actual_service >= 1 AND r.in_service < 3;";
         } else {
             query = "SELECT sum(d.cost*ro.quantity) AS gain FROM dish AS d JOIN request_order AS ro ON ro.dish_id = d.id WHERE ro.actual_service >= 1;";
         }
