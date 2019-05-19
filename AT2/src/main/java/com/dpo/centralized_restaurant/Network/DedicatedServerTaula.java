@@ -95,7 +95,7 @@ public class DedicatedServerTaula extends Thread{
                         }
                         break;
                     case "SEE-MY-ORDERS":
-                        ArrayList<RequestDish> comandaOut = conectorDB.getMyOrders(requestActual);
+                        ArrayList<RequestDish> comandaOut = conectorDB.getMyOrders(requestActual.getId());
                         dos.writeUTF("UPDATE-CLIENT-ORDERS");
                         dos.writeInt(comandaOut.size());
                         for (RequestDish d: comandaOut) {

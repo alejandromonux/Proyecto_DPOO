@@ -13,6 +13,8 @@ import com.dpo.centralized_restaurant.View.ConfigurationPanels.ConfigurationList
 import com.dpo.centralized_restaurant.View.DishPanels.DishListPanel;
 import com.dpo.centralized_restaurant.View.MainView;
 import com.dpo.centralized_restaurant.View.PostService.Stats;
+import com.dpo.centralized_restaurant.View.Service.DeepOrderPanel;
+import com.dpo.centralized_restaurant.View.Service.DishService;
 import com.dpo.centralized_restaurant.View.Service.OrdersService;
 import com.dpo.centralized_restaurant.View.TablePanels.TablesListPanel;
 import com.dpo.centralized_restaurant.View.Service.RequestsService;
@@ -471,13 +473,18 @@ public class Controller implements ActionListener {
                 // Servicio:
                 //---------------------------------------------
             case "SERVICE-DISHES":
+                vista.setJpSDish(new DishService(conectorDB.findActiveDishes(),this));
                 vista.changePanel("SERVICE-DISHES");
+                vista.getJpSDish().registerControllers(this);
                 break;
             case "REQUESTS":
                 actualizarVistaRequests(conectorDB.getRequestsPendientes());
                 vista.changePanel("REQUESTS");
             break;
             case "SEE-TABLE-ORDERS":
+                ArrayList<RequestDish> rd = new ArrayList<RequestDish>();
+                rd = conectorDB.getMyOrders(vista.getJpOrders().getOrderID());
+                vista.setJpTableOrders(new DeepOrderPanel(rd, this));
                 vista.changePanel("SPECIFIC-ORDERS");
                 break;
             case "BACKSERVICE" :

@@ -860,11 +860,11 @@ public class ConectorDB {
 
     }
 
-    public synchronized ArrayList<RequestDish> getMyOrders(Request request){
+    public synchronized ArrayList<RequestDish> getMyOrders(int requestid){
         try {
             String query = "SELECT ro.id AS id, ro.dish_id AS dish_id, r.id AS request_id, d.name AS name, d.cost AS cost, ro.quantity AS units, " +
                     "d.timecost AS timecost, ro.activation_date AS activation_date, ro.actual_service AS actual_service " +
-                    "FROM request AS r, request_order AS ro, dish AS d WHERE r.id = ro.request_id AND r.id = " + request.getId() +" AND d.id = ro.dish_id;";
+                    "FROM request AS r, request_order AS ro, dish AS d WHERE r.id = ro.request_id AND r.id = " + requestid +" AND d.id = ro.dish_id;";
             ResultSet rs = null;
 
             s = (Statement) conn.createStatement();

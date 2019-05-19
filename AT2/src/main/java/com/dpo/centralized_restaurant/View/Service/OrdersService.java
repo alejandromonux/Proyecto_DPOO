@@ -94,4 +94,8 @@ public class OrdersService extends JPanel{
         jbBack.setActionCommand("BACKSERVICE");
         jbBack.addActionListener(c);
     }
+
+    public int getOrderID() {
+        return (int)jtable.getValueAt(jtable.getSelectedRow(), 0);
+    }
 }
