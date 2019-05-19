@@ -71,7 +71,7 @@ public class MainView extends JFrame {
         jpReq = new RequestsService(new ArrayList<Request>(), controlador);
         jpOrders = new OrdersService(new ArrayList<Comanda>(), controlador);
         jpSDish = new DishService(new ArrayList<Dish>(), controlador);
-        jpTableOrders = new DeepOrderPanel(new ArrayList<>(),controlador, 0);
+        jpTableOrders = new DeepOrderPanel(new ArrayList<>(),controlador, "");
         jpStats = new Stats(new ArrayList<OrderedDish>(), new ArrayList<OrderedDish>(),0, 0 , 0, (float) 0.0);
         jpPost = new PostService();
         jpConfig = new ConfigurationPanel(controlador);
@@ -210,15 +210,28 @@ public class MainView extends JFrame {
 
     }
 
+    /**Cambia el panel del cardPanel
+     *
+     * @param which String que indica a cuál cambiar
+     */
     public void changePanel (String which) {
         jclContent.show(jpContent,which);
     }
 
+    /**Cambia el panel
+     *
+     * @param which String que indica a cuál cambiar
+     */
     public void changeTablePanel (String which) {
         jpTables.changePanel(which);
     }
 
+    /**Se cambia el panel de configuración
+     *
+     * @param which String que indica a qué panel pasar
+     */
     public void changeConfigurationPanel (String which) { jpConfig.changePanel(which);}
+
 
     public void setTableDishOrder(ArrayList<Comanda> comandes, Controller c) {
         jpContent.remove(jpOrders);
@@ -308,10 +321,6 @@ public class MainView extends JFrame {
     }
 
     public void updateRequests(ArrayList<Request> listaRequests, Controller controller){
-        //jpContent.remove(jpReq);
-        //jpReq = new RequestsService(listaRequests, controller);
-        //jpReq.registerControllers(controller);
-        //jpContent.add("REQUESTS", jpReq);
         jpReq.update(listaRequests, controller);
     }
 

@@ -13,6 +13,13 @@ public class StatsPanel extends JPanel {
     private JLabel mitjanaPlatsTaules;
     private JLabel preuMigTaula;
 
+    /**Creación del panel de estadísticas
+     *
+     * @param gananciaDia float de ganancia del día a meter en una JLabel
+     * @param gananciaTotal float de ganancia total del restaurante a meter en una JLabal
+     * @param mitjanaPlatsTaules float de mediana de platos por tabla a meter en una JLabel
+     * @param preuMigTaula float de mediana de precio por mesa a meter en una JLabel
+     */
     public StatsPanel(float gananciaDia, float gananciaTotal, float mitjanaPlatsTaules, float preuMigTaula){
         this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
         TitledBorder title = BorderFactory.createTitledBorder("Estadistiques");

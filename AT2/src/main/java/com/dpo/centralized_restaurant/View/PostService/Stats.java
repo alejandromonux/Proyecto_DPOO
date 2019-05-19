@@ -22,6 +22,15 @@ public class Stats extends JPanel {
     private JButton jbBack;
     private CardLayout LContent;
 
+    /**
+     *
+     * @param dish Lista de platos para la gráfica del día actual
+     * @param dishtotal Lista de platos para la gráfica del servicio total
+     * @param today float de ganancia del día a meter en una JLabel
+     * @param total float de ganancia total del restaurante a meter en una JLabal
+     * @param platsTaules float de mediana de platos por tabla a meter en una JLabel
+     * @param preuMig float de mediana de precio por mesa a meter en una JLabel
+     */
     public Stats(ArrayList<OrderedDish> dish, ArrayList<OrderedDish> dishtotal,
         float today, float total, float platsTaules, float preuMig ){
 
@@ -117,6 +126,10 @@ public class Stats extends JPanel {
         add(content);
     }
 
+    /**
+     *
+     * @param c Controller para los botones
+     */
     public void registerController(Controller c){
         jbToday.setActionCommand("TODAYGRAPH");
         jbToday.addActionListener(c);

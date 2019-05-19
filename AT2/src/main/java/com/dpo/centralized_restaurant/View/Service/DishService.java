@@ -35,6 +35,13 @@ public class DishService extends JPanel{
     private String[] columnNames;
     private JScrollPane jsPanel;
 
+
+    /**
+     *
+     * @param dishes Lista de platos a meter en las tablas
+     * @param c Controller para las tablas
+     *
+     */
     public DishService(ArrayList<Dish> dishes, Controller c) {
 
         //renderButton = new JButton();
@@ -79,6 +86,10 @@ public class DishService extends JPanel{
         editButton.setBorder( focusBorder );
     }
 
+    /**
+     * Creates new data for the specific orders
+     * @param dishes platos a meter en la tabla
+     */
     public void createData(ArrayList<Dish> dishes ){
         data = new Object[dishes.size()][5];
         for (int i =0; i < dishes.size() ; i++){
@@ -88,15 +99,28 @@ public class DishService extends JPanel{
             data[i][3] = "CANCEL";
         }
     }
+
+    /**
+     * Asigna los nombres a las columnas de la tabla
+     */
     public void getColumNames(){
         columnNames = new String[]{"Dish name", "Cost", "Units", "Stop Serving"};
     }
 
+    /**
+     *
+     * @param c Controller a registrar en los botones
+     */
     public void registerControllers(Controller c){
         jbBack.setActionCommand("BACKSERVICE");
         jbBack.addActionListener(c);
     }
 
+    /** Actualización de la tabla
+     *
+     * @param dishes platos a poner en la tabla
+     * @param c Controller de los botones de la tabla
+     */
     public void update(ArrayList<Dish> dishes, Controller c){
         this.remove(jsPanel);
 

@@ -59,6 +59,9 @@ public class ServerTaula extends Thread {
         }
     }
 
+    /**
+     * Updates the orders setting a new activation date
+     */
     public void updateOrders(){
         if(!dedicatedServers.isEmpty()){
             for(DedicatedServerTaula dst : dedicatedServers){

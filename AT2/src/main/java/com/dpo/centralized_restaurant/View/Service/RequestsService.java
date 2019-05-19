@@ -35,6 +35,11 @@ public class RequestsService extends JPanel {
     private Object[][] data ;
     private String[] columnNames;
 
+    /**
+     *
+     * @param requests ArrayList de Requests  meter en las tablas
+     * @param c Controller a colocar en las tablas
+     */
     public RequestsService(ArrayList<Request> requests, Controller c) {
 
         //renderButton = new JButton();
@@ -82,6 +87,10 @@ public class RequestsService extends JPanel {
         editButton.setBorder( focusBorder );
     }
 
+    /**
+     * Creates new data for the specific orders
+     * @param requests comandas a meter en la tabla
+     */
     public void createData(ArrayList<Request> requests){
         data = new Object[requests.size()][4];
         for (int i = 0; i < requests.size() ; i++){
@@ -91,12 +100,19 @@ public class RequestsService extends JPanel {
             data[i][3] = "Delete";
         }
     }
+
+    /**
+     * Asigna los nombres a las columnas de la tabla
+     */
     public void getColumNames(){
         columnNames = new String[]{"Identifier", "Name", "Assign", "Delete"};
     }
 
 
-
+    /**
+     *
+     * @param c Controller a registrar en los botones
+     */
     public void registerControllers(Controller c){
         jbBack.setActionCommand("BACKSERVICE");
         jbBack.addActionListener(c);
@@ -106,7 +122,11 @@ public class RequestsService extends JPanel {
         return (int) jtable.getValueAt(jtable.getSelectedRow(), 0);
     }
 
-
+    /** Actualización de la tabla
+     *
+     * @param listaRequests comandas a poner en la tabla
+     * @param c Controller de los botones de la tabla
+     */
     public void update(ArrayList<Request> listaRequests, Controller c) {
         this.remove(jsPanel);
 

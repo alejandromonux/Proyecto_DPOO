@@ -3,6 +3,7 @@ package com.dpo.centralized_restaurant.Controller;
 import com.dpo.centralized_restaurant.Model.Configuration.configJson;
 import com.dpo.centralized_restaurant.Model.Graphics.OrderedDish;
 import com.dpo.centralized_restaurant.Model.Model;
+import com.dpo.centralized_restaurant.Model.Preservice.Mesa;
 import com.dpo.centralized_restaurant.Model.Request.Request;
 import com.dpo.centralized_restaurant.Model.Request.RequestDish;
 import com.dpo.centralized_restaurant.Model.Service.Comanda;
@@ -65,7 +66,7 @@ public class Controller implements ActionListener {
 
     /**
      * It chooses the action to do once the user triggers an event listener
-     * @param e
+     * @param e Elemento del cuál viene la acción
      */
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -216,10 +217,7 @@ public class Controller implements ActionListener {
             case "TABLE-ORDERS":
                 vista.changePanel("ORDERS");
                 ArrayList<Comanda> auxC = new ArrayList<>();
-                auxC.add(new Comanda(1,5,3,2,"23445"));
-                auxC.add(new Comanda(2,12,7,5,"e45g"));
-                auxC.add(new Comanda(3,9,3,6,"4f5g"));
-                auxC.add(new Comanda(4,7,3,4,"f45g"));
+                auxC = conectorDB.findActiveTablesWithInfo();
                 vista.setTableDishOrder(auxC, this);
 
                 break;
@@ -236,11 +234,6 @@ public class Controller implements ActionListener {
                 else {
                     model.setMesas(conectorDB.findActiveTables());
                     vista.getJpTables().setTableList(new TablesListPanel(model.getMesas(), this));
-
-                    /*//Vista del servei
-                    vista.setJpReq(new RequestsService(model.getMesas(), this));
-                    vista.getJpReq().registerControllers(this);
-                    */
                 }
 
                 break;
@@ -250,10 +243,7 @@ public class Controller implements ActionListener {
 
                 if(done3){
                     model.setMesas(conectorDB.findActiveTables());
-//                    vista.getJpTables().setTableList(new TablesListPanel(model.getMesas(), this));
                     vista.getJpTables().getTableList().update(model.getMesas(),this);
-                    /*vista.setJpReq(new RequestsService(model.getMesas(), this));
-                    vista.getJpReq().registerControllers(this);*/
                 }
                 else {
                     JOptionPane.showMessageDialog(vista,
@@ -293,7 +283,6 @@ public class Controller implements ActionListener {
 
                 if(done5){
                     model.setDishes(conectorDB.findActiveDishes());
-                    //vista.getJpDish().setJpList(new DishListPanel(model.getDishes(), this));
                     vista.getJpDish().getJpList().update(model.getDishes(), this);
                 }
                 else {
@@ -490,16 +479,29 @@ public class Controller implements ActionListener {
                 break;
             case "SEE-TABLE-ORDERS":
                 ArrayList<RequestDish> rd = new ArrayList<RequestDish>();
-                rd = conectorDB.getMyOrders(vista.getJpOrders().getOrderID());
+                rd = conectorDB.getTableOrders(vista.getJpOrders().getOrderID()); // GetOrderId == GetTableName
                 vista.setJpTableOrders(new DeepOrderPanel(rd, this, vista.getJpOrders().getOrderID()));
                 vista.getJpTableOrders().registerController(this);
-                System.out.println("HEY");
                 vista.changePanel("SPECIFIC-ORDERS");
+                break;
+            case "SEE-COMANDA":
+                String tName = vista.getJpTableOrders().getComandaId();
+                int idcomanda = conectorDB.findRequestByTableName(tName);
+                String dishname = vista.getJpTableOrders().getDishName();
+                int unitsDish = vista.getJpTableOrders().getUnits();
+                int dish = 0;
+                for(int i = 0; i < model.getDishes().size(); i++){
+                    if(dishname.equals(model.getDishes().get(i).getName())){
+                        dish = model.getDishes().get(i).getId();
+                    }
+                }
+                conectorDB.updateComanda(new RequestDish(idcomanda, dish, unitsDish),idcomanda);
+                vista.getJpTableOrders().update(conectorDB.getMyOrders(idcomanda), this);
                 break;
             case "DELETE-COMANDA":
                 String dish_Name = vista.getJpTableOrders().getDishName();
                 int units = vista.getJpTableOrders().getUnits();
-                int id_comanda = vista.getJpTableOrders().getComandaId();
+                int id_comanda = conectorDB.findRequestByTableName(vista.getJpTableOrders().getComandaId());
                 int id_dish = 0;
                 for(int i = 0; i < model.getDishes().size(); i++){
                     if(dish_Name.equals(model.getDishes().get(i).getName())){

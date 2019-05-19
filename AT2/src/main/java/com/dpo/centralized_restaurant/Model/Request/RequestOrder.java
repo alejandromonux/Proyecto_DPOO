@@ -27,6 +27,14 @@ public class RequestOrder {
         this.activation_date = activation_date;
     }
 
+    public RequestOrder(int request_id, int dish_id, int actual_service, int quantity, String activation_date) {
+        this.request_id = request_id;
+        this.dish_id = dish_id;
+        this.actual_service = actual_service;
+        this.quantity = quantity;
+        this.activation_date = activation_date;
+    }
+
     public int getRequest_id() {
         return request_id;
     }

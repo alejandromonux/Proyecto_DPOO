@@ -34,6 +34,11 @@ public class TablesListPanel extends JPanel{
     private com.dpo.centralized_restaurant.View.ListButton.ButtonEditor buttonEditor;
     private JScrollPane jsPanel;
 
+    /**
+     *
+     * @param mesas Lista de comandas a meter en las tablas
+     * @param c Controller para las tablas
+     */
     public TablesListPanel(ArrayList<Mesa> mesas, Controller c) {
         buttonEditor = new com.dpo.centralized_restaurant.View.ListButton.ButtonEditor(new JCheckBox());
         //renderButton = new JButton();
@@ -70,9 +75,11 @@ public class TablesListPanel extends JPanel{
         this.setBorder(new EmptyBorder(0,0,0,0));
     }
 
+    /**
+     *
+     * @param c Controller a registrar en los botones
+     */
     public void registerController(Controller c){
-
-//        buttonEditor.registerController(c, "REMOVE-TABLE");
     }
 
     public void setFocusBorder(Border focusBorder) {
@@ -80,6 +87,10 @@ public class TablesListPanel extends JPanel{
         editButton.setBorder( focusBorder );
     }
 
+    /**
+     * Creates new data for the specific orders
+     * @param mesas mesas a meter en la tabla
+     */
     public void createData(ArrayList<Mesa> mesas){
         data = new Object[mesas.size()][3];
         for (int i = 0; i < mesas.size() ; i++){
@@ -88,6 +99,10 @@ public class TablesListPanel extends JPanel{
             data[i][2] = "Delete table";
         }
     }
+
+    /**
+     * Asigna los nombres a las columnas de la tabla
+     */
     public void getColumNames(){
         columnNames = new String[]{"Identifier", "Chairs", ""};
     }
@@ -96,6 +111,11 @@ public class TablesListPanel extends JPanel{
         return jtable.getValueAt(jtable.getSelectedRow(), 0).toString();
     }
 
+    /** Actualización de la tabla
+     *
+     * @param mesas mesas a poner en la tabla
+     * @param c Controller de los botones de la tabla
+     */
     public void update(ArrayList<Mesa> mesas, Controller c){
         this.remove(jsPanel);
 

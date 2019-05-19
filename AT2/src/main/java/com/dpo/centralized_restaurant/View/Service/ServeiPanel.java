@@ -18,6 +18,9 @@ public class ServeiPanel extends JPanel {
     private JButton jbStop;
 
 
+    /**
+     * Panel del la parte del programa del servicio
+     */
     public ServeiPanel() {
 
 
@@ -100,6 +103,10 @@ public class ServeiPanel extends JPanel {
     }
 
 
+    /**
+     *
+     * @param c Controller a registrar en los botones
+     */
     public void registerController(Controller c) {
 
         jbOrders.setActionCommand("TABLE-ORDERS");
