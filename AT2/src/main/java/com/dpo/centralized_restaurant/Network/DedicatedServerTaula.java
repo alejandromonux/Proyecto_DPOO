@@ -221,7 +221,7 @@ public class DedicatedServerTaula extends Thread{
             }
             conectorDB.insertComanda(comanda);
             dos.writeUTF("COMANDA-INSERT-OKEY");
-
+            controller.getVista().getJpSDish().update(conectorDB.findActiveDishes(), controller);
         } catch (Exception e){
             dos.writeUTF("COMANDA-INSERT-BAD");
             e.printStackTrace();
