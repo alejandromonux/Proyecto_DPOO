@@ -59,6 +59,12 @@ public class ServerTaula extends Thread {
         }
     }
 
+    public void updateOrders(){
+        for(DedicatedServerTaula dst : dedicatedServers){
+            dst.updateOrders();
+        }
+    }
+
     /**
      * Finishes the connection between the system from the Client side
      */

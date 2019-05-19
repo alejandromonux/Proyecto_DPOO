@@ -893,31 +893,14 @@ public class ConectorDB {
      * Gets into an ArrayList all the requests that are currently in service
      * @return
      */
-    public synchronized ArrayList<RequestDish> comprobarServidos(){
+    public void comprobarServidos(){
         try {
             PreparedStatement ps = conn.prepareStatement("UPDATE request_order SET actual_service = 2 WHERE NOW() <= " +
                     "addtime(activation_date, concat(timecost / 60, ':', MOD(timecost, 60), ':00')) AND actual_service = 1;");
             ps.executeUpdate();
 
-            String query = "SELECT ro.id AS id, ro.dish_id AS dish_id, r.id AS request_id, d.name AS name, d.cost AS cost, ro.quantity AS units, " +
-                    "d.timecost AS timecost, ro.activation_date AS activation_date, ro.actual_service AS actual_service " +
-                    "FROM request AS r, request_order AS ro, dish AS d WHERE r.id = ro.request_id AND ro.activation_date <> null AND r.in_service <= 1 AND d.id = ro.dish_id;";
-            ResultSet rs = null;
-
-            s = (Statement) conn.createStatement();
-            rs = s.executeQuery(query);
-            ArrayList<RequestDish> result = new ArrayList<>();
-
-            while(rs.next()){
-                result.add(new RequestDish(rs.getInt("id"), rs.getInt("dish_id"), rs.getInt("request_id"), rs.getString("name"),
-                        rs.getFloat("cost"), rs.getInt("units"), rs.getInt("timecost"), rs.getString("activation_date"), rs.getInt("actual_service")));
-            }
-
-            return result;
-
         } catch (SQLException ex) {
             System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
-            return null;
         }
 
     }
