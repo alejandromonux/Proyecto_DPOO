@@ -278,6 +278,17 @@ public class MainView extends JFrame {
 
     }
 
+    public DishService getJpSDish() {
+        return jpSDish;
+    }
+
+    public void setJpSDish(DishService jpSDish) {
+        jpContent.remove(this.jpSDish);
+        this.jpSDish = jpSDish;
+        jpContent.add("SERVICE-DISHES", jpSDish);
+
+    }
+
     public void updateRequests(ArrayList<Request> listaRequests, Controller controller){
         //jpContent.remove(jpReq);
         //jpReq = new RequestsService(listaRequests, controller);
