@@ -131,6 +131,10 @@ public class DishService extends JPanel{
 
         jbBack = new JButton("Back");
 
+        jbBack.removeActionListener(c);
+        jbBack.setActionCommand("BACKSERVICE");
+        jbBack.addActionListener(c);
+
         this.removeAll();
         this.add(jbBack, BorderLayout.PAGE_END);
         this.add(jsPanel, BorderLayout.CENTER);

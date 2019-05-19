@@ -147,6 +147,10 @@ public class DeepOrderPanel extends JPanel {
 
         jbBack = new JButton("BACK");
 
+        jbBack.removeActionListener(c);
+        jbBack.setActionCommand("BACKORDERS");
+        jbBack.addActionListener(c);
+
         this.removeAll();
         this.add(jbBack, BorderLayout.PAGE_END);
         this.add(jsPanel, BorderLayout.CENTER);

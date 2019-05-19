@@ -131,6 +131,10 @@ public class OrdersService extends JPanel{
         jtable.getColumn("").setCellEditor(nbe);
         jbBack = new JButton("BACK");
 
+        jbBack.removeActionListener(c);
+        jbBack.setActionCommand("BACKSERVICE");
+        jbBack.addActionListener(c);
+
         this.setLayout(new BorderLayout());
         this.add(jbBack, BorderLayout.PAGE_END);
         this.add(jsPanel, BorderLayout.CENTER);
