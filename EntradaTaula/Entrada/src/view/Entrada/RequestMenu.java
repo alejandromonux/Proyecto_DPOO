@@ -128,4 +128,8 @@ public class RequestMenu extends JPanel{
         return jpFormMenu.getRequestQuantity();
     }
 
+    public void registerPass(ActionListener c){
+        jpPassView.registerController(c);
+    }
+
 }
