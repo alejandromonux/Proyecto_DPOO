@@ -13,7 +13,9 @@ public class ChoicesPanel extends JPanel {
     private JButton jbDishes;
     private JButton jbStart;
 
-
+    /**
+     * Creación del panel de selección de opciones del preservicio
+     */
     public ChoicesPanel() {
 
         this.setLayout(new GridLayout(1,3,50,0));
