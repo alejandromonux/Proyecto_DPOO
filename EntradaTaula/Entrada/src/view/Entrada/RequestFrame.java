@@ -45,6 +45,10 @@ public class RequestFrame extends JFrame {
         jpRequestMenu.registerController(c);
     }
 
+    public void registerPass(ActionListener c){
+        jpRequestMenu.registerPass(c);
+    }
+
     public String getRequestName() {
         return jpRequestMenu.getRequestName();
     }

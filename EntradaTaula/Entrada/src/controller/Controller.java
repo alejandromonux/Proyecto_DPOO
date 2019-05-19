@@ -87,6 +87,6 @@ public class Controller implements ActionListener {
     }
 
     public void registerControllers(){
-        vista.registerController(this);
+        vista.registerPass(this);
     }
 }
