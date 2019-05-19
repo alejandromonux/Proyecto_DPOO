@@ -20,7 +20,6 @@ public class ServerEntrada extends Thread {
     private int PORT;
     private ServerSocket serverSocket;
     private final ArrayList<DedicatedServerEntrada> dedicatedServers;
-    private DedicatedServerEntrada dedicatedServer;
     private RequestManager requestsManager;
     private ConectorDB conectorDB;
     private Controller controller;
@@ -49,7 +48,6 @@ public class ServerEntrada extends Thread {
                     //Modified by: Marc --> Added dedicatedServers in constructor
                     DedicatedServerEntrada dServer = new DedicatedServerEntrada(socket, requestsManager, dedicatedServers, conectorDB, controller);   // Creem un cami dedicat a la connexio amb aquest usuari
                     dedicatedServers.add(dServer);
-                    dedicatedServer = dServer;
                     dServer.start();
                 }
             }
@@ -78,8 +76,6 @@ public class ServerEntrada extends Thread {
 
         }
         dedicatedServers.get(0).closeDedicatedServer();
-        dedicatedServer.closeDedicatedServer();
-        dedicatedServer = null;
         dedicatedServers.remove(0);
         try {
             serverSocket.close();
@@ -94,9 +90,7 @@ public class ServerEntrada extends Thread {
      */
     public void updateAssignment(Request nuevoRequest){
         try {
-            if  (dedicatedServers.isEmpty()){
-            }
-            dedicatedServer.sendPass(nuevoRequest);
+            dedicatedServers.get(0).sendPass(nuevoRequest);
         }catch (NullPointerException e){
         }catch (IndexOutOfBoundsException e1){
         }
