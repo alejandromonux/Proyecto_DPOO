@@ -1175,7 +1175,7 @@ public class ConectorDB {
         float aux = 0;
 
         if (today) {
-            query = "SELECT sum(d.cost*ro.quantity) AS gain FROM (dish AS d JOIN request_order AS ro ON ro.dish_id = d.id) JOIN request AS r ON r.id = request_id WHERE ro.actual_service >= 1 AND r.in_service < 3;";
+            query = "SELECT sum(d.cost*ro.quantity) AS gain FROM (dish AS d JOIN request_order AS ro ON ro.dish_id = d.id) JOIN request AS r ON r.id = ro.request_id WHERE ro.actual_service >= 1 AND r.in_service < 3;";
         } else {
             query = "SELECT sum(d.cost*ro.quantity) AS gain FROM dish AS d JOIN request_order AS ro ON ro.dish_id = d.id WHERE ro.actual_service >= 1;";
         }

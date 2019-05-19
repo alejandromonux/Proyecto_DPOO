@@ -177,7 +177,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="1">
     <option name="x" value="953" />
     <option name="width" value="974" />
     <option name="height" value="1047" />
@@ -331,7 +331,7 @@
       <workItem from="1558215961868" duration="264000" />
       <workItem from="1558270552799" duration="1022000" />
       <workItem from="1558275670374" duration="1884000" />
-      <workItem from="1558293325178" duration="599000" />
+      <workItem from="1558293325178" duration="1448000" />
     </task>
     <servers />
   </component>
