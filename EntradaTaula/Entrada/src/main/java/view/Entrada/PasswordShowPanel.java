@@ -17,7 +17,7 @@ public class PasswordShowPanel extends JPanel {
     private JPanel jpGeneralForm;
 
     public PasswordShowPanel() {
-
+        //creacio del panell sense informacio
         this.setLayout(new GridLayout(2,1,0,10));
 
         sPass = "default_password";
@@ -60,7 +60,7 @@ public class PasswordShowPanel extends JPanel {
     }
 
     public PasswordShowPanel(String name, String pass){
-
+        //creacio del panell amb la inforacio inserida
         this.setLayout(new GridLayout(2,1,0,10));
 
         sPass = pass;
