@@ -749,8 +749,8 @@ public class ConectorDB {
 
     /**
      * Sets the number of units of a dish to 0, given its name
-     * @param name
-     * @return
+     * @param name nombre (identificador) del plato a agotar
+     * @return Ha salido bien o no la operación
      */
     public synchronized boolean agotarPlato(String name){
         PreparedStatement ps = null;
@@ -767,8 +767,8 @@ public class ConectorDB {
 
     /**
      * Adds a determined number of requests into the request_order table
-     * @param listaRequests
-     * @return
+     * @param listaRequests ArrayList de Requests par ainsertar comandas
+     * @return Ha salido bien o no la operación
      */
     public synchronized boolean insertComanda(ArrayList<RequestDish> listaRequests){
         boolean done = true;
@@ -796,9 +796,9 @@ public class ConectorDB {
 
     /**
      * Removes a request given its id and unlinks if from its dishes
-     * @param requestDish
-     * @param rId
-     * @return
+     * @param requestDish Plato de la comanda a eliminar
+     * @param rId Id de la request
+     * @return Ha salido bien o no la operación
      */
     public synchronized boolean deleteComanda(RequestDish requestDish, int rId){
         PreparedStatement ps = null;
@@ -821,9 +821,9 @@ public class ConectorDB {
 
     /**
      * Updates a request with the activation date set to the current time
-     * @param requestDish
-     * @param rId
-     * @return
+     * @param requestDish Plato de la comanda a actualizar
+     * @param rId Id de la request
+     * @return Ha salido bien o no la operación
      */
     public synchronized boolean updateComanda(RequestDish requestDish, int rId) {
         PreparedStatement ps = null;
@@ -841,8 +841,8 @@ public class ConectorDB {
 
     /**
      * Sets a request as paid, therefore updating the table as available
-     * @param requestPagado
-     * @return
+     * @param requestPagado Reguest a pagar
+     * @return Request Resultado del pago (en función de la request qeu retorne)
      */
     public synchronized Request payBill(Request requestPagado){
         PreparedStatement ps = null;
@@ -887,8 +887,8 @@ public class ConectorDB {
 
     /**
      * Gets the total cost of a whole request, given itself
-     * @param requestACalcular
-     * @return
+     * @param requestACalcular Request de la que s quiere calcular el precio
+     * @return Precio total calculado
      */
     public synchronized float calcularPrecioTotal(Request requestACalcular){
         try {
@@ -912,7 +912,7 @@ public class ConectorDB {
 
     /**
      * Gets into an ArrayList all the requests that are currently in service
-     * @return
+     *
      */
     public void comprobarServidos(){
         try {
@@ -928,8 +928,8 @@ public class ConectorDB {
 
     /**
      * Gets the group of orders of a request, given its id
-     * @param requestid
-     * @return
+     * @param requestid id de las orders a encontrar
+     * @return  Orders encontradas en relación con la request de la mesa
      */
     public synchronized ArrayList<RequestDish> getMyOrders(int requestid){
         try {
@@ -967,8 +967,8 @@ public class ConectorDB {
     /**
      * Returns a table, given its ID
      *
-     * @param id
-     * @return
+     * @param id nombre de la mesa a encontrar
+     * @return Mesa encontrada
      */
     public synchronized Mesa findTableById(String id) {
         String query = "SELECT * FROM Mesa AS t WHERE t.id = " + id + " LIMIT 1;";
@@ -991,7 +991,7 @@ public class ConectorDB {
     /**
      * Returns an arrayList of all the tables that are currently active
      *
-     * @return
+     * @return Mesas activas actualmente
      */
     public synchronized ArrayList<Mesa> findActiveTables() {
         String query = "SELECT * FROM mesa AS t WHERE t.active = true;";
@@ -1014,7 +1014,7 @@ public class ConectorDB {
     /**
      * Returns an arrayList of all the tables that are currently active
      *
-     * @return
+     * @return Comandas activas
      */
     public synchronized ArrayList<Comanda> findActiveTablesWithInfo() {
         String query = "SELECT * FROM mesa AS t WHERE t.active = true;";
@@ -1071,8 +1071,8 @@ public class ConectorDB {
     /**
      * Get an array with the dishes with most historic orders
      *
-     * @param today
-     * @return
+     * @param today servicio actual (true) o desde que se creó la base de datos (false)
+     * @return top 5 platos del servicio de hoy o del servicio total
      */
     public synchronized ArrayList<OrderedDish> getTopDishes(boolean today) {
         String query;
@@ -1103,8 +1103,8 @@ public class ConectorDB {
     /**
      * Get the economic balance of the dishes given today
      *
-     * @param today
-     * @return
+     * @param today servicio actual (true) o desde que se creó la base de datos (false)
+     * @return ganancia total de hoy/total
      */
     public synchronized float getGain(boolean today) {
         String query;
@@ -1134,7 +1134,7 @@ public class ConectorDB {
 
     /**
      * Get the average price of a table
-     * @return
+     * @return precio por mesa medio
      */
     public synchronized float getAvgPrice() {
         String query = "SELECT avg(aux.pricePerTable) AS priceTable FROM (SELECT sum(cost*ro.quantity)/(SELECT count(*) AS n_mesas FROM mesa AS m) AS pricePerTable\n" +
@@ -1158,7 +1158,7 @@ public class ConectorDB {
 
     /**
      * Get the average number of dishes there are per table
-     * @return
+     * @return cantidad de  platos pedidos por mesa de media
      */
     public synchronized float getAvgDishes() {
         String query = "SELECT avg(aux.dishPerTable) AS dishPerTable FROM (SELECT sum(ro.quantity)/(SELECT count(*) AS n_mesas FROM mesa AS m) AS dishPerTable \n" +
@@ -1182,8 +1182,8 @@ public class ConectorDB {
     /**
      * Deletes a table, given its name
      *
-     * @param name
-     * @return
+     * @param name nombre de la mesa a eliminar (Es identificador)
+     * @return Ha salido bien o no la operación
      */
     public boolean deleteTable(String name) {
         try {
@@ -1200,9 +1200,9 @@ public class ConectorDB {
     /**
      * Creates a new table, given its name and number of chairs
      *
-     * @param name
-     * @param chairs
-     * @return
+     * @param name nombre de la mesa a crear (identificador)
+     * @param chairs sillas de las mesa a crear
+     * @return Ha salido bien o no la operación
      */
     public boolean createTable(String name, int chairs) {
         try {
@@ -1241,8 +1241,8 @@ public class ConectorDB {
     /**
      * Creates a new worker, given his full data
      *
-     * @param worker
-     * @return
+     * @param worker Usuario a crear
+     * @return Ha salido bien o no la operación
      */
     public boolean createWorker(Worker worker) {
         //ResultSet rs = null;
@@ -1265,8 +1265,8 @@ public class ConectorDB {
     /**
      * Returns a worker instance, given his name
      *
-     * @param name
-     * @return
+     * @param name nombre del usuario
+     * @return Usuario encontrado
      */
     public Worker findWorkerByName(String name) {
         String query = "SELECT * FROM worker AS w WHERE w.username = '" + name + "';";
@@ -1288,8 +1288,8 @@ public class ConectorDB {
     /**
      * Returns a worker instance, given his mail
      *
-     * @param email
-     * @return
+     * @param email mail del usuario
+     * @return Usuario encontreado
      */
     public Worker findWorkerByEmail(String email) {
         String query = "SELECT * FROM worker AS w WHERE w.email = '" + email + "';";
@@ -1313,9 +1313,9 @@ public class ConectorDB {
     /**
      * Returns a worker instance, given its name and password
      *
-     * @param name
-     * @param password
-     * @return
+     * @param name nombre de usuario
+     * @param password contraseña del usuario
+     * @return Usuario encontrado
      */
     public Worker findWorkerByNameAndPassword(String name, String password) {
         String query = "SELECT * FROM worker AS w WHERE w.username = '" + name + "' AND w.password = '" + password + "';";
@@ -1338,9 +1338,9 @@ public class ConectorDB {
     /**
      * Returns a worker instance, given its email and password
      *
-     * @param email
-     * @param password
-     * @return
+     * @param email mail del usuario
+     * @param password contraseña del usuario
+     * @return Usuario correspondiente
      */
     public Worker findWorkerByEmailAndPassword(String email, String password) {
         String query = "SELECT * FROM worker AS w WHERE w.email = '" + email + "' AND w.password = '" + password + "';";
@@ -1368,12 +1368,10 @@ public class ConectorDB {
      *********************************************************************************** */
 
     /**
-     * Returns the  state at which the program was closed before the change to the login panel.
-     * State 0: Pre-service
-     * State 1: Service
-     * State 2: Post-service
-     *
-     * @return
+     * @return the state at which the program was closed before the change to the login panel.
+     *      * State 0: Pre-service
+     *      * State 1: Service
+     *      * State 2: Post-service
      */
     public int estadoServicio() {
         try {
@@ -1395,8 +1393,8 @@ public class ConectorDB {
     /**
      * Updates the Service Status in the database
      *
-     * @param estado
-     * @return
+     * @param estado estado actual del servicio
+     * @return Ha salido bien o no la operación
      */
     public boolean actualizarEstadoServicio(int estado) {
         try {
@@ -1414,7 +1412,7 @@ public class ConectorDB {
     /**
      * Sets the number of historic orders by dish
      *
-     * @return
+     * @return Ha salido bien o no la operación
      */
     public boolean setHistoricos() {
         try {

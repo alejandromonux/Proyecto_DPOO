@@ -71,8 +71,6 @@ public class TablesListPanel extends JPanel{
     }
 
     public void registerController(Controller c){
-
-//        buttonEditor.registerController(c, "REMOVE-TABLE");
     }
 
     public void setFocusBorder(Border focusBorder) {
@@ -88,6 +86,7 @@ public class TablesListPanel extends JPanel{
             data[i][2] = "Delete table";
         }
     }
+
     public void getColumNames(){
         columnNames = new String[]{"Identifier", "Chairs", ""};
     }

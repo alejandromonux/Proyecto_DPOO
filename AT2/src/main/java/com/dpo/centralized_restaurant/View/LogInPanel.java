@@ -160,6 +160,9 @@ public class LogInPanel extends JPanel {
         add(bigPanel);
     }
 
+    /**
+     * @param c Controller de los botones
+     */
     public void registerController(Controller c){
         jbLogin.setActionCommand("LOGGING USER");
         jbLogin.addActionListener(c);

@@ -36,6 +36,12 @@ public class DeepOrderPanel extends JPanel {
     private JScrollPane jsPanel;
     private int comandaId;
 
+    /**
+     *
+     * @param comandas Lista de comandas a meter en las tablas
+     * @param c Controller para las tablas
+     * @param comandaId id de la comanda para luego sacar y usar en las queries
+     */
     public DeepOrderPanel(ArrayList<RequestDish> comandas, Controller c, int comandaId) {
         this.comandaId = comandaId;
         //renderButton = new JButton();
@@ -77,6 +83,7 @@ public class DeepOrderPanel extends JPanel {
         this.setBorder(new EmptyBorder(0,0,0,0));
     }
 
+
     public void setFocusBorder(Border focusBorder) {
         this.focusBorder = focusBorder;
         editButton.setBorder( focusBorder );
@@ -84,7 +91,7 @@ public class DeepOrderPanel extends JPanel {
 
     /**
      * Creates new data for the specific orders
-     * @param comandas
+     * @param comandas comandas a meter en la tabla
      */
     public void createData(ArrayList<RequestDish> comandas ){
         data = new Object[comandas.size()][8];
@@ -106,16 +113,29 @@ public class DeepOrderPanel extends JPanel {
             data[i][7] = "DELETE";
         }
     }
+
+    /**
+     * Asigna los nombres a las columnas de la tabla
+     */
     public void getColumNames(){
         columnNames = new String[]{"Name", "Units", "State", "Date", "ChangeState", "Delete"};
     }
 
+    /**
+     *
+     * @param c Controller a registrar en los botones
+     */
     public void registerController(Controller c){
         jbBack.setActionCommand("BACKORDERS");
         jbBack.addActionListener(c);
     }
 
 
+    /** Actualización de la tabla
+     *
+     * @param comandas comandas a poner en la tabla
+     * @param c Controller de los botones de la tabla
+     */
     public void update(ArrayList<RequestDish> comandas, Controller c){
         this.remove(jsPanel);
         editButton = new JButton();
