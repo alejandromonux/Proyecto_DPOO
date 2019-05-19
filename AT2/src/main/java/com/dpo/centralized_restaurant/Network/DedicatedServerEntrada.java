@@ -61,12 +61,12 @@ public class DedicatedServerEntrada extends Thread{
                         break;
 
                     case "DELETE-REQUEST":
-                        int id = dis.readInt();
+                        String id = dis.readUTF();
                         boolean done = conectorDB.deleteRequest(id);
+                        dos.writeUTF("DELETE-RESPONSE");
                         dos.writeBoolean(done);
 
                         if(done){
-                            conectorDB.deleteRequest(id);
                             sendAll(conectorDB.getRequests());
                             controller.actualizarVistaRequests(conectorDB.getRequestsPendientes());
                         }
@@ -117,6 +117,7 @@ public class DedicatedServerEntrada extends Thread{
                 dos.writeInt(request.getId());
                 dos.writeUTF(request.getName());
                 dos.writeUTF(request.getPassword());
+                dos.writeUTF(request.getMesa_name());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -142,6 +143,11 @@ public class DedicatedServerEntrada extends Thread{
                     }
                     if (request.getPassword() != null) {
                         dos.writeUTF(request.getPassword());
+                    }else{
+                        dos.writeUTF("NULL");
+                    }
+                    if (request.getMesa_name() != null){
+                        dos.writeUTF(request.getMesa_name());
                     }else{
                         dos.writeUTF("NULL");
                     }

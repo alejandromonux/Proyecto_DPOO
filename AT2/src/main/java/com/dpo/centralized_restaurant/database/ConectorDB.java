@@ -590,6 +590,19 @@ public class ConectorDB {
 
     }
 
+    public Boolean deleteRequest(String id) {
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement("DELETE FROM request WHERE request.name = '" + id + "';");
+            preparedStatement.executeUpdate();
+            return true;
+
+        } catch (SQLException ex) {
+            System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+            return false;
+        }
+
+    }
+
 
     /**
      * Creates a new request

@@ -571,7 +571,10 @@ public class Controller implements ActionListener {
                 Request requestAceptado = conectorDB.findRequest(id);
 
                 conectorDB.asignarMesa(requestAceptado);
-                serverEntrada.updateAssignment(requestAceptado);
+                if (requestAceptado.getPassword() != null) {
+                    serverEntrada.updateAssignment(requestAceptado);
+                }
+                serverEntrada.updateAll(conectorDB.getRequests());
                 actualizarVistaRequests(conectorDB.getRequestsPendientes());
 
                 break;
