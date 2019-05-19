@@ -171,10 +171,10 @@ public class MainView extends JFrame {
         /* ------------------------------ VIEW PARAMETERS ------------------------------ */
         getContentPane().add(jpHeader, BorderLayout.PAGE_START);
         getContentPane().add(jpContent);
-       // getContentPane().add(jpContent, BorderLayout.SOUTH);
+        // getContentPane().add(jpContent, BorderLayout.SOUTH);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Pre-Service");
+        setTitle("Servidor");
         setResizable(false);
 
     }
@@ -199,9 +199,12 @@ public class MainView extends JFrame {
         jbConfig.addActionListener(c);
     }
 
+    /**
+     * Gets the current time in hours:minutes:seconds
+     */
     public void createClock() {
         Date date = new Date();
-        DateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
         String time = timeFormat.format(date);
         digitalClock.setText(time);
 
@@ -274,7 +277,6 @@ public class MainView extends JFrame {
         jpContent.remove(this.jpStats);
         this.jpStats = jpStats;
         jpContent.add("STADISTICS", this.jpStats);
-
     }
 
     public DishService getJpSDish() {
@@ -285,7 +287,24 @@ public class MainView extends JFrame {
         jpContent.remove(this.jpSDish);
         this.jpSDish = jpSDish;
         jpContent.add("SERVICE-DISHES", jpSDish);
+    }
 
+    public OrdersService getJpOrders() {
+        return jpOrders;
+    }
+
+    public void setJpOrders(OrdersService jpOrders) {
+        this.jpOrders = jpOrders;
+    }
+
+    public DeepOrderPanel getJpTableOrders() {
+        return jpTableOrders;
+    }
+
+    public void setJpTableOrders(DeepOrderPanel jpTableOrders) {
+        jpContent.remove(this.jpTableOrders);
+        this.jpTableOrders = jpTableOrders;
+        jpContent.add("SPECIFIC-ORDERS", jpTableOrders);
     }
 
     public void updateRequests(ArrayList<Request> listaRequests, Controller controller){

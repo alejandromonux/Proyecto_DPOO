@@ -332,8 +332,8 @@ public class Controller implements ActionListener {
 
                 break;
 
-                //Pantalla Login:
-                //----------------------------------------------------
+            //Pantalla Login:
+            //----------------------------------------------------
 
             case "CREATING USER":
                 String registerName = vista.getJpLogIn().getJtfRegisterName().getText();
@@ -463,45 +463,46 @@ public class Controller implements ActionListener {
 
                     else {
                         JOptionPane.showMessageDialog(vista,
-                            "Incorrect user or password",
-                            "Error!",
-                            JOptionPane.ERROR_MESSAGE);
+                                "Incorrect user or password",
+                                "Error!",
+                                JOptionPane.ERROR_MESSAGE);
                     }
                 }
 
                 break;
 
 
-                // Servicio:
-                //--------------------------------------------
+            // Servicio:
+            //--------------------------------------------
             case "SERVICE-DISHES":
                 vista.setJpSDish(new DishService(conectorDB.findActiveDishes(),this));
                 vista.changePanel("SERVICE-DISHES");
                 vista.getJpSDish().registerControllers(this);
-            break;
+                break;
             case "CANCEL":
                 if(conectorDB.deactivateDish(vista.getJpSDish().getDishName())){
-                   vista.getJpSDish().update(conectorDB.findActiveDishes(), this); 
+                    vista.getJpSDish().update(conectorDB.findActiveDishes(), this);
                 }
-            break;
+                break;
             case "REQUESTS":
                 actualizarVistaRequests(conectorDB.getRequestsPendientes());
                 vista.changePanel("REQUESTS");
-            break;
+                break;
             case "SEE-TABLE-ORDERS":
                 ArrayList<RequestDish> rd = new ArrayList<RequestDish>();
                 rd = conectorDB.getMyOrders(vista.getJpOrders().getOrderID());
                 vista.setJpTableOrders(new DeepOrderPanel(rd, this));
+                vista.getJpTableOrders().registerController(this);
+                System.out.println("HEY");
                 vista.changePanel("SPECIFIC-ORDERS");
                 break;
             case "BACKSERVICE" :
                 vista.changePanel("START");
+                break;
 
-            break;
             case "BACKORDERS":
-                System.out.println("Hi");
                 vista.changePanel("ORDERS");
-            break;
+                break;
             case "POSTSERVICE" :
                 ArrayList<OrderedDish> today = conectorDB.getTopDishes(true);
                 ArrayList<OrderedDish> all = conectorDB.getTopDishes(false);
@@ -535,23 +536,23 @@ public class Controller implements ActionListener {
                             "Error!",
                             JOptionPane.ERROR_MESSAGE);
                 }
-            break;
+                break;
             case "BACK-TO-PS":
                 vista.changePanel("POSTSERVICE");
-            break;
+                break;
 
             case "GRAPHICS":
                 vista.changePanel("STADISTICS");
-            break;
+                break;
             case "TODAYGRAPH":
                 vista.getJpStats().changePanel("TODAYGRAPH");
-            break;
+                break;
             case "TOTALGRAPH":
                 vista.getJpStats().changePanel("TOTALGRAPH");
-            break;
+                break;
             case "STATSPANEL" :
                 vista.getJpStats().changePanel("STATS");
-            break;
+                break;
             case "ACCEPT-REQUEST":
                 int id = vista.getJpReq().getSelectedRequestName();
                 Request requestAceptado = conectorDB.findRequest(id);
@@ -641,6 +642,9 @@ public class Controller implements ActionListener {
         this.model = model;
     }
 
+    /**
+     * Displays the current time into the header of the view
+     */
     public void createClock() {
         Timer timer;
         ActionListener actionListener = new ActionListener() {
