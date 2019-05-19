@@ -804,7 +804,7 @@ public class ConectorDB {
         PreparedStatement ps2 = null;
         try {
             ps = conn.prepareStatement("UPDATE dish SET units = units + " + requestDish.getUnits() +
-                    " WHERE dish_id = " + requestDish.getDish_id() + " LIMIT 1;");
+                    " WHERE id = " + requestDish.getDish_id() + " LIMIT 1;");
             ps.executeUpdate();
 
             ps2 = conn.prepareStatement("DELETE FROM request_order WHERE dish_id = " + requestDish.getDish_id() +
