@@ -58,6 +58,7 @@ public class ListFrame extends JFrame {
     }
 
     public void updateList(ArrayList<Request> requests , ActionListener c) {
+        //llista de requests
         //jpList.updateList(requests);
         jpList = new ListPanel(requests, c);
         this.remove(jpContainer);

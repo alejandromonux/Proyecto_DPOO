@@ -29,6 +29,7 @@ public class Controller implements ActionListener {
         createClock();
     }
 
+    //accions dels botons
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -38,12 +39,12 @@ public class Controller implements ActionListener {
                     networkManager.sendRequest(vista.getRequestName(), vista.getRequestQuantity());
                     networkManager.askRequests();
                     break;
-                case "DELETE-REQUEST":
+                case "DELETE-REQUEST":  //boto eliminar request
                     //String a = ListPanel.setListener(e);
                     networkManager.deleteRequest(ListPanel.setListener(e));
                     networkManager.askRequests();
                     break;
-                case "SEEN-PASSWORD":
+                case "SEEN-PASSWORD":   //boto acceptar al veure la password
                     vista.changePanel("FORM-REQUEST");
                     vista.resetValues();
                     break;
@@ -69,14 +70,16 @@ public class Controller implements ActionListener {
 
 
     public void updateRequestList(ArrayList<Request> requests, ActionListener c) {
+        //update de la llist on veiem les requests
         requestList.updateList(requests, c);
     }
 
     public void showPassword(String requestName, String passWord) {
+        //canvi de panell al de password i creacio d'un nou amb la informacio
         vista.setValuesToShow(requestName, passWord);
         vista.changePanel("PASSWORD-VIEW");
     }
-
+    /****** Errors de conexio amb el servidor  *******/
     public void insertNotification(){
 
         vista.insertNotification();
@@ -89,6 +92,7 @@ public class Controller implements ActionListener {
         vista.errorConexio();
     }
 
+    //registrar els controllers del boto a show password
     public void registerControllers(){
         vista.registerPass(this);
     }
