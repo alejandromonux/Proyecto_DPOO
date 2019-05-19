@@ -4,6 +4,7 @@ com.dpo.centralized_restaurant
 com.dpo.centralized_restaurant.Controller
 com.dpo.centralized_restaurant.Model
 com.dpo.centralized_restaurant.Model.Configuration
+com.dpo.centralized_restaurant.Model.Graphics
 com.dpo.centralized_restaurant.Model.ModelDTO
 com.dpo.centralized_restaurant.Model.Preservice
 com.dpo.centralized_restaurant.Model.Request
