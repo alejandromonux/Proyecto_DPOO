@@ -80,6 +80,10 @@ public class DeepOrderPanel extends JPanel {
         editButton.setBorder( focusBorder );
     }
 
+    /**
+     * Creates new data for the specific orders
+     * @param comandas
+     */
     public void createData(ArrayList<RequestDish> comandas ){
         data = new Object[comandas.size()][8];
         int hour;
