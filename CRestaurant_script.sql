@@ -105,6 +105,7 @@ SELECT * FROM request;
 
 SELECT * FROM request_order;
 SELECT * FROM dish;
+SELECT * FROM Dish AS d WHERE d.active = 1 AND units > 0
 
 SELECT ro.* FROM  request AS r, request_order AS ro WHERE r.id = ro.request_id AND r.id = 1;
 

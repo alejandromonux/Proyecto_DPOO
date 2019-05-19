@@ -131,7 +131,6 @@ public class DedicatedServerEntrada extends Thread{
         synchronized (this) {
             try {
                 dos.writeUTF("INCOMING-ASSIGNMENT");
-                System.out.printf("INCOMING-ASSIGMENT");
                 dos.writeInt(request.getId());
                 System.out.println(request.getId());
                 dos.writeUTF(request.getName());
