@@ -230,6 +230,9 @@ public class DedicatedServerTaula extends Thread{
         //long idMesaAfectadaOrder = dis.readLong();
     }
 
+    /**
+     * Updates the orders that exist within the system
+     */
     public void updateOrders(){
         ArrayList<RequestDish> comandaOut = conectorDB.getMyOrders(requestActual.getId());
         try {

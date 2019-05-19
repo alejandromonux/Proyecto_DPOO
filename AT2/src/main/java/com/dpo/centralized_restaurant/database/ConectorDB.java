@@ -819,7 +819,12 @@ public class ConectorDB {
         }
     }
 
-
+    /**
+     * Updates a request with the activation date set to the current time
+     * @param requestDish
+     * @param rId
+     * @return
+     */
     public synchronized boolean updateComanda(RequestDish requestDish, int rId) {
         PreparedStatement ps = null;
         try {
