@@ -3,6 +3,8 @@ package view.Entrada;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.font.TextAttribute;
+import java.util.Map;
 
 public class PasswordShowPanel extends JPanel {
 
@@ -37,6 +39,11 @@ public class PasswordShowPanel extends JPanel {
         JLabel jPass = new JLabel("Password assigned:");
         jPass.setForeground(Color.white);
         jpassWord = new JLabel(sPass);
+        jpassWord.setEnabled(true);
+        Font font = jpassWord.getFont();
+        Map attributes = font.getAttributes();
+        attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+        jpassWord.setFont(font.deriveFont(attributes));
         jpassWord.setForeground(Color.white);
         jpPass.add(jPass);
         jpPass.add(jpassWord);

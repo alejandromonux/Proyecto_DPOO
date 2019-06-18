@@ -7,7 +7,6 @@ import com.dpo.centralized_restaurant.database.ConectorDB;
 import com.dpo.centralized_restaurant.database.DishServiceDB;
 import com.dpo.centralized_restaurant.database.OrderService;
 import com.dpo.centralized_restaurant.database.RequestService;
-
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -59,10 +58,10 @@ public class DedicatedServerEntrada extends Thread{
                 init = dis.readUTF();
                 switch (init) {
                     case "REQUEST-COMING":
-                        dos.writeUTF("REQUEST-COMING");
                         String nameNew = dis.readUTF();
                         int cantidadPersonas = dis.readInt();
                         boolean p = requestS.insertRequest(nameNew, cantidadPersonas);
+                        dos.writeUTF("REQUEST-COMING");
                         dos.writeBoolean(p);
                         controller.actualizarVistaRequests(requestS.getRequestsPendientes());
                         break;
@@ -96,9 +95,12 @@ public class DedicatedServerEntrada extends Thread{
             try {
                 dis.close();
             } catch (IOException e) {}
+            try {
+                socket.close();
+            } catch (IOException e){}
             //try {
-                dedicatedServers.remove(this);
-                //socket.close();  --Marc: No se si esto deberia estar ya que se cierra a el mismo
+            System.out.println("Disconnect");
+            dedicatedServers.remove(this);
             //} catch (IOException e) {}
         }
     }
@@ -112,7 +114,11 @@ public class DedicatedServerEntrada extends Thread{
             dos.close();
             dis.close();
         } catch (IOException e) {}
+        try {
+            socket.close();
+        } catch (IOException e){}
         //try {
+        System.out.println("Disconnect");
         dedicatedServers.remove(this);
     }
 

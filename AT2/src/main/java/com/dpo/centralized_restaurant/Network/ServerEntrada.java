@@ -54,14 +54,13 @@ public class ServerEntrada extends Thread {
 
             while (isRunning) {
 
-                if(dedicatedServers.isEmpty()){
-                    Socket socket = serverSocket.accept();  // Esperem a que algun usuari es connecti
-                    System.out.println("Connected");
-                    //Modified by: Marc --> Added dedicatedServers in constructor
-                    DedicatedServerEntrada dServer = new DedicatedServerEntrada(socket, requestsManager, dedicatedServers, conectorDB, controller, dishS, orderS, requestS);   // Creem un cami dedicat a la connexio amb aquest usuari
-                    dedicatedServers.add(dServer);
-                    dServer.start();
-                }
+                Socket socket = serverSocket.accept();  // Esperem a que algun usuari es connecti
+                System.out.println("Connected");
+                //Modified by: Marc --> Added dedicatedServers in constructor
+                DedicatedServerEntrada dServer = new DedicatedServerEntrada(socket, requestsManager, dedicatedServers, conectorDB, controller, dishS, orderS, requestS);   // Creem un cami dedicat a la connexio amb aquest usuari
+                dedicatedServers.add(dServer);
+                dServer.start();
+
             }
 
         } catch (IOException e) {

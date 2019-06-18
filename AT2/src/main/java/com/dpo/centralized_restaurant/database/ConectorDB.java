@@ -1,18 +1,6 @@
 package com.dpo.centralized_restaurant.database;
 
-import com.dpo.centralized_restaurant.Model.Configuration.Configuration;
-import com.dpo.centralized_restaurant.Model.Graphics.OrderedDish;
-import com.dpo.centralized_restaurant.Model.Preservice.Dish;
-import com.dpo.centralized_restaurant.Model.Preservice.Mesa;
-import com.dpo.centralized_restaurant.Model.Request.Request;
-import com.dpo.centralized_restaurant.Model.Request.RequestDish;
-import com.dpo.centralized_restaurant.Model.Request.RequestOrder;
-import com.dpo.centralized_restaurant.Model.Service.Comanda;
-import com.dpo.centralized_restaurant.Model.Worker;
-
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.UUID;
 
 
 /**

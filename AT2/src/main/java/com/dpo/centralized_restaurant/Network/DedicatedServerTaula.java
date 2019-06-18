@@ -139,7 +139,7 @@ public class DedicatedServerTaula extends Thread{
     /**
      * Reads and handles the request to login to the system, given the name and the password
      */
-    public void loginRequest() {
+    public synchronized void loginRequest() {
 
         try {
             String requestName = dis.readUTF();
@@ -162,7 +162,7 @@ public class DedicatedServerTaula extends Thread{
     /**
      * Updates the menu with the current active dishes
      */
-    public void updateDishesToAll(){
+    public synchronized void updateDishesToAll(){
         ArrayList<Dish> listaPlatos = dishS.findActiveDishes();
 
         for (DedicatedServerTaula dst : dedicatedServers){
@@ -174,7 +174,7 @@ public class DedicatedServerTaula extends Thread{
      * Given the list of the dishes above, updates the menu accordingly
      * @param menu
      */
-    public void updateMenu(ArrayList<Dish> menu){
+    public synchronized void updateMenu(ArrayList<Dish> menu){
         try {
             dos.writeUTF("UPDATE-MENU");
 
@@ -193,7 +193,7 @@ public class DedicatedServerTaula extends Thread{
     /**
      * Allows the client to finish the payment and update the info in the database
      */
-    public void doPayment() {
+    public synchronized void doPayment() {
         try {
             Gson g = new Gson();
             Request inRequest = g.fromJson(dis.readUTF(), Request.class);
@@ -216,7 +216,7 @@ public class DedicatedServerTaula extends Thread{
      * Prepares the system ro recieve a number of requests and add them to the database
      * @throws IOException
      */
-    public void dishesComing() throws IOException {
+    public synchronized void dishesComing() throws IOException {
         try {
             int counter = dis.readInt();
             ArrayList<RequestDish> comanda = new ArrayList<>();
@@ -239,7 +239,7 @@ public class DedicatedServerTaula extends Thread{
     /**
      * Updates the orders that exist within the system
      */
-    public void updateOrders(){
+    public synchronized void updateOrders(){
         if(requestActual != null){
             ArrayList<RequestDish> comandaOut = orderS.getMyOrders(requestActual.getId());
             try {

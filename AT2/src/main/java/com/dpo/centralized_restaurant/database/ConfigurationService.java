@@ -2,9 +2,6 @@ package com.dpo.centralized_restaurant.database;
 
 import com.dpo.centralized_restaurant.Model.Configuration.Configuration;
 import com.dpo.centralized_restaurant.Model.Worker;
-import com.dpo.centralized_restaurant.Repository.ConfigurationRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.sql.*;
 import java.util.ArrayList;
 

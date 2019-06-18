@@ -260,6 +260,7 @@ public class RequestService {
             // No ha habido exito pero si existe una mesa que pueda contener al numero de comensales del pedido
             if (recibido) {
                 rs.first();
+                rs = s.executeQuery(query);
 
                 // Buscamos mesas ocupadas que entren dentro de la tolerancia para poder poner el pedido de mesa en su cola de espera
                 while (rs.next()) {
@@ -277,6 +278,8 @@ public class RequestService {
                 // Llegado este paso no existen mesas que entren dentro de la tolerancia de comensales
                 // Hay que buscar mesas mas grandes
                 rs.first();
+                rs = s.executeQuery(query);
+
 
                 //Buscamos una mesa que no este usada, ya sin tener en cuenta la tolerancia
                 while (rs.next()) {

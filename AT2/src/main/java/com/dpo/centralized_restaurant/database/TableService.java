@@ -4,9 +4,6 @@ import com.dpo.centralized_restaurant.Model.Graphics.OrderedDish;
 import com.dpo.centralized_restaurant.Model.Preservice.Mesa;
 import com.dpo.centralized_restaurant.Model.Request.RequestOrder;
 import com.dpo.centralized_restaurant.Model.Service.Comanda;
-import com.dpo.centralized_restaurant.Repository.TableRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.sql.*;
 import java.util.ArrayList;

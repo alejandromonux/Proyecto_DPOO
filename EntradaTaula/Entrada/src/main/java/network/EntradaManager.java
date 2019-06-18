@@ -7,7 +7,6 @@ import model.config.configJSON;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 
@@ -71,6 +70,7 @@ public class EntradaManager extends Thread {
         dos.writeUTF("REQUEST-COMING");
         dos.writeUTF(nameRequest);
         dos.writeInt(quantity);
+
     }
 
     public void askRequests() throws IOException {
