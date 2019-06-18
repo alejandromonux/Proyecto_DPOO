@@ -16,7 +16,7 @@ public class RequestFrame extends JFrame {
     public RequestFrame() {
 
         this.setLayout(new GridLayout(1,1));
-        this.setSize(800,480);
+        this.setSize(400,480);
 
         /*····················   MENU    ···················· */
         jpRequestMenu = new RequestMenu();

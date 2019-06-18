@@ -3,7 +3,7 @@ import com.dpo.centralized_restaurant.Model.Configuration.configJson;
 import com.dpo.centralized_restaurant.View.MainView;
 import Initialization.modifyProperties;
 import com.dpo.centralized_restaurant.Model.*;
-import com.dpo.centralized_restaurant.database.ConectorDB;
+import com.dpo.centralized_restaurant.database.*;
 import com.google.gson.Gson;
 
 import javax.swing.*;
@@ -28,9 +28,16 @@ public class Main {
                 public void run() {
                     ConectorDB conectorDB =  new ConectorDB(configInicial.getUser(), configInicial.getPassword(), configInicial.getNomBBDD(), configInicial.getPort_BBDD());
                     //ConectorDB conectorDB =  new ConectorDB("root", "mysql1234", "oltpdb_p2", 3306);
-
                     conectorDB.connect();
-                    Controller controlador = new Controller(model, configInicial, conectorDB);
+
+                    ConfigurationService configS = new ConfigurationService(conectorDB.getConn());
+                    DishServiceDB dishS = new DishServiceDB(conectorDB.getConn());
+                    OrderService orderS = new OrderService(conectorDB.getConn());
+                    RequestService requestS = new RequestService(conectorDB.getConn());
+                    TableService tableS = new TableService(conectorDB.getConn());
+                    WorkerService workerS = new WorkerService(conectorDB.getConn());
+
+                    Controller controlador = new Controller(model, configInicial, conectorDB, configS, dishS, orderS, requestS, tableS, workerS);
                     MainView vista = new MainView(controlador);
                     controlador.setVista(vista);
                     vista.registerController(controlador);

@@ -5,6 +5,9 @@ import com.dpo.centralized_restaurant.Model.Configuration.configJson;
 import com.dpo.centralized_restaurant.Model.Request.Request;
 import com.dpo.centralized_restaurant.Model.Request.RequestManager;
 import com.dpo.centralized_restaurant.database.ConectorDB;
+import com.dpo.centralized_restaurant.database.DishServiceDB;
+import com.dpo.centralized_restaurant.database.OrderService;
+import com.dpo.centralized_restaurant.database.RequestService;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import java.io.IOException;
@@ -21,17 +24,26 @@ public class ServerEntrada extends Thread {
     private ServerSocket serverSocket;
     private final ArrayList<DedicatedServerEntrada> dedicatedServers;
     private RequestManager requestsManager;
+
     private ConectorDB conectorDB;
+    private DishServiceDB dishS;
+    private OrderService orderS;
+    private RequestService requestS;
+
     private Controller controller;
     private boolean isRunning;
 
-    public ServerEntrada(configJson config, ConectorDB conectorDB, Controller controller) {
+    public ServerEntrada(configJson config, ConectorDB conectorDB, Controller controller,
+                         DishServiceDB dishS, OrderService orderS, RequestService requestS) {
         dedicatedServers = new ArrayList<>(1);
         serverSocket = null;
         requestsManager = new RequestManager();
         PORT = config.getPort_Entrada();
         this.conectorDB = conectorDB;
         this.controller = controller;
+        this.dishS = dishS;
+        this.orderS = orderS;
+        this.requestS = requestS;
     }
 
     @Override
@@ -46,7 +58,7 @@ public class ServerEntrada extends Thread {
                     Socket socket = serverSocket.accept();  // Esperem a que algun usuari es connecti
                     System.out.println("Connected");
                     //Modified by: Marc --> Added dedicatedServers in constructor
-                    DedicatedServerEntrada dServer = new DedicatedServerEntrada(socket, requestsManager, dedicatedServers, conectorDB, controller);   // Creem un cami dedicat a la connexio amb aquest usuari
+                    DedicatedServerEntrada dServer = new DedicatedServerEntrada(socket, requestsManager, dedicatedServers, conectorDB, controller, dishS, orderS, requestS);   // Creem un cami dedicat a la connexio amb aquest usuari
                     dedicatedServers.add(dServer);
                     dServer.start();
                 }
