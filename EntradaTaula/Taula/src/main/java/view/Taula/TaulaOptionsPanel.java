@@ -51,12 +51,16 @@ public class TaulaOptionsPanel extends JPanel {
     }
 
     public void registerController(Controller c) {
+        if (jbtnToOrder.getActionListeners().length > 0) {
+            jbtnToOrder.removeActionListener(c);}
         jbtnToOrder.setActionCommand("TAULA-ORDER");
         jbtnToOrder.addActionListener(c);
-
+        if (jbtnSeeOrders.getActionListeners().length > 0) {
+            jbtnSeeOrders.removeActionListener(c);}
         jbtnSeeOrders.setActionCommand("TAULA-SEE-ORDERS");
         jbtnSeeOrders.addActionListener(c);
-
+        if (jbtnPay.getActionListeners().length > 0) {
+            jbtnPay.removeActionListener(c);}
         jbtnPay.setActionCommand("TO-PAY");
         jbtnPay.addActionListener(c);
     }

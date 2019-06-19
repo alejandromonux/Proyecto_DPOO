@@ -23,7 +23,7 @@ public class RequestService {
      */
     public Request loginRequest(String requestName, String password) {
 
-        String query = "SELECT * FROM request WHERE name = '"+ requestName +
+        String query = "SELECT * FROM request WHERE in_service < 2 AND name = '"+ requestName +
                 "' AND password = '" + password + "' LIMIT 1;";
         ResultSet rs = null;
         Request result = null;

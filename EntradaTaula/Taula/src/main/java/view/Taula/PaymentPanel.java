@@ -57,6 +57,8 @@ public class PaymentPanel extends JPanel {
     public void registerController(ActionListener c) {
         jbtnBack.setActionCommand("BACK");
         jbtnBack.addActionListener(c);
+        if (jbtnPay.getActionListeners().length > 0) {
+            jbtnPay.removeActionListener(c); }
         jbtnPay.setActionCommand("PAY-BILL");
         jbtnPay.addActionListener(c);
     }
