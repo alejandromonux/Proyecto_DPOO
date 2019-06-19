@@ -64,16 +64,17 @@ public class DeepOrderPanel extends JPanel {
         jtable.setRowHeight(30);
         jsPanel = new JScrollPane(jtable);
 
-
         DefaultTableCellRenderer df = new DefaultTableCellRenderer();
         df.setHorizontalAlignment(JLabel.CENTER);
         for(int i= 0; i < jtable.getColumnCount();i++){
             jtable.getColumnModel().getColumn(i).setCellRenderer(df);
         }
-        jtable.getColumn("ChangeState").setCellRenderer(new ButtonRenderer("SEE MORE"));
-        jtable.getColumn("ChangeState").setCellEditor(new ButtonEditor(new JCheckBox(), c, "SEE-COMANDA", "SEE MORE"));
+
+        jtable.getColumn("ChangeState").setCellRenderer(new ButtonRenderer("CHANGE STATE"));
+        jtable.getColumn("ChangeState").setCellEditor(new ButtonEditor(new JCheckBox(), c, "CHANGE-STATE", "CHANGE STATE"));
         jtable.getColumn("Delete").setCellRenderer(new ButtonRenderer("DELETE"));
         jtable.getColumn("Delete").setCellEditor(new ButtonEditor(new JCheckBox(), c, "DELETE-COMANDA", "DELETE"));
+
 
         jbBack = new JButton("BACK");
 
@@ -109,8 +110,13 @@ public class DeepOrderPanel extends JPanel {
                 min =(comandas.get(i).getTimecost() + Integer.parseInt(comandas.get(i).getActivation_date().substring(15,16)));
             }
             data[i][5] = comandas.get(i).getActivation_date().substring(1,12) + hour + ":" + min + ":" + comandas.get(i).getActivation_date().substring(18,19);
-            data[i][6] = "CHANGE STATE";
-            data[i][7] = "DELETE";
+            if (comandas.get(i).getActualService() == 2) {
+                data[i][6] = "----";
+                data[i][7] = "----";
+            } else {
+                data[i][6] = "CHANGE STATE";
+                data[i][7] = "DELETE";
+            }
         }
     }
 
@@ -163,8 +169,8 @@ public class DeepOrderPanel extends JPanel {
         for(int i= 0; i < jtable.getColumnCount();i++){
             jtable.getColumnModel().getColumn(i).setCellRenderer(df);
         }
-        jtable.getColumn("ChangeState").setCellRenderer(new ButtonRenderer("SEE MORE"));
-        jtable.getColumn("ChangeState").setCellEditor(new ButtonEditor(new JCheckBox(), c, "SEE-COMANDA", "SEE MORE"));
+        jtable.getColumn("ChangeState").setCellRenderer(new ButtonRenderer("CHANGE STATE"));
+        jtable.getColumn("ChangeState").setCellEditor(new ButtonEditor(new JCheckBox(), c, "CHANGE-STATE", "CHANGE STATE"));
         jtable.getColumn("Delete").setCellRenderer(new ButtonRenderer("DELETE"));
         jtable.getColumn("Delete").setCellEditor(new ButtonEditor(new JCheckBox(), c, "DELETE-COMANDA", "DELETE"));
 

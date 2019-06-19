@@ -73,14 +73,18 @@ public class OrderService {
         PreparedStatement ps = null;
         PreparedStatement ps2 = null;
         try {
-            ps = conn.prepareStatement("UPDATE dish SET units = units + " + requestDish.getUnits() +
-                    " WHERE id = " + requestDish.getDish_id() + " LIMIT 1;");
-            ps.executeUpdate();
+            if (requestDish.getActualService() < 2) {
+                ps = conn.prepareStatement("UPDATE dish SET units = units + " + requestDish.getUnits() +
+                        " WHERE id = " + requestDish.getDish_id() + " LIMIT 1;");
+                ps.executeUpdate();
 
-            ps2 = conn.prepareStatement("DELETE FROM request_order WHERE dish_id = " + requestDish.getDish_id() +
-                    " AND request_id = " + rId + " LIMIT 1;");
-            ps2.executeUpdate();
-            return true;
+                ps2 = conn.prepareStatement("DELETE FROM request_order WHERE dish_id = " + requestDish.getDish_id() +
+                        " AND request_id = " + rId + " LIMIT 1;");
+                ps2.executeUpdate();
+                return true;
+            } else {
+                return true;
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -97,10 +101,14 @@ public class OrderService {
     public synchronized boolean updateComanda(RequestDish requestDish, int rId) {
         PreparedStatement ps = null;
         try {
-            ps = conn.prepareStatement("UPDATE request_order SET actual_service = 1, activation_date = now()" +
-                    "WHERE request_id = " + rId + " AND dish_id = " + requestDish.getDish_id() + ";");
-            ps.executeUpdate();
-            return true;
+            if (requestDish.getActualService() < 2) {
+                ps = conn.prepareStatement("UPDATE request_order SET actual_service = actual_service + 1, activation_date = NOW()" +
+                        "WHERE actual_service < 2 AND request_id = " + rId + " AND dish_id = " + requestDish.getDish_id() + ";");
+                ps.executeUpdate();
+                return true;
+            } else {
+                return true;
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -190,7 +198,7 @@ public class OrderService {
             ps.executeUpdate();
 
         } catch (SQLException ex) {
-            System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+            System.out.println("Problema al Recuperar les dades 32--> " + ex.getSQLState());
         }
 
     }
@@ -219,7 +227,7 @@ public class OrderService {
             return result;
 
         } catch (SQLException ex) {
-            System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+            System.out.println("Problema al Recuperar les dades 33--> " + ex.getSQLState());
             return null;
         }
     }
@@ -244,7 +252,7 @@ public class OrderService {
             return result;
 
         } catch (SQLException ex) {
-            System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+            System.out.println("Problema al Recuperar les dades 34--> " + ex.getSQLState());
             return null;
         }
     }

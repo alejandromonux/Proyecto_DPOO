@@ -27,7 +27,6 @@ public class Main {
                 @Override
                 public void run() {
                     ConectorDB conectorDB =  new ConectorDB(configInicial.getUser(), configInicial.getPassword(), configInicial.getNomBBDD(), configInicial.getPort_BBDD());
-                    //ConectorDB conectorDB =  new ConectorDB("root", "mysql1234", "oltpdb_p2", 3306);
                     conectorDB.connect();
 
                     ConfigurationService configS = new ConfigurationService(conectorDB.getConn());
@@ -36,6 +35,9 @@ public class Main {
                     RequestService requestS = new RequestService(conectorDB.getConn());
                     TableService tableS = new TableService(conectorDB.getConn());
                     WorkerService workerS = new WorkerService(conectorDB.getConn());
+
+                    model.setDishes(dishS.findActiveDishes());
+                    model.setMesas(tableS.findActiveTables());
 
                     Controller controlador = new Controller(model, configInicial, conectorDB, configS, dishS, orderS, requestS, tableS, workerS);
                     MainView vista = new MainView(controlador);

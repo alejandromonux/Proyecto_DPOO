@@ -45,7 +45,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/view/Entrada/PasswordShowPanel.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="168">
-              <caret line="36" lean-forward="true" selection-start-line="36" selection-end-line="36" />
+              <caret line="36" selection-start-line="36" selection-end-line="36" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -369,18 +369,19 @@
       <workItem from="1560871095420" duration="1929000" />
       <workItem from="1560877205538" duration="3706000" />
       <workItem from="1560886473262" duration="4885000" />
-      <workItem from="1560934460006" duration="1191000" />
+      <workItem from="1560934460006" duration="3324000" />
+      <workItem from="1560945804380" duration="2997000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="85845000" />
+    <option name="totallyTimeSpent" value="90975000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="0" width="974" height="1047" extended-state="1" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.36433262" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.37308535" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -615,7 +616,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/view/Entrada/PasswordShowPanel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
-          <caret line="36" lean-forward="true" selection-start-line="36" selection-end-line="36" />
+          <caret line="36" selection-start-line="36" selection-end-line="36" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

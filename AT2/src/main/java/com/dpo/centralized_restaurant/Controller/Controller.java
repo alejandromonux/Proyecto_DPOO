@@ -114,6 +114,10 @@ public class Controller implements ActionListener {
                     serverEntrada.start();
                     serverTaula = new ServerTaula(configJson, conectorDB, this, dishS, orderS, requestS);
                     serverTaula.start();
+                    this.model.setDishes(dishS.findActiveDishes());
+                    this.model.setMesas(tableS.findActiveTables());
+                    vista.getJpDish().getJpList().update(model.getDishes(), this);
+
                 }
                 else {
                     JOptionPane.showMessageDialog(vista,
@@ -210,6 +214,8 @@ public class Controller implements ActionListener {
                 vista.changePanel("MAIN");
                 break;
             case "DISH-LIST":
+                this.model.setDishes(dishS.findActiveDishes());
+                vista.getJpDish().getJpList().update(model.getDishes(), this);
                 vista.getJpDish().changePanel("DISH-LIST");
                 break;
             case "DISH-BACK":
@@ -263,6 +269,8 @@ public class Controller implements ActionListener {
                 break;
 
             case "DISH-CREATE-ACTION":
+                this.model.setDishes(dishS.findActiveDishes());
+                vista.getJpDish().getJpList().update(model.getDishes(), this);
                 boolean done4 = dishS.createDish(vista.getJpDish().getJpCreator().getJtfName().getText(),
                         (int) vista.getJpDish().getJpCreator().getJcbQuantity().getSelectedItem(),
                         Double.parseDouble(vista.getJpDish().getJpCreator().getJtCost().getText()),
@@ -281,7 +289,8 @@ public class Controller implements ActionListener {
                             vista.getJpDish().getJpCreator().getJcbQuantity().getSelectedItem().toString(),
                             vista.getJpDish().getJpCreator().getJtTime().getText());
                     //Update a la vista
-                    vista.getJpDish().setJpList(new DishListPanel(model.getDishes(), this));
+                    vista.getJpDish().getJpList().update(model.getDishes(), this);
+                    //vista.getJpDish().setJpList(new DishListPanel(model.getDishes(), this));
                 }
                 break;
 
@@ -492,7 +501,7 @@ public class Controller implements ActionListener {
                 vista.getJpTableOrders().registerController(this);
                 vista.changePanel("SPECIFIC-ORDERS");
                 break;
-            case "SEE-COMANDA":
+            case "CHANGE-STATE":
                 String tName = vista.getJpTableOrders().getComandaId();
                 int idcomanda = requestS.findRequestByTableName(tName);
                 String dishname = vista.getJpTableOrders().getDishName();
@@ -504,7 +513,8 @@ public class Controller implements ActionListener {
                     }
                 }
                 orderS.updateComanda(new RequestDish(idcomanda, dish, unitsDish),idcomanda);
-                vista.getJpTableOrders().update(orderS.getMyOrders(idcomanda), this);
+                CookingThread cookingThread = new CookingThread(new RequestDish(idcomanda, dish, unitsDish),idcomanda);
+
                 break;
             case "DELETE-COMANDA":
                 String dish_Name = vista.getJpTableOrders().getDishName();
@@ -608,6 +618,12 @@ public class Controller implements ActionListener {
 
         }
 
+    }
+
+    public synchronized void updateCookedDish(RequestDish requestDish, int idcomanda) {
+        orderS.updateComanda(requestDish,idcomanda);
+        System.out.println("Holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        vista.getJpTableOrders().update(orderS.getMyOrders(idcomanda), this);
     }
 
     /**

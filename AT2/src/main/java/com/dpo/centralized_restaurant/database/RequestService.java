@@ -35,7 +35,7 @@ public class RequestService {
                 result = new Request(rs.getInt("id") ,rs.getString("name"), rs.getString("password"));
             }
         } catch (SQLException ex) {
-            System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+            System.out.println("Problema al Recuperar les dades 36--> " + ex.getSQLState());
         }
         return result;
     }
@@ -60,7 +60,7 @@ public class RequestService {
             }
 
         } catch (SQLException ex) {
-            System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+            System.out.println("Problema al Recuperar les dades 37--> " + ex.getSQLState());
         }
         return result;
 
@@ -85,7 +85,7 @@ public class RequestService {
             }
 
         } catch (SQLException ex) {
-            System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+            System.out.println("Problema al Recuperar les dades 38--> " + ex.getSQLState());
         }
         return result;
 
@@ -111,7 +111,7 @@ public class RequestService {
             }
 
         } catch (SQLException ex) {
-            System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+            System.out.println("Problema al Recuperar les dades 39--> " + ex.getSQLState());
         }
         return null;
 
@@ -131,7 +131,7 @@ public class RequestService {
             return true;
 
         } catch (SQLException ex) {
-            System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+            System.out.println("Problema al Recuperar les dades 40--> " + ex.getSQLState());
             return false;
         }
 
@@ -144,7 +144,7 @@ public class RequestService {
             return true;
 
         } catch (SQLException ex) {
-            System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+            System.out.println("Problema al Recuperar les dades 41--> " + ex.getSQLState());
             return false;
         }
 
@@ -176,7 +176,7 @@ public class RequestService {
 
 
         } catch (SQLException ex) {
-            System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+            System.out.println("Problema al Recuperar les dades 42--> " + ex.getSQLState());
         }
         return false;
 
@@ -195,7 +195,7 @@ public class RequestService {
                 idReturn = rs.getInt("id");
             }
         } catch (SQLException ex) {
-            System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+            System.out.println("Problema al Recuperar les dades 43--> " + ex.getSQLState());
         }
         return idReturn;
     }
@@ -212,7 +212,7 @@ public class RequestService {
             return true;
 
         } catch (SQLException ex) {
-            System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+            System.out.println("Problema al Recuperar les dades 44--> " + ex.getSQLState());
         }
         return false;
     }
@@ -325,7 +325,7 @@ public class RequestService {
             }
 
         } catch (SQLException ex) {
-            System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+            System.out.println("Problema al Recuperar les dades 35--> " + ex.getSQLState());
         }
         return false;
     }

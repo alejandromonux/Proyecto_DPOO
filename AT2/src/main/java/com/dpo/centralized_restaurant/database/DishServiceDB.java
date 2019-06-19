@@ -46,7 +46,7 @@ public class DishServiceDB {
             return true;
 
         } catch (SQLException ex) {
-            System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+            System.out.println("Problema al Recuperar les dades 29--> " + ex.getSQLState());
             return false;
         }
 
@@ -79,7 +79,7 @@ public class DishServiceDB {
 
 
         } catch (SQLException ex) {
-            System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+            System.out.println("Problema al Recuperar les dades 30--> " + ex.getSQLState());
         }
         return result;
     }
@@ -110,7 +110,7 @@ public class DishServiceDB {
             }
 
         } catch (SQLException ex) {
-            System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+            System.out.println("Problema al Recuperar les dades 31--> " + ex.getSQLState());
         }
         return result;
     }
@@ -175,7 +175,7 @@ public class DishServiceDB {
             }
 
         } catch (SQLException ex) {
-            System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+            System.out.println("Problema al Recuperar les dades 28 --> " + ex.getSQLState());
         }
         return result;
     }

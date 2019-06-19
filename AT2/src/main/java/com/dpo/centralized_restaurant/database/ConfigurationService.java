@@ -54,7 +54,7 @@ public class ConfigurationService {
             return true;
 
         } catch (SQLException ex) {
-            System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+            System.out.println("Problema al Recuperar les dades 23 --> " + ex.getSQLState());
             return false;
         }
     }
@@ -129,7 +129,7 @@ public class ConfigurationService {
             return true;
 
         } catch (SQLException ex) {
-            System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+            System.out.println("Problema al Recuperar les dades 24 --> " + ex.getSQLState());
             return false;
         }
 
@@ -184,7 +184,7 @@ public class ConfigurationService {
             return true;
 
         } catch (SQLException ex) {
-            System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+            System.out.println("Problema al Recuperar les dades 25--> " + ex.getSQLState());
             return false;
         }
 
@@ -214,7 +214,7 @@ public class ConfigurationService {
             }
 
         } catch (SQLException ex) {
-            System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+            System.out.println("Problema al Recuperar les dades 26--> " + ex.getSQLState());
         }
         return result;
     }
@@ -234,7 +234,7 @@ public class ConfigurationService {
             rs = s.executeQuery(query);
 
         } catch (SQLException ex) {
-            System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
+            System.out.println("Problema al Recuperar les dades 27--> " + ex.getSQLState());
         }
         return rs;
     }
