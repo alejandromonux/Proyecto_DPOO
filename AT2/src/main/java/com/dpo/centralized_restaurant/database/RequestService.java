@@ -243,7 +243,7 @@ public class RequestService {
                     String randomUUIDString_aux = uuid.toString();
                     String randomUUIDString = randomUUIDString_aux.substring(0,8);
 
-                    PreparedStatement ps = conn.prepareStatement("UPDATE mesa SET in_use = true " +
+                    PreparedStatement ps = conn.prepareStatement("UPDATE mesa SET in_use = true, activation_date = NOW() " +
                             "WHERE name = '" + rs.getString("name") + "';");
                     ps.executeUpdate();
 
@@ -288,7 +288,7 @@ public class RequestService {
                         String randomUUIDString_aux = uuid.toString();
                         String randomUUIDString = randomUUIDString_aux.substring(0,8);
 
-                        PreparedStatement ps = conn.prepareStatement("UPDATE mesa SET in_use = true " +
+                        PreparedStatement ps = conn.prepareStatement("UPDATE mesa SET in_use = true, activation_date = NOW() " +
                                 "WHERE name = '" + rs.getString("name") + "';");
                         ps.executeUpdate();
 

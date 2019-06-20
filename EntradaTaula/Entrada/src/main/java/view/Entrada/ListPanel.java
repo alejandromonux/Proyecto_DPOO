@@ -64,28 +64,43 @@ public class ListPanel extends JPanel {
 
         content = (ArrayList<Request>) list.clone();
         for (int i = 0; i < content.size();i++) {
-            JPanel jpAux = new JPanel(new BorderLayout());
+            JPanel jpAux = new JPanel(new GridLayout(1,3,5,0));
             JLabel jlAux;
-            if (content.get(i).getMesa_name() == null){
-                 jlAux = new JLabel(content.get(i).getName() + "\t Esperando asignacion de mesa...");
+            JLabel jlPass = new JLabel();
+
+            if (content.get(i).getMesa_name() == "---"){
+                jlPass.setText("Esperando asignacion de mesa...");
+                jlPass.setForeground(Color.white);
+                jlAux = new JLabel(content.get(i).getName());
                  jlAux.setForeground(Color.white);
             }else {
-                if (list.get(i).getPassword() == null) {
-                    jlAux = new JLabel(content.get(i).getName() + "\t En cola");
+                if (list.get(i).getPassword() == "---") {
+                    jlPass.setText("En cola");
+                    jlPass.setForeground(Color.white);
+                    jlAux = new JLabel(content.get(i).getName() );
                     jlAux.setForeground(Color.white);
                 } else {
-                    jlAux = new JLabel(content.get(i).getName() + "\t Pass: " + content.get(i).getPassword());
+                    jlPass.setText( "Password:   " + content.get(i).getPassword());
+                    jlPass.setForeground(Color.white);
+                    jlAux = new JLabel(content.get(i).getName());
                     jlAux.setForeground(Color.white);
                 }
             }
             //jlAux.setForeground(Color.white);
 
-            JButton jbtnAux = new JButton("DELETE " + content.get(i).getName());
-            botones.add(jbtnAux);
-            jbtnAux.setActionCommand("DELETE-REQUEST");
-            jbtnAux.setPreferredSize(new Dimension(150,20));
             jpAux.add(jlAux);
-            jpAux.add(jbtnAux, BorderLayout.LINE_END);
+            jpAux.add(jlPass);
+
+            if (list.get(i).getPassword() == "---") {
+                JButton jbtnAux = new JButton("DELETE " + content.get(i).getName());
+                botones.add(jbtnAux);
+                jbtnAux.setActionCommand("DELETE-REQUEST");
+                jbtnAux.setPreferredSize(new Dimension(150,20));
+                jpAux.add(jbtnAux);
+            } else {
+                jpAux.add(new JLabel(""));
+            }
+
             jpAux.setPreferredSize(new Dimension(450,30));
             jpAux.setBorder(new EmptyBorder(0,20,0,20));
             jpAux.setBackground(cAux);

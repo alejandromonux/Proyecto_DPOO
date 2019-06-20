@@ -21,6 +21,8 @@ import com.dpo.centralized_restaurant.database.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -44,6 +46,8 @@ public class Controller implements ActionListener {
     private TableService tableS;
     private WorkerService workerS;
 
+    private static Controller controller;
+
 
     public Controller(){
 
@@ -51,14 +55,17 @@ public class Controller implements ActionListener {
 
     public Controller(Model model){
         this.model = model;
+        this.controller = this;
     }
 
     public Controller(MainView vista) {
         this.vista = vista;
+        this.controller = this;
     }
 
     public Controller(Model model, configJson configJson, ConectorDB conectorDB,
                       ConfigurationService configS, DishServiceDB dishS, OrderService orderS, RequestService requestS, TableService tableS, WorkerService workerS) {
+        this.controller = this;
         this.model = model;
         this.configJson = configJson;
         this.conectorDB = conectorDB;
@@ -71,6 +78,13 @@ public class Controller implements ActionListener {
         createClock();
     }
 
+    public ServerEntrada getServerEntrada() {
+        return serverEntrada;
+    }
+
+    public ServerTaula getServerTaula() {
+        return serverTaula;
+    }
 
     /**
      * It chooses the action to do once the user triggers an event listener
@@ -513,7 +527,9 @@ public class Controller implements ActionListener {
                     }
                 }
                 orderS.updateComanda(new RequestDish(idcomanda, dish, unitsDish),idcomanda);
-                CookingThread cookingThread = new CookingThread(new RequestDish(idcomanda, dish, unitsDish),idcomanda);
+                vista.getJpTableOrders().update(orderS.getMyOrders(idcomanda), this);
+
+                //CookingThread cookingThread = new CookingThread(new RequestDish(idcomanda, dish, unitsDish), orderS, idcomanda);
 
                 break;
             case "DELETE-COMANDA":
@@ -620,10 +636,11 @@ public class Controller implements ActionListener {
 
     }
 
-    public synchronized void updateCookedDish(RequestDish requestDish, int idcomanda) {
-        orderS.updateComanda(requestDish,idcomanda);
-        System.out.println("Holaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-        vista.getJpTableOrders().update(orderS.getMyOrders(idcomanda), this);
+    public Controller getInstance() {
+        if (controller == null) {
+            controller = new Controller();
+        }
+        return controller;
     }
 
     /**
@@ -694,11 +711,32 @@ public class Controller implements ActionListener {
             public void actionPerformed(ActionEvent e) {
                 vista.createClock();
                 int estadoServicio = conectorDB.estadoServicio();
-                if(estadoServicio == 1){
-                    orderS.comprobarServidos();
-                    if(serverTaula != null){
-                        serverTaula.updateOrders();
+                if(estadoServicio == 1 && serverTaula != null && vista != null){
+                    DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
+                    ArrayList<Request> lista = requestS.getRequests();
+                    for(Request r : lista){
+                        ArrayList<RequestDish> rdList = orderS.getMyNotPreparingOrders(r.getId());
+                        for(RequestDish rd : rdList){
+                            LocalDateTime dt = LocalDateTime.parse(rd.getActivation_date(), dateFormat);
+                            dt = dt.plusMinutes(rd.getTimecost());
+                            if (LocalDateTime.now().isAfter(dt)){
+                                orderS.updateComanda(rd,r.getId());
+                                serverTaula.updateOrders();
+                                vista.getJpTableOrders().update(orderS.getMyOrders(r.getId()), controller);
+                            }
+
+                            orderS.setServido(rd,r.getId());
+
+                            /*if (rd.getActualService() == 2){
+                                serverTaula.updateOrders();
+                                vista.getJpTableOrders().update(orderS.getMyOrders(r.getId()), this);
+
+                            }*/
+
+                        }
+
                     }
+
                 }
 
             }

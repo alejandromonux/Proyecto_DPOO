@@ -5,13 +5,15 @@ import com.dpo.centralized_restaurant.database.OrderService;
 
 public class CookingThread extends Thread {
 
+    private OrderService orderS;
     private Controller controller;
     private RequestDish requestDish;
     private int idComanda;
 
-    public CookingThread(RequestDish rd, int id) {
+    public CookingThread(RequestDish rd, OrderService orderS, int id) {
         this.requestDish = rd;
         this.idComanda = id;
+        this.orderS = orderS;
         this.start();
     }
 
@@ -19,9 +21,15 @@ public class CookingThread extends Thread {
     public void run() {
         try {
             if (requestDish.getActualService() < 2) {
-                sleep(1000);
+                controller.getInstance().getVista().getJpTableOrders().update(orderS.getMyOrders(idComanda), controller.getInstance());
+                controller.getInstance().getServerTaula().updateOrders();
+
+                orderS.updateComanda(requestDish,idComanda);
+                controller.getInstance().getVista().getJpTableOrders().update(orderS.getMyOrders(idComanda), controller.getInstance());
+                controller.getInstance().getServerTaula().updateOrders();
+
             }
-            controller.updateCookedDish(requestDish, idComanda);
+
         }catch (Exception e){
         }
     }

@@ -30,6 +30,19 @@ public class ServerTaula extends Thread {
 
     private Controller controller;
     private boolean isRunning;
+    private static ServerTaula serverTaula;
+
+    public static ServerTaula getInstance() {
+        if (serverTaula == null) {
+            serverTaula = new ServerTaula();
+        }
+        return serverTaula;
+    }
+
+    public ServerTaula(){
+        dedicatedServers = new ArrayList<>();
+        isRunning  = true;
+    }
 
     public ServerTaula(configJson config, ConectorDB conectorDB, Controller controller,
                        DishServiceDB dishS, OrderService orderS, RequestService requestS) {
@@ -75,7 +88,7 @@ public class ServerTaula extends Thread {
     /**
      * Updates the orders setting a new activation date
      */
-    public void updateOrders(){
+    public synchronized void updateOrders(){
         if(!dedicatedServers.isEmpty()){
             for(DedicatedServerTaula dst : dedicatedServers){
                 dst.updateOrders();

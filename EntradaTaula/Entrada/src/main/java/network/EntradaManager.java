@@ -90,15 +90,13 @@ public class EntradaManager extends Thread {
                     //lectura de dades
                     int id = dis.readInt();
                     String name = dis.readUTF();
-                    name = name.equals("NULL") ? null: name;
+                    name = name.equals("NULL") ? "---": name;
                     String pass = dis.readUTF();
-                    pass = pass.equals("NULL") ? null: pass;
+                    pass = pass.equals("NULL") ? "---": pass;
                     String mesa = dis.readUTF();
-                    mesa = mesa.equals("NULL") ? null: mesa;
-                    if (pass == null) {
-                        //afegim requests no actives
-                        requests.add(new Request(name, id, pass, mesa));
-                    }
+                    mesa = mesa.equals("NULL") ? "---": mesa;
+                    requests.add(new Request(name, id, pass, mesa));
+
                     size--;
                 }
                     controller.updateRequestList(requests, controller);

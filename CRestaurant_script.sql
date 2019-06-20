@@ -34,7 +34,8 @@ CREATE TABLE mesa(
   name VARCHAR(255) NOT NULL PRIMARY KEY,
   chairs INT DEFAULT 1,
   in_use boolean DEFAULT false,
-  active boolean default true
+  active boolean default true,
+  activation_date DATE default null
 );
 
 DROP TABLE IF EXISTS request;

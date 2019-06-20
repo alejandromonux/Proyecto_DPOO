@@ -17,6 +17,12 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class DeepOrderPanel extends JPanel {
@@ -94,15 +100,29 @@ public class DeepOrderPanel extends JPanel {
      * Creates new data for the specific orders
      * @param comandas comandas a meter en la tabla
      */
-    public void createData(ArrayList<RequestDish> comandas ){
+    public void createData(ArrayList<RequestDish> comandas){
         data = new Object[comandas.size()][8];
-        int hour;
         int min;
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
+        DateTimeFormatter dateFormatEscritura = DateTimeFormatter.ofPattern("HH:mm");
         for (int i =0; i < comandas.size() ; i++){
             data[i][0] = comandas.get(i).getName();
             data[i][1] = comandas.get(i).getUnits();
             data[i][2] = comandas.get(i).getActualService();
-            hour = Integer.parseInt(comandas.get(i).getActivation_date().substring(12,13));
+
+            LocalDateTime dt = LocalDateTime.parse(comandas.get(i).getActivation_date(), dateFormat);
+            if(comandas.get(i).getActualService() == 1){
+                dt = dt.plusMinutes(comandas.get(i).getTimecost());
+                data[i][3] = dt.format(dateFormatEscritura).toString();
+            }else if(comandas.get(i).getActualService() == 0){
+                data[i][3] = dt.format(dateFormatEscritura).toString();
+            }
+            else {
+                data[i][3] = "SERVIDO";
+
+            }
+
+            /*hour = Integer.parseInt(comandas.get(i).getActivation_date().substring(12,13));
             if(Integer.parseInt(comandas.get(i).getActivation_date().substring(15,16))+ comandas.get(i).getTimecost() > 30){
                 hour = Integer.parseInt(comandas.get(i).getActivation_date().substring(12,13)) + 1;
                 min =(comandas.get(i).getTimecost() + Integer.parseInt(comandas.get(i).getActivation_date().substring(15,16))) - 30;
@@ -110,12 +130,14 @@ public class DeepOrderPanel extends JPanel {
                 min =(comandas.get(i).getTimecost() + Integer.parseInt(comandas.get(i).getActivation_date().substring(15,16)));
             }
             data[i][5] = comandas.get(i).getActivation_date().substring(1,12) + hour + ":" + min + ":" + comandas.get(i).getActivation_date().substring(18,19);
+            */
+
             if (comandas.get(i).getActualService() == 2) {
-                data[i][6] = "----";
-                data[i][7] = "----";
+                data[i][4] = "----";
+                data[i][5] = "----";
             } else {
-                data[i][6] = "CHANGE STATE";
-                data[i][7] = "DELETE";
+                data[i][4] = "CHANGE STATE";
+                data[i][5] = "DELETE";
             }
         }
     }
@@ -124,7 +146,7 @@ public class DeepOrderPanel extends JPanel {
      * Asigna los nombres a las columnas de la tabla
      */
     public void getColumNames(){
-        columnNames = new String[]{"Name", "Units", "State", "Date", "ChangeState", "Delete"};
+        columnNames = new String[]{"Name", "Units", "State", "Receiving Date", "ChangeState", "Delete"};
     }
 
     /**

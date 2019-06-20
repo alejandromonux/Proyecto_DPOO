@@ -82,18 +82,19 @@ public class TableService {
 
             while (rs.next()) {
                 aux.add(new Mesa(rs.getString("name"), rs.getInt("chairs")));
-                result.add(new Comanda(rs.getString("name"), 0, 0, 0, "0000-01-01 00:01"));
+                result.add(new Comanda(rs.getString("name"), 0, 0, 0, rs.getString("activation_date")));
             }
 
             int i = 0;
             if (aux.size() > 0) {
                 for (Mesa m : aux) {
-                    String query2 = "SELECT * FROM request_order AS ro JOIN request AS r ON r.id = ro.request_id " +
+                    String query2 = "SELECT ro.request_id, ro.dish_id, ro.quantity, ro.actual_service, ro.activation_date " +
+                            "FROM request_order AS ro JOIN request AS r ON r.id = ro.request_id " +
                             "JOIN mesa AS m ON m.name = r.mesa_name WHERE r.in_service = 1 AND m.active = true AND m.name = + '" + m.getId() + "';";
                     s = (Statement) conn.createStatement();
                     rs2 = s.executeQuery(query2);
-                    while (rs.next()) {
-                        orderMesa.add(new RequestOrder(rs2.getInt("request_id"), rs.getInt("dish_id"),
+                    while (rs2.next()) {
+                        orderMesa.add(new RequestOrder(rs2.getInt("request_id"), rs2.getInt("dish_id"),
                                 rs2.getInt("actual_service"), rs2.getInt("quantity"),
                                 rs2.getDate("activation_date").toString()));
                     }

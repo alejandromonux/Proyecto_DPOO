@@ -47,7 +47,7 @@ public class OrderService {
             try {
                 ps = conn.prepareStatement("INSERT INTO request_order(request_id, dish_id, quantity, actual_service, activation_date, timecost) " +
                         "VALUES(" + requestDish.getRequest_id() + ", " + requestDish.getDish_id() + ", " + requestDish.getUnits() + ", " + requestDish.getActualService() +
-                        ", '" + requestDish.getActivation_date() + "', " + requestDish.getTimecost() + ");");
+                        ", NOW()" + ", " + requestDish.getTimecost() + ");");
                 ps.executeUpdate();
 
                 ps2 = conn.prepareStatement("UPDATE dish SET units = units - " + requestDish.getUnits() + " WHERE id = " + requestDish.getDish_id() + ";");
@@ -102,8 +102,8 @@ public class OrderService {
         PreparedStatement ps = null;
         try {
             if (requestDish.getActualService() < 2) {
-                ps = conn.prepareStatement("UPDATE request_order SET actual_service = actual_service + 1, activation_date = NOW()" +
-                        "WHERE actual_service < 2 AND request_id = " + rId + " AND dish_id = " + requestDish.getDish_id() + ";");
+                ps = conn.prepareStatement("UPDATE request_order SET actual_service = actual_service + 1, activation_date = NOW() " +
+                        "WHERE actual_service < 1 AND request_id = " + rId + " AND dish_id = " + requestDish.getDish_id() + ";");
                 ps.executeUpdate();
                 return true;
             } else {
@@ -138,6 +138,10 @@ public class OrderService {
                 UUID uuid = UUID.randomUUID();
                 String randomUUIDString = uuid.toString();
 
+                PreparedStatement ps4 = conn.prepareStatement("UPDATE mesa SET activation_date = NOW() " +
+                        "WHERE name = " + requestPagado.getMesa_name()  + ";");
+                ps4.executeUpdate();
+
                 PreparedStatement ps3 = conn.prepareStatement("UPDATE request SET in_service = 1, password = '" + randomUUIDString
                         + "' WHERE id = " + rs.getInt("id") + ";");
                 ps3.executeUpdate();
@@ -148,7 +152,7 @@ public class OrderService {
                 return requestAux;
             }
             else {
-                PreparedStatement ps3 = conn.prepareStatement("UPDATE mesa SET in_use = false " +
+                PreparedStatement ps3 = conn.prepareStatement("UPDATE mesa SET in_use = false, activation_date = NULL " +
                         "WHERE name = '" + requestPagado.getMesa_name() + "';");
                 ps3.executeUpdate();
 
@@ -194,7 +198,19 @@ public class OrderService {
     public void comprobarServidos(){
         try {
             PreparedStatement ps = conn.prepareStatement("UPDATE request_order SET actual_service = 2 WHERE NOW() <= " +
-                    "addtime(activation_date, concat(timecost / 60, ':', MOD(timecost, 60), ':00')) AND actual_service = 1;");
+                    "addtime(activation_date, concat(FLOOR(timecost / 60), ':', MOD(timecost, 60), ':00')) AND actual_service = 1;");
+            ps.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.out.println("Problema al Recuperar les dades 32--> " + ex.getSQLState());
+        }
+
+    }
+
+    public void setServido(RequestDish requestDish, int rId){
+        try {
+            PreparedStatement ps = conn.prepareStatement("UPDATE request_order SET actual_service = 2 WHERE request_id = " + rId + " AND dish_id = "
+                    + requestDish.getDish_id() + ";");
             ps.executeUpdate();
 
         } catch (SQLException ex) {
@@ -232,6 +248,29 @@ public class OrderService {
         }
     }
 
+    public synchronized ArrayList<RequestDish> getMyNotPreparingOrders(int requestid){
+        try {
+            String query = "SELECT ro.id AS id, ro.dish_id AS dish_id, r.id AS request_id, d.name AS name, d.cost AS cost, ro.quantity AS units, " +
+                    "d.timecost AS timecost, ro.activation_date AS activation_date, ro.actual_service AS actual_service " +
+                    "FROM request AS r, request_order AS ro, dish AS d WHERE r.id = ro.request_id AND r.id = " + requestid +" AND d.id = ro.dish_id AND ro.actual_service = 1;";
+            ResultSet rs = null;
+
+            s = (Statement) conn.createStatement();
+            rs = s.executeQuery(query);
+            ArrayList<RequestDish> result = new ArrayList<>();
+
+            while(rs.next()){
+                result.add(new RequestDish(rs.getInt("id"), rs.getInt("dish_id"), rs.getInt("request_id"), rs.getString("name"),
+                        rs.getFloat("cost"), rs.getInt("units"), rs.getInt("timecost"), rs.getString("activation_date"), rs.getInt("actual_service")));
+            }
+
+            return result;
+
+        } catch (SQLException ex) {
+            System.out.println("Problema al Recuperar les dades 33--> " + ex.getSQLState());
+            return null;
+        }
+    }
 
     public synchronized ArrayList<RequestDish> getTableOrders(String tableName) {
         try {
