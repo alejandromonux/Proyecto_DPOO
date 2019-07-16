@@ -80,6 +80,11 @@ public class Graficas extends Canvas {
                     g.drawLine(50, delimitadoresY[i], WIDTH, delimitadoresY[i]);
                     g.setColor(Color.BLACK);
                     g.drawString(""+this.orderedDishes.get(i).getTimesOrdered(), 30, delimitadoresY[i]);
+                }else{
+                    g.setColor(Color.GRAY);
+                    g.drawLine(50, delimitadoresY[0], WIDTH, delimitadoresY[0]);
+                    g.setColor(Color.BLACK);
+                    g.drawString(""+this.orderedDishes.get(0).getTimesOrdered(), 30, delimitadoresY[0]);
                 }
              }
             g.setColor(Color.BLACK);
@@ -89,11 +94,26 @@ public class Graficas extends Canvas {
         for(int i = 0; i < orderedDishes.size(); i++){
             g.setColor(Color.YELLOW);
             if(i!=0){
+                boolean found = false;
+                int index = 0;
+                for (int j = 0;(j < orderedDishes.size())&&!found; j++){
+                    if(orderedDishes.get(j).getTimesOrdered() == orderedDishes.get(i).getTimesOrdered() ){
+                        found = true;
+                        index = j;
+                    }
+                }
+                if(!found){
+                    index = i;
+                }
+                /*
                 if(orderedDishes.get(i).getTimesOrdered() == orderedDishes.get(i-1).getTimesOrdered()){
                     g2.fillRect(posicionesX[i], delimitadoresY[i-1], 30, HEIGHT - delimitadoresY[i-1]-100);
                 }else{
                     g2.fillRect(posicionesX[i], delimitadoresY[i], 30, HEIGHT - delimitadoresY[i]-100);
                 }
+                */
+                g2.fillRect(posicionesX[i], delimitadoresY[index], 30, HEIGHT - delimitadoresY[index]-100);
+
             }else{
                 g2.fillRect(posicionesX[i], delimitadoresY[i], 30, HEIGHT - delimitadoresY[i]-100);
             }
