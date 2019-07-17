@@ -65,6 +65,9 @@ public class RequestFrame extends JFrame {
         jpRequestMenu.resetValues();
     }
 
+    /**
+     * Shows the following message with error
+     */
     public void insertNotification(){
 
         JOptionPane.showMessageDialog(this,
@@ -73,6 +76,9 @@ public class RequestFrame extends JFrame {
                 JOptionPane.ERROR_MESSAGE);
     }
 
+    /**
+     * Shows the following message with error
+     */
     public void errorConexio(){
         JOptionPane.showMessageDialog(null,
                 "CRestaurant may be disconnect!",
@@ -80,6 +86,9 @@ public class RequestFrame extends JFrame {
                 JOptionPane.ERROR_MESSAGE);
     }
 
+    /**
+     * Shows the following message with error
+     */
     public void errorComandaImposible(int id){
         JOptionPane.showMessageDialog(this,
                 "La comanda " + id + " ha sido rechazada por falta de espacio en las mesas.",
@@ -87,6 +96,9 @@ public class RequestFrame extends JFrame {
                 JOptionPane.ERROR_MESSAGE);
     }
 
+    /**
+     * Shows the following message with error
+     */
     public void errorEliminacio(){
         JOptionPane.showMessageDialog(this,
                 "Error al eliminar la Request",

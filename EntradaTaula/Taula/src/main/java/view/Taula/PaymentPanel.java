@@ -63,6 +63,10 @@ public class PaymentPanel extends JPanel {
         jbtnPay.addActionListener(c);
     }
 
+    /**
+     * Updates the bill given the new RequestDish
+     * @param comandes
+     */
     public void updateBill(ArrayList<RequestDish> comandes) {
         float result = 0;
         for (RequestDish rd: comandes) {

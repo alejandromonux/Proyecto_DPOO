@@ -43,11 +43,18 @@ public class MainWindow extends JFrame {
 
     }
 
+    /**
+     * Creates the clock with the time of the controller
+     */
     public void createClock() {
         userOptionsMenu.createClock();
 
     }
 
+    /**
+     * Change panel according to its given name
+     * @param which
+     */
     public void changePanel(String which) {
 
         if (which.equals("TO-TAULA-PANEL")) {
@@ -142,6 +149,9 @@ public class MainWindow extends JFrame {
                 JOptionPane.ERROR_MESSAGE);
     }
 
+    /**
+     * Shows the following message if there was an error with the payment
+     */
     public void paymentDeclined() {
         JOptionPane.showMessageDialog(this,
                 "PAYMENT DECLINED!",
@@ -149,6 +159,10 @@ public class MainWindow extends JFrame {
                 JOptionPane.ERROR_MESSAGE);
     }
 
+    /**
+     * Allows the requests that are given
+     * @param comandes
+     */
     public void seeBill(ArrayList<RequestDish> comandes) {
         userOptionsMenu.seeBill(comandes);
     }

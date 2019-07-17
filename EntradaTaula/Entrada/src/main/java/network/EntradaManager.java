@@ -31,6 +31,10 @@ public class EntradaManager extends Thread {
         dos = new DataOutputStream(socket.getOutputStream());
     }
 
+    /**
+     * Start the run void and thus the connection with the server
+     * @param controller
+     */
     public void startServerConnection(Controller controller) {
         this.controller = controller;
         isRunning = true;
@@ -65,6 +69,12 @@ public class EntradaManager extends Thread {
         }
     }
 
+    /**
+     * Send a request to the server
+     * @param nameRequest
+     * @param quantity
+     * @throws IOException
+     */
     public void sendRequest(String nameRequest, int quantity) throws IOException {
         //enviar requests nou
         dos.writeUTF("REQUEST-COMING");
@@ -73,12 +83,20 @@ public class EntradaManager extends Thread {
 
     }
 
+    /**
+     * Gets the group of requests from the server
+     * @throws IOException
+     */
     public void askRequests() throws IOException {
         //demana llista de requests
         dos.writeUTF("NEED-REQUEST-LIST");
 
     }
 
+    /**
+     * Get the latest information that might have changed in the server
+     * @throws IOException
+     */
     public void readUpdates() throws IOException {
         String inDuty = dis.readUTF();
         switch (inDuty) {
@@ -137,6 +155,11 @@ public class EntradaManager extends Thread {
 
     }
 
+    /**
+     * Deletes a request given its name
+     * @param requestName
+     * @throws IOException
+     */
     public void deleteRequest(String requestName) throws IOException {
         //eliminar requests
         dos.writeUTF("DELETE-REQUEST");

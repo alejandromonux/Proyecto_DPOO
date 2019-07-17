@@ -131,6 +131,10 @@ public class SeeOrdersPanel extends JPanel {
         jbtnDelete.registerController(c, "DELETE-ORDER");
     }
 
+    /**
+     * Updates the list of dishes given the new ones
+     * @param dishes
+     */
     public void updateDishes(ArrayList<RequestDish> dishes) {
         this.dishes = dishes;
         data = new Object[dishes.size()][columnNames.length];

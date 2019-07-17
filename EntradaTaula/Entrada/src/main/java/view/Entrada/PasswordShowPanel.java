@@ -132,6 +132,9 @@ public class PasswordShowPanel extends JPanel {
         this.repaint();
     }
 
+    /**
+     * Sets values to empty
+     */
     public void resetValues() {
         sPass = "";
         requestName = "";

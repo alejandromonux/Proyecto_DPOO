@@ -95,6 +95,9 @@ public class RequestMenu extends JPanel{
         cardLayout.show(jpPanels, which);
     }
 
+    /**
+     * Creates the clock with the current time
+     */
     public void createClock() {
         Date date = new Date();
         DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
@@ -102,6 +105,11 @@ public class RequestMenu extends JPanel{
         digitalClock.setText(time);
     }
 
+    /**
+     * Set the values that will be shown in the password view
+     * @param requestName
+     * @param password
+     */
     public void setValuesToShow(String requestName, String password) {
         //jpPassView.showPasswordTo(requestName, password);
         jpPanels.remove(jpPassView);
