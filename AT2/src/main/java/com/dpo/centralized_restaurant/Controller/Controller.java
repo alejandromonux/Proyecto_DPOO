@@ -746,4 +746,10 @@ public class Controller implements ActionListener {
         timer.setInitialDelay(0);
         timer.start();
     }
+
+    public void changeToSpecific() {
+        if (vista.isSpecificPanel()) {
+            vista.changePanel("SPECIFIC-ORDERS");
+        }
+    }
 }

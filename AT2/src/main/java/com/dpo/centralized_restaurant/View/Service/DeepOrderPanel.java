@@ -26,6 +26,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class DeepOrderPanel extends JPanel {
+    private final static String[] estados = {"En espera", "Cocinando...", "Servido", "Hola, Joan decía que no existía este estado"};
 
     private JTable jtable;
     private Action action;
@@ -108,7 +109,8 @@ public class DeepOrderPanel extends JPanel {
         for (int i =0; i < comandas.size() ; i++){
             data[i][0] = comandas.get(i).getName();
             data[i][1] = comandas.get(i).getUnits();
-            data[i][2] = comandas.get(i).getActualService();
+
+            data[i][2] = estados[comandas.get(i).getActualService()];
 
             LocalDateTime dt = LocalDateTime.parse(comandas.get(i).getActivation_date(), dateFormat);
             if(comandas.get(i).getActualService() == 1){
