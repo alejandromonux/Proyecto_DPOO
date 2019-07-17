@@ -91,6 +91,10 @@ public class MainWindow extends JFrame {
         userOptionsMenu.updateMenu(menu);
     }
 
+    public ArrayList<Dish> getMenu() {
+        return userOptionsMenu.getMenu();
+    }
+
     public void updateBill(ArrayList<RequestDish> bill) {
         userOptionsMenu.updateBill(bill);
     }

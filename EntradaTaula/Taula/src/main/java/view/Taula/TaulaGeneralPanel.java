@@ -143,6 +143,10 @@ public class TaulaGeneralPanel extends JPanel {
         orderPanel.updateMenu(menu);
     }
 
+    public ArrayList<Dish> getMenu() {
+        return orderPanel.getDishes();
+    }
+
     public void updateBill(ArrayList<RequestDish> bill) {
         requestedOrders.updateDishes(bill);
     }

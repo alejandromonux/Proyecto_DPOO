@@ -156,7 +156,33 @@ public class Controller implements ActionListener {
 
     private void sendComanda() {
         try {
-            networkManager.sendComanda(vista.getBagOfOrders());
+            ArrayList<RequestDish> auxList = vista.getBagOfOrders();
+            ArrayList<Dish> auxMenu = vista.getMenu();
+            boolean flag = true;
+            boolean found = false;
+            for (RequestDish rd: auxList) {
+                for (Dish d: auxMenu) {
+                    if (d.getName().equalsIgnoreCase(rd.getName())) {
+                        if (rd.getUnits() > d.getUnits()) {
+                            flag = false;
+                        }
+                        found = true;
+                    }
+                }
+                if (!found) {
+                    flag = false;
+                }
+                found = false;
+            }
+            if (flag) {
+                networkManager.sendComanda(vista.getBagOfOrders());
+            } else {
+                JOptionPane.showMessageDialog(vista,
+                        "Too many units requested! Request was cancelled",
+                        "Units Error",
+                        JOptionPane.ERROR_MESSAGE);
+                vista.clearBagOfComandes();
+            }
             } catch (IOException ex) {
             ex.printStackTrace();
         }
