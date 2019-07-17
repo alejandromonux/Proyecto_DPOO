@@ -66,7 +66,7 @@ public class PaymentPanel extends JPanel {
     public void updateBill(ArrayList<RequestDish> comandes) {
         float result = 0;
         for (RequestDish rd: comandes) {
-            result += rd.getCost();
+            result += rd.getCost() * rd.getUnits();
         }
         bill = result;
     }
