@@ -723,9 +723,10 @@ public class Controller implements ActionListener {
                                 orderS.updateComanda(rd,r.getId());
                                 serverTaula.updateOrders();
                                 vista.getJpTableOrders().update(orderS.getMyOrders(r.getId()), controller);
+                                orderS.setServido(rd,r.getId());
                             }
 
-                            orderS.setServido(rd,r.getId());
+
 
                             /*if (rd.getActualService() == 2){
                                 serverTaula.updateOrders();

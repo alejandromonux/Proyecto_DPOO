@@ -73,7 +73,7 @@ public class RequestService {
      */
     public ArrayList<Request> getRequestsPendientes() {
         // Busca requests que esten pendientes de entrar o que tengan mesa asignada pero que aun no se hayan ido y pagado
-        String query = "SELECT id, name FROM request WHERE in_service = 0 ORDER BY id;";
+        String query = "SELECT id, name FROM request WHERE in_service = 0 AND mesa_name IS NULL ORDER BY id;";
         ResultSet rs = null;
         ArrayList<Request> result = new ArrayList<>();
 
