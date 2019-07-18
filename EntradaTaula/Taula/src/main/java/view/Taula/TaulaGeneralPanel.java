@@ -107,6 +107,9 @@ public class TaulaGeneralPanel extends JPanel {
 
     }
 
+    /**
+     * Creates the clock with the time
+     */
     public void createClock() {
         Date date = new Date();
         DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
@@ -143,6 +146,10 @@ public class TaulaGeneralPanel extends JPanel {
         orderPanel.updateMenu(menu);
     }
 
+    public ArrayList<Dish> getMenu() {
+        return orderPanel.getDishes();
+    }
+
     public void updateBill(ArrayList<RequestDish> bill) {
         requestedOrders.updateDishes(bill);
     }
@@ -164,6 +171,11 @@ public class TaulaGeneralPanel extends JPanel {
         orderPanel.decrBag();
     }
 
+    /**
+     * Add the requestdish to the cart
+     * @param d
+     * @param c
+     */
     public void addComandaToCart(RequestDish d, ActionListener c) {
         comandesPanel.addOrderToCart(d);
         comandesPanel.registerController((Controller)c);
@@ -189,10 +201,17 @@ public class TaulaGeneralPanel extends JPanel {
         return requestedOrders.getOrders();
     }
 
+    /**
+     * Refresh the request in the view
+     */
     public void clearBagOfComandes() {
         comandesPanel.clearComandes();
     }
 
+    /**
+     * Shows the bill given the requestdishes
+     * @param comandes
+     */
     public void seeBill(ArrayList<RequestDish> comandes) {
         paymentPanel.updateBill(comandes);
         paymentPanel.updateView();

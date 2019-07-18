@@ -142,6 +142,9 @@ public class ToOrderPanel extends JPanel {
         jpContent.getColumn("").setCellEditor(new ButtonEditor(new JCheckBox(), c, "ORDER"));
         jbtnOrder.registerController(c, "ORDER-DISH");
 
+        if (jbtnDoComanda.getActionListeners().length > 0) {
+            jbtnDoComanda.removeActionListener(c);
+        }
         jbtnDoComanda.setActionCommand("SEND-COMANDA");
         jbtnDoComanda.addActionListener(c);
         jbtnRemoveComanda.setActionCommand("REMOVE-COMANDA");
@@ -182,6 +185,10 @@ public class ToOrderPanel extends JPanel {
 
     public Dish getSelectedDish2() {
         return dishes.get(jpContent.getSelectedRow());
+    }
+
+    public ArrayList<Dish> getDishes() {
+        return dishes;
     }
 
     public void incBag() {

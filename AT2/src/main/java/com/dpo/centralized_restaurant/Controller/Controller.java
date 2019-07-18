@@ -3,7 +3,6 @@ package com.dpo.centralized_restaurant.Controller;
 import com.dpo.centralized_restaurant.Model.Configuration.configJson;
 import com.dpo.centralized_restaurant.Model.Graphics.OrderedDish;
 import com.dpo.centralized_restaurant.Model.Model;
-import com.dpo.centralized_restaurant.Model.Preservice.Mesa;
 import com.dpo.centralized_restaurant.Model.Request.Request;
 import com.dpo.centralized_restaurant.Model.Request.RequestDish;
 import com.dpo.centralized_restaurant.Model.Service.Comanda;
@@ -16,19 +15,15 @@ import com.dpo.centralized_restaurant.View.MainView;
 import com.dpo.centralized_restaurant.View.PostService.Stats;
 import com.dpo.centralized_restaurant.View.Service.DeepOrderPanel;
 import com.dpo.centralized_restaurant.View.Service.DishService;
-import com.dpo.centralized_restaurant.View.Service.OrdersService;
 import com.dpo.centralized_restaurant.View.TablePanels.TablesListPanel;
-import com.dpo.centralized_restaurant.View.Service.RequestsService;
-import com.dpo.centralized_restaurant.database.ConectorDB;
+import com.dpo.centralized_restaurant.database.*;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -42,7 +37,17 @@ public class Controller implements ActionListener {
     private ServerTaula serverTaula;
     private configJson configJson;
     private Worker workerActual;
+
     private ConectorDB conectorDB;
+    private ConfigurationService configS;
+    private DishServiceDB dishS;
+    private OrderService orderS;
+    private RequestService requestS;
+    private TableService tableS;
+    private WorkerService workerS;
+
+    private static Controller controller;
+
 
     public Controller(){
 
@@ -50,19 +55,36 @@ public class Controller implements ActionListener {
 
     public Controller(Model model){
         this.model = model;
+        this.controller = this;
     }
 
     public Controller(MainView vista) {
         this.vista = vista;
+        this.controller = this;
     }
 
-    public Controller(Model model, configJson configJson, ConectorDB conectorDB) {
+    public Controller(Model model, configJson configJson, ConectorDB conectorDB,
+                      ConfigurationService configS, DishServiceDB dishS, OrderService orderS, RequestService requestS, TableService tableS, WorkerService workerS) {
+        this.controller = this;
         this.model = model;
         this.configJson = configJson;
         this.conectorDB = conectorDB;
+        this.configS = configS;
+        this.dishS = dishS;
+        this.orderS = orderS;
+        this.requestS = requestS;
+        this.tableS = tableS;
+        this.workerS = workerS;
         createClock();
     }
 
+    public ServerEntrada getServerEntrada() {
+        return serverEntrada;
+    }
+
+    public ServerTaula getServerTaula() {
+        return serverTaula;
+    }
 
     /**
      * It chooses the action to do once the user triggers an event listener
@@ -84,12 +106,12 @@ public class Controller implements ActionListener {
 
             case "TABLES":
                 vista.changePanel(aux.getActionCommand());
-                model.setMesas(conectorDB.findActiveTables());
+                model.setMesas(tableS.findActiveTables());
                 vista.getJpTables().setTableList(new TablesListPanel(model.getMesas(), this));
                 break;
             case "DISHES":
                 vista.changePanel(aux.getActionCommand());
-                model.setDishes(conectorDB.findActiveDishes());
+                model.setDishes(dishS.findActiveDishes());
                 vista.getJpDish().setJpList(new DishListPanel(model.getDishes(), this));
                 break;
 
@@ -98,14 +120,18 @@ public class Controller implements ActionListener {
                 boolean done = conectorDB.actualizarEstadoServicio(1);
 
                 if(done){
-                    conectorDB.comprobarServidos();
+                    orderS.comprobarServidos();
 
                     vista.hideConfiguration();
                     vista.changePanel(aux.getActionCommand());
-                    serverEntrada = new ServerEntrada(configJson, conectorDB, this);
+                    serverEntrada = new ServerEntrada(configJson, conectorDB, this, dishS, orderS, requestS);
                     serverEntrada.start();
-                    serverTaula = new ServerTaula(configJson, conectorDB, this);
+                    serverTaula = new ServerTaula(configJson, conectorDB, this, dishS, orderS, requestS);
                     serverTaula.start();
+                    this.model.setDishes(dishS.findActiveDishes());
+                    this.model.setMesas(tableS.findActiveTables());
+                    vista.getJpDish().getJpList().update(model.getDishes(), this);
+
                 }
                 else {
                     JOptionPane.showMessageDialog(vista,
@@ -129,12 +155,12 @@ public class Controller implements ActionListener {
                 vista.getJpDish().changePanel("DISH-CREATE");
                 break;
             case "CONFIGURATIONS":
-                model.setConfigurations(conectorDB.findConfigurationByWorker(workerActual.getUsername()));
+                model.setConfigurations(configS.findConfigurationByWorker(workerActual.getUsername()));
                 vista.getJpConfig().setConfigurationList(new ConfigurationListPanel(model.getConfigurations(), this));
                 vista.changePanel("CONFIGURATIONS");
                 break;
             case "SAVE-CONFIGURATION":
-                boolean done6 = conectorDB.createConfiguration(vista.getConfigName(), workerActual);
+                boolean done6 = configS.createConfiguration(vista.getConfigName(), workerActual);
 
                 if(!done6){
                     JOptionPane.showMessageDialog(vista,
@@ -143,7 +169,7 @@ public class Controller implements ActionListener {
                             JOptionPane.ERROR_MESSAGE);
                 }
                 else {
-                    model.setConfigurations(conectorDB.findConfigurationByWorker(workerActual.getUsername()));
+                    model.setConfigurations(configS.findConfigurationByWorker(workerActual.getUsername()));
                     vista.getJpConfig().setConfigurationList(new ConfigurationListPanel(model.getConfigurations(), this));
 
                     JOptionPane.showMessageDialog(vista,
@@ -155,10 +181,10 @@ public class Controller implements ActionListener {
 
             case "REMOVE-CONFIGURATION":
                 String nameToRemove = vista.getJpConfig().getConfigListName();
-                boolean done7 = conectorDB.removeConfiguration(nameToRemove, workerActual);
+                boolean done7 = configS.removeConfiguration(nameToRemove, workerActual);
 
                 if(done7){
-                    model.setConfigurations(conectorDB.findConfigurationByWorker(workerActual.getUsername()));
+                    model.setConfigurations(configS.findConfigurationByWorker(workerActual.getUsername()));
                     vista.getJpConfig().setConfigurationList(new ConfigurationListPanel(model.getConfigurations(), this));
 
                     JOptionPane.showMessageDialog(vista,
@@ -176,7 +202,7 @@ public class Controller implements ActionListener {
                 break;
             case "PICK-THIS-CONFIGURATION":
                 String nameToPick = vista.getJpConfig().getConfigListName();
-                boolean done8 = conectorDB.pickConfiguration(nameToPick, workerActual);
+                boolean done8 = configS.pickConfiguration(nameToPick, workerActual);
 
                 if(done8){
                     JOptionPane.showMessageDialog(vista,
@@ -202,6 +228,8 @@ public class Controller implements ActionListener {
                 vista.changePanel("MAIN");
                 break;
             case "DISH-LIST":
+                this.model.setDishes(dishS.findActiveDishes());
+                vista.getJpDish().getJpList().update(model.getDishes(), this);
                 vista.getJpDish().changePanel("DISH-LIST");
                 break;
             case "DISH-BACK":
@@ -217,12 +245,12 @@ public class Controller implements ActionListener {
             case "TABLE-ORDERS":
                 vista.changePanel("ORDERS");
                 ArrayList<Comanda> auxC = new ArrayList<>();
-                auxC = conectorDB.findActiveTablesWithInfo();
+                auxC = tableS.findActiveTablesWithInfo();
                 vista.setTableDishOrder(auxC, this);
 
                 break;
             case "TABLE-CREATE-ACTION":
-                boolean done18 = conectorDB.createTable(vista.getJpTables().getJpCreator().getJtfId().getText(),
+                boolean done18 = tableS.createTable(vista.getJpTables().getJpCreator().getJtfId().getText(),
                         (int) vista.getJpTables().getJpCreator().getJcbQuantity().getSelectedItem());
 
                 if(!done18){
@@ -232,17 +260,17 @@ public class Controller implements ActionListener {
                             JOptionPane.ERROR_MESSAGE);
                 }
                 else {
-                    model.setMesas(conectorDB.findActiveTables());
+                    model.setMesas(tableS.findActiveTables());
                     vista.getJpTables().setTableList(new TablesListPanel(model.getMesas(), this));
                 }
 
                 break;
             case "REMOVE-TABLE":
                 String tableName = vista.getJpTables().getTableList().getTableName();
-                boolean done3 = conectorDB.deleteTable(tableName);
+                boolean done3 = tableS.deleteTable(tableName);
 
                 if(done3){
-                    model.setMesas(conectorDB.findActiveTables());
+                    model.setMesas(tableS.findActiveTables());
                     vista.getJpTables().getTableList().update(model.getMesas(),this);
                 }
                 else {
@@ -255,7 +283,9 @@ public class Controller implements ActionListener {
                 break;
 
             case "DISH-CREATE-ACTION":
-                boolean done4 = conectorDB.createDish(vista.getJpDish().getJpCreator().getJtfName().getText(),
+                this.model.setDishes(dishS.findActiveDishes());
+                vista.getJpDish().getJpList().update(model.getDishes(), this);
+                boolean done4 = dishS.createDish(vista.getJpDish().getJpCreator().getJtfName().getText(),
                         (int) vista.getJpDish().getJpCreator().getJcbQuantity().getSelectedItem(),
                         Double.parseDouble(vista.getJpDish().getJpCreator().getJtCost().getText()),
                         Integer.parseInt(vista.getJpDish().getJpCreator().getJtTime().getText()));
@@ -273,16 +303,17 @@ public class Controller implements ActionListener {
                             vista.getJpDish().getJpCreator().getJcbQuantity().getSelectedItem().toString(),
                             vista.getJpDish().getJpCreator().getJtTime().getText());
                     //Update a la vista
-                    vista.getJpDish().setJpList(new DishListPanel(model.getDishes(), this));
+                    vista.getJpDish().getJpList().update(model.getDishes(), this);
+                    //vista.getJpDish().setJpList(new DishListPanel(model.getDishes(), this));
                 }
                 break;
 
             case "REMOVE-DISH":
                 String dishName = vista.getJpDish().getJpList().getDishName();
-                boolean done5 = conectorDB.deleteDish(dishName);
+                boolean done5 = dishS.deleteDish(dishName);
 
                 if(done5){
-                    model.setDishes(conectorDB.findActiveDishes());
+                    model.setDishes(dishS.findActiveDishes());
                     vista.getJpDish().getJpList().update(model.getDishes(), this);
                 }
                 else {
@@ -388,13 +419,13 @@ public class Controller implements ActionListener {
                                 JOptionPane.ERROR_MESSAGE);
                     }
                     // Comprobamos que no existe ningun worker con mismo nombre o email
-                    else if (conectorDB.findWorkerByName(registerName) != null) {
+                    else if (workerS.findWorkerByName(registerName) != null) {
                         JOptionPane.showMessageDialog(vista,
                                 "Username is already taken",
                                 "Error!",
                                 JOptionPane.ERROR_MESSAGE);
                     }
-                    else if (conectorDB.findWorkerByEmail(registerEmail) != null){
+                    else if (workerS.findWorkerByEmail(registerEmail) != null){
                         JOptionPane.showMessageDialog(vista,
                                 "Email is already registered",
                                 "Error!",
@@ -403,7 +434,7 @@ public class Controller implements ActionListener {
                     else {
                         // Registramos usuario en sistema y, posteriormente, lo logueamos automaticamente
                         workerActual = new Worker(registerName, registerEmail, registerPassword);
-                        boolean done2 = conectorDB.createWorker(workerActual);
+                        boolean done2 = workerS.createWorker(workerActual);
 
                         if(done2){
                             vista.changeUserView(workerActual.getUsername());
@@ -432,8 +463,8 @@ public class Controller implements ActionListener {
                             JOptionPane.ERROR_MESSAGE);
                 }
                 else {
-                    Worker workerName = conectorDB.findWorkerByNameAndPassword(loginUsername, loginPassword);
-                    Worker workerEmail = conectorDB.findWorkerByEmailAndPassword(loginUsername, loginPassword);
+                    Worker workerName = workerS.findWorkerByNameAndPassword(loginUsername, loginPassword);
+                    Worker workerEmail = workerS.findWorkerByEmailAndPassword(loginUsername, loginPassword);
 
                     if (workerName != null){
                         workerActual = workerName;
@@ -464,29 +495,29 @@ public class Controller implements ActionListener {
             // Servicio:
             //--------------------------------------------
             case "SERVICE-DISHES":
-                vista.setJpSDish(new DishService(conectorDB.findActiveDishes(),this));
+                vista.setJpSDish(new DishService(dishS.findActiveDishes(),this));
                 vista.changePanel("SERVICE-DISHES");
                 vista.getJpSDish().registerControllers(this);
                 break;
             case "CANCEL":
-                if(conectorDB.deactivateDish(vista.getJpSDish().getDishName())){
-                   vista.getJpSDish().update(conectorDB.findActiveDishes(), this);
+                if(dishS.deactivateDish(vista.getJpSDish().getDishName())){
+                   vista.getJpSDish().update(dishS.findActiveDishes(), this);
                 }
                 break;
             case "REQUESTS":
-                actualizarVistaRequests(conectorDB.getRequestsPendientes());
+                actualizarVistaRequests(requestS.getRequestsPendientes());
                 vista.changePanel("REQUESTS");
                 break;
             case "SEE-TABLE-ORDERS":
                 ArrayList<RequestDish> rd = new ArrayList<RequestDish>();
-                rd = conectorDB.getTableOrders(vista.getJpOrders().getOrderID()); // GetOrderId == GetTableName
+                rd = orderS.getTableOrders(vista.getJpOrders().getOrderID()); // GetOrderId == GetTableName
                 vista.setJpTableOrders(new DeepOrderPanel(rd, this, vista.getJpOrders().getOrderID()));
                 vista.getJpTableOrders().registerController(this);
                 vista.changePanel("SPECIFIC-ORDERS");
                 break;
-            case "SEE-COMANDA":
+            case "CHANGE-STATE":
                 String tName = vista.getJpTableOrders().getComandaId();
-                int idcomanda = conectorDB.findRequestByTableName(tName);
+                int idcomanda = requestS.findRequestByTableName(tName);
                 String dishname = vista.getJpTableOrders().getDishName();
                 int unitsDish = vista.getJpTableOrders().getUnits();
                 int dish = 0;
@@ -495,21 +526,24 @@ public class Controller implements ActionListener {
                         dish = model.getDishes().get(i).getId();
                     }
                 }
-                conectorDB.updateComanda(new RequestDish(idcomanda, dish, unitsDish),idcomanda);
-                vista.getJpTableOrders().update(conectorDB.getMyOrders(idcomanda), this);
+                orderS.updateComanda(new RequestDish(idcomanda, dish, unitsDish),idcomanda);
+                vista.getJpTableOrders().update(orderS.getMyOrders(idcomanda), this);
+
+                //CookingThread cookingThread = new CookingThread(new RequestDish(idcomanda, dish, unitsDish), orderS, idcomanda);
+
                 break;
             case "DELETE-COMANDA":
                 String dish_Name = vista.getJpTableOrders().getDishName();
                 int units = vista.getJpTableOrders().getUnits();
-                int id_comanda = conectorDB.findRequestByTableName(vista.getJpTableOrders().getComandaId());
+                int id_comanda = requestS.findRequestByTableName(vista.getJpTableOrders().getComandaId());
                 int id_dish = 0;
                 for(int i = 0; i < model.getDishes().size(); i++){
                     if(dish_Name.equals(model.getDishes().get(i).getName())){
                         id_dish = model.getDishes().get(i).getId();
                     }
                 }
-                conectorDB.deleteComanda(new RequestDish(id_comanda, id_dish, units), id_comanda);
-                vista.getJpTableOrders().update(conectorDB.getMyOrders(id_comanda), this);
+                orderS.deleteComanda(new RequestDish(id_comanda, id_dish, units), id_comanda);
+                vista.getJpTableOrders().update(orderS.getMyOrders(id_comanda), this);
             break;
             case "BACKSERVICE" :
                 vista.changePanel("START");
@@ -519,12 +553,12 @@ public class Controller implements ActionListener {
                 vista.changePanel("ORDERS");
                 break;
             case "POSTSERVICE" :
-                ArrayList<OrderedDish> today = conectorDB.getTopDishes(true);
-                ArrayList<OrderedDish> all = conectorDB.getTopDishes(false);
-                float todayGain = conectorDB.getGain(true);
-                float totalGain = conectorDB.getGain(false);
-                float priceTable = conectorDB.getAvgPrice();
-                float dishTable = conectorDB.getAvgDishes();
+                ArrayList<OrderedDish> today = tableS.getTopDishes(true);
+                ArrayList<OrderedDish> all = tableS.getTopDishes(false);
+                float todayGain = tableS.getGain(true);
+                float totalGain = tableS.getGain(false);
+                float priceTable = tableS.getAvgPrice();
+                float dishTable = tableS.getAvgDishes();
 
                 boolean done20 = conectorDB.actualizarEstadoServicio(2);
                 vista.setJpStats(new Stats(today, all, todayGain, totalGain, dishTable ,priceTable));
@@ -570,24 +604,24 @@ public class Controller implements ActionListener {
                 break;
             case "ACCEPT-REQUEST":
                 int id = vista.getJpReq().getSelectedRequestName();
-                Request requestAceptado = conectorDB.findRequest(id);
+                Request requestAceptado = requestS.findRequest(id);
 
-                conectorDB.asignarMesa(requestAceptado);
+                requestS.asignarMesa(requestAceptado);
                 if (requestAceptado.getPassword() != null) {
                     serverEntrada.updateAssignment(requestAceptado);
                 }
-                serverEntrada.updateAll(conectorDB.getRequests());
-                actualizarVistaRequests(conectorDB.getRequestsPendientes());
+                serverEntrada.updateAll(requestS.getRequests());
+                actualizarVistaRequests(requestS.getRequestsPendientes());
 
                 break;
             case "DECLINE-REQUEST" :
                 int idAEliminar = vista.getJpReq().getSelectedRequestName();
 
-                boolean finished = conectorDB.deleteRequest(idAEliminar);
+                boolean finished = requestS.deleteRequest(idAEliminar);
 
                 if(finished){
-                    serverEntrada.updateAll(conectorDB.getRequests());
-                    actualizarVistaRequests(conectorDB.getRequestsPendientes());
+                    serverEntrada.updateAll(requestS.getRequests());
+                    actualizarVistaRequests(requestS.getRequestsPendientes());
                 }
                 else {
                     JOptionPane.showMessageDialog(vista,
@@ -600,6 +634,13 @@ public class Controller implements ActionListener {
 
         }
 
+    }
+
+    public Controller getInstance() {
+        if (controller == null) {
+            controller = new Controller();
+        }
+        return controller;
     }
 
     /**
@@ -621,9 +662,9 @@ public class Controller implements ActionListener {
             vista.showConfiguration();
         }
         else if(estadoServicio == 1){
-            serverEntrada = new ServerEntrada(configJson, conectorDB, this);
+            serverEntrada = new ServerEntrada(configJson, conectorDB, this, dishS, orderS, requestS);
             serverEntrada.start();
-            serverTaula = new ServerTaula(configJson, conectorDB, this);
+            serverTaula = new ServerTaula(configJson, conectorDB, this, dishS, orderS, requestS);
             serverTaula.start();
             vista.changeHeader(true);
             vista.changePanel("START");
@@ -670,11 +711,33 @@ public class Controller implements ActionListener {
             public void actionPerformed(ActionEvent e) {
                 vista.createClock();
                 int estadoServicio = conectorDB.estadoServicio();
-                if(estadoServicio == 1){
-                    conectorDB.comprobarServidos();
-                    if(serverTaula != null){
-                        serverTaula.updateOrders();
+                if(estadoServicio == 1 && serverTaula != null && vista != null){
+                    DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
+                    ArrayList<Request> lista = requestS.getRequests();
+                    for(Request r : lista){
+                        ArrayList<RequestDish> rdList = orderS.getMyNotPreparingOrders(r.getId());
+                        for(RequestDish rd : rdList){
+                            LocalDateTime dt = LocalDateTime.parse(rd.getActivation_date(), dateFormat);
+                            dt = dt.plusMinutes(rd.getTimecost());
+                            if (LocalDateTime.now().isAfter(dt)){
+                                orderS.updateComanda(rd,r.getId());
+                                serverTaula.updateOrders();
+                                vista.getJpTableOrders().update(orderS.getMyOrders(r.getId()), controller);
+                                orderS.setServido(rd,r.getId());
+                            }
+
+
+
+                            /*if (rd.getActualService() == 2){
+                                serverTaula.updateOrders();
+                                vista.getJpTableOrders().update(orderS.getMyOrders(r.getId()), this);
+
+                            }*/
+
+                        }
+
                     }
+
                 }
 
             }
@@ -682,5 +745,11 @@ public class Controller implements ActionListener {
         timer = new Timer(1000, actionListener);
         timer.setInitialDelay(0);
         timer.start();
+    }
+
+    public void changeToSpecific() {
+        if (vista.isSpecificPanel()) {
+            vista.changePanel("SPECIFIC-ORDERS");
+        }
     }
 }

@@ -4,7 +4,9 @@ import com.dpo.centralized_restaurant.Controller.Controller;
 import com.dpo.centralized_restaurant.Model.Request.Request;
 import com.dpo.centralized_restaurant.Model.Request.RequestManager;
 import com.dpo.centralized_restaurant.database.ConectorDB;
-
+import com.dpo.centralized_restaurant.database.DishServiceDB;
+import com.dpo.centralized_restaurant.database.OrderService;
+import com.dpo.centralized_restaurant.database.RequestService;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -16,7 +18,11 @@ public class DedicatedServerEntrada extends Thread{
 
     private RequestManager requestManager;
     private ArrayList<DedicatedServerEntrada> dedicatedServers;
+
     private ConectorDB conectorDB;
+    private DishServiceDB dishS;
+    private OrderService orderS;
+    private RequestService requestS;
     private Controller controller;
 
 
@@ -26,7 +32,8 @@ public class DedicatedServerEntrada extends Thread{
     private boolean start;
 
 
-    public DedicatedServerEntrada(Socket socket, RequestManager requestsManager, ArrayList<DedicatedServerEntrada> dedicatedServers, ConectorDB conectorDB, Controller controller) {
+    public DedicatedServerEntrada(Socket socket, RequestManager requestsManager, ArrayList<DedicatedServerEntrada> dedicatedServers, ConectorDB conectorDB, Controller controller,
+                                    DishServiceDB dishS, OrderService orderS, RequestService requestS) {
         this.socket = socket;
         this.requestManager = requestsManager;
 
@@ -34,6 +41,9 @@ public class DedicatedServerEntrada extends Thread{
         this.dedicatedServers = dedicatedServers;
         this.conectorDB = conectorDB;
         this.controller = controller;
+        this.dishS = dishS;
+        this.orderS = orderS;
+        this.requestS = requestS;
         start = true;
 
     }
@@ -48,27 +58,27 @@ public class DedicatedServerEntrada extends Thread{
                 init = dis.readUTF();
                 switch (init) {
                     case "REQUEST-COMING":
-                        dos.writeUTF("REQUEST-COMING");
                         String nameNew = dis.readUTF();
                         int cantidadPersonas = dis.readInt();
-                        boolean p = conectorDB.insertRequest(nameNew, cantidadPersonas);
+                        boolean p = requestS.insertRequest(nameNew, cantidadPersonas);
+                        dos.writeUTF("REQUEST-COMING");
                         dos.writeBoolean(p);
-                        controller.actualizarVistaRequests(conectorDB.getRequestsPendientes());
+                        controller.actualizarVistaRequests(requestS.getRequestsPendientes());
                         break;
 
                     case "NEED-REQUEST-LIST":
-                        sendAll(conectorDB.getRequests());
+                        sendAll(requestS.getRequests());
                         break;
 
                     case "DELETE-REQUEST":
                         String id = dis.readUTF();
-                        boolean done = conectorDB.deleteRequest(id);
+                        boolean done = requestS.deleteRequest(id);
                         dos.writeUTF("DELETE-RESPONSE");
                         dos.writeBoolean(done);
 
                         if(done){
-                            sendAll(conectorDB.getRequests());
-                            controller.actualizarVistaRequests(conectorDB.getRequestsPendientes());
+                            sendAll(requestS.getRequests());
+                            controller.actualizarVistaRequests(requestS.getRequestsPendientes());
                         }
                         break;
 
@@ -85,9 +95,12 @@ public class DedicatedServerEntrada extends Thread{
             try {
                 dis.close();
             } catch (IOException e) {}
+            try {
+                socket.close();
+            } catch (IOException e){}
             //try {
-                dedicatedServers.remove(this);
-                //socket.close();  --Marc: No se si esto deberia estar ya que se cierra a el mismo
+            System.out.println("Disconnect");
+            dedicatedServers.remove(this);
             //} catch (IOException e) {}
         }
     }
@@ -101,7 +114,11 @@ public class DedicatedServerEntrada extends Thread{
             dos.close();
             dis.close();
         } catch (IOException e) {}
+        try {
+            socket.close();
+        } catch (IOException e){}
         //try {
+        System.out.println("Disconnect");
         dedicatedServers.remove(this);
     }
 

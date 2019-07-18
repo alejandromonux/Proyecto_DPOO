@@ -19,6 +19,9 @@ public class ButtonEditor extends DefaultCellEditor {
         button = new JButton();
         button.setOpaque(true);
         button.setActionCommand(action);
+        if (button.getActionListeners().length > 0) {
+            button.removeActionListener(al);
+        }
         button.addActionListener(al);
         this.label = label;
     }
@@ -58,6 +61,9 @@ public class ButtonEditor extends DefaultCellEditor {
     }
 
     public void  registerController(Controller c, String command) {
+        if (button.getActionListeners().length > 0) {
+            button.removeActionListener(c);
+        }
         button.setActionCommand(command);
         button.addActionListener(c);
     }

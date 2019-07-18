@@ -51,6 +51,9 @@ public class ButtonEditor extends DefaultCellEditor {
 
     public void registerController(Controller c, String command) {
         button.setActionCommand(command);
+        if (button.getActionListeners().length > 0) {
+            button.removeActionListener(c);
+        }
         button.addActionListener(c);
     }
 }

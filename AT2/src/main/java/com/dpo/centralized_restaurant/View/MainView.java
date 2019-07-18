@@ -218,6 +218,16 @@ public class MainView extends JFrame {
         jclContent.show(jpContent,which);
     }
 
+    public boolean isSpecificPanel() {
+        JPanel card = null;
+        for (Component comp : jpContent.getComponents()) {
+            if (comp.isVisible()) {
+                card = (JPanel) comp;
+            }
+        }
+        return card.equals("SPECIFIC-ORDERS");
+    }
+
     /**Cambia el panel
      *
      * @param which String que indica a cuál cambiar

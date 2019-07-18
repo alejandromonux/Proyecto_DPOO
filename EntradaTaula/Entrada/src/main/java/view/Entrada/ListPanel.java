@@ -15,93 +15,105 @@ public class ListPanel extends JPanel {
 
     private ArrayList<Request> content;
     private JButton jbtnDelete;
-    private JButton jbtnAux;
     private static ArrayList<JButton> botones = new ArrayList<>();
 
     public ListPanel() {
 
         content = new ArrayList<>();
         jbtnDelete = new JButton("DELETE");
-        //generaStrings();
         generalLlista();
 
-        this.setBorder(new EmptyBorder(10,10,0,10));
+        //this.setBorder(new EmptyBorder(10,10,0,10));
     }
 
     public ListPanel(ArrayList<Request> list, ActionListener c){
         content = list;
         generaLlista(list);
         for (int i = 0; i < botones.size(); i++){
+            if (botones.get(i).getActionListeners().length > 0) {
+                botones.get(i).removeActionListener(c);
+            }
+            botones.get(i).removeActionListener(c);
             botones.get(i).addActionListener(c);
             botones.get(i).setActionCommand("DELETE-REQUEST");
-            botones.get(i).addActionListener(c);
         }
+        //this.setBorder(new EmptyBorder(10,10,0,10));
     }
 
     public void registerController(Controller c) {
+        if (jbtnDelete.getActionListeners().length > 0) {
+            jbtnDelete.removeActionListener(c);
+        }
         jbtnDelete.setActionCommand("DELETE-REQUEST");
         jbtnDelete.addActionListener(c);
         generalLlista();
     }
 
-   /* private void generaStrings() {
-        content.add(new String("LE ROUMAND"));
-        content.add(new String("LE ROCAFORTE"));
-        content.add(new String("SVRISHNAIM"));
-        content.add(new String("FREIGHTZ"));
-        content.add(new String("OHAM"));
-        content.add(new String("SACRATE QUAIR"));
-        content.add(new String("PHOENIX"));
-        content.add(new String("49FURINVRVJNRV"));
-        content.add(new String("RGVTRVT"));
-        content.add(new String("R4GRVTRBYB"));
-        content.add(new String("PTHY6THOENIX"));
-        content.add(new String("Joan"));
-
-    }*/
-
+    /**
+     * Generate a new empty list
+     */
     private void generalLlista() {
         this.setLayout(new GridLayout(content.size(),1,0,10));
         updateList(new ArrayList<Request>());
     }
+
+    /**
+     * Generate a new list given this one
+     * @param list
+     */
     private void generaLlista(ArrayList<Request> list){
         this.setLayout(new GridLayout(content.size(), 1, 0, 10));
         updateList(list);
     }
 
+    /**
+     * Updates a existing list given a new one
+     * @param list
+     */
     public void updateList(ArrayList<Request> list) {
         this.removeAll();
         Color cAux = new Color(0x1A0D08);
 
         content = (ArrayList<Request>) list.clone();
         for (int i = 0; i < content.size();i++) {
-            JPanel jpAux = new JPanel(new GridLayout(1,2,0,10));
+            JPanel jpAux = new JPanel(new GridLayout(1,3,5,0));
             JLabel jlAux;
-            if (content.get(i).getMesa_name() == null){
-                 jlAux = new JLabel(content.get(i).getName() + "\t Esperando asignacion de mesa...");
+            JLabel jlPass = new JLabel();
+
+            if (content.get(i).getMesa_name() == "---"){
+                jlPass.setText("Esperando asignacion de mesa...");
+                jlPass.setForeground(Color.white);
+                jlAux = new JLabel(content.get(i).getName());
                  jlAux.setForeground(Color.white);
             }else {
-                if (list.get(i).getPassword() == null) {
-                    jlAux = new JLabel(content.get(i).getName() + "\t En cola");
+                if (list.get(i).getPassword() == "---") {
+                    jlPass.setText("En cola");
+                    jlPass.setForeground(Color.white);
+                    jlAux = new JLabel(content.get(i).getName() );
                     jlAux.setForeground(Color.white);
                 } else {
-                    jlAux = new JLabel(content.get(i).getName() + "\t Pass: " + content.get(i).getPassword());
+                    jlPass.setText( "Password:   " + content.get(i).getPassword());
+                    jlPass.setForeground(Color.white);
+                    jlAux = new JLabel(content.get(i).getName());
                     jlAux.setForeground(Color.white);
                 }
             }
             //jlAux.setForeground(Color.white);
 
-            JButton jbtnAux = new JButton("DELETE " + content.get(i).getName());
-            botones.add(jbtnAux);
-            jbtnAux.setActionCommand("DELETE-REQUEST");
-            jbtnAux.setPreferredSize(new Dimension(250,20));
-            //jbtnAux.setBackground(new Color(0x791311));
-            //jbtnAux.setForeground(Color.white);
-
-            //jbtnAux.addActionListener(jbtnDelete.getActionListeners()[0]);
             jpAux.add(jlAux);
-            jpAux.add(jbtnAux);
-            jpAux.setPreferredSize(new Dimension(650,30));
+            jpAux.add(jlPass);
+
+            if (list.get(i).getPassword() == "---") {
+                JButton jbtnAux = new JButton("DELETE " + content.get(i).getName());
+                botones.add(jbtnAux);
+                jbtnAux.setActionCommand("DELETE-REQUEST");
+                jbtnAux.setPreferredSize(new Dimension(150,20));
+                jpAux.add(jbtnAux);
+            } else {
+                jpAux.add(new JLabel(""));
+            }
+
+            jpAux.setPreferredSize(new Dimension(450,30));
             jpAux.setBorder(new EmptyBorder(0,20,0,20));
             jpAux.setBackground(cAux);
             this.add(jpAux);

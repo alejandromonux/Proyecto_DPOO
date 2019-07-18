@@ -27,14 +27,14 @@ public class DishListPanel extends JPanel {
     public DishListPanel(ArrayList<Dish> dishes, Controller c) {
         buttonEditor = new ButtonEditor(new JCheckBox(), c, "REMOVE-DISH", "Delete");
         //this.setLayout(new BorderLayout());
-        String[] columnNames = {"name", "units", "cost", "timecost", "historic Orders", "Delete"};
+        String[] columnNames = {"name", "cost", "units", "timecost", "historic Orders", "Delete"};
         Object[][] objects = new Object[dishes.size()][6];
         //panel = new JScrollPane();
 
         for (int i = 0; i < dishes.size(); i++) {
             objects[i][0] = dishes.get(i).getName();
-            objects[i][2] = dishes.get(i).getUnits();
             objects[i][1] = dishes.get(i).getCost();
+            objects[i][2] = dishes.get(i).getUnits();
             objects[i][3] = dishes.get(i).getTimecost();
             objects[i][4] = dishes.get(i).getHistoricOrders();
             objects[i][5] = "Delete";
@@ -68,7 +68,7 @@ public class DishListPanel extends JPanel {
 
     /**
      *
-     * @param dishes lsit d eplatos de la nueva tabla
+     * @param dishes lsit de platos de la nueva tabla
      * @param c Controller de la nueva tabla
      */
     public void update(ArrayList<Dish> dishes, Controller c){
@@ -76,14 +76,14 @@ public class DishListPanel extends JPanel {
 
         buttonEditor = new ButtonEditor(new JCheckBox(), c, "REMOVE-DISH", "Delete");
         //this.setLayout(new BorderLayout());
-        String[] columnNames = {"name", "units", "cost", "timecost", "historic Orders", "Delete"};
+        String[] columnNames = {"name", "cost", "units", "timecost", "historic Orders", "Delete"};
         Object[][] objects = new Object[dishes.size()][6];
         //panel = new JScrollPane();
 
         for (int i = 0; i < dishes.size(); i++) {
             objects[i][0] = dishes.get(i).getName();
-            objects[i][2] = dishes.get(i).getUnits();
             objects[i][1] = dishes.get(i).getCost();
+            objects[i][2] = dishes.get(i).getUnits();
             objects[i][3] = dishes.get(i).getTimecost();
             objects[i][4] = dishes.get(i).getHistoricOrders();
             objects[i][5] = "Delete";
@@ -96,7 +96,6 @@ public class DishListPanel extends JPanel {
             }
         };
 
-        //JTable newTabla = new JTable(tm);
         tabla = new JTable(tm);
         DefaultTableCellRenderer df = new DefaultTableCellRenderer();
         df.setHorizontalAlignment(JLabel.CENTER);

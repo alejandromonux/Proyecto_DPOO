@@ -57,14 +57,20 @@ public class PaymentPanel extends JPanel {
     public void registerController(ActionListener c) {
         jbtnBack.setActionCommand("BACK");
         jbtnBack.addActionListener(c);
+        if (jbtnPay.getActionListeners().length > 0) {
+            jbtnPay.removeActionListener(c); }
         jbtnPay.setActionCommand("PAY-BILL");
         jbtnPay.addActionListener(c);
     }
 
+    /**
+     * Updates the bill given the new RequestDish
+     * @param comandes
+     */
     public void updateBill(ArrayList<RequestDish> comandes) {
         float result = 0;
         for (RequestDish rd: comandes) {
-            result += rd.getCost();
+            result += rd.getCost() * rd.getUnits();
         }
         bill = result;
     }

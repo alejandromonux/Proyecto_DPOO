@@ -7,7 +7,7 @@ import com.dpo.centralized_restaurant.Model.Request.Request;
 import com.dpo.centralized_restaurant.Model.Request.RequestDish;
 import com.dpo.centralized_restaurant.Model.Request.RequestManager;
 import com.dpo.centralized_restaurant.Model.Worker;
-import com.dpo.centralized_restaurant.database.ConectorDB;
+import com.dpo.centralized_restaurant.database.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.google.gson.Gson;
@@ -23,8 +23,12 @@ public class DedicatedServerTaula extends Thread{
 
     private RequestManager requestManager;
     private ArrayList<DedicatedServerTaula> dedicatedServers;
-    private ConectorDB conectorDB;
     private Controller controller;
+
+    private ConectorDB conectorDB;
+    private DishServiceDB dishS;
+    private OrderService orderS;
+    private RequestService requestS;
 
     private final Socket socket;
     private DataInputStream dis;
@@ -42,14 +46,16 @@ public class DedicatedServerTaula extends Thread{
      * @param conectorDB
      * @param controller
      */
-    public DedicatedServerTaula(Socket socket, RequestManager requestsManager, ArrayList<DedicatedServerTaula> dedicatedServers, ConectorDB conectorDB, Controller controller) {
+    public DedicatedServerTaula(Socket socket, RequestManager requestsManager, ArrayList<DedicatedServerTaula> dedicatedServers, ConectorDB conectorDB, Controller controller,
+                                DishServiceDB dishS, OrderService orderS, RequestService requestS) {
         this.socket = socket;
         this.requestManager = requestsManager;
-
-        //Add by: Marc --> arraylist of dedicatedServers to delete himself when connection close
         this.dedicatedServers = dedicatedServers;
         this.conectorDB = conectorDB;
         this.controller = controller;
+        this.dishS = dishS;
+        this.orderS = orderS;
+        this.requestS = requestS;
         try {
             dos = new DataOutputStream(socket.getOutputStream());
             dis = new DataInputStream(socket.getInputStream());
@@ -79,7 +85,7 @@ public class DedicatedServerTaula extends Thread{
                         Gson g = new Gson();
                         RequestDish rdAux = g.fromJson(dishToEliminate, RequestDish.class);
                         int requestId = dis.readInt();
-                        if(!conectorDB.deleteComanda(rdAux, requestId)) {
+                        if(!orderS.deleteComanda(rdAux, requestId)) {
                             dos.writeUTF("ORDER-DELETE-BAD");
                         } else {
                             dos.writeUTF("ORDER-DELETE-CORRECT");
@@ -87,7 +93,7 @@ public class DedicatedServerTaula extends Thread{
                         }
                         break;
                     case "SEE-MENU":
-                        ArrayList<Dish> menu = conectorDB.findActiveDishes();
+                        ArrayList<Dish> menu = dishS.findActiveDishes();
                         dos.writeUTF("UPDATE-MENU");
                         dos.writeInt(menu.size());
                         for (Dish d: menu) {
@@ -97,7 +103,7 @@ public class DedicatedServerTaula extends Thread{
                         }
                         break;
                     case "SEE-MY-ORDERS":
-                        ArrayList<RequestDish> comandaOut = conectorDB.getMyOrders(requestActual.getId());
+                        ArrayList<RequestDish> comandaOut = orderS.getMyOrders(requestActual.getId());
                         dos.writeUTF("UPDATE-CLIENT-ORDERS");
                         dos.writeInt(comandaOut.size());
                         for (RequestDish d: comandaOut) {
@@ -133,12 +139,12 @@ public class DedicatedServerTaula extends Thread{
     /**
      * Reads and handles the request to login to the system, given the name and the password
      */
-    public void loginRequest() {
+    public synchronized void loginRequest() {
 
         try {
             String requestName = dis.readUTF();
             String password = dis.readUTF();
-            Request rAux = conectorDB.loginRequest(requestName, password);
+            Request rAux = requestS.loginRequest(requestName, password);
             if ( rAux != null) {
                 dos.writeUTF("LOGIN-CORRECT");
                 requestActual = rAux;
@@ -156,8 +162,8 @@ public class DedicatedServerTaula extends Thread{
     /**
      * Updates the menu with the current active dishes
      */
-    public void updateDishesToAll(){
-        ArrayList<Dish> listaPlatos = conectorDB.findActiveDishes();
+    public synchronized void updateDishesToAll(){
+        ArrayList<Dish> listaPlatos = dishS.findActiveDishes();
 
         for (DedicatedServerTaula dst : dedicatedServers){
             dst.updateMenu(listaPlatos);
@@ -168,7 +174,7 @@ public class DedicatedServerTaula extends Thread{
      * Given the list of the dishes above, updates the menu accordingly
      * @param menu
      */
-    public void updateMenu(ArrayList<Dish> menu){
+    public synchronized void updateMenu(ArrayList<Dish> menu){
         try {
             dos.writeUTF("UPDATE-MENU");
 
@@ -187,11 +193,11 @@ public class DedicatedServerTaula extends Thread{
     /**
      * Allows the client to finish the payment and update the info in the database
      */
-    public void doPayment() {
+    public synchronized void doPayment() {
         try {
             Gson g = new Gson();
             Request inRequest = g.fromJson(dis.readUTF(), Request.class);
-            Request newR = conectorDB.payBill(inRequest);
+            Request newR = orderS.payBill(inRequest);
             if (newR != null) {
                 dos.writeUTF("PAYMENT-ACCEPTED");
                 ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
@@ -210,7 +216,7 @@ public class DedicatedServerTaula extends Thread{
      * Prepares the system ro recieve a number of requests and add them to the database
      * @throws IOException
      */
-    public void dishesComing() throws IOException {
+    public synchronized void dishesComing() throws IOException {
         try {
             int counter = dis.readInt();
             ArrayList<RequestDish> comanda = new ArrayList<>();
@@ -219,9 +225,12 @@ public class DedicatedServerTaula extends Thread{
                 RequestDish rAux = g.fromJson(dis.readUTF(), RequestDish.class);
                 comanda.add(rAux);
             }
-            conectorDB.insertComanda(comanda);
+            orderS.insertComanda(comanda);
             dos.writeUTF("COMANDA-INSERT-OKEY");
-            controller.getVista().getJpSDish().update(conectorDB.findActiveDishes(), controller);
+            ServerTaula.getInstance().updateOrders();
+            controller.getVista().getJpSDish().update(dishS.findActiveDishes(), controller);
+            controller.changeToSpecific();
+
         } catch (Exception e){
             dos.writeUTF("COMANDA-INSERT-BAD");
             e.printStackTrace();
@@ -233,9 +242,9 @@ public class DedicatedServerTaula extends Thread{
     /**
      * Updates the orders that exist within the system
      */
-    public void updateOrders(){
+    public synchronized void updateOrders(){
         if(requestActual != null){
-            ArrayList<RequestDish> comandaOut = conectorDB.getMyOrders(requestActual.getId());
+            ArrayList<RequestDish> comandaOut = orderS.getMyOrders(requestActual.getId());
             try {
                 dos.writeUTF("UPDATE-CLIENT-ORDERS");
                 dos.writeInt(comandaOut.size());

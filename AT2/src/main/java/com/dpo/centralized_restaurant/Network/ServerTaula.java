@@ -4,6 +4,9 @@ import com.dpo.centralized_restaurant.Controller.Controller;
 import com.dpo.centralized_restaurant.Model.Configuration.configJson;
 import com.dpo.centralized_restaurant.Model.Request.RequestManager;
 import com.dpo.centralized_restaurant.database.ConectorDB;
+import com.dpo.centralized_restaurant.database.DishServiceDB;
+import com.dpo.centralized_restaurant.database.OrderService;
+import com.dpo.centralized_restaurant.database.RequestService;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -19,17 +22,39 @@ public class ServerTaula extends Thread {
     private ServerSocket serverSocket;
     private final ArrayList<DedicatedServerTaula> dedicatedServers;
     private RequestManager requestsManager;
+
     private ConectorDB conectorDB;
+    private DishServiceDB dishS;
+    private OrderService orderS;
+    private RequestService requestS;
+
     private Controller controller;
     private boolean isRunning;
+    private static ServerTaula serverTaula;
 
-    public ServerTaula(configJson config, ConectorDB conectorDB, Controller controller) {
+    public static ServerTaula getInstance() {
+        if (serverTaula == null) {
+            serverTaula = new ServerTaula();
+        }
+        return serverTaula;
+    }
+
+    public ServerTaula(){
+        dedicatedServers = new ArrayList<>();
+        isRunning  = true;
+    }
+
+    public ServerTaula(configJson config, ConectorDB conectorDB, Controller controller,
+                       DishServiceDB dishS, OrderService orderS, RequestService requestS) {
         dedicatedServers = new ArrayList<>();
         serverSocket = null;
         requestsManager = new RequestManager();
         PORT = config.getPort_Taula();
         this.conectorDB = conectorDB;
         this.controller = controller;
+        this.dishS = dishS;
+        this.orderS = orderS;
+        this.requestS = requestS;
     }
 
     @Override
@@ -41,8 +66,9 @@ public class ServerTaula extends Thread {
             while (isRunning) {
                 Socket socket = serverSocket.accept();  // Esperem a que algun usuari es connecti
                 System.out.println("Connected Taula");
-                //Modifyed by: Marc --> Added dedicatedServers in constructor
-                DedicatedServerTaula dServer = new DedicatedServerTaula(socket, requestsManager, dedicatedServers, conectorDB, controller);   // Creem un cami dedicat a la connexio amb aquest usuari
+                //Modified by: Marc --> Added dedicatedServers in constructor
+                DedicatedServerTaula dServer = new DedicatedServerTaula(socket, requestsManager, dedicatedServers, conectorDB,
+                                                                        controller, dishS, orderS, requestS);   // Creem un cami dedicat a la connexio amb aquest usuari
                 dedicatedServers.add(dServer);
                 dServer.start();
             }
@@ -62,7 +88,7 @@ public class ServerTaula extends Thread {
     /**
      * Updates the orders setting a new activation date
      */
-    public void updateOrders(){
+    public synchronized void updateOrders(){
         if(!dedicatedServers.isEmpty()){
             for(DedicatedServerTaula dst : dedicatedServers){
                 dst.updateOrders();

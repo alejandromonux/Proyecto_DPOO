@@ -66,6 +66,8 @@ public class TaulaLoginPanel extends JPanel {
     }
 
     public void registerController(Controller c) {
+        if (jbtnLogIn.getActionListeners().length > 0) {
+            jbtnLogIn.removeActionListener(c); }
         jbtnLogIn.setActionCommand("LOG IN");
         jbtnLogIn.addActionListener(c);
     }

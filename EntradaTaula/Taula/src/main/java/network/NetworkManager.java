@@ -39,6 +39,10 @@ public class NetworkManager extends Thread {
         dis = new DataInputStream(inputStream);
     }
 
+    /**
+     * Starts the void run and thus the connection with the server
+     * @param controller
+     */
     public void startServerConnection(Controller controller) {
         this.controller = controller;
         isRunning = true;
@@ -60,6 +64,11 @@ public class NetworkManager extends Thread {
         dos.writeUTF(dish);
     }
 
+    /**
+     * Sends a dish to the server to be removed
+     * @param dish
+     * @throws IOException
+     */
     public void sendDishToEliminate(RequestDish dish) throws IOException {
         dos.writeUTF("ELIMINATE-DISH");
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
@@ -68,6 +77,9 @@ public class NetworkManager extends Thread {
         dos.writeInt(myRequest.getId());
     }
 
+    /**
+     * Recieves the menu with the dishes
+     */
     public void askForMenu() {
         try {
             dos.writeUTF("SEE-MENU");
@@ -76,6 +88,9 @@ public class NetworkManager extends Thread {
         }
     }
 
+    /**
+     * Recieves the different orders
+     */
     public void askOrders() {
         try {
             dos.writeUTF("SEE-MY-ORDERS");
@@ -84,12 +99,21 @@ public class NetworkManager extends Thread {
         }
     }
 
+    /**
+     * Send the log in information to be validated
+     * @param requestName
+     * @param password
+     * @throws IOException
+     */
     public void sendLogInRequest(String requestName, String password)throws IOException {
         dos.writeUTF("LOGIN-REQUEST");
         dos.writeUTF(requestName);
         dos.writeUTF(password);
     }
 
+    /**
+     * Sends the information about the bill to be paid
+     */
     public void payBill() {
         try {
             myRequest.setInService(2);
@@ -102,6 +126,12 @@ public class NetworkManager extends Thread {
         }
     }
 
+    /**
+     * Sends a request
+     * @param comanda
+     * @return
+     * @throws IOException
+     */
     public boolean sendComanda(ArrayList<RequestDish> comanda) throws IOException {
 
         dos.writeUTF("DISHES-COMING");
@@ -115,7 +145,9 @@ public class NetworkManager extends Thread {
         return false;
     }
 
-
+    /**
+     * Gets the latest updates about the information that holds the server
+     */
     public void readUpdates() {
         try {
             String textIn = dis.readUTF();

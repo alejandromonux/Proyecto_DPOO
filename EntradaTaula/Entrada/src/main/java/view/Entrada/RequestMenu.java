@@ -27,14 +27,14 @@ public class RequestMenu extends JPanel{
         /*····················   ICON    ···················· */
 
         JPanel jpLogo = new JPanel(new BorderLayout());
-        jpLogo.setSize(800,200);
+        jpLogo.setSize(700,200);
         ImageIcon tablesIcon = new ImageIcon("images/upperLogo3.png");
         Image image2 = tablesIcon.getImage(); // transform it
         Image newimg2 = image2.getScaledInstance(400, 200,  0); // scale it the smooth way
         tablesIcon = new ImageIcon(newimg2);
 
         JLabel jlAux = new JLabel();
-        jlAux.setSize(800,100);
+        jlAux.setSize(700,100);
         jlAux.setHorizontalAlignment(0);
         jlAux.setIcon(tablesIcon);
 
@@ -95,6 +95,9 @@ public class RequestMenu extends JPanel{
         cardLayout.show(jpPanels, which);
     }
 
+    /**
+     * Creates the clock with the current time
+     */
     public void createClock() {
         Date date = new Date();
         DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
@@ -102,6 +105,11 @@ public class RequestMenu extends JPanel{
         digitalClock.setText(time);
     }
 
+    /**
+     * Set the values that will be shown in the password view
+     * @param requestName
+     * @param password
+     */
     public void setValuesToShow(String requestName, String password) {
         //jpPassView.showPasswordTo(requestName, password);
         jpPanels.remove(jpPassView);

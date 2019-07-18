@@ -124,6 +124,10 @@ public class ComandaPanel extends JPanel {
         jbtnRemove.registerController(c, "REMOVE-FROM-ORDER");
     }
 
+    /**
+     * Updates the view of the menu given a group of RequestDish
+     * @param menu
+     */
     public void updateMenu(ArrayList<RequestDish> menu) {
 
         data = new Object[menu.size()][columnNames.length];
@@ -146,6 +150,10 @@ public class ComandaPanel extends JPanel {
         this.add(jbtnBack, BorderLayout.PAGE_END);
     }
 
+    /**
+     * Adds the specified dish to the order
+     * @param dish
+     */
     public void addOrderToCart(RequestDish dish) {
 
         boolean exists = false;
@@ -167,6 +175,10 @@ public class ComandaPanel extends JPanel {
         updateMenu(comanda);
     }
 
+    /**
+     * Removes the order from the list
+     * @param index
+     */
     public void removeOrderFromCart(int index) {
 
         if (comanda.get(index).getUnits() > 1) {
