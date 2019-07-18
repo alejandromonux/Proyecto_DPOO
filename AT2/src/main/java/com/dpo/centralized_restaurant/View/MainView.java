@@ -50,6 +50,7 @@ public class MainView extends JFrame {
     private JPanel jpHeader;
     private JPanel jpContent;
     private CardLayout jclContent;
+    private String currentContent;
 
     /*  HEADER ATTRIBUTES */
     private JButton jbLogOut;
@@ -100,16 +101,6 @@ public class MainView extends JFrame {
         createClock();
         jpAuxH2.add(digitalClock, BorderLayout.CENTER);
 
-
-        /*
-        JPanel jpAuxH3 = new JPanel();
-        jbLogOut = new JButton("LOG OUT");
-        jbLogOut.setFont(new Font("Chaparral Pro Light", Font.PLAIN, 20));
-        jbLogOut.setFocusable(false);
-        jbLogOut.setBorder(new EmptyBorder(10, 20, 10, 20));
-        //jbLogOut.setActionCommand("LogIn");
-        jpAuxH3.add(jbLogOut);*/
-
         JPanel miniLoginBox = new JPanel(new GridLayout(3,0));
         // Al registrase o loguearse, aquí se verá el nombre del usuario
         JPanel jpAuxH3 = new JPanel();
@@ -156,13 +147,14 @@ public class MainView extends JFrame {
         jpContent.setBackground(new Color(0x12123B));
         jclContent = new CardLayout();
         jpContent.setLayout(jclContent);
+        currentContent = "FORMS";
         jpContent.add("FORMS", jpLogIn);
         jpContent.add("MAIN", jpMainMenu);
         jpContent.add("TABLES", jpTables);
         jpContent.add("DISHES", jpDish);
         jpContent.add("REQUESTS", jpReq);
-        jpContent.add("ORDERS", jpOrders);
-        jpContent.add("SPECIFIC-ORDERS", jpTableOrders);
+        jpContent.add("ORDERS", jpOrders); //Show all tables with information
+        jpContent.add("SPECIFIC-ORDERS", jpTableOrders); // Orders of specific table
         jpContent.add("SERVICE-DISHES", jpSDish);
         jpContent.add("CONFIGURATIONS", jpConfig);
         jpContent.add("START", jpServiceHome);
@@ -215,17 +207,16 @@ public class MainView extends JFrame {
      * @param which String que indica a cuál cambiar
      */
     public void changePanel (String which) {
+        this.currentContent = which;
         jclContent.show(jpContent,which);
     }
 
     public boolean isSpecificPanel() {
-        JPanel card = null;
-        for (Component comp : jpContent.getComponents()) {
-            if (comp.isVisible()) {
-                card = (JPanel) comp;
-            }
-        }
-        return card.equals("SPECIFIC-ORDERS");
+        return currentContent.equals("SPECIFIC-ORDERS");
+    }
+
+    public boolean isTablesPanel() {
+        return currentContent.equals("ORDERS");
     }
 
     /**Cambia el panel

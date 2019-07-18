@@ -47,6 +47,7 @@ public class Controller implements ActionListener {
     private WorkerService workerS;
 
     private static Controller controller;
+    private String idCurrentDeepOrder;
 
 
     public Controller(){
@@ -510,7 +511,8 @@ public class Controller implements ActionListener {
                 break;
             case "SEE-TABLE-ORDERS":
                 ArrayList<RequestDish> rd = new ArrayList<RequestDish>();
-                rd = orderS.getTableOrders(vista.getJpOrders().getOrderID()); // GetOrderId == GetTableName
+                idCurrentDeepOrder = vista.getJpOrders().getOrderID();
+                rd = orderS.getTableOrders(idCurrentDeepOrder); // GetOrderId == GetTableName
                 vista.setJpTableOrders(new DeepOrderPanel(rd, this, vista.getJpOrders().getOrderID()));
                 vista.getJpTableOrders().registerController(this);
                 vista.changePanel("SPECIFIC-ORDERS");
@@ -551,6 +553,9 @@ public class Controller implements ActionListener {
 
             case "BACKORDERS":
                 vista.changePanel("ORDERS");
+                ArrayList<Comanda> auxC2 = new ArrayList<>();
+                auxC2 = tableS.findActiveTablesWithInfo();
+                vista.setTableDishOrder(auxC2, this);
                 break;
             case "POSTSERVICE" :
                 ArrayList<OrderedDish> today = tableS.getTopDishes(true);
@@ -749,7 +754,17 @@ public class Controller implements ActionListener {
 
     public void changeToSpecific() {
         if (vista.isSpecificPanel()) {
+            ArrayList<RequestDish> rd = orderS.getTableOrders(idCurrentDeepOrder); // GetOrderId == GetTableName
+            vista.setJpTableOrders(new DeepOrderPanel(rd, this, vista.getJpOrders().getOrderID()));
+            vista.getJpTableOrders().registerController(this);
             vista.changePanel("SPECIFIC-ORDERS");
+        } else {
+            if (vista.isTablesPanel()) {
+                vista.changePanel("ORDERS");
+                ArrayList<Comanda> auxC = new ArrayList<>();
+                auxC = tableS.findActiveTablesWithInfo();
+                vista.setTableDishOrder(auxC, this);
+            }
         }
     }
 }

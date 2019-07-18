@@ -10,7 +10,6 @@ com.dpo.centralized_restaurant.Model.Preservice
 com.dpo.centralized_restaurant.Model.Request
 com.dpo.centralized_restaurant.Model.Service
 com.dpo.centralized_restaurant.Network
-com.dpo.centralized_restaurant.Repository
 com.dpo.centralized_restaurant.View
 com.dpo.centralized_restaurant.View.ConfigurationPanels
 com.dpo.centralized_restaurant.View.DishPanels
@@ -21,5 +20,4 @@ com.dpo.centralized_restaurant.View.Service
 com.dpo.centralized_restaurant.View.TablePanels
 com.dpo.centralized_restaurant.View.Utils
 com.dpo.centralized_restaurant.database
-com.dpo.centralized_restaurant.service
 com.dpo.centralized_restaurant.view.TableService
