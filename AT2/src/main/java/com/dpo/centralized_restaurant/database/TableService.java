@@ -166,6 +166,7 @@ public class TableService {
         float aux = 0;
 
         if (today) {
+            //Cambiar el ro.quantity por las veces que se ha pedido el plato.
             query = "SELECT sum(d.cost*ro.quantity) AS gain FROM (dish AS d JOIN request_order AS ro ON ro.dish_id = d.id) JOIN request AS r ON r.id = ro.request_id WHERE ro.actual_service >= 1 AND r.in_service < 3;";
         } else {
             query = "SELECT sum(d.cost*ro.quantity) AS gain FROM dish AS d JOIN request_order AS ro ON ro.dish_id = d.id WHERE ro.actual_service >= 1;";
@@ -191,8 +192,12 @@ public class TableService {
      * @return precio por mesa medio
      */
     public synchronized float getAvgPrice() {
+        String query = "SELECT avg(aux.pricePerTable) AS priceTable FROM (SELECT sum(cost*ro.quantity)/(SELECT count(*) AS n_mesas FROM mesa AS m WHERE m.active = 1) AS pricePerTable\n"+
+                "FROM mesa AS m JOIN request AS r ON r.mesa_name = m.name JOIN request_order AS ro ON ro.request_id = r.id JOIN dish AS d ON d.id = ro.dish_id) AS aux;";
+/*
         String query = "SELECT avg(aux.pricePerTable) AS priceTable FROM (SELECT sum(cost*ro.quantity)/(SELECT count(*) AS n_mesas FROM mesa AS m) AS pricePerTable\n" +
                 "        FROM Dish as d JOIN request_order AS ro ON d.name = ro.dish_id JOIN request AS r ON ro.request_id = r.id JOIN mesa AS m ON m.name = r.mesa_name GROUP BY m.name) AS aux;";
+*/
         ResultSet rs = null;
         float aux = 0;
         try {
