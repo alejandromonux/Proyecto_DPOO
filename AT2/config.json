@@ -3,7 +3,7 @@
 	"IP_BBDD": "localhost",
 	"NomBBDD": "centralized_restaurant",
 	"User": "root",
-	"Password": "mysql1234",
+	"Password": "dan13579",
 	"Port_Entrada": 12345,
 	"Port_Taula": 12346
 }
