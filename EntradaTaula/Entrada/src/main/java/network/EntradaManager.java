@@ -6,6 +6,7 @@ import model.config.configJSON;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.EOFException;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -53,7 +54,6 @@ public class EntradaManager extends Thread {
             try {
                 readUpdates();// Estem sempre a l'espera de rebre actualizacions.
             } catch (Exception e) {
-                e.printStackTrace();
                 isRunning = false;
                 try {
                     dos.close();
