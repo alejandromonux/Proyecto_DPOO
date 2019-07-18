@@ -49,15 +49,27 @@ public class ListPanel extends JPanel {
         generalLlista();
     }
 
+    /**
+     * Generate a new empty list
+     */
     private void generalLlista() {
         this.setLayout(new GridLayout(content.size(),1,0,10));
         updateList(new ArrayList<Request>());
     }
+
+    /**
+     * Generate a new list given this one
+     * @param list
+     */
     private void generaLlista(ArrayList<Request> list){
         this.setLayout(new GridLayout(content.size(), 1, 0, 10));
         updateList(list);
     }
 
+    /**
+     * Updates a existing list given a new one
+     * @param list
+     */
     public void updateList(ArrayList<Request> list) {
         this.removeAll();
         Color cAux = new Color(0x1A0D08);

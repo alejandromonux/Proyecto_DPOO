@@ -56,6 +56,11 @@ public class ListFrame extends JFrame {
         jpList.registerController(c);
     }
 
+    /**
+     * Update the list with the given requests
+     * @param requests
+     * @param c
+     */
     public void updateList(ArrayList<Request> requests , ActionListener c) {
         //llista de requests
         //jpList.updateList(requests);

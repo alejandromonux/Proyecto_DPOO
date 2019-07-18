@@ -229,6 +229,8 @@ public class DedicatedServerTaula extends Thread{
             dos.writeUTF("COMANDA-INSERT-OKEY");
             ServerTaula.getInstance().updateOrders();
             controller.getVista().getJpSDish().update(dishS.findActiveDishes(), controller);
+            controller.changeToSpecific();
+
         } catch (Exception e){
             dos.writeUTF("COMANDA-INSERT-BAD");
             e.printStackTrace();

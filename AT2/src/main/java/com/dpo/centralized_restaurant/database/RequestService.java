@@ -10,6 +10,7 @@ public class RequestService {
 
     private Connection conn;
     private Statement s;
+    private static final String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     public RequestService(Connection conn){
         this.conn = conn;
@@ -73,7 +74,7 @@ public class RequestService {
      */
     public ArrayList<Request> getRequestsPendientes() {
         // Busca requests que esten pendientes de entrar o que tengan mesa asignada pero que aun no se hayan ido y pagado
-        String query = "SELECT id, name FROM request WHERE in_service = 0 ORDER BY id;";
+        String query = "SELECT id, name FROM request WHERE in_service = 0 AND mesa_name IS NULL ORDER BY id;";
         ResultSet rs = null;
         ArrayList<Request> result = new ArrayList<>();
 
@@ -241,7 +242,12 @@ public class RequestService {
                 if (!a && num <= nuevoRequest.getQuantity() + 2 && num >= nuevoRequest.getQuantity()) {
                     UUID uuid = UUID.randomUUID();
                     String randomUUIDString_aux = uuid.toString();
-                    String randomUUIDString = randomUUIDString_aux.substring(0,8);
+                    String random = randomUUIDString_aux.substring(0,6);
+
+                    StringBuilder myPassword = new StringBuilder(random);
+                    myPassword.setCharAt((int)Math.floor(Math.random()*5), caracteres.charAt((int)Math.floor(Math.random()*25)));
+
+                    String randomUUIDString = myPassword.toString();
 
                     PreparedStatement ps = conn.prepareStatement("UPDATE mesa SET in_use = true, activation_date = NOW() " +
                             "WHERE name = '" + rs.getString("name") + "';");
@@ -286,7 +292,12 @@ public class RequestService {
                     if (!(rs.getBoolean("in_use"))) {
                         UUID uuid = UUID.randomUUID();
                         String randomUUIDString_aux = uuid.toString();
-                        String randomUUIDString = randomUUIDString_aux.substring(0,8);
+                        String random = randomUUIDString_aux.substring(0,6);
+
+                        StringBuilder myPassword = new StringBuilder(random);
+                        myPassword.setCharAt((int)Math.floor(Math.random()*5), caracteres.charAt((int)Math.floor(Math.random()*25)));
+
+                        String randomUUIDString = myPassword.toString();
 
                         PreparedStatement ps = conn.prepareStatement("UPDATE mesa SET in_use = true, activation_date = NOW() " +
                                 "WHERE name = '" + rs.getString("name") + "';");

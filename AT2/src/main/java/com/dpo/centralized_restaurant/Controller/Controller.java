@@ -723,9 +723,10 @@ public class Controller implements ActionListener {
                                 orderS.updateComanda(rd,r.getId());
                                 serverTaula.updateOrders();
                                 vista.getJpTableOrders().update(orderS.getMyOrders(r.getId()), controller);
+                                orderS.setServido(rd,r.getId());
                             }
 
-                            orderS.setServido(rd,r.getId());
+
 
                             /*if (rd.getActualService() == 2){
                                 serverTaula.updateOrders();
@@ -744,5 +745,11 @@ public class Controller implements ActionListener {
         timer = new Timer(1000, actionListener);
         timer.setInitialDelay(0);
         timer.start();
+    }
+
+    public void changeToSpecific() {
+        if (vista.isSpecificPanel()) {
+            vista.changePanel("SPECIFIC-ORDERS");
+        }
     }
 }

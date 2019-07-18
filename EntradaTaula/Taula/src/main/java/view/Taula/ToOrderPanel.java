@@ -187,6 +187,10 @@ public class ToOrderPanel extends JPanel {
         return dishes.get(jpContent.getSelectedRow());
     }
 
+    public ArrayList<Dish> getDishes() {
+        return dishes;
+    }
+
     public void incBag() {
         bagCounter++;
     }

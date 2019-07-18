@@ -29,7 +29,10 @@ public class Controller implements ActionListener {
         createClock();
     }
 
-    //accions dels botons
+    /**
+     * According the which button is pressed it will do one action or another
+     * @param e
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -55,6 +58,9 @@ public class Controller implements ActionListener {
 
     }
 
+    /**
+     * Creates the clock with the current time
+     */
     public void createClock() {
         Timer timer;
         ActionListener actionListener = new ActionListener() {
@@ -69,25 +75,48 @@ public class Controller implements ActionListener {
     }
 
 
+    /**
+     * Updates the list with the request given this ones
+     * @param requests
+     * @param c
+     */
     public void updateRequestList(ArrayList<Request> requests, ActionListener c) {
         //update de la llist on veiem les requests
         requestList.updateList(requests, c);
     }
 
+    /**
+     * Shows the pwd info
+     * @param requestName
+     * @param passWord
+     */
     public void showPassword(String requestName, String passWord) {
         //canvi de panell al de password i creacio d'un nou amb la informacio
         vista.setValuesToShow(requestName, passWord);
         vista.changePanel("PASSWORD-VIEW");
     }
     /****** Errors de conexio amb el servidor  *******/
+
+    /**
+     * Add an error notification into the view
+     */
     public void insertNotification(){
 
         vista.insertNotification();
     }
+
+    /**
+     * Add an error notification to the specified request
+     * @param id
+     */
     public void notificationComanda(int id){
 
         vista.errorComandaImposible(id);
     }
+
+    /**
+     * Show an error connection with the server
+     */
     public void errorConexio(){
         vista.errorConexio();
     }

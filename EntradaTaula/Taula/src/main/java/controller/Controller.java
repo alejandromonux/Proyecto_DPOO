@@ -22,6 +22,10 @@ public class Controller implements ActionListener {
         createClock();
     }
 
+    /**
+     * According the which button is pressed it will do one action or another
+     * @param e
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -91,6 +95,9 @@ public class Controller implements ActionListener {
 
     }
 
+    /**
+     * Creates de clock to check the current time
+     */
     public void createClock() {
         Timer timer;
         ActionListener actionListener = new ActionListener() {
@@ -104,6 +111,10 @@ public class Controller implements ActionListener {
         timer.start();
     }
 
+    /**
+     * Given the menu of dishes, updates the view panel
+     * @param menu
+     */
     public void updateMenu(ArrayList<Dish> menu) {
         if (menu != null) {
             vista.updateMenu(menu);
@@ -116,6 +127,10 @@ public class Controller implements ActionListener {
         }
     }
 
+    /**
+     * Updates the bill given the dishes have been asked for
+     * @param bill
+     */
     public void updateBill(ArrayList<RequestDish> bill) {
         if (bill != null) {
             vista.updateBill(bill);
@@ -128,10 +143,16 @@ public class Controller implements ActionListener {
         }
     }
 
+    /**
+     * Change the view panel if login its succesfull
+     */
     public void correctLogin() {
         vista.changeTaulaPanel("TAULA-OPTIONS");
     }
 
+    /**
+     * Shows the following message if an error appears while removing a dish
+     */
     public void errorDelete() {
         JOptionPane.showMessageDialog(vista,
                 "Error when Removing Dish!",
@@ -139,6 +160,9 @@ public class Controller implements ActionListener {
                 JOptionPane.ERROR_MESSAGE);
     }
 
+    /**
+     * Shows the following message if the login its not succesfull
+     */
     public void badLogin() {
         JOptionPane.showMessageDialog(vista,
                 "Incorrect Login or Password, try again!",
@@ -146,6 +170,10 @@ public class Controller implements ActionListener {
                 JOptionPane.ERROR_MESSAGE);
     }
 
+    /**
+     * Execute one line or the other according to the result of the payment
+     * @param r
+     */
     public void paymentResult(Boolean r) {
         if (r) {
             vista.changeTaulaPanel("TAULA-LOGIN");
@@ -154,18 +182,53 @@ public class Controller implements ActionListener {
         }
     }
 
+    /**
+     * Gest the info of a request and sends it to the server
+     */
     private void sendComanda() {
         try {
-            networkManager.sendComanda(vista.getBagOfOrders());
+            ArrayList<RequestDish> auxList = vista.getBagOfOrders();
+            ArrayList<Dish> auxMenu = vista.getMenu();
+            boolean flag = true;
+            boolean found = false;
+            for (RequestDish rd: auxList) {
+                for (Dish d: auxMenu) {
+                    if (d.getName().equalsIgnoreCase(rd.getName())) {
+                        if (rd.getUnits() > d.getUnits()) {
+                            flag = false;
+                        }
+                        found = true;
+                    }
+                }
+                if (!found) {
+                    flag = false;
+                }
+                found = false;
+            }
+            if (flag) {
+                networkManager.sendComanda(vista.getBagOfOrders());
+            } else {
+                JOptionPane.showMessageDialog(vista,
+                        "Too many units requested! Request was cancelled",
+                        "Units Error",
+                        JOptionPane.ERROR_MESSAGE);
+                vista.clearBagOfComandes();
+            }
             } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
 
+    /**
+     * Refreshes the bag of requests
+     */
     public void resetComanda() {
         vista.clearBagOfComandes();
     }
 
+    /**
+     * Displays the following message if there was an error with the orders
+     */
     public void badSending() {
         JOptionPane.showMessageDialog(vista,
                 "Orders were not applied!",
