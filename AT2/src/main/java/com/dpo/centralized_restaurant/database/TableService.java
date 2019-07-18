@@ -134,7 +134,8 @@ public class TableService {
         ArrayList<OrderedDish> aux = new ArrayList<>();
 
         if (today) {
-            query = "SELECT name, historics_orders FROM dish AS d WHERE d.active = 1 ORDER BY historics_orders DESC LIMIT 5;";
+            //query = "SELECT name, historics_orders FROM dish AS d WHERE d.active = 1 ORDER BY historics_orders DESC LIMIT 5;";
+            query = "SELECT name, count(*) AS historic_orders FROM dish AS d JOIN request_order AS ro ON d.id = ro.dish_id WHERE d.active = 1 AND ro.actual_service = 1 GROUP BY d.id ORDER BY  historic_orders DESC limit 5;";
         } else {
             query = "SELECT name, historics_orders FROM dish AS d ORDER BY historics_orders DESC LIMIT 5;";
         }
