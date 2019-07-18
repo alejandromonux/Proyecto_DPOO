@@ -24,7 +24,6 @@ public class EntradaManager extends Thread {
 
     public EntradaManager(configJSON config) throws IOException {
         controller = null;
-        //configuracio del socket
         IP = config.getIP();
         PORT = config.getPort_Entrada();
         socket = new Socket(IP, PORT);
@@ -36,7 +35,6 @@ public class EntradaManager extends Thread {
         this.controller = controller;
         isRunning = true;
         start();
-        //engeguem el thread de lectura
     }
 
     @Override
@@ -67,14 +65,12 @@ public class EntradaManager extends Thread {
     }
 
     public void sendRequest(String nameRequest, int quantity) throws IOException {
-        //enviar requests nou
         dos.writeUTF("REQUEST-COMING");
         dos.writeUTF(nameRequest);
         dos.writeInt(quantity);
     }
 
     public void askRequests() throws IOException {
-        //demana llista de requests
         dos.writeUTF("NEED-REQUEST-LIST");
 
     }
@@ -82,12 +78,10 @@ public class EntradaManager extends Thread {
     public void readUpdates() throws IOException {
         String inDuty = dis.readUTF();
         switch (inDuty) {
-            //update de la list de requests
             case "UPDATE-REQUEST-LIST":
                 ArrayList<Request> requests = new ArrayList<>();
                 int size = dis.readInt();
                 while (size > 0) {
-                    //lectura de dades
                     int id = dis.readInt();
                     String name = dis.readUTF();
                     name = name.equals("NULL") ? null: name;
@@ -95,25 +89,21 @@ public class EntradaManager extends Thread {
                     pass = pass.equals("NULL") ? null: pass;
                     String mesa = dis.readUTF();
                     mesa = mesa.equals("NULL") ? null: mesa;
-                    if (pass == null) {
-                        //afegim requests no actives
+                    /*if (pass == null) {
                         requests.add(new Request(name, id, pass, mesa));
-                    }
+                    }*/
                     size--;
                 }
                     controller.updateRequestList(requests, controller);
                 break;
             case "INCOMING-ASSIGNMENT":
-                    //assignacio d'una request i mostrar contrasenya
                     int id = dis.readInt();
                     String name = dis.readUTF();
                     String pass = dis.readUTF();
                     String mesa = dis.readUTF();
                     if (name.equals("NO SE HA ENCONTRADO MESA")){
-                        //solucio errors
                         controller.notificationComanda(id);
                     }else{
-                        //mostrar contrassnya
                         dos.writeUTF("NEED-REQUEST-LIST");
                         controller.showPassword(name, pass);
                         controller.registerControllers();
@@ -122,14 +112,12 @@ public class EntradaManager extends Thread {
                         //mostrar error, actualizar lista
                 break;
             case "REQUEST-COMING":
-                //comprobacio de la requests
                 boolean done = dis.readBoolean();
                 if (!done){
                     controller.insertNotification();
                 }
                 break;
             case "DELETE-RESPONSE":
-                //comprobacio de delete correctament
                 boolean dona = dis.readBoolean();
                 if (!dona){
                     controller.errorConexio();
@@ -140,7 +128,6 @@ public class EntradaManager extends Thread {
     }
 
     public void deleteRequest(String requestName) throws IOException {
-        //eliminar requests
         dos.writeUTF("DELETE-REQUEST");
         dos.writeUTF(requestName);
     }
