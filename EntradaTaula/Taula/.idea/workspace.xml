@@ -43,11 +43,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/network/NetworkManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1728">
-              <caret line="86" column="26" selection-start-line="86" selection-start-column="26" selection-end-line="86" selection-end-column="26" />
+            <state relative-caret-position="194">
+              <caret line="122" column="16" selection-start-line="122" selection-start-column="16" selection-end-line="122" selection-end-column="16" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -55,11 +55,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/controller/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="146">
-              <caret line="203" column="33" selection-start-line="203" selection-start-column="33" selection-end-line="203" selection-end-column="33" />
+            <state relative-caret-position="194">
+              <caret line="237" column="13" selection-start-line="237" selection-start-column="13" selection-end-line="237" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -119,7 +119,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/view/Taula/TaulaGeneralPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3168">
+            <state relative-caret-position="3048">
               <caret line="149" column="38" selection-start-line="149" selection-start-column="38" selection-end-line="149" selection-end-column="38" />
             </state>
           </provider>
@@ -128,15 +128,13 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/view/Taula/ComandaPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2400">
+            <state relative-caret-position="3144">
               <caret line="192" column="23" selection-start-line="192" selection-start-column="23" selection-end-line="192" selection-end-column="23" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#tableCreator#0;class#ComandaPanel#0" />
                 <element signature="method#scrollPaneConfig#0;class#ComandaPanel#0" />
                 <element signature="e#2480#3806#0" />
-                <element signature="e#5844#5845#0" expanded="true" />
-                <element signature="e#5874#5875#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -180,6 +178,9 @@
       <find>sendcom</find>
       <find>0001-01-01 00:00:01</find>
       <find>0001-0</find>
+      <find>there was a pro</find>
+      <find>stackTrace</find>
+      <find>e.</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -211,7 +212,6 @@
         <option value="$PROJECT_DIR$/src/main/java/model/RequestDish.java" />
         <option value="$PROJECT_DIR$/src/main/java/view/Taula/ComandaPanel.java" />
         <option value="$PROJECT_DIR$/src/main/java/view/Taula/SeeOrdersPanel.java" />
-        <option value="$PROJECT_DIR$/src/main/java/network/NetworkManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/view/Taula/ButtonEditor.java" />
         <option value="$PROJECT_DIR$/src/main/java/view/Taula/TaulaOptionsPanel.java" />
         <option value="$PROJECT_DIR$/src/main/java/view/Taula/TaulaLoginPanel.java" />
@@ -220,6 +220,7 @@
         <option value="$PROJECT_DIR$/src/main/java/view/Taula/TaulaGeneralPanel.java" />
         <option value="$PROJECT_DIR$/src/main/java/view/MainWindow.java" />
         <option value="$PROJECT_DIR$/src/main/java/controller/Controller.java" />
+        <option value="$PROJECT_DIR$/src/main/java/network/NetworkManager.java" />
       </list>
     </option>
   </component>
@@ -252,6 +253,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -315,7 +317,6 @@
         </subPane>
       </pane>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -424,16 +425,18 @@
       <workItem from="1563380469450" duration="18000" />
       <workItem from="1563380507369" duration="5255000" />
       <workItem from="1563456419132" duration="2386000" />
+      <workItem from="1563576531085" duration="1113000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="138200000" />
+    <option name="totallyTimeSpent" value="139313000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15938166" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1609808" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -486,13 +489,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/network/NetworkManager.java</url>
-          <line>74</line>
+          <line>75</line>
           <properties />
           <option name="timeStamp" value="38" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/network/NetworkManager.java</url>
-          <line>198</line>
+          <line>203</line>
           <properties />
           <option name="timeStamp" value="40" />
         </line-breakpoint>
@@ -504,7 +507,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/network/NetworkManager.java</url>
-          <line>118</line>
+          <line>119</line>
           <properties />
           <option name="timeStamp" value="46" />
         </line-breakpoint>
@@ -516,25 +519,25 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/network/NetworkManager.java</url>
-          <line>170</line>
+          <line>175</line>
           <properties />
           <option name="timeStamp" value="48" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/network/NetworkManager.java</url>
-          <line>180</line>
+          <line>185</line>
           <properties />
           <option name="timeStamp" value="49" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/network/NetworkManager.java</url>
-          <line>181</line>
+          <line>186</line>
           <properties />
           <option name="timeStamp" value="50" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/controller/Controller.java</url>
-          <line>156</line>
+          <line>164</line>
           <properties />
           <option name="timeStamp" value="51" />
         </line-breakpoint>
@@ -679,16 +682,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/network/NetworkManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1728">
-          <caret line="86" column="26" selection-start-line="86" selection-start-column="26" selection-end-line="86" selection-end-column="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/view/MainWindow.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1848">
@@ -735,22 +728,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/view/Taula/TaulaGeneralPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3168">
+        <state relative-caret-position="3048">
           <caret line="149" column="38" selection-start-line="149" selection-start-column="38" selection-end-line="149" selection-end-column="38" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/view/Taula/ComandaPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2400">
+        <state relative-caret-position="3144">
           <caret line="192" column="23" selection-start-line="192" selection-start-column="23" selection-end-line="192" selection-end-column="23" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#tableCreator#0;class#ComandaPanel#0" />
             <element signature="method#scrollPaneConfig#0;class#ComandaPanel#0" />
             <element signature="e#2480#3806#0" />
-            <element signature="e#5844#5845#0" expanded="true" />
-            <element signature="e#5874#5875#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -776,8 +767,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/controller/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="203" column="33" selection-start-line="203" selection-start-column="33" selection-end-line="203" selection-end-column="33" />
+        <state relative-caret-position="194">
+          <caret line="237" column="13" selection-start-line="237" selection-start-column="13" selection-end-line="237" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/network/NetworkManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="122" column="16" selection-start-line="122" selection-start-column="16" selection-end-line="122" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

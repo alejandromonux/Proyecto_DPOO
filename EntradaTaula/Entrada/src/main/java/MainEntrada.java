@@ -32,6 +32,7 @@ public class MainEntrada {
                             "CRestaurant may not be opened yet!",
                             "Connexion Error",
                             JOptionPane.ERROR_MESSAGE);
+                    System.exit(0);
                 }
             }
         });

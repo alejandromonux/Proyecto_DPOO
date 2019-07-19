@@ -9,6 +9,7 @@ import model.Request;
 import model.RequestDish;
 import model.config.configJSON;
 
+import javax.swing.*;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -122,7 +123,11 @@ public class NetworkManager extends Thread {
             dos.writeUTF("PAY-BILL");
             dos.writeUTF(json);
         } catch (IOException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null,
+                    "There was a problem with the connection!",
+                    "Connexion Error",
+                    JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
         }
     }
 
@@ -217,9 +222,14 @@ public class NetworkManager extends Thread {
             try {
                 dos.close();
                 dis.close();
+                if (!socket.isClosed())
                 socket.close();
             } catch (IOException ex) {
-                ex.printStackTrace();
+                JOptionPane.showMessageDialog(null,
+                        "There was a problem with the connection!",
+                        "Connexion Error",
+                        JOptionPane.ERROR_MESSAGE);
+                System.exit(1);
             }
         }
     }

@@ -53,7 +53,11 @@ public class Controller implements ActionListener {
                     break;
             }
         } catch (IOException exception) {
-            exception.printStackTrace();
+            JOptionPane.showMessageDialog(null,
+                    "There was a problem with the connection!",
+                    "Connexion Error",
+                    JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
         }
 
     }

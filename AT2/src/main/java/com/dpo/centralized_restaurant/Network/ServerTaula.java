@@ -107,6 +107,7 @@ public class ServerTaula extends Thread {
         }
 
         try {
+            if (!serverSocket.isClosed())
             serverSocket.close();
         } catch (IOException e) {
             e.printStackTrace();

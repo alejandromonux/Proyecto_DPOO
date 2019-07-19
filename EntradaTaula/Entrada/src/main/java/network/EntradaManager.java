@@ -58,6 +58,7 @@ public class EntradaManager extends Thread {
                 try {
                     dos.close();
                     dis.close();
+                    if (!socket.isClosed())
                     socket.close();
                     controller.errorConexio();
                 } catch (IOException ex) {

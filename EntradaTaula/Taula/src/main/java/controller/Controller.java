@@ -77,8 +77,12 @@ public class Controller implements ActionListener {
             case "LOG IN":
                 try {
                     networkManager.sendLogInRequest(vista.getRequestName(), vista.getPassword());
-                } catch (Exception ex) {
-                    ex.printStackTrace();
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(null,
+                            "There was a problem with the connection!",
+                            "Connexion Error",
+                            JOptionPane.ERROR_MESSAGE);
+                    System.exit(1);
                 }
                 break;
             case "ORDER":
@@ -88,7 +92,11 @@ public class Controller implements ActionListener {
                 try {
                     networkManager.sendDishToEliminate(vista.getDishToDelete());
                 } catch (Exception ex) {
-                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null,
+                            "There was a problem with the connection!",
+                            "Connexion Error",
+                            JOptionPane.ERROR_MESSAGE);
+                    System.exit(1);
                 }
             break;
         }
@@ -215,7 +223,11 @@ public class Controller implements ActionListener {
                 vista.clearBagOfComandes();
             }
             } catch (IOException ex) {
-            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null,
+                    "There was a problem with the connection!",
+                    "Connexion Error",
+                    JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
         }
     }
 
