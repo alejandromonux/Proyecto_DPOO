@@ -137,7 +137,7 @@ public class TableService {
 
         if (today) {
             //query = "SELECT name, historics_orders FROM dish AS d WHERE d.active = 1 ORDER BY historics_orders DESC LIMIT 5;";
-            query = "SELECT name, count(*) AS historic_orders FROM dish AS d JOIN request_order AS ro ON d.id = ro.dish_id WHERE d.active = 1 AND ro.actual_service = 1 GROUP BY d.id ORDER BY  historic_orders DESC limit 5;";
+            query = "SELECT name, count(*) AS historics_orders FROM dish AS d JOIN request_order AS ro ON d.id = ro.dish_id WHERE d.active = 1 AND ro.actual_service = 1 GROUP BY d.id ORDER BY  historics_orders DESC limit 5;";
         } else {
             query = "SELECT name, historics_orders FROM dish AS d ORDER BY historics_orders DESC LIMIT 5;";
         }
@@ -146,8 +146,23 @@ public class TableService {
             s = (Statement) conn.createStatement();
             rs = s.executeQuery(query);
 
-            while (rs.next()) {
-                aux.add(new OrderedDish(rs.getString("name"), rs.getInt("historics_orders")));
+            if(!rs.next()){
+                query = "SELECT * FROM Dish AS d WHERE d.active = 1 AND d.units > 0 ORDER BY historics_orders DESC LIMIT 5;";
+                rs = s.executeQuery(query);
+            }else{
+                do{
+                    aux.add(new OrderedDish(rs.getString("name"), rs.getInt("historics_orders")));
+                }while (rs.next());
+            }
+
+            if ((aux.size() < 5)){
+                if(today){
+                    query = "SELECT * FROM Dish AS d WHERE d.active = 1 AND d.units > 0 ORDER BY historics_orders DESC LIMIT "+ (5 - aux.size()) +";";
+                    rs = s.executeQuery(query);
+                }
+            }
+            while (rs.next()){
+                aux.add(new OrderedDish(rs.getString("name"), 0));
             }
 
         } catch (SQLException ex) {

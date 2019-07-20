@@ -559,13 +559,14 @@ public class Controller implements ActionListener {
                 break;
             case "POSTSERVICE" :
                 ArrayList<OrderedDish> today = tableS.getTopDishes(true);
-                ArrayList<OrderedDish> all = tableS.getTopDishes(false);
                 float todayGain = tableS.getGain(true);
                 float totalGain = tableS.getGain(false);
                 float priceTable = tableS.getAvgPrice();
                 float dishTable = tableS.getAvgDishes();
 
                 boolean done20 = conectorDB.actualizarEstadoServicio(2);
+                ArrayList<OrderedDish> all = tableS.getTopDishes(false);
+
                 vista.setJpStats(new Stats(today, all, todayGain, totalGain, dishTable ,priceTable));
                 vista.getJpStats().registerController(this);
 

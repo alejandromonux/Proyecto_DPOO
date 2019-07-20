@@ -35,7 +35,6 @@ public class Graficas extends Canvas {
         delimitadoresY = new int[5];
         posicionesX = new int[5];
 
-
         //Càlcul de la posició dels delimitadors de Y i de X
         for(int i = 0; i < 5; i++){
             delimitadoresY[i] = +50 +(i+1)*40;
@@ -60,31 +59,54 @@ public class Graficas extends Canvas {
         for(int i = 0; i < orderedDishes.size(); i++){
             g.setColor(Color.GRAY);
             if(i!=orderedDishes.size()-1) {
-                if (orderedDishes.get(i).getTimesOrdered() != orderedDishes.get(i+1).getTimesOrdered()) {
+                if(i!=0){
+                    if((i!=5)){
+                        if ((orderedDishes.get(i).getTimesOrdered() != orderedDishes.get(i-1).getTimesOrdered())&& (orderedDishes.get(i).getTimesOrdered() != orderedDishes.get(i+1).getTimesOrdered())){
+                            g.setColor(Color.GRAY);
+                            g.drawLine(50, delimitadoresY[i], WIDTH, delimitadoresY[i]);
+                            g.setColor(Color.BLACK);
+                            g.drawString(""+this.orderedDishes.get(i).getTimesOrdered(), 30, delimitadoresY[i]);
+                        }else{
+                            if(orderedDishes.get(i).getTimesOrdered() != orderedDishes.get(i-1).getTimesOrdered()){
+                                g.setColor(Color.GRAY);
+                                g.drawLine(50, delimitadoresY[i], WIDTH, delimitadoresY[i]);
+                                g.setColor(Color.BLACK);
+                                g.drawString(""+this.orderedDishes.get(i).getTimesOrdered(), 30, delimitadoresY[i]);
+                            }
+                        }
+                    }else{
+                        /*
+                        if (orderedDishes.get(i).getTimesOrdered() != orderedDishes.get(i+1).getTimesOrdered()) {
+                            g.setColor(Color.GRAY);
+                            g.drawLine(50, delimitadoresY[i], WIDTH, delimitadoresY[i]);
+                            g.setColor(Color.BLACK);
+                            g.drawString(""+this.orderedDishes.get(i).getTimesOrdered(), 30, delimitadoresY[i]);
+                        }*/
+                    }
+                }else{
                     g.setColor(Color.GRAY);
                     g.drawLine(50, delimitadoresY[i], WIDTH, delimitadoresY[i]);
                     g.setColor(Color.BLACK);
                     g.drawString(""+this.orderedDishes.get(i).getTimesOrdered(), 30, delimitadoresY[i]);
                 }
-                if(i!=0){
-                    if(orderedDishes.get(i).getTimesOrdered() != orderedDishes.get(i-1).getTimesOrdered()){
+            }else{
+                if(orderedDishes.size() != 1) {
+                    if (orderedDishes.get(i).getTimesOrdered() != orderedDishes.get(i-1).getTimesOrdered()) {
                         g.setColor(Color.GRAY);
                         g.drawLine(50, delimitadoresY[i], WIDTH, delimitadoresY[i]);
                         g.setColor(Color.BLACK);
                         g.drawString(""+this.orderedDishes.get(i).getTimesOrdered(), 30, delimitadoresY[i]);
+                    }else{
+                        g.setColor(Color.GRAY);
+                        g.drawLine(50, delimitadoresY[0], WIDTH, delimitadoresY[0]);
+                        g.setColor(Color.BLACK);
+                        g.drawString(""+this.orderedDishes.get(0).getTimesOrdered(), 30, delimitadoresY[0]);
                     }
-                }
-            }else{
-                if (orderedDishes.get(i).getTimesOrdered() != orderedDishes.get(i-1).getTimesOrdered()) {
+                }else {
                     g.setColor(Color.GRAY);
                     g.drawLine(50, delimitadoresY[i], WIDTH, delimitadoresY[i]);
                     g.setColor(Color.BLACK);
                     g.drawString(""+this.orderedDishes.get(i).getTimesOrdered(), 30, delimitadoresY[i]);
-                }else{
-                    g.setColor(Color.GRAY);
-                    g.drawLine(50, delimitadoresY[0], WIDTH, delimitadoresY[0]);
-                    g.setColor(Color.BLACK);
-                    g.drawString(""+this.orderedDishes.get(0).getTimesOrdered(), 30, delimitadoresY[0]);
                 }
              }
             g.setColor(Color.BLACK);

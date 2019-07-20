@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 
 /**
  *  Handles the connection between the system, client side, with the general server and the database
@@ -101,16 +102,20 @@ public class ServerTaula extends Thread {
      */
     public void closeServer(){
         isRunning = false;
-
-        for(DedicatedServerTaula dst : dedicatedServers){
-            dst.closeDedicatedServer();
-        }
-
         try {
-            if (!serverSocket.isClosed())
-            serverSocket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+
+            for (DedicatedServerTaula dst : dedicatedServers) {
+                dst.closeDedicatedServer();
+            }
+
+            try {
+                if (!serverSocket.isClosed())
+                    serverSocket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }catch (ConcurrentModificationException e){
+            System.out.println("Desconectades Taula i Entrada");
         }
     }
 
