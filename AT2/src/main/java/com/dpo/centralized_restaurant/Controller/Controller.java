@@ -327,8 +327,8 @@ public class Controller implements ActionListener {
                 break;
 
             case "BACK-TO-MAIN":
-                boolean done19 = conectorDB.setHistoricos();
-
+//                boolean done19 = conectorDB.setHistoricos();
+                boolean done19 = true;
                 if(done19){
                     done19 = conectorDB.actualizarEstadoServicio(0);
 
@@ -566,7 +566,10 @@ public class Controller implements ActionListener {
 
                 boolean done20 = conectorDB.actualizarEstadoServicio(2);
                 //all = tableS.getTopDishes(false);
-
+                conectorDB.setHistoricos();
+                ArrayList<OrderedDish> all = tableS.getTopDishes(false);
+                vista.setJpStats(new Stats(today, all, todayGain, totalGain, dishTable ,priceTable));
+                vista.getJpStats().registerController(this);
 
                 if(done20){
                     vista.changePanel("POSTSERVICE");
@@ -591,9 +594,6 @@ public class Controller implements ActionListener {
                 }
 
 
-                ArrayList<OrderedDish> all = tableS.getTopDishes(false);
-                vista.setJpStats(new Stats(today, all, todayGain, totalGain, dishTable ,priceTable));
-                vista.getJpStats().registerController(this);
                 break;
             case "BACK-TO-PS":
                 vista.changePanel("POSTSERVICE");
