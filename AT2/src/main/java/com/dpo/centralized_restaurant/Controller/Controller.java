@@ -565,10 +565,8 @@ public class Controller implements ActionListener {
                 float dishTable = tableS.getAvgDishes();
 
                 boolean done20 = conectorDB.actualizarEstadoServicio(2);
-                ArrayList<OrderedDish> all = tableS.getTopDishes(false);
+                //all = tableS.getTopDishes(false);
 
-                vista.setJpStats(new Stats(today, all, todayGain, totalGain, dishTable ,priceTable));
-                vista.getJpStats().registerController(this);
 
                 if(done20){
                     vista.changePanel("POSTSERVICE");
@@ -591,6 +589,11 @@ public class Controller implements ActionListener {
                             "Error!",
                             JOptionPane.ERROR_MESSAGE);
                 }
+
+
+                ArrayList<OrderedDish> all = tableS.getTopDishes(false);
+                vista.setJpStats(new Stats(today, all, todayGain, totalGain, dishTable ,priceTable));
+                vista.getJpStats().registerController(this);
                 break;
             case "BACK-TO-PS":
                 vista.changePanel("POSTSERVICE");

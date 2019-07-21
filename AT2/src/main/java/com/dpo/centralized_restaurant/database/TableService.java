@@ -135,37 +135,56 @@ public class TableService {
         ResultSet rs = null;
         ArrayList<OrderedDish> aux = new ArrayList<>();
 
-        if (today) {
-            //query = "SELECT name, historics_orders FROM dish AS d WHERE d.active = 1 ORDER BY historics_orders DESC LIMIT 5;";
-            query = "SELECT name, count(*) AS historics_orders FROM dish AS d JOIN request_order AS ro ON d.id = ro.dish_id WHERE d.active = 1 AND ro.actual_service = 1 GROUP BY d.id ORDER BY  historics_orders DESC limit 5;";
+        try {
+            if (today) {
+                //query = "SELECT name, historics_orders FROM dish AS d WHERE d.active = 1 ORDER BY historics_orders DESC LIMIT 5;";
+                query = "SELECT name, count(*) AS historics_orders FROM dish AS d JOIN request_order AS ro ON d.id = ro.dish_id WHERE d.active = 1 AND ro.actual_service = 1 GROUP BY d.id ORDER BY  historics_orders DESC limit 5;";
+
+                s = (Statement) conn.createStatement();
+                rs = s.executeQuery(query);
+
+                if(!rs.next()){
+                    query = "SELECT * FROM Dish AS d WHERE d.active = 1 AND d.units > 0 ORDER BY historics_orders DESC LIMIT 5;";
+                    rs = s.executeQuery(query);
+                }else{
+                    do{
+                        aux.add(new OrderedDish(rs.getString("name"), rs.getInt("historics_orders")));
+                    }while (rs.next());
+                }
+
+                if ((aux.size() < 5)){
+                    if(today){
+                        query = "SELECT * FROM Dish AS d WHERE d.active = 1 AND d.units > 0 ORDER BY historics_orders DESC LIMIT "+ (5 - aux.size()) +";";
+                        rs = s.executeQuery(query);
+                    }
+                }
+
+                boolean f;
+                while (rs.next()){
+                    f = false;
+
+                    for(int i = 0; (i < aux.size()) && !f;i++){
+                        if(aux.get(i).getDishName().equals(rs.getString("name"))){
+                            f = true;
+                        }
+                    }
+                    if(!f){
+                        aux.add(new OrderedDish(rs.getString("name"), 0));
+                    }
+                }
+
         } else {
             query = "SELECT name, historics_orders FROM dish AS d ORDER BY historics_orders DESC LIMIT 5;";
-        }
 
-        try {
             s = (Statement) conn.createStatement();
             rs = s.executeQuery(query);
 
-            if(!rs.next()){
-                query = "SELECT * FROM Dish AS d WHERE d.active = 1 AND d.units > 0 ORDER BY historics_orders DESC LIMIT 5;";
-                rs = s.executeQuery(query);
-            }else{
-                do{
-                    aux.add(new OrderedDish(rs.getString("name"), rs.getInt("historics_orders")));
-                }while (rs.next());
-            }
 
-            if ((aux.size() < 5)){
-                if(today){
-                    query = "SELECT * FROM Dish AS d WHERE d.active = 1 AND d.units > 0 ORDER BY historics_orders DESC LIMIT "+ (5 - aux.size()) +";";
-                    rs = s.executeQuery(query);
-                }
-            }
             while (rs.next()){
-                aux.add(new OrderedDish(rs.getString("name"), 0));
+                aux.add(new OrderedDish(rs.getString("name"), rs.getInt("historics_orders")));
             }
-
-        } catch (SQLException ex) {
+        }
+    } catch (SQLException ex) {
             System.out.println("Problema al Recuperar les dades --> " + ex.getSQLState());
         }
 
